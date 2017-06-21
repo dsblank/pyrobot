@@ -1,3 +1,0 @@
-M PlayerCamLib.cpp
-D /usr/local/pyrobot/camera/player
-A '-fPIC' '-Wall' '-Wno-unused' '-D_POSIX_THREADS' '-D_POSIX_THREAD_SAFE_FUNCTIONS' '-D_REENTRANT' '-DPOSIX' '-D__x86__' '-D__linux__' '-D__OSVERSION__=2' '-frepo' '-DUSINGTHREADS' '-DLINUX' '-D_GNU_SOURCE' '-I/usr/include/python2.6' '-I../device/' '-I/usr/local/include' '-I/usr/local/include/player-2.1' '-o' 'PlayerCamLib.o' '-c' '-mtune=generic' '-frandom-seed=0x4854630d'

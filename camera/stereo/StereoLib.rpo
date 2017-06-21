@@ -1,3 +1,0 @@
-M StereoLib.cpp
-D /home/dblank/pyrobot/camera/stereo
-A '-O3' '-fPIC' '-Wall' '-Wno-unused' '-D' '_POSIX_THREADS' '-D' '_POSIX_THREAD_SAFE_FUNCTIONS' '-D' '_REENTRANT' '-D' 'POSIX' '-D' '__x86__' '-D' '__linux__' '-D' '__OSVERSION__=2' '-frepo' '-D' 'USINGTHREADS' '-D' 'LINUX' '-D' '_GNU_SOURCE' '-I' '/usr/include/python2.7' '-I' '../device/' '-o' 'StereoLib.o' '-c' '-mtune=generic' '-march=x86-64' '-frandom-seed=7593d7270e96de93'

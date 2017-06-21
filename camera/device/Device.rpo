@@ -1,3 +1,0 @@
-M Device.cpp
-D /usr/local/pyrobot/camera/device
-A '-O3' '-Wall' '-Wno-unused' '-D_POSIX_THREADS' '-D_POSIX_THREAD_SAFE_FUNCTIONS' '-D_REENTRANT' '-DPOSIX' '-fPIC' '-D__x86__' '-D__linux__' '-D__OSVERSION__=2' '-frepo' '-DUSINGTHREADS' '-DLINUX' '-D_GNU_SOURCE' '-I/usr/include/python2.6' '-shared' '-c' '-o' 'Device.o' '-shared-libgcc' '-mtune=generic' '-frandom-seed=0x485295bd'
