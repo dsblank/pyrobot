@@ -68,13 +68,18 @@ class Listener:
         data = ""
         for i in range(bytes):
             data += self.s.recvfrom(1)[0]
-        # hack by Lisa and Doug
+        # hack by Lisa and Doug and Jim
+        # March 19, 2019; need to unpack 4 bytes, not 8
+        if format == 'l':
+            format = 'i'
         try:
             if all:
-                return struct.unpack(format, data)
+                retval = struct.unpack(format, data)
             else:
-                return struct.unpack(format, data)[0]
-        except:
+                retval = struct.unpack(format, data)[0]
+            return retval
+        except Exception as e:
+            print("Error!", e.message, len(data))
             return 0
             
     def write(self, message):
