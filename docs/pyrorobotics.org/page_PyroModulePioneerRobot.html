@@ -1,0 +1,51 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160836", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModulePioneerRobot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Using the Swarthmore College Pioneer Robot</h1>
+<p>
+The robot is on a private network (ethernet addresses 10.0.0.*), which is accessible from the machine called water.  The robot's computer is called sugar.
+<p>
+To use the Pioneer robot do the following:
+<p>
+<ol type="1"><li>Plug in the wireless access point that is sitting next to water's monitor, and wait a few minutes for the lights to turn green.</li>
+<li>Power on the robot.</li>
+<li>Power on the robot's computer.</li>
+<li>After about 2 minutes (or listen for a quick double beep),  you should be able to connect to the robot from water: <tt class="wiki">ssh sugar-wireless</tt></li>
+<li>The robot's computer is running linux. There's a demo program you can run to test the motors and sensors: <tt class="wiki">/usr/local/bin/demo</tt></li>
+</ol><p>
+When you're finshed with the robot, the following should be done to shut it down: <tt class="wiki">sudo /sbin/shutdown -h now</tt> It will ask you for your password, then wait until you hear three quick beeps to turn off the computer, and then the main power.
+<p>
+Other useful tips:
+<p>
+<ul><li>If needed, you can plug a keyboard and monitor into the robot's computer, and have direct access.</li>
+<li>You should recharge the batteries after extended use.</li>
+<li>If you want to use your own wireless laptop to access the robot, that is also possible. The machine water is set up to provide dhcp service for some of the 10.0.0.* network. You will also need a key to access the wireless network.</li>
+</ul><p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModulePioneerRobot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModulePioneerRobot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

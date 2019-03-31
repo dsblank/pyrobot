@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129015533", "pyrorobotics.org");
+</script>
+  <title>pyrobot.system.log.Log</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-system-module/">Package&nbsp;system</a> ::
+        <a href="../../usermanual/pyrobot-system-log-module/">Module&nbsp;log</a> ::
+        Class&nbsp;Log
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-system-log-Log-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Log</h2>
+<hr/>
+<pre class="literalblock">
+A log class to do automatically what needs to be done for each
+experiment.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-log-Log-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">robot</span>,
+          <span class="summary-sig-arg">brain</span>,
+          <span class="summary-sig-arg">echo</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+Pass in robot and brain so that we can query them (and maybe make
+copies and query them on occation).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-log-Log-class/#close" class="summary-sig-name"><code>close</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Close the log...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="flush"></a><span class="summary-sig"><span class="summary-sig-name">flush</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="timestamp"></a><span class="summary-sig"><span class="summary-sig-name">timestamp</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-log-Log-class/#write" class="summary-sig-name"><code>write</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">msg</span>)</span></code>
+<br/>
+Write a string to the log...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-log-Log-class/#writeln" class="summary-sig-name"><code>writeln</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">msg</span>)</span></code>
+<br/>
+Write a line (with newline) to the log...</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">robot</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">brain</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">echo</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">mode</span>=<span class="sig-default">'w'</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Pass in robot and brain so that we can query them (and maybe make
+copies and query them on occation).
+If echo is True, then it will echo the log file to the terminal
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="close"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">close</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Close the log
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="write"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">write</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">msg</span>)</span>
+  </h3>
+<pre class="literalblock">
+Write a string to the log
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="writeln"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">writeln</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">msg</span>)</span>
+  </h3>
+<pre class="literalblock">
+Write a line (with newline) to the log
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:28 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

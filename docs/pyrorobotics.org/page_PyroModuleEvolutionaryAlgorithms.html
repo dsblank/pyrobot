@@ -1,0 +1,1039 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093335", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleEvolutionaryAlgorithms</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to the Evolutionary Algorithms as used with robotics. This module provides an overview of the genetic algorithm, and genetic programming. When completed, the reader should be ready evolve a robotics controller.</i>
+<p>
+<p>
+<h1 width="804"> Pyro Module Evolutionary Algorithms</h1>
+<p>
+Before diving into evolutionary algorithms, let's consider a simple method of problem solving: guess and step. First, just make a guess at a solution and note how close you are to a solution. Next, pick some piece of your guess and consider a slight change. If the variation is worse, don't make the change. If the variation is better, go ahead make the change. Now, continue making slight changes until you get a good enough solution.
+<p>
+This guess-and-step methodology is actually called <b>hill climbing</b> due to the following metaphor. Start at a random place on a hill. Pick a direction to step. If the place you would step to is higher than where you are, make the step, otherwise stay where you are. This little algorithm will eventually take you to the top of the hill. However, it might might not take you to the highest place around because you could get trapped on a little plateau (i.e., you would have to step to a lower place before stepping to even higher ground). 
+<p>
+A slightly better version of hill climbing allows you to take random steps sometimes, regardless of whether or not the step would put you on higher ground. Of course, you don't always want to take random steps (that's called <b>random search</b>), so you'll need to control your randomness. If you only take random steps as dictated by a schedule, then you are using <b>simulated annealing</b>. Simulated annealing allows you to start off taking random steps quite often, but then slowly curb the habit. This works better than hill climbing when the ground is fairly smooth.
+<p>
+What could be better than simulated annealing? How about a whole group of people spread over the country side, each as their own simulated annealer? And they can communicate with each other. &quot;Hey, I'm on high ground over here!&quot; or &quot;This area looks promising! Come over here!&quot; This is the idea behind evolutionary algorithms. 
+<p>
+<p>
+<h2 width="804"> Evolutionary Algorithms</h2>
+<p>
+Evolutionary algorithms are techniques for searching through a solution landscape in a generally effective manner. 
+<p>
+All evolutionary strategies have a core set of properties:
+<p>
+<ul><li>A <i>population</i> of solutions</li>
+<li>Limited resources (not all solutions will survive)</li>
+<li>A measure of performance, called <i>fitness</i></li>
+<li>Preferential treatment toward the higher measured solutions (the most fit ones)</li>
+<li>Reliance on randomness</li>
+</ul><p>
+A typical evolutionary system follows this basic algorithm:
+<p>
+<ol type="1"><li>Create a random population of solutions</li>
+<li>Compute a fitness measure for each</li>
+<li>Create new members by mutating and/or combining old ones</li>
+<li>Select the most fit for the next generation</li>
+<li>Go to Step #3</li>
+</ol><p>
+<p>
+<h3 width="804"> Mutation</h3>
+<p>
+Mutation is the act of changing one gene in a genome. In the Pyro implementation mutation can take two forms: incremental mutation, or random value mutation. Incremental mutation takes the value of the gene and changes it by +/- a small amount (<tt class="wiki">random() * maxStep</tt>. See below for details.). Random value mutation replaces the value by a random value between min and max.
+<p>
+<p>
+<h3 width="804"> Crossover</h3>
+<p>
+Crossover exchanges pieces of two genomes. In Pyro, crossover can be a perfect shuffle, uniform, or point-based. Shuffle simply alternates between each parent. Uniform tosses an even coin to see if the gene comes from the mother or the father. Point-based mutation will only crossover at particular points. Shown here is a single point crossover:
+<p>
+<img src="../_dblank/images/crossover-transparent.gif">
+<p>
+<p>
+<h3 width="804"> Selection</h3>
+<p>
+Those genes with the higher fitness are more likely to survive to the next generation.
+<p>
+<p>
+<h3 width="804"> Variations</h3>
+<p>
+There are two main flavors of evolutionary systems: the genetic algorithm (GA), and genetic programming (GP). GAs use a fixed genome size composed of bits, or, more generally, floating point numbers. GP uses trees of programming language expressions that can grow and shrink. If using a GA, then the human encoder of the problem assigns a meaning for each number in the gene. In a GP, the human encoder must create the functions and terminals used in the expressions, but the system builds its own representations. We will examine both of these techniques in the following sections.
+<p>
+<p>
+<h2 width="804"> Genetic Algorithm</h2>
+<p>
+For the first example of a GA, we'll use the <tt class="wiki">pyrobot.brain.ga</tt> class. Normally when you create a GA problem using Pyro's classes, you'll subclass the class <tt class="wiki">GA</tt>. Let's do a completely artificial problem.  Let's evolve a list of integers so as to maximize their sum.  
+<p>
+To get started, we need three things:
+<p>
+<ol type="1"><li>a fitness function (fitness should always be &gt;= 0)</li>
+<li>a function to determine when we should stop</li>
+<li>a random population</li>
+</ol><p>
+For this problem the fitness function will be the <tt class="wiki">sum()</tt> of the numbers. Let's say we want each individual to be represented by a list of length 10.
+<p>
+Secondly, let's arbitrarily pick a sum that is large enough; let's say 30. When we get to a sum of 30, we'll stop evolving.
+<p>
+Finally, we need a random population to get started. For that, we'll use <tt class="wiki">pyrobot.brain.ga</tt>'s default initialization, which is part of the constructor for the <tt class="wiki">Gene</tt> class.  For genes with <tt class="wiki">mode = 'integer'</tt>, the constructor will create a random string of ones and zeros of the appropriate length.
+<p>
+Therefore, such a setup could be written as:
+<p>
+<pre class="code">
+from pyrobot.brain.ga import *
+class MaxSumGA(GA):
+   def fitnessFunction(self, i):
+      return max(sum(self.pop.individuals[i].genotype), 0)
+   def isDone(self):
+      return self.pop.bestMember.fitness &gt; 30
+ga = MaxSumGA(Population(15, Gene, size=10, mode='integer',
+                         verbose=1, elitePercent = .1),
+              mutationRate=0.1, crossoverRate=0.5, verbose=1,
+              maxGeneration=50)
+ga.evolve()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GAMaxSumProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GAMaxSumProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+ <img width="11" src="../wiki/img/alert.png"> To run these examples, it is generally better to download the
+program, and then run the program using the form <tt class="wiki">python program.py</tt>.
+Recall the notes from previous chapters regarding
+environment variables and special site notes (see <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>).
+<p>
+This might run for a while, ending with something like:
+<p>
+<pre class="code">
+------------------------------------------------------------
+Initial population
+Fitness: Total   69.00 Best  8.00 Average  4.60 Worst  3.00
+Elite fitness: [8.0]
+------------------------------------------------------------
+Generation 1
+Fitness: Total   83.00 Best  8.00 Average  5.53 Worst  1.00
+Elite fitness: [8.0]
+------------------------------------------------------------
+...
+------------------------------------------------------------
+Generation 36
+Fitness: Total  386.00 Best 31.00 Average 25.73 Worst 18.00
+Elite fitness: [31.0]
+------------------------------------------------------------
+Done evolving at generation 36
+Current best individual
+0543331552 
+Fitness 31.0
+</pre>
+<p>
+The output shows the best, average, and worst individuals in a population for a given generation. After running for a few seconds, generation 36 shows the best individual had a fitness of 31.0, and was composed of the vector: [0 5 4 3 3 3 1 5 5 2], while the worst individual had a fitness of 18.0.
+<p>
+In this example, we set the elitePercent of the population to 10%. Since .1 times the population size (15) is 1.5, rounded to 1, there is a single &quot;elite&quot; member. Elite members are the genes with the highest fitness values and survive from generation to generation.
+<p>
+<p>
+<h2 width="804"> GA Implementation Details</h2>
+ <img width="11" src="../wiki/img/idea.png"> The GA code, like all Pyro code, can be found in the SVN repository, specifically right <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/brain/ga.py?view=markup"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>. Advanced Pyro users are encouraged to examine the code whenever you have questions about how something was implemented. You can also see the source code in your site's file system, usually at /usr/lib/python2.5/site-packages/pyrobot/. The GA code can be found at /usr/lib/python2.5/site-packages/pyrobot/brain/ga.py.
+<p>
+This section will explore the details of the GA implementation.
+<p>
+<p>
+<h3 width="804"> General Functions</h3>
+<p>
+These functions are not part of any class, but defined here because they are useful for the GA classes.
+<p>
+<table border="1"><tr><td> display(v) </td><td> Displays a value with no following newline. Useful for doing <tt class="wiki">map(display, listOfThings)</tt> </td></tr>
+<tr><td> flip(probability) </td><td> Returns 1 with a given probability. For example, <tt class="wiki">flip(.2)</tt> will return 1 20 percent of the time </td></tr>
+<tr><td> sum(a) </td><td> Sums the values in a list </td></tr>
+</table><p>
+<p>
+<h3 width="804"> Gene Class</h3>
+<p>
+The Gene class represents everything related to the representation (genotype).
+<p>
+<table border="1"><tr><td> crossover(self, parent2, crossoverRate) </td><td> Returns a new Gene based on the current gene and parent2. Depends on crossoverRate. if <tt class="wiki">flip(crossoverRate)</tt> is true, create two new genes based on the two originals, otherwise just return the originals. </td></tr>
+<tr><td> display(self) </td><td> Displays a gene to the screen. </td></tr>
+<tr><td> mutate(self, mutationRate) </td><td> Mutates the current gene. </td></tr>
+</table><p>
+The Gene constructor (or classes derived from it) should handle the following parameters:
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default value</b> </td><td> <b>Meaning</b> </td></tr>
+<tr><td> verbose </td><td> 0 </td><td> Prints status messages (higher number = more info) </td></tr>
+<tr><td> min </td><td> -1 </td><td> Minimum random value for initialization and random value mutation </td></tr>
+<tr><td> max </td><td> 1 </td><td> Maximum random value for initialization and random value mutation </td></tr>
+<tr><td> imin </td><td> -1 </td><td> Minimum random value for initialization values </td></tr>
+<tr><td> imax </td><td> 1 </td><td> Maximum random value for initialization values </td></tr>
+<tr><td> maxStep </td><td> 1 </td><td> Max value for +/- incremental mutation </td></tr>
+<tr><td> crossoverPoints </td><td> 1 </td><td> Number of crossover points (-3 = one in middle, -2 = no crossover, -1 = shuffle (every other one), 0 = uniform, # = points) </td></tr>
+<tr><td> mode </td><td> 'float' </td><td> Representation of genotype: 'integer', 'float', 'char', or 'bit' </td></tr>
+<tr><td> bias </td><td> 0.5 </td><td> Bias toward making 1's when mode == 'integer' </td></tr>
+<ol><p>
+</table></ol><p>
+<h3 width="804"> Population Class</h3>
+<p>
+The Population class holds the population of genes, the eliteMembers, and methods dealing with the population as a whole.
+<p>
+<table border="1"><tr><td> select(self) </td><td> Selects a member of the population based on its fitness. </td></tr>
+<tr><td> statistics(self) </td><td> Computes the fitness of members. </td></tr>
+</table><p>
+The Population constructor (or classes derived from it) should handle the following parameters:
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default value</b> </td><td> <b>Meaning</b> </td></tr>
+<tr><td> verbose </td><td> 0 </td><td> Prints status messages (higher number = more info) </td></tr>
+<tr><td> elitePercent </td><td> 0.0 </td><td> Percent of best population to keep. </td></tr>
+</table><p>
+<p>
+<h3 width="804"> GA Class</h3>
+<p>
+The GA class is the main object for evolving.
+<p>
+<table border="1"><tr><td> reInitialize(self) </td><td> Resets the pop to the original pop, and calls applyFitness<b></b>Function </td></tr>
+<tr><td> initialize(self) </td><td> Calls applyFitness<b></b>Function, and statistics </td></tr>
+<tr><td> isDone(self) </td><td> Method to over ride; determines when evolve should stop </td></tr>
+<tr><td> fitness<b></b>Function(self, genePosition, **args) </td><td> Method to over ride; computes fitness of genePosition  </td></tr>
+<tr><td> apply<b></b>Fitness<b></b>Function(self) </td><td> Calls fitnessFunction on the entire population </td></tr>
+<tr><td> setSeed(self, value) </td><td> Sets the random seed </td></tr>
+<tr><td> display_one(self, p) </td><td> Display one gene at position p </td></tr>
+<tr><td> display(self) </td><td> Display entire population </td></tr>
+<tr><td> generate(self) </td><td> Generates a new pop from the old one  </td></tr>
+<tr><td> evolve(self) </td><td> The method that does the evolution steps </td></tr>
+<tr><td> save<b></b>To<b></b>File(self, filename) </td><td> Saves GA to a file </td></tr>
+<tr><td> load<b></b>From<b></b>File(self, filename) </td><td> Loads GA from a file </td></tr>
+<tr><td> save<b></b>Genes<b></b>To<b></b>File(self, filename, listOf<b></b>Positions = None) </td><td> Save some or all of the population to a file </td></tr>
+<tr><td> get<b></b>Genes<b></b>From<b></b>File(self, filename) </td><td> Gets genes from a file </td></tr>
+<tr><td> loadGenes<b></b>From<b></b>File(self, filename) </td><td> Load the genes from a file into the pop </td></tr>
+<tr><td> initGenes<b></b>From<b></b>File(self, filename, sampleSize = 0,mutate = 1,full = 0) </td><td> Initializes a pop from a file </td></tr>
+</table><p>
+The GA constructor (or classes derived from it) should handle the following parameters:
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default value</b> </td><td> <b>Meaning</b> </td></tr>
+<tr><td> verbose </td><td> 0 </td><td> Prints status messages (higher number = more info) </td></tr>
+<tr><td> mutationRate </td><td> 0.1 </td><td> Percent of population mutated. </td></tr>
+<tr><td> crossoverRate </td><td> 0.6 </td><td> Percent of population that will be created using crossover. </td></tr>
+<tr><td> maxGeneration </td><td> 0 </td><td> Maximum generation (0 = never stop) </td></tr>
+<ol><p>
+</table>Example of evolving, saving a population, and loading it back in:
+</ol><p>
+<pre class="code">
+        ga.evolve()
+        ga.saveGenesToFile(&quot;maxsumga.genes&quot;)
+        ga.loadGenesFromFile(&quot;maxsumga.genes&quot;)
+</pre>
+<p>
+Initialize the current population with the saved genes. This will only use as many elements as there are filename, and leave the other members of the current population alone if current population is bigger:
+<p>
+<pre class="code">
+        ga.initGenesFromFile(&quot;maxsumga.genes&quot;)
+</pre>
+<p>
+Save the bestMember, then reinitialize the population with the original pop, then load in 1 gene from the file, but don't mutate it:
+<p>
+<pre class="code">
+        ga.saveGenesToFile(&quot;bestsumga.genes&quot;, (ga.pop.bestMember.position,))
+        ga.reInitialize()
+        ga.initGenesFromFile(&quot;bestsumga.genes&quot;, sampleSize = 1, mutate = 0)
+</pre>
+<p>
+Load in all of the genes from the file, mutate them, and create an entire population based on the mutations:
+<p>
+<pre class="code">
+        # ga.reInitialize()    # not needed because &quot;full = 1&quot; will replace all
+        ga.initGenesFromFile(&quot;bestsumga.genes&quot;, mutate = 1, full = 1)
+</pre>
+<p>
+<p>
+<h2 width="804"> Exercise 1: Evolving large binary numbers</h2>
+<p>
+Create a GA that will evolve large binary numbers.  The genes in the population should be of <tt class="wiki">mode = bit</tt>.  Use numbers of length 15.  The fitness function should be the decimal interpretation of the binary string.  For example, the fitness for the string [0 0 0 0 0 0 0 0 0 0 0 1 1 0 1] should be 13.  Stop evolution when the fitness of the best individual is equal to (2 to the power of 15) - 1.
+<p>
+<p>
+<h2 width="804"> Evolving XOR</h2>
+<p>
+This example uses the same ideas that we saw when evolving a list of integers to maximize their sum, but interprets the numbers of the genes to be weights in a neural network. We'll reuse the structure of the neural network from the <tt class="wiki">pyrobot.brain.conx</tt>, but not the learning system. Instead, we'll have the system <b>evolve</b> the weights of a network that can do the XOR problem.
+<p>
+<pre class="code">
+from pyrobot.brain.ga import *
+from pyrobot.brain.conx import *
+class NNGA(GA):
+    def __init__(self, cnt):
+        n = Network()
+        n.add( Layer('input', 2) )
+        n.add( Layer('hidden', 3) )
+        n.add( Layer('output', 1) )
+        n.connect('input', 'hidden')
+	n.connect('hidden','output')
+        n.setInputs([[0.0, 0.0],
+                     [0.0, 1.0],
+                     [1.0, 0.0],
+                     [1.0, 1.0]])
+        n.setOutputs([[0.0],
+                      [1.0],
+                      [1.0],
+                      [0.0]])
+        n.setVerbosity(0)
+        n.setTolerance(.4)
+        n.setLearning(0)
+        g = n.arrayify()
+        self.network = n
+        GA.__init__(self, 
+                    Population(cnt, Gene, size=len(g), verbose=1,
+                               min=-10, max=10, elitePercent = .1),
+                    mutationRate = 0.5, crossoverRate = 0.25,
+                    maxGeneration = 400, verbose = 1)
+    def fitnessFunction(self, genePos):
+        self.network.unArrayify(self.pop.individuals[genePos].genotype)
+        error, correct, count, pcorrect = self.network.sweep()
+        return 4 - error
+    def isDone(self):
+        self.network.unArrayify(self.pop.bestMember.genotype)
+        error, correct, count, pcorrect = self.network.sweep()
+        print &quot;Correct:&quot;, correct
+        return correct == 4
+ga = NNGA(20)
+ga.evolve()
+ga.network.unArrayify(ga.pop.bestMember.genotype)
+ga.network.setInteractive(1)
+ga.network.sweep()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GAxorNNProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GAxorNNProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+Run the program.  Initially, you will see that the best network is not getting any of the patterns correct.
+<p>
+<pre class="code">
+------------------------------------------------------------
+Initial population
+Fitness: Total   57.06 Best  3.02 Average  2.85 Worst  2.53
+Elite fitness: [3.0013181624659158, 3.0162679252336542]
+------------------------------------------------------------
+Generation 1
+Fitness: Total   58.30 Best  3.02 Average  2.91 Worst  2.56
+Elite fitness: [3.0013181624659158, 3.0162679252336542]
+Correct: 0
+------------------------------------------------------------
+...
+</pre>
+<p>
+Gradually, the best network will begin to get 1 or 2 of the patterns correct.  And eventually the GA should find a viable solution as shown below.  However, it may not converge every time.  If it doesn't find a solution, the GA run will end after the maximum number of generations is reached (which we set to 400).
+<p>
+<pre class="code">
+...
+------------------------------------------------------------
+Generation 44
+Fitness: Total   62.98 Best  3.66 Average  3.15 Worst  2.19
+Elite fitness: [3.6044868866311415, 3.663556135293379]
+Correct: 4
+------------------------------------------------------------
+Done evolving at generation 44
+Current best individual
+-1.98 1.14 -1.63 0.27 -3.02 2.45 2.82 2.25 -2.50 -2.35 2.04 -3.03 4.75 Fitness 3.66355613529
+-----------------------------------Pattern # 1
+Step # 1
+Display network 'Backprop Network':
+=============================
+Display Layer 'output' (type Output):
+Target    :  0.00
+Activation:  0.27
+=============================
+Display Layer 'hidden' (type Hidden):
+Activation:  0.12 0.76 0.16
+=============================
+Display Layer 'input' (type Input):
+Activation:  0.00 0.00
+--More-- [quit, go]
+</pre>
+<p>
+<p>
+<h2 width="804"> Evolving a robot brain</h2>
+<p>
+In this example, we will use the Player/Stage simulator to evolve a neural network brain for a Pioneer style robot.  This robot's goal is to seek a particular color.  The only object of this color in the environment is another robot which executes a simple avoid-obstacles brain.  
+<p>
+The neural network brain has a fixed architecture, and the job of evolution is to find an appropriate set of weights to maximize the fitness function.  Here is the neural network brain.  It is important that this brain be saved with the name <tt class="wiki">NNFindBlob.py</tt>.
+<p>
+<pre class="code">
+# Brain used in conjunction with GAFindBlobNN.py to create a robot
+# that chases after red objects.
+# Network inputs: 8
+# 4 virtual sonar sensors and 4 pieces of color blob info.
+# Sonar values are the minimums of four groups:
+# back, front-left, front-right, and front.
+# The color blob info consists of the range to closest blob,
+# and 3 nodes which code for direction of the closest blob:
+# 100=left, 010=center, 001=right, and 000=none.
+# All inputs are scaled between 0 and 1.
+# Network outputs: 2
+# Translate and rotate.
+from pyrobot.brain import Brain
+from pyrobot.brain.conx import *
+from time import *
+# The robot will get translate and rotate values in the range [-0.5,0.5],
+# but the neural network will generate outputs in the range [0,1].
+def toNetworkUnits(val):
+   return (val + 0.5)
+def toRobotUnits(val):
+   return (val - 0.5)
+class NNBrain(Brain):
+   def setup(self, **args):
+      self.net = Network()
+      self.net.addLayers(8,6,2)
+      self.net.setLearning(0)
+      if not self.robot.hasA(&quot;camera&quot;):
+         # Assume Stage, which uses the BlobCamera:
+         self.robot.startDevice(&quot;BlobCamera&quot;)
+         self.robot.camera[0].addFilter(&quot;match&quot;, 255, 0, 0)
+         self.robot.camera[0].addFilter(&quot;blobify&quot;,0,255,255,0,1,1,1,)
+      self.robot.range.units = &quot;meters&quot;
+      self.robot.range.setMaxvalue(4.5) # about as far as sonar can see in room
+      self.robot.range.units = &quot;scaled&quot;
+      self.counter = 0
+      self.currentInputs = [0] * 8
+   def getBlobInfo(self, (x1, y1, x2, y2, pixels)):
+      blobLeft, blobCenter, blobRight = (0.0, 0.0, 0.0)
+      if (x1, y1, x2, y2) == (0.0, 0.0, 0.0, 0.0):
+         return 0.0, blobLeft, blobCenter, blobRight
+      # how close is the blob? how much of the view does it occupy?
+      blobRange = (y2 - y1) / float(self.robot.camera[0].height)
+      # where is the blob in the image?
+      center = (x2 + x1) / 2.0
+      # is it in the left third of view?
+      if center &lt; self.robot.camera[0].width/3.0: # left third
+         blobLeft = 1.0
+      # right third?
+      elif center &gt; 2.0 * self.robot.camera[0].width/3.0: # right third
+         blobRight = 1.0
+      # must be in center
+      else:
+         blobCenter = 1.0
+      return blobRange, blobLeft, blobCenter, blobRight
+   def getInputs(self):
+      # get minimum values for each area:
+      back =  min([s.distance() for s in self.robot.range[&quot;back&quot;]])
+      left  = min([s.distance() for s in self.robot.range[&quot;front-left&quot;]])
+      front = min([s.distance() for s in self.robot.range[&quot;front&quot;]])
+      right = min([s.distance() for s in self.robot.range[&quot;front-right&quot;]])
+      blobList = self.robot.camera[0].filterResults[1]
+      if blobList  != []:
+         blobRange, blobLeft, blobCenter, blobRight  = self.getBlobInfo(blobList[0]) # biggest blob
+      self.currentInputs = [back, left, front, right, blobRange, blobLeft, blobCenter, blobRight]
+      self.net['input'].copyActivations(self.currentInputs)
+   def getOutputs(self):
+      translate = toRobotUnits(self.net['output'].activation[0])
+      rotate = toRobotUnits(self.net['output'].activation[1])
+      return translate, rotate
+   def step(self):
+      print &quot;adapter is stepping&quot;
+      self.robot.update()
+      self.getInputs()
+      self.net.propagate()
+      translate, rotate = self.getOutputs()
+      self.move(translate, rotate)
+      self.counter += 1
+def INIT(engine):
+   return NNBrain('NNBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNFindBlobProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNFindBlobProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Here is the Stage world. This file <tt class="wiki">chase.world</tt> now comes with Pyro 4.3.3. It needs the image file <tt class="wiki">rink.pnm</tt> and the <tt class="wiki">chase.cfg</tt> file, below:
+<p>
+<pre class="code">
+# the size of a pixel in Stage's underlying raytrace model in meters
+resolution     0.02 
+interval_sim 100  # milliseconds per update step
+interval_real 100 # real-time milliseconds per update step
+# defines Pioneer-like robots
+include &quot;pioneer.inc&quot;
+# defines 'map' object used for floorplans
+include &quot;map.inc&quot;
+window( size [ 479.000 525.000 ] center [0.041 0.120] scale 0.009 )
+map (
+  bitmap &quot;rink.pnm&quot;
+  bitmap_resolution 0.005
+)
+# extend the pioneer2dx definition from pioneer.inc
+define pioneerblob pioneer2dx (
+  blobfinder()
+  blobfinder_return 1
+)
+pioneerblob (
+  name &quot;GreenRobot&quot;
+  color &quot;green&quot;
+  pose [-0.575 -1.247 45.000]
+)
+pioneerblob (
+  name &quot;RedRobot&quot;
+  color &quot;red&quot;
+  pose [0.194 1.236 315.000]
+)
+</pre>
+<p>
+and the <tt class="wiki">chase.cfg</tt> file:
+<p>
+<pre class="code">
+driver (		
+  name &quot;stage&quot;
+  provides [&quot;7000:simulation:0&quot;]
+  plugin &quot;libstageplugin&quot;
+  worldfile &quot;chase.world&quot;	
+)
+driver ( 
+ name &quot;stage&quot;  
+ provides [&quot;6665:position:0&quot; &quot;6665:sonar:0&quot; &quot;6665:blobfinder:0&quot;] 
+ model &quot;GreenRobot&quot; 
+)
+driver ( 
+ name &quot;stage&quot;  
+ provides [&quot;6666:position:0&quot; &quot;6666:sonar:0&quot; &quot;6666:blobfinder:0&quot;]
+ model &quot;RedRobot&quot; 
+)
+</pre>
+<p>
+Here is the program called <tt class="wiki">GAFindBlobNN.py</tt> used to evolve
+the weights of the neural network brain. It also comes with Pyro 4.3.3.
+<p>
+<pre class="code">
+# Evolve a robot that chases after a particular color.  The only object
+# of that color is another robot which is running a simple avoid obstacles
+# brain.  The evolving robot is called adapter, the other robot is called
+# opponent.
+from pyrobot.engine import Engine
+from pyrobot.brain.ga import *
+from pyrobot.brain.conx import *
+from pyrobot.system.config import *
+import time
+import os
+class chaseGA(GA):
+    def __init__(self, cnt, filename):
+        self.filename = filename
+        self.popsize = cnt
+        self.output = open(self.filename + &quot;.fit&quot;, &quot;w&quot;)
+        config = Configuration()
+        config.put(&quot;pyrobot&quot;, &quot;gui&quot;, &quot;tk&quot;)  # or tty
+        self.adapter = Engine(&quot;Player6665&quot;,
+                              &quot;NNFindBlob&quot;,
+                              &quot;StageSimulator&quot;,
+                              config = config,
+                              worldfile = &quot;chase.cfg&quot;)
+        self.opponent =Engine(&quot;Player6666&quot;,
+                              &quot;BBWander&quot;)
+        # Wait for them to get initialized
+        time.sleep(1)
+        # Create a dummy network to determine the genome length
+        n = Network()
+        n.addLayers(8,6,2)
+        g = n.arrayify()
+        # Initial genes will have values between -10 and 10.
+        GA.__init__(self,
+                    Population( cnt, Gene, min = -10, max = 10, size = len(g),
+                                elitePercent=0.1, verbose = 1),
+                    mutationRate = 0.1,
+                    crossoverRate = 0.2,
+                    maxGeneration = 10,
+                    verbose = 1)
+    # Fitness at each step is the product of the color blob's range,
+    # the blob's location, and the robot's speed.  If no blob is
+    # visible or if the robot is blocked from moving, then its fitness
+    # is 0 for those steps.
+    def fitnessFunction(self, genePos):
+        total = 0
+        # Reset the robots back to their starting positions.
+        self.adapter.robot.simulation[0].setPose('GreenRobot',-0.575,-1.247,45)
+        self.opponent.robot.simulation[0].setPose('RedRobot',0.194,1.236, 315)
+        self.adapter.brain.net.unArrayify(self.pop.individuals[genePos].genotype)
+        time.sleep(1)
+        self.adapter.pleaseRun()
+        self.opponent.pleaseRun()
+        # inputs 0:Bsonar 1:Lsonar 2:Fsonar 3:Rsonar
+        # 4:blobRange 5:blobToLeft 6:blobCentered 7:blobToRight
+        location = 0
+        for i in range(250):
+            time.sleep(0.1) # allow the robot to move
+            inputs = self.adapter.brain.currentInputs
+            translate, rotate = self.adapter.brain.getOutputs()
+            if self.adapter.brain.robot.stall:
+                translate = 0
+            print &quot;moving robot&quot;, translate, rotate
+            if inputs[0]&gt;0.92 or inputs[1]&gt;0.92 or inputs[2]&gt;0.92 or inputs[3]&gt;0.92:
+                notblocked = 0
+            else:
+                notblocked = 1
+            if inputs[6]:
+                location = 1.0
+            elif inputs[5] or inputs[7]:
+                location = 0.5
+            else:
+                location = 0
+            current = notblocked * abs(translate) * location * inputs[4]
+            #print current
+            total += current
+        self.adapter.pleaseStop()
+        self.opponent.pleaseStop()
+        self.output.write(&quot;Gene &quot; + str(genePos) + &quot; fitness &quot; + str(total) + &quot;\n&quot;)
+        #print &quot;**** TOTAL FITNESS ****&quot;, total
+        return total
+    def isDone(self):
+        self.output.write(&quot;Generation &quot; + str(self.generation) + &quot;\n&quot;)
+        self.output.write(&quot;Average fitness &quot; + str(self.pop.avgFitness) +&quot;\n&quot;)
+        self.output.write(&quot;Best Fitness &quot; + str(self.pop.bestMember.fitness) +&quot;\n&quot;)
+        self.output.write(&quot;-------------------------------------------------\n&quot;)
+        self.adapter.brain.net.unArrayify(self.pop.bestMember)
+        name = self.filename + &quot;-gen&quot; + str(self.generation) + &quot;.wts&quot;
+        self.adapter.brain.net.saveWeightsToFile(name)
+        if self.generation &gt;= self.maxGeneration:
+            self.adapter.shutdown()
+            self.opponent.shutdown()
+            self.output.close()
+            return 1
+        else:
+            return 0
+ga = chaseGA(10, &quot;try&quot;)
+ga.evolve()
+ga.adapter.shutdown()
+ga.opponent.shutdown()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GAFindBlobNNProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GAFindBlobNNProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+You need to have your environment variables set correctly (PYTHONPATH
+and PYROBOT).  Then to start the evolutionary process do:
+<p>
+<pre class="code">
+python GAFindBlobNN.py &
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> This could probably quit a little more gently!
+<p>
+<p>
+<h2 width="804"> Evolving solutions to the 8 Queens problem</h2>
+<p>
+The 8 Queens is a classic AI problem: put 8 queens on a chess board so that no queen can attack another.
+<p>
+Here is a nice divide and conquer solution to placing the queens on the board, one at a time:
+<p>
+<pre class="code">
+def n_queens(n, width):
+    if n == 0:
+        return [[]] # one solution, the empty list
+    else:
+        return add_queen(n-1, width, n_queens(n-1, width))
+def add_queen(new_row, width, previous_solutions):
+    solutions = []
+    for sol in previous_solutions:
+        for new_col in range(width):
+            if safe_queen(new_row, new_col, sol):
+                solutions.append(sol + [new_col])
+    return solutions
+def safe_queen(new_row, new_col, sol):
+    for row in range(new_row):
+        if (sol[row] == new_col or
+            sol[row] + row == new_col + new_row or
+            sol[row] - row == new_col - new_row):
+            return 0
+    return 1
+for sol in n_queens(8, 8):
+    print sol
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/EightQueensProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/EightQueensProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+If you run the code you will get 92 solutions to the problem (of course, some of them are symmetric to others). This &quot;backtracking&quot; works very nicely except that it is still an expensive algorithm. For example, let's make the board just a little bigger, say 16 x 16. Now, what do you get? Still waiting? Is there a solution yet? 
+<p>
+Let's create a GA that solves the 16 Queens Problem.
+<p>
+<pre class="code">
+from pyrobot.brain.ga import *
+def safe_queen(new_row, new_col, sol):
+    for row in range(new_row):
+        if (sol[row] == new_col or
+            sol[row] + row == new_col + new_row or
+            sol[row] - row == new_col - new_row):
+            return 0
+    return 1
+def fitness(sol):
+    set = []
+    row = 0
+    sum = 0
+    for col in sol:
+        set.append( col )
+        if col &lt; 0 or col &gt;= len(sol):
+            return 0
+        sum += safe_queen( row, col, set)
+        row += 1
+    return sum
+class GAQueens(GA):
+    def fitnessFunction(self, genePos):
+        return fitness(self.pop.individuals[genePos].genotype)
+    def isDone(self):
+        best = fitness(self.pop.bestMember.genotype)
+        print &quot;Safe queens&quot;, best
+        return  best == len(self.pop.bestMember.genotype)
+    def mutate(self, **args):
+        pos = int(random.random() * len(self.genotype))
+        self.genotype[pos] =  math.floor(random.random() * \
+                                   (self.max - self.min + 1)) + self.min
+class MyGene(Gene):
+    def display(self):
+        for row in range(len(self.genotype)):
+            for col in self.genotype:
+               if col == row:
+                    print &quot;X&quot;,
+               else:
+                    print &quot;.&quot;,
+            print &quot;&quot;
+        print &quot;&quot;
+ga = GAQueens(Population(300, MyGene, size = 16, mode = 'integer', max = 16, elitePercent = .1),
+              maxGenerations = 200, verbose = 1)
+ga.evolve()
+ga.pop.bestMember.display()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GASixteenQueensProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GASixteenQueensProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+Typically, after about 100 generations a solution will be found.  One such solution is shown below. 
+<p>
+<pre class="code">
+. . . . . X . . . . . . . . . .
+. X . . . . . . . . . . . . . .
+. . . . . . . . . . . . X . . .
+. . . . . . . . . . X . . . . .
+. . . . . . . . . . . . . . . X
+. . . . . . . X . . . . . . . .
+. . . . X . . . . . . . . . . .
+. . X . . . . . . . . . . . . .
+X . . . . . . . . . . . . . . .
+. . . . . . X . . . . . . . . .
+. . . . . . . . . . . X . . . .
+. . . . . . . . . . . . . . X .
+. . . . . . . . X . . . . . . .
+. . . X . . . . . . . . . . . .
+. . . . . . . . . . . . . X . .
+. . . . . . . . . X . . . . . .
+</pre>
+<p>
+Even if you don't find a solution, one can easily see that genetic solutions are a good way to find a pretty good solution (e.g., an approximation) fairly quickly.
+ <img width="11" src="../wiki/img/idea.png"> Recently there have been solutions to the N-Queens problem that show that very large problems (such as 3 million x 3 million board sizes) can be solved in linear time. So, the GA isn't the best way to solve this problem. But there are still many problems that are NP-hard.
+<p>
+<p>
+<h2 width="804"> Genetic Programming</h2>
+<p>
+In the GP framework, the representations being adapted are expression trees representing computer programs, typically in a functional language like Lisp or Scheme.  Crossover involves splicing together subtrees and mutation involves tweaking the terminal values at the leaves or the operators at the internal nodes. 
+<p>
+<p>
+<h3 width="804"> Crossover Animation</h3>
+<p>
+<img src="../crossover.gif">
+<p>
+<p>
+<h2 width="804"> Example: XOR again</h2>
+<p>
+Let's explore the XOR problem again, from the Genetic Programming paradigm. In this version, we will refer to <b>i1</b> and <b>i2</b> as the two inputs. These will be our <i>terminals</i>. We will use the standard arithmetic operations: +, - *, and /.
+<p>
+<pre class="code">
+from pyrobot.brain.gp import *
+from math import pi
+share.env = Environment(env)
+share.env.update( {'i1':0, 'i2':0} )
+class GP(GA):
+    def __init__(self, cnt, **args):
+        GA.__init__(self, Population( cnt, GPGene, bias =.6,
+                                      elitePercent = .1, verbose = 1),
+                    maxGeneration = 100,
+                    verbose = 1)
+    def fitnessFunction(self, pos):
+        outputs = [ 0, 1, 1, 0 ] # outputs for XOR
+        inputs = [ {'i1' : 0, 'i2' : 0},
+                   {'i1' : 0, 'i2' : 1},
+                   {'i1' : 1, 'i2' : 0},
+                   {'i1' : 1, 'i2' : 1} ]
+        diff = 0
+        for i in range(len(inputs)):
+            set, goal = inputs[i], outputs[i]
+            retval = self.pop.individuals[pos].eval(set)
+            item  = retval - goal
+            diff += abs(item)
+        return max(4 - diff, 0)
+    def isDone(self):
+        fit = self.pop.bestMember.fitness
+        self.pop.bestMember.display()
+        print
+        return fit == 4
+gp = GP(50)
+gp.evolve()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GPxorProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GPxorProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<pre class="code">
+------------------------------------------------------------
+Initial population
+Fitness: Total   94.00 Best  3.00 Average  1.88 Worst  0.00
+Elite fitness: [2, 2, 3, 3.0, 3.0]
+------------------------------------------------------------
+Generation 1
+Fitness: Total   87.50 Best  3.00 Average  1.75 Worst  0.00
+Elite fitness: [3.0, 3.0, 3, 3.0, 3.0]
+(-  i2 (/  i1 (/  (/  i2 (/  i1 i2 ) ) i2 ) ) )
+------------------------------------------------------------
+...
+------------------------------------------------------------
+Generation 4
+Fitness: Total   97.14 Best  4.00 Average  1.94 Worst  0.00
+Elite fitness: [3, 3.0, 3, 3, 4.0]
+(+  (/  i2 (+  (*  (+  i2 i1 ) (*  (*  i1 i2 ) (-  (*  (-  (-  (-  i2 (-  i2 (-
+ i2 i2 ) ) ) (*  i1 i1 ) ) (*  (*  (*  i2 i1 ) (+  i2 i1 ) ) i1 ) ) i1 ) i2 ) )
+) i2 ) ) i1 )
+------------------------------------------------------------
+Done evolving at generation 4
+Current best individual
+(+  (/  i2 (+  (*  (+  i2 i1 ) (*  (*  i1 i2 ) (-  (*  (-  (-  (-  i2 (-  i2 (-
+ i2 i2 ) ) ) (*  i1 i1 ) ) (*  (*  (*  i2 i1 ) (+  i2 i1 ) ) i1 ) ) i1 ) i2 ) )
+) i2 ) ) i1 ) Fitness 4.0
+-----------------------------------------------------------------
+</pre>
+<p>
+Notice that a &quot;gene&quot; is an arithmetic expression of operators and terminals (in prefix notation like Scheme or Lisp). Operators could be any function or computer program. How can we be certain that the above does indeed compute correctly? 
+<p>
+<pre class="code">
+% python
+&gt;&gt;&gt; from pyrobot.brain.gp import *
+&gt;&gt;&gt; s = &quot;(or (- i2 i1) (* (* (or i2 i1) (* i2 (- (ifpos (/ i2 i1) (* i1 i2) i1) i2))) i1))&quot;
+&gt;&gt;&gt; inputs = [ {'i1' : 0, 'i2' : 0}, {'i1' : 0, 'i2' : 1}, {'i1' : 1, 'i2' : 0}, {'i1' : 1, 'i2' : 1} ]
+&gt;&gt;&gt; for d in inputs:
+...     share.env.update( d )
+...     tree = parse(s)
+...     print d, tree.eval()
+...
+{'i1': 0, 'i2': 0} 0
+{'i1': 0, 'i2': 1} 1
+{'i1': 1, 'i2': 0} 1
+{'i1': 1, 'i2': 1} 0
+&gt;&gt;&gt; control+d
+</pre>
+<p>
+<tt class="wiki">parse()</tt> is a simple parser, but it should be able to handle well-formed input.
+<p>
+<p>
+<h2 width="804"> Approximating pi</h2>
+<p>
+Here's another example. The goal here is to evolve an expression of <b>pi</b> given a couple of constants and the standard arithmetic operations.
+<p>
+<pre class="code">
+from pyrobot.brain.gp import * 
+from math import pi
+class PI_GP(GA):
+    def __init__(self, cnt, **args):
+        GA.__init__(self, Population(cnt, GPGene, bias = .6,
+                                     verbose = 1, 
+                                     elitePercent = .1),
+                    verbose = 1, maxGeneration = 25)
+    def fitnessFunction(self, pos, pr = 0):
+        diff = abs(self.pop.individuals[pos].eval() - pi)
+        if pr:
+            self.pop.individuals[pos].display()
+            print
+        return max(pi - diff, 0) 
+    def isDone(self):
+        return abs(self.fitnessFunction(0, 1) - pi) &lt; .001
+share.env = Environment(env)
+share.env.update( {'1/2': .5,
+                   'e': math.e } )
+gp = PI_GP(100)
+gp.evolve()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GPApproxPiProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GPApproxPiProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<pre class="code">
+------------------------------------------------------------
+Initial population
+Fitness: Total    8.46 Best  1.20 Average  0.17 Worst  0.00
+Elite fitness: [0.29999999999999982, 0.39999999999999991,
+0.66666666666666652, 0.79999999999999982, 1.2]
+------------------------------------------------------------
+Generation 1
+Fitness: Total   18.78 Best  1.99 Average  0.38 Worst  0.00
+Elite fitness: [1.2, 1.2, 1.25, 1.25, 1.9933333333333327]
+------------------------------------------------------------
+Generation 2
+Fitness: Total   37.31 Best  2.99 Average  0.75 Worst  0.00
+Elite fitness: [1.9933333333333327, 1.9933333333333327, 2.0, 
+2.2831853071795867, 2.9906479937467503]
+------------------------------------------------------------
+...
+------------------------------------------------------------
+Generation 9
+Fitness: Total  125.12 Best  3.14 Average  2.50 Worst  0.00
+Elite fitness: [3.1321756894790607, 3.1325970718854692,
+3.1335985303200822, 3.1335985303200822, 3.1390749601275911]
+------------------------------------------------------------
+Generation 10
+Fitness: Total  122.56 Best  3.14 Average  2.45 Worst  0.00
+Elite fitness: [3.1325970718854692, 3.1335985303200822,
+3.1335985303200822, 3.1390749601275911, 3.1415311004784683]
+------------------------------------------------------------
+Done evolving at generation 10
+Current best individual
+(- (/ (+ (- s1 (* (- (- (+ (/ (* (/ (* s0 (- (+ (+ (/ s0 (+ (/ s1 (-
+s0 s1 ) ) s0 ) ) s1 ) (+ (- s0 s0 ) s0 ) ) s0 ) ) (+ (- s1 (* s0 (+ (/
+s1 (* (+ (- (- (/ s0 (+ (+ s0 s1 ) s0 ) ) s0 ) s0 ) s0 ) s1 ) ) s1 ) )
+) (- s0 (- (* s1 (+ s0 s1 ) ) (+ (+ s1 s0 ) (- s1 (* s0 s1 ) ) ) ) ) )
+) s0 ) (/ s1 s0 ) ) (- s1 s0 ) ) s0 ) (/ (+ s0 s1 ) (- s1 (* (- (- (-
+s0 s1 ) (- (- s1 s1 ) s0 ) ) s0 ) (* s0 (/ s1 s0 ) ) ) ) ) ) s1 ) ) s1
+) s1 ) s1 ) Fitness 3.14153110048
+</pre>
+<p>
+Notice that there isn't any length constraints on the size of a gene; a gene could grow quite large. But the above demonstrations show that the trees don't grow to be very large. 
+<p>
+<p>
+<h2 width="804"> User Defined Functions</h2>
+<p>
+There are a number of functions predefined in the default environment, like +, -, *, /, <b>ifpos</b> (if positive), <b>and</b>, and <b>or</b>. But for many problems, you will want to define special operators. For this, you just add operators to the environment, like:
+<p>
+<pre class="code">
+from pyrobot.brain.gp import *
+from math import pi
+class PI_GP(GA):
+    def __init__(self, cnt, **args):
+        GA.__init__(self, Population(cnt, GPGene, bias = .6,
+                                     verbose = 1,
+                                     elitePercent = .1),
+                    verbose = 1, maxGeneration = 25)
+    def fitnessFunction(self, pos, pr = 0):
+        diff = abs(self.pop.individuals[pos].eval() - pi)
+        if pr:
+            self.pop.individuals[pos].display()
+            print
+        return max(pi - diff, 0)
+    def isDone(self):
+        return abs(self.fitnessFunction(0, 1) - pi) &lt; .001
+share.env = Environment(env)
+share.env.update( {'+1': Operator(lambda obj: obj + 1, 1, &quot;regular&quot;),
+                   '1/2': .5,
+                   'e': math.e } )
+gp = PI_GP(100)
+gp.evolve()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GPUserDefinedFunsProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GPUserDefinedFunsProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+The above example adds a new operator named <b>+1</b> that simply adds 1 to a single operand.
+<p>
+<pre class="code">
+------------------------------------------------------------
+Initial population
+Fitness: Total   80.37 Best  3.00 Average  1.61 Worst  0.00
+Elite fitness: [2.7182818284590451, 2.7182818284590451, 
+2.7182818284590451, 2.7182818284590451, 3.0]
+------------------------------------------------------------
+Generation 1
+Fitness: Total   81.55 Best  3.00 Average  1.63 Worst  0.00
+Elite fitness: [2.7182818284590451, 2.7182818284590451, 
+2.7182818284590451, 2.7182818284590451, 3.0]
+------------------------------------------------------------
+...
+------------------------------------------------------------
+Generation 7
+Fitness: Total   86.07 Best  3.13 Average  1.72 Worst  0.00
+Elite fitness: [3.0, 3.0, 3.0, 3.0, 3.12758249240889]
+------------------------------------------------------------
+Generation 8
+Fitness: Total  102.55 Best  3.14 Average  2.05 Worst  0.00
+Elite fitness: [3.0, 3.0686842157466478, 3.0686842157466478, 
+3.12758249240889, 3.1408590857704777]
+------------------------------------------------------------
+Done evolving at generation 8
+Current best individual
+(+1  (+1  (+1  (-  (+1  1 ) (/  (*  1 (*  (/  (/  (/  (*  e 
+e ) 1 ) e ) (+1  (/  e e ) ) ) (+1  e ) ) ) e ) ) ) ) ) 
+Fitness 3.14085908577
+</pre>
+<p>
+How could you add randomness into expressions? You could add a random terminal to the environment, like:
+<p>
+<pre class="code">
+&gt;&gt;&gt; from pyrobot.brain.gp import *
+&gt;&gt;&gt; share.env.update( {'rnd': random.random()} )
+&gt;&gt;&gt; parse('rnd').eval() 
+&gt;&gt;&gt; parse('rnd').eval() # prints the same value
+</pre>
+<p>
+This is indeed a random value, but it is always (for one Python session) the same random value. Why?
+<p>
+To make a random value that is always different, you need to add an operator so that it will be re-evaluated each time so as to produce a new value. To create a new operator, you use the <tt class="wiki">Operator()</tt> class which takes a function, the number of arguments, and an optional string &quot;lazy&quot; (if you want to receive the arguments without them having been evaluated).
+<p>
+<pre class="code">
+&gt;&gt;&gt; from pyrobot.brain.gp import *
+&gt;&gt;&gt; share.env.update( {'rnd': Operator(lambda: random.random(), 0)} )
+&gt;&gt;&gt; parse('rnd').eval() 
+&gt;&gt;&gt; parse('rnd').eval() # prints a different value
+</pre>
+<p>
+<tt class="wiki">rnd</tt> is now an operator that takes zero arguments. You may use it like <tt class="wiki">(+ rnd rnd)</tt> or <tt class="wiki">(rnd)</tt>.
+<p>
+<p>
+<h2 width="804"> Exercise 2: what effects gene size?</h2>
+<p>
+To explore the relationship between mutation, crossover, and tree size, run some experiments varying the rates of mutation and crossover while examining tree size. Do you find any trends? If so, put forward a hypothesis to explain the trend. Design an additional experiment to test your hypothesis.
+<p>
+<p>
+<h2 width="804"> Exercise 3: evolve a robot controller</h2>
+<p>
+Write a GP to create a robot controller. You'll want to make your operators be able to read sensors, and the output should be motor commands. See <a href="../page_PyroFromPython/">PyroFromPython</a> for additional information.
+<p>
+<p>
+<h2 width="804"> Co-evolutionary Methods</h2>
+<p>
+In the above examples we have provided the fitness function. However, the measure of fitness, too, could be evolved. When you pit one evolving population against another (or itself) we call that a co-evolutionary model. This is a very effective method in evolving a game-playing program, for example.
+<p>
+<p>
+<h2 width="804"> Exercise 4: Evolve a game player</h2>
+<p>
+Design a GA or GP to play a simple game. Let the fitness function be the number of games an individual wins from a set of games it plays with other members of the population.
+<p>
+<p>
+<h2 width="804"> Emergent Properties</h2>
+<p>
+Evolutionary computation can be seen as a nice balance between <i>exploration</i> and <i>exploitation</i>. By just running the above, simple algorithms, this balance emerges. But, many point out that any search mechanism is not better than random search <i>over any possible problem space</i>. This has been termed the <a href="../page_NoFreeLunchTheorem/">NoFreeLunchTheorem</a>.
+<p>
+Natural evolution is even more clever than our simple algorithm. Every year we hear another of the complexity of natural evolution: non-random mutation building up, other places where information is being exchanged, etc. Are these algorithms <i>a model of evolution</i>, or <i>actual evolution</i>?
+<p>
+Often, there is an interesting interaction between the number of &quot;agents&quot; searching and performance. For example, a population of 200 agents may be more than twice as better than a population of 100 agents. This goes directly against <a href="../page_AmdahlsLaw/">AmdahlsLaw</a>. This type of performance gain is said to be <i>super linear</i>.
+<p>
+<p>
+<h2 width="804"> Why do GA/GP systems work?</h2>
+<p>
+See Holland's Schema Theorem.
+<p>
+<p>
+<h2 width="804"> Further Reading</h2>
+<p>
+<ol type="1"><li>Holland, John H. (1975) <i>Adaptation in Natural and Artificial Systems</i>. The University of Michigan Press, Ann Arbour.</li>
+<li>Floreano, D., Stefano, N. (2000) <i>Evolutionary Robotics</i>. Cambridge, Mass. : MIT Press.</li>
+<li>L. Meeden and D. Kumar (1998). Trends in evolutionary robotics. In <i>Soft Computing for Intelligent Robotic Systems</i>, edited by L.C. Jain and T. Fukuda, Physica-Verlag, New York, NY, pages 215-233.</li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a> Next: <a href="../page_EvolutionOfLanguage/">EvolutionOfLanguage</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleEvolutionaryAlgorithms?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleEvolutionaryAlgorithms?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

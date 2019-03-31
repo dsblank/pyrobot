@@ -1,0 +1,92 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095152", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroUsersManual</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro Users Manual</h1>
+<p>
+Users Manual for <a href="../page_Pyro/">Pyro</a>
+<p>
+<hr>
+<p>
+First, let's look at the command-line options for starting Pyro. You start Pyro by entering:
+<p>
+<pre class="code">
+ % pyrobot
+</pre>
+<p>
+Pyro optionally can take the following command-line arguments:
+<p>
+<pre class="code">
+  -h                 show this help
+  -r ROBOT           name of robot.py file to load
+  -b BRAIN           name of brain.py file to load
+  -a ARGUMENTS       user args; available as string engine.args
+  -s SIMULATOR       name of simulator to run
+  -i CONFIGFILE      name of config file to load
+  -w WORLDFILE       name of simulator world to load
+  -d DEVICE[,...]    names of devices (files or names)
+  -e &quot;string&quot;        eval string of commands
+                     that are ; separated
+</pre>
+<p>
+Where ROBOT is the name of a Pyro robot file, BRAIN is the name of a Pyro brain file, and GUI is either tty, or tk. 
+<p>
+To automatically find the BRAIN and ROBOT files, they must be in your current directory or in the &#36;PYROBOT/plugins/ directory. You don't need to add the .py after a filename, if it has such an extension. Order of the flags and options does not matter. Here's a full example:
+<p>
+<pre class="code">
+% pyro -r Player6665 -b BBWander -s Stage -w tutorial.world -g tty
+</pre>
+<p>
+If you are using Pyro over a slow network, or on a slow computer with no graphics, see <a href="../page_PyroRemotely/">PyroRemotely</a>.
+<p>
+For more information on the -i flag, see <a href="../page_PyroSetUp/">PyroSetUp</a>.
+<p>
+<p>
+<h2 width="804">1.1.  Changing Editor</h2>
+<p>
+Pyro use <tt class="wiki">emacs</tt> as the default editor, but you can change that. Do this:
+<p>
+<pre class="code">
+% export EDITOR=gedit
+</pre>
+<p>
+and then start Pyro. It will use the gedit program as the editor. To use a console editor, such as <tt class="wiki">vi</tt>:
+<p>
+<pre class="code">
+%export EDITOR=&quot;gnome-terminal -e vi&quot;
+</pre>
+<p>
+You can place any console program after the <tt class="wiki">-e</tt>.
+<p>
+<hr>
+<p>
+Related topics:
+<p>
+<a href="http://emergent.brynmawr.edu/index.cgi/FindPage">Go here for full search functions</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroUsersManual?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroUsersManual?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

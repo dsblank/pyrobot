@@ -1,0 +1,142 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104230", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Incremental_20Neural_20Networks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<i>This page has been deprecated. Please see the new <a href="../page_Cascade_20Correlation_20Network/">Cascade Correlation Network</a> page.</i>
+<p>
+<p>
+<h1 width="804">1.  Incremental Neural Networks</h1>
+<p>
+<i>You will need version 1.161, or later, of conx.py to run these experiments.</i>
+<p>
+All of the neural networks we have looked at in this module have had static structures. That is, none of the models change the layers or connections during training. They have only adjusted weights (one could claim that setting a weight to zero effectively removes the incoming node from the network). We will now look at some models that do dynamically alter their architectures.
+<p>
+<p>
+<h2 width="804">1.1.  IncrementalNetwork class</h2>
+<p>
+This network class begins with no hidden layers, and incrementally adds them as it needs them. 
+The class has a special &quot;candidate&quot; layer of units from which it incrementally draws
+new nodes as hidden layers (or part of a hidden layer).  As new
+candidate units are recruited into the main network, the new unit's input weights are frozen. 
+The idea is that the candidate nodes represent some feature detector, and
+is frozen from ever changing afterwards. This saves time in not having to retrain
+these weights. (This is similar to the RAVQ and SOM models examined in <a href="../page_PyroModuleRAVQ/">PyroModuleRAVQ</a>, 
+<a href="../page_GovernorForNeuralNetworks/">GovernorForNeuralNetworks</a>,  and <a href="../page_PyroModuleSelfOrganizingMap/">PyroModuleSelfOrganizingMap</a>)
+<p>
+New hidden units can be put into the network in two ways: cascade, or
+parallel. Cascading hiddens have the output of one going into all
+later hiddens. Parallel hiddens appear all on one level.
+<p>
+Candidate nodes are trained using standard backprop on
+error. This is <b>not</b> cascade correlation in which hiddens are trained to maximize error variance, 
+but has many similarities. In this network, the candidate nodes are trained with backpropagation of error, 
+but don't actually contribute to the activation on the output (or any where else) until they are
+recruited.
+<p>
+Let's take a look at an example of an incrementally-growing neural network:
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+net = IncrementalNetwork(&quot;cascade&quot;) # &quot;parallel&quot; or &quot;cascade&quot;
+net.addLayers(2, 1) # sizes
+net.addCandidateLayer(8) # size
+</pre>
+<p>
+We will build an incremental network to learn the XOR problem. The <tt class="wiki">net.addLayers()</tt> adds layers automatically by size. This creates a 2-input 1-output network with no hidden layer. We set the new hidden layers to be added in a cascading (rather than parallel) style. We create a candidate layer containing 8 units. These are 8 units that will be trained by backprop of error, but will not contribute to the output layer's activations.
+<p>
+Now, we define the XOR problem as before, and set a low tolerance:
+<p>
+<pre class="code">
+net.setInputs( [[0, 0], [0, 1], [1, 0], [1, 1]])
+net.setTargets([[0], [1], [1], [0]])
+net.tolerance = .25
+</pre>
+<p>
+Finally, we train the network:
+<p>
+<pre class="code">
+net.reportRate = 100
+cont = 0
+while True:
+    net.train(750, cont = cont)
+    if not net.complete:
+        net.recruitBest()
+        cont = 1
+    else:
+        break
+</pre>
+<p>
+First, we train for 750 steps on the 2-layer network. Recall that it is impossible for a 2-layer network to learn a non-linear separation problem. However, we are also training on the candidate nodes as well.
+<p>
+While we haven't learned the pattern, we recruit the best node from the candidate layer, and continue training for another 750 epochs.
+<p>
+When the network has finished learning, we can then see the final network and check to make sure that it has learned the problem:
+<p>
+<pre class="code">
+net[&quot;candidate&quot;].active = 0 # make sure it is not effecting outputs
+net.displayConnections()
+net.interactive = 1
+net.sweep()
+</pre>
+<p>
+Here is the whole program:
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+net = IncrementalNetwork(&quot;cascade&quot;) # &quot;parallel&quot; or &quot;cascade&quot;
+net.addLayers(2, 1) 
+net.addCandidateLayer(8) 
+net.setInputs( [[0, 0], [0, 1], [1, 0], [1, 1]])
+net.setTargets([[0], [1], [1], [0]])
+net.tolerance = .25
+net.reportRate = 100
+cont = 0
+while True:
+    net.train(750, cont = cont)
+    if not net.complete:
+        net.recruitBest()
+        cont = 1
+    else:
+        break
+net[&quot;candidate&quot;].active = 0
+net.displayConnections()
+net.interactive = 1
+net.sweep()
+</pre>
+<p>
+This should learn within 500 or 1000 epochs. We know that a non-batch learning network can learn it in less than 100. Why does <tt class="wiki">IncrementalNetwork</tt> take longer? What good is <tt class="wiki">IncrementalNetwork</tt>?
+<p>
+<p>
+<h2 width="804">1.2.  Variations</h2>
+<p>
+Parallel or cascade?
+<p>
+What does it mean to be the best candidate?
+<p>
+Cascade correlation?
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Incremental_20Neural_20Networks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Incremental_20Neural_20Networks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219100923", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: BrynMawrRobotDetails</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Using the Pioneer Robots at Bryn Mawr</h2>
+<p>
+The pioneer robots are called <b>astro</b> and <b>sparko</b>. The peoplebot robot is called <b>electra-robot</b>.
+<p>
+If you want to connect to the peoplebot, see below. To connect to the pioneer robots, you have to first log into the robot you want to use. To do this, first <b>ssh</b> into univac.brynmawr.edu
+<pre class="code">
+ssh univac
+</pre>
+Enter your password (same password you use to log into the lab computers). Then, once at univac, you can access the robots over univac's wireless network. Connect to the robot using the login-name: robot
+<pre class="code">
+ssh astro -l robot
+</pre>
+or
+<pre class="code">
+ssh sparko -l robot
+</pre>
+Enter the password: 
+<p>
+Once you are logged in, run <b>pyro</b>
+<pre class="code">
+% pyro
+</pre>
+Then, using the <b>Servers</b> button, specify the <b><a href="../page_PlayerServer/">PlayerServer</a></b>.  Next, using the <b>Robot</b> button, specify the file <b>Player6665.py</b>. 
+<p>
+By default, the robot's motors are disabled. You should get your robot, position it in an open space away from unsuspecting standersby. Press the white button on the robot to enable the motors. Next, open the Robot menu and stick it to your desktop.  Try moving the robot using different commands. Also, try and access various robot attributes and get comfortable with them.
+<p>
+Next, run <tt class="wiki">pyrobot</tt>. Using the <b>Robot</b> button, load the file <b>Player6665.py</b>. Now you are connected to the robot. 
+<p>
+Once you are logged onto a robot and have tested that you can connect
+to it you are ready to try out a brain. Run the <tt class="wiki">scp</tt> command to
+copy your brain program from the lab machines to the robot:
+<p>
+<ol><p><pre class="code">
+    scp username@bubo.brynmawr.edu:BrainProgram.py XXXBrainProgram.py
+    </pre>
+</ol><p>
+Make sure your programs have your initials in the name (replace the XXX in the above example) so as not to confuse/overwrite someone else's brains.
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/BrynMawrRobotDetails?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/BrynMawrRobotDetails?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

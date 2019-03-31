@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script src="//archive.org/includes/analytics.js?v=cf34f82" type="text/javascript"></script>
+<script type="text/javascript">window.addEventListener('DOMContentLoaded',function(){var v=archive_analytics.values;v.service='wb';v.server_name='wwwb-app41.us.archive.org';v.server_ms=116;archive_analytics.send_pageview({});});</script><script type="text/javascript" src="/static/js/ait-client-rewrite.js?v=1553621510" charset="utf-8"></script>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129041752", "pyrorobotics.org");
+</script>
+<script type="text/javascript" src="/static/js/wbhack.js?v=1553621510" charset="utf-8"></script>
+<script type="text/javascript">
+__wbhack.init('https:///web');
+</script>
+<link rel="stylesheet" type="text/css" href="/static/css/banner-styles.css?v=1553621509" />
+<link rel="stylesheet" type="text/css" href="/static/css/iconochive.css?v=1553621509" />
+<!-- End Wayback Rewrite JS Include -->
+<repomd xmlns="http://linux.duke.edu/metadata/repo">
+  <data type="other">
+    <location href="repodata/other.xml.gz"/>
+    <checksum type="sha">d45b3d71711cca933f93d2678d31276bf7f6bc23</checksum>
+    <timestamp>1138390066</timestamp>
+    <open-checksum type="sha">d3c3f1ffdd4eced3227a5721dc26f1221821c448</open-checksum>
+  </data>
+  <data type="filelists">
+    <location href="repodata/filelists.xml.gz"/>
+    <checksum type="sha">6b2698d0f79e64af2d643b6e16860a9ed6f8d053</checksum>
+    <timestamp>1138390066</timestamp>
+    <open-checksum type="sha">45412cae092b555f3241f9eb5ca9e9cc365d1e74</open-checksum>
+  </data>
+  <data type="primary">
+    <location href="repodata/primary.xml.gz"/>
+    <checksum type="sha">b8489a93a6ccb2ef44b55d2d270b4adc32f47f63</checksum>
+    <timestamp>1138390066</timestamp>
+    <open-checksum type="sha">7ff48fd8838c3067af600cbd64099fbc034a2cb9</open-checksum>
+  </data>
+</repomd>
+<!--
+     FILE ARCHIVED ON 04:17:52 Nov 29, 2010 AND RETRIEVED FROM THE
+     INTERNET ARCHIVE ON 22:17:48 Mar 30, 2019.
+     JAVASCRIPT APPENDED BY WAYBACK MACHINE, COPYRIGHT INTERNET ARCHIVE.
+
+     ALL OTHER CONTENT MAY ALSO BE PROTECTED BY COPYRIGHT (17 U.S.C.
+     SECTION 108(a)(3)).
+-->
+<!--
+playback timings (ms):
+  LoadShardBlock: 31.816 (3)
+  esindex: 0.007
+  captures_list: 53.215
+  CDXLines.iter: 10.653 (3)
+  PetaboxLoader3.datanode: 53.364 (4)
+  exclusion.robots: 0.182
+  exclusion.robots.policy: 0.171
+  RedisCDXSource: 7.493
+  PetaboxLoader3.resolve: 25.523
+  load_resource: 57.688
+-->

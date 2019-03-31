@@ -1,0 +1,279 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160326", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Brains</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Brains</h2>
+<p>
+Any program that controls a robot (physical or simulated) is referred
+to as a <b>brain</b>. It is written in Python using Pyro classes.  See
+<a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a> for a quick introduction to the Python Language.
+<p>
+Programming a brain usually involves extending existing class
+libraries.  The libraries help simplify robot-specific features and
+provide insulation from the lowest level details concerning hardware
+drivers.  In fact, the abstraction provided uniformly accommodates the
+use of actual physical robots or their simulations even though vastly
+different drivers and communication protocols may be used underneath
+the abstraction layer.  Consequently, a robot experimenter need only
+concentrate on the behavior-level details of the robot.  Robots may
+feature a disparate set of sensors and movements, and yet, depending
+on the specific robots or simulators used, Pyro provides a uniform way
+of accessing those features without getting bogged down by low-level
+details.
+<p>
+In this section, we will introduce you to loading, running and
+building robot brains in Pyro.  Each brain is really a complete
+experiment into some type of robot activity. For an example brain, we
+will use one that makes the robot wander around its environment
+without bumping into anything. This behavior can be easily
+accomplished if you have access to the robot's range sensors (to
+detect oncoming obstacles) and motors (to move forward/backward or
+turn).
+<p>
+Our goal here is to learn how to load an already written brain program
+and control a robot with it. The details of how the brain is written
+are not important at this point. The entire content following this
+section is devoted to building various brains that employ different
+control paradigms. Once you have learned how to load and run a brain
+on a robot, we will introduce you to the basic structure of a brain
+program.
+<p>
+<p>
+<h2 width="804"> Loading and Running a Brain</h2>
+<p>
+As you saw in <a href="../page_The_20Pyro_20Interface/">The Pyro Interface</a>, you execute steps 1-4 below to
+start running Pyro and to connect to a robot, now we will add two
+additional steps to run a brain:
+<ol><p>
+<li>Start pyrobot.</li>
+<li><b>[Optional]</b> Choose a simulator and a simulated robot world.</li>
+<li>Specify a robot platform.</li>
+<li>Interact with the robot.</li>
+<li>Load a robot <i>brain</i></li>
+<li>Run the robot in the world using the brain.</li>
+</ol><p>
+If you wanted to connect to a real robot instead of a simulator, you
+would skip the optional step.  For this example, we will be using the
+Stage simulator with the robot running in the <b>shorthall.cfg</b>
+world. If you have forgotten how to start Pyro, specify the Stage
+simulator, and the world to it, you should review the section [&quot;The
+Pyro Interface&quot;] before proceeding.
+<p>
+Go ahead, start Pyro, and specify the Stage simulator to it with the
+world file <b>shorthall.cfg</b> specified. Also, specify that you will
+be using the <b>Player6665.py</b> robot driver. At this point, you
+should have the two windows shown below:
+<p>
+<img src="../BeyondLegos/Images/Brain2.png">
+<p>
+<img src="../BeyondLegos/Images/Brain1.png">
+<p>
+Notice that the Pyro console window shows that it has loaded Stage, and has loaded the robot driver.
+<p>
+<p>
+<h2 width="804"> Load a robot ''brain''</h2>
+<p>
+The controller program that makes up the <i>brain</i> is written in
+Python, using the extensions to the specific robot class used
+above. As mentioned earlier, we have already written a simple
+controller that does obstacle avoidance using a direct control
+paradigm.
+<p>
+To load the Python code to do obstacle avoidance, press the
+<b>Brain</b> button in the Pyro window and you will get the Load Brains
+pop-up window:
+<p>
+<img src="../BeyondLegos/Images/Brain3.png">
+<p>
+Several robot controllers/brains are listed here. You can also
+navigate to another directory (you will have one once you start
+writing your own controller programs) to load the programs from. Of
+the several options shown above, the following two are worth noting:
+<p>
+<ol type="1"><li><b>BBSquare.py</b> A very simple brain that makes the robot follow a square trajectory. Uses behavior-based control paradigm.</li>
+<li><b>BBWander.py</b> Does obstacle avoidance. Uses behavior-based control paradigm.</li>
+<li><b>Avoid.py</b> Does obstacle avoidance usign direct control. We will use this one!</li>
+</ol><p>
+Select the file <b>Avoid.py</b> (as shown above) and press the <b>OK</b>
+button.
+<p>
+Once again, in the Pyro console you will see a message declaring the
+success/failure of the command. If successfully loaded, your Pyro
+window will be as shown below:
+<p>
+<img src="../BeyondLegos/Images/Brain4.png">
+<p>
+Now you are ready to run the robot using this brain.
+<p>
+<p>
+<h2 width="804"> Run the robot in the shorthall world using the Avoid.py brain</h2>
+<p>
+Just click on the <b>Run</b> button in the Pyro window!
+<p>
+You will see the robot navigating around in the shorthall world. You
+can use the mouse control operations to relocate the robot in the
+world (it is a simulation, after all!!) and/or re-orient its direction
+as it is moving.
+<p>
+The <b>Stop</b> button in the Pyro window will stop the robot. You can
+also use the <b>Step</b> button to make the robot run one step.
+<p>
+That is really all there is to it. Regardless of which robot you use,
+whether it is a simulation or a physical robot, you will use the same
+steps.
+<p>
+At this point, you must be curious to peek into the brain program to
+see what it looks like. Go ahead and take a look by clicking on the
+button with brain's name in the Pyro window.  An <b>emacs</b> editor
+window will pop-up with the code in it. Again, don't try to make
+complete sense of it yet as that is our next task. We will begin to
+demystify the brain next.
+<p>
+<p>
+<h2 width="804"> Structure of a Pyro Brain</h2>
+<p>
+The basic structure of a robot control program is as shown below:
+<pre class="code">
+#import the appropriate brain superclass
+from pyrobot.brain.&lt;SomeBrainClass&gt; import *
+# Define the robot's brain class 
+class &lt;BrainName&gt;(&lt;SomeBrainClass&gt;): 
+      def setup(self):
+         # This is the default constructor (optional) method
+         # All code here is run once when the brain is loaded
+         # You can initialize fields, and start devices here
+   def step(self):
+         # All brains must have a step method
+         # This method is executed 10 times/sec
+         # This is where you define the main control 'loop'
+   def destroy(self):
+       # This is the default destructor (optional) method
+       # Each time a brain is destroyed, this method is executed
+       # If you start devices in setup, you should stop them here (see text below)
+   # Define other methods of this class as appropriate 
+# end of &lt;Brain Name&gt; class 
+# Create a brain instance for the robot 
+def INIT(engine): 
+   brain = &lt;BrainName&gt;('BrainName', engine) 
+   print engine.robot.name + &quot; robot now has &quot; + brain.name + &quot; brain.&quot; 
+   return brain    
+</pre>
+<p>
+where &lt;<b>Some</b><b>Brain</b><b>Class</b>&gt; is either <b>Brain</b> or a
+subclass of the <b>Brain</b> class depending on the kind of control
+paradigm you decide to use (see below). &lt;<b>Brain</b><b>Name</b>&gt; is
+defined by you.
+<p>
+The class <b>pyrobot.brain</b> and its subclasses are a part of the
+Pyro Library and can be used to instantiate a specific control regime
+for the robot program. The <b>setup</b> method is executed each time a
+brain instance is created. Thus it is a good place to define and
+initialize the local attributes/fields of this class. You can also
+start the needed devices here. However, if you do, you should make
+sure to stop them in the <b>destroy</b> method, which is a destructor
+method. The <b>destroy</b> method is called each time an instantiated
+brain is destroyed. When you reload a brain file, the <b>destroy</b>
+method is implicitly called before the new brain file is loaded.
+<p>
+The <b>step</b> method is where all of the main action is. Statements
+contained in this method are executed 10 times/second. That is, when
+you place your control statements here, they will be repeatedly
+executed 10 times/second. The <b>step</b> method is the control loop
+for your robot. This is the method executed when you press the
+<b>Step</b> button in the Pyro window. There are many different control
+paradigms for controlling a robot's behavior. Pyro is designed to
+explore different control paradigms. Typically, each new control
+paradigm will be a subclass of the <b>Brain</b> class. Currently, the
+following control paradigms have been implemented in Pyro:
+<p>
+<ol type="1"><li>Direct Control (DC)</li>
+<li>Sequencing Control (SC)</li>
+<li>Behavior-based Control (BB)</li>
+<li>Artificial Neural Network Control (NN)</li>
+<li>Self Organizing Map Control</li>
+<li>etc.</li>
+</ol><p>
+As you proceed through the various modules that follow, you will learn more about the structure of a robot's brain. For now, it would be sufficient to spend some time looking at an existing brain program (see exercise below).
+<p>
+<b>Exercise <a href="../page_BBSquare/">BBSquare</a></b>: Load the BBSquare.py brain and observe the behavior.
+<p>
+<b>Exercise Brain Surgery</b>: The easiest way to start learning about
+the encoding of the brain is to be able to examine and modify the
+existing code. If you have the BBSquare.py brain loaded, just click on
+the name of the file in the Pyro window and you will get its contents
+displayed in an emacs window. Save this brain in your own home
+directory. Then modify it so that it transcribes a circle instead of a
+square. Next, load this brain. Try it!
+<p>
+<p>
+<h2 width="804"> Starting devices on start-up, redux</h2>
+<p>
+As mentioned in the last section, some thought must be given to how you want devices loaded and unloaded in your code. In Pyro, you load a robot once, then you load your control program (brain). You can then reload your control program again if you make changes to it. However, if you load a device in, say, the <tt class="wiki">setup()</tt> method of your control code, then you don't want it to load again. Devices, once they are started, remain active for the remainder of the session. In fact, you will run into problems if you try to start devices that are already active. This will of course happen every time you reload your brain program. There are three ways to deal with this problem.
+<p>
+First, add a <tt class="wiki">destroy()</tt> method to your code, and remove any device there that was started in setup, like this:
+<p>
+<pre class="code">
+class myBrain(Brain):
+   def setup(self):
+       self.robot.startDevice(&quot;ptz&quot;)
+   def destroy(self):
+       self.robot.removeDevice(&quot;ptz&quot;) # removeDevice can take an ID or type
+   ...
+</pre>
+<p>
+Another option is to make sure that you only ever load a device once. This method works nicely with some camera types (V4L<b></b>Cameras) that are currently a little picky about stopping and starting quickly:
+<p>
+<pre class="code">
+...
+class VisionBrain(Brain):
+   def setup(self):
+      if not self.robot.hasA(&quot;camera&quot;):
+         self.camera = self.robot.startDevice(&quot;V4LCamera0&quot;)
+         self.camera.addFilter( process )
+   def step(self):
+      # do something with the camera processed data:
+      print self.camera.filterResults
+</pre>
+<p>
+In this code, the function <tt class="wiki">self.robot.hasA(&quot;camera&quot;)</tt> has been used. If the robot does have a camera, the function returns 1. If there is no camera, the function returns 0. In this manner, you only have to load a device once (the first time), and it just stays around after that.
+<p>
+Finally, you can load your devices outside of the brain, either manually via the GUI or, by starting it with the command line switch <b>-d</b>. This command line flag allows you to specify a list of devices. The list is a set of device names (either builtIn or filenames) that are separated by commas with no spaces:
+<p>
+<pre class="code">
+pyro -r Player6665 -d ptz,BlobCamera
+</pre>
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Bonasso, R. P., Kortenkamp, D., & Murphy, R. (Eds.). (1998). <i>Artificial Intelligence and Mobile Robots</i>. MIT Press.</li>
+</ol><p>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Brains?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Brains?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

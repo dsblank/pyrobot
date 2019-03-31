@@ -1,0 +1,216 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095256", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroServices</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+THIS PAGE IS OUTDATED. PLEASE SEE PYROBOT DEVICES.
+<p>
+<p>
+<h1 width="804">1.  Pyro Services</h1>
+<p>
+This page describes the pyro services interface that defines how the robot can interact with items such as: power monitor, gripper, cameras, gps, sonar, laser, blobs, ptz, bumpers, and truth.
+ <img width="11" src="../wiki/img/alert.png"> These are only notes right now. This will be turned into documentation shortly.
+<p>
+There are two kinds of services: those that a robot can handle directly, and those that it can't. Most robots can handle commands to their bumpers, sonar, laser, etc. Many robots don't handle their framegrabbers directly. The Services interface attempts to hide the details between these very different kinds of services.
+<p>
+You start up all services by using either of these two calls:
+<p>
+<pre class="code">
+robot.startService( SERVICENAME )
+robot.startServices( SERVICE_SET )
+</pre>
+<p>
+There is a callback mechanism defined so that you can load services from a file. For example:
+<p>
+<pre class="code">
+# SimpleService.py
+from pyrobot.robot.service import Service
+def INIT(robot):
+    return {&quot;serviceName&quot;: Service() }
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> Notice that the service INIT callback takes a robot, not an engine. All services hang off of the robot.
+<p>
+This is a simple example of returning a SERVICE_SET using startServices(). In startService(), SERVICENAME can either be a name that the robot knows, or can be a filename. SERVICE_SET can be either a dictionary, or a list of known services. For example:
+<p>
+<pre class="code">
+def INIT(robot):
+    return (&quot;power&quot;, &quot;laser&quot;, &quot;blob&quot;)
+</pre>
+<p>
+This example returns 3 names of known services: power, laser, and blob. The next example creates two camera objects and returns them with two differnt names in dictionary form:
+<p>
+<pre class="code">
+# CameraServices.py
+def INIT(robot):
+    return {&quot;camera0&quot;: Camera(), &quot;camera1&quot;: Camera(), &quot;gps&quot;: GPS()}
+</pre>
+<p>
+The above file can be loaded with the command:
+<p>
+<pre class="code">
+robot.startService(&quot;CameraServices&quot;)
+</pre>
+<p>
+if the file is in your current directory, you give a path to it, or in the pyrobot/plugins/services/ directory.
+<p>
+The robot starts and stops all services in the same manner:
+<p>
+<pre class="code">
+robot.startService( SERVICENAME )    =&gt; starts a file or named service
+robot.startServices( SERVICE_SET )   =&gt; starts all services in SET
+robot.getServices()                  =&gt; returns list of services
+robot.getService(SERVICENAME)        =&gt; returns a service object
+robot.getServiceData(SERVICENAME)    =&gt; returns the main data from this service
+</pre>
+<p>
+Some services have their own methods; however, all services have a core set of commands:
+<p>
+<pre class="code">
+service.stopService()
+service.startService()
+service.makeWindow()
+service.update()
+service.windowUpdate()
+</pre>
+<p>
+<p>
+<h2 width="804">1.1.  Putting it all together</h2>
+<p>
+<pre class="code">
+robot.startService(&quot;BlobCamera&quot;)          # this loads the pyrobot/plugins/services/BlobCamera.py file.
+service = robot.getService(&quot;BlobCamera&quot;)
+service.makeWindow()                      # this creates a window and adds the window to the redraw list
+service.active = 0                        # this temporarily disables this service
+service.visible = 0                       # this prevents updating the window
+</pre>
+<p>
+You can create your own Service if you wish for something to be done each robot update(). In fact, you could write your own controller in these services, or even control the robot.
+<p>
+<p>
+<h2 width="804">1.2.  Command line services</h2>
+<p>
+You may startup a set of services on the shell command line when starting up Pyro with the <tt class="wiki">-v</tt> flag:
+<p>
+<pre class="code">
+&#36; pyrobot -r Player1 -v blob,truth
+</pre>
+<p>
+Note that you must list a robot with the <tt class="wiki">-r</tt> flag as services require a robot.
+<p>
+<p>
+<h2 width="804">1.3.  Config file services</h2>
+<p>
+You can also have a set of services begin by using a config file (either bay naming it .pyrobot or pyrobot.ini, or by giving it on the command line with the <tt class="wiki">-i</tt> flag). The format is:
+<p>
+<pre class="code">
+[robot]
+services=BlobCamera,laser
+</pre>
+<p>
+<p>
+<h2 width="804">1.4.  Gripper</h2>
+<p>
+The following methods are defined for all grippers.
+<p>
+<pre class="code">
+    open():
+    close():
+    stopMoving():
+    liftUp():
+    liftDown():
+    liftStop():
+    store():
+    deploy():
+    halt():
+    getState():
+    getBreakBeamState():
+    isClosed(): 
+    isMoving():
+    isLiftMoving():
+    isLiftMaxed():
+</pre>
+<p>
+<p>
+<h2 width="804">1.5.  PTZ</h2>
+<p>
+The following methods are defined for all pan-tilt-zoom units.
+<p>
+<pre class="code">
+    pan(numDegrees):
+    panRel(numDegrees):
+    tilt(numDegrees):
+    tiltRel(numDegrees):
+    panTilt(panDeg, tiltDeg):
+    panTiltRel(panDeg, tiltDeg):
+    centerCamera():
+    zoom(numDegrees):
+    zoomRel(numDegrees):
+    getPan():
+    getTilt():
+    getZoom():
+    getRealPan():
+    getRealTilt():
+    getRealZoom():
+    canGetRealPanTilt():
+    canGetRealZoom():
+    getMaxPosPan():
+    getMaxNegPan():
+    getMaxPosTilt():
+    getMaxNegTilt():
+    getMaxZoom():
+    getMinZoom():
+</pre>
+<p>
+<p>
+<h2 width="804">1.6.  Camera</h2>
+<p>
+The following methods are defined for all cameras.
+<p>
+<pre class="code">
+    def updateWindow():
+    def makeWindow():
+    visible = [0|1]
+    active = [0|1]
+</pre>
+<p>
+Plus all of the methods from <a href="../page_PyroImage/">PyroImage</a> (pyrobot/vision/__init__.py). Including:
+<p>
+<pre class="code">
+    def getVal(x, y):
+    def getRow(y):
+    def getCol(x):
+    def getDim():
+    def histogram(cols = 20, rows = 20, initvals = 0):
+    def convolve(convmask, bit = 0, threshold = 0):
+    def update(1):                                  # Returns motion info
+</pre>
+<p>
+<p>
+<h1 width="804">2.  TODO</h1>
+<p>
+<ol type="1"><li>Services should have a frequency time to indicate how often they are updated. The window should only update if the data is new. Need a timestamp to show updated time, and to check for window updates.</li>
+</ol><p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroServices?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroServices?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

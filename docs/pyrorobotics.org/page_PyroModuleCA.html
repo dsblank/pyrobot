@@ -1,0 +1,333 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160709", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleCA</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module CA</h1>
+<p>
+<i>This module is designed to allow you to to explore Cellular Automata using Python code and the Pyrobot library.</i>
+<p>
+<p>
+<h2 width="804"> 1D Cellular Automata</h2>
+<p>
+Cellular Automata (CA) were invented by John von Neumann as a discrete model of a simplified universe (see
+<a href="http://en.wikipedia.org/wiki/Cellular_automata"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Wikipedia.org</a> for a full history and definition). A CA is a matrix of cells, each in a particular state, <tt class="wiki">K</tt>, and an associated set of rules that transform the cells over time. Common CAs come in 1D and 2D (Game of Life) variations. For this module, we will explore the simplest, 1D CA.
+<p>
+A 1D CA consists of a row of &quot;cells&quot;, each in a state, <tt class="wiki">K</tt>. To keep things very simple, we will consider <tt class="wiki">K = 2</tt> and use 0 and 1 to represent the two states. Here is a sample 1D CA (which we will call a lattice):
+<p>
+<pre class="code">
+00010101000101010010101010101001010101001010010
+</pre>
+<p>
+We will consider each cell to have two direct neighbors, one on the left and one on the right. The first and last cells will be defined to have each other as neighbors. In this way, the CA wraps around, and has no beginning nor end.
+<p>
+Now, this wouldn't be very interesting if the CA just sat there. So, we will define a set of &quot;rules&quot; that describe how to change a cell's state. CA rules define a transformation function. Each rule describes what state to transform a single cell into on the following time step. 
+<p>
+We could define a simple rule set like so:
+<p>
+<pre class="code">
+Rule Cell   Output
+     ----   ------
+  A    0      1
+  B    1      0
+</pre>
+<p>
+This defines a ruleset with 2 rules. The first rule (A) says that if a cell has a zero in it, then change it to a 1. The second rule (B) says that if a cell has a 0 in it, change it to a 0. We can then apply these rules to the initial lattice:
+<p>
+<pre class="code">
+00010101000101010010101010101001010101001010010
+</pre>
+<p>
+We apply the appropriate rule to each cell to get:
+<p>
+<pre class="code">
+11101010111010101101010101010110101010110101101
+</pre>
+<p>
+All of the 1's became 0's, and 0's became 1's. Likewise, if we apply the ruleset to this new lattice, we get:
+<p>
+<pre class="code">
+00010101000101010010101010101001010101001010010
+</pre>
+<p>
+which is the original lattice. You might say that we are &quot;in a loop&quot; because we are back where we started. Because there is nothing random in this system, we will continue in this cycle, getting back to where we started every other step. If we apply the rules repeatedly, and put the resulting lattices directly under the previous lattice, we get something that looks like:
+<p>
+<pre class="code">
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+00010101000101010010101010101001010101001010010
+11101010111010101101010101010110101010110101101
+</pre>
+<p>
+This is a history view of the 1D CA with time going down, row by row. But this isn't very interesting. It is completely predictable. You could tell me what row 12,125,557 would look like. We can still ask some questions about this simple system:
+<p>
+<ol type="1"><li>How many different rulesets are there?</li>
+<li>Are all of the resulting lattices of the different rulesets as simple as this one?</li>
+<li>Can you predict what will happen in all cases?</li>
+<li>How does the size of all possible output rows relate to all possible output rows that you can actually get to by applying the rules? Are they the same?</li>
+<li>Given a particular output row, can you work backwards to determine what state led to it? If you could, you might describe the CA as <i>reversible</i>.</li>
+</ol><p>
+<p>
+<h2 width="804"> A Bigger Neighborhood</h2>
+<p>
+Let's consider some larger rulesets, this time taking into account a cell's immediate neighbors. Consider:
+<p>
+<pre class="code">
+Rule Left   Cell   Right      Output
+     ----   ----   -----      ------
+  0    0     0       0          1
+  1    0     0       1          0
+  2    0     1       0          0
+  3    0     1       1          1
+  4    1     0       0          0
+  5    1     0       1          1
+  6    1     1       0          0
+  7    1     1       1          1
+</pre>
+<p>
+This table of 8 rules describes a set of <i>inputs</i> to match (Left, Cell, and Right) and the resulting <i>outputs</i>. To see how to apply these rules, consider the following cellular matrix:
+<p>
+<pre class="code">
+Position:  0  1  2  3  4  5  6
+          ---------------------
+States:    0  0  1  0  1  1  1
+</pre>
+<p>
+Let's consider the cell at position 3. To see what the state of position 3 at the next time step will be, we consider the state at position 3, and the cells immediately to the Left and Right. In this case, that would be cells at positions 2, 3, and 4. Specifically, that would be the states {1, 0, 1}. We next find the rule in the table that matches that input, and we see that it matches rule #5. The output of rule #5 is 1, so on the next time step that cell will become 1.
+<p>
+In order to compute the values for the ends of the matrix, we will consider the cells to <i>wrap around</i> so that the left-most cell will have the right-most cell as its immediate left. Likewise, the right-most cell will consider the left-most cell to be its immediate right.
+<p>
+We then apply rules for each position, performing the match in parallel. Therefore, after one step, we would have:
+<p>
+<pre class="code">
+Position:  0  1  2  3  4  5  6
+          ---------------------
+ Time 0    0  0  1  0  1  1  1
+ Time 1    0  0  0  1  1  1  0
+</pre>
+<p>
+We can make a couple of observations at this point. Do you see a relationship between the matching input pattern and the rule number? 
+<p>
+<p>
+<h3 width="804"> Sidebar: Binary Numbers</h3>
+<p>
+Binary, like decimal, has places. In decimal we use:
+<p>
+<pre class="code">
+1,000s 100s  10's  1's
+------ ----  ----  ---
+  3     0      4    9
+</pre>
+<p>
+which tells us that 3049 is equal to 3000 + 40 + 9.
+<p>
+Likewise, in binary we us:
+<p>
+<pre class="code">
+64's  32's  16's   8's  4's  2's  1's
+----  ----  ----  ---- ---- ---- ----
+  1     0     1     0    0    1    0
+</pre>
+<p>
+Therefore, the binary number 1010010 is equal to (in decimal) 64 + 16 + 2 = 82.
+<p>
+<ol type="1"><li>How many different rulesets are there for this system?</li>
+<li>How does the size of all possible output rows relate to all possible output rows that you can actually get to by applying the rules? Are they the same?</li>
+<li>Given a particular output row, can you reverse the CA (work backwards) to determine what state led to it?</li>
+</ol><p>
+<p>
+<h2 width="804"> Rule numbers</h2>
+<p>
+You will notice that the matching pattern is just the rule number, in binary digits. For example, {1, 0, 1} is 5 in binary.
+<p>
+How many rows does the rule table have? You'll notice that it is 2 raised to the 3rd power (2 ^ 3 = 2 * 2 * 2 =8). In general, it will be <tt class="wiki">K</tt> (number of states) raised to the <tt class="wiki">2r + 1</tt> power, where <tt class="wiki">r</tt> is the neighborhood radius around the center cell. In our case, <tt class="wiki">r = 1</tt> so <tt class="wiki">2r + 1 = 3</tt>, and there are 8 rows in the table.
+ <img width="11" src="../wiki/img/idea.png"> How many rows would there be in a table where <tt class="wiki">K = 5</tt> and <tt class="wiki">r = 3</tt>?
+<p>
+One can also ask how many <i>different</i> rule sets are there for a given table size? Because each output can be one of <tt class="wiki">K</tt> states, the total number of rules is <tt class="wiki">K</tt> raised to the <tt class="wiki">K</tt> raised to the <tt class="wiki">2r + 1</tt>. Where <tt class="wiki">K = 2</tt> and <tt class="wiki">r = 1</tt>, we have a total number of <tt class="wiki">2 ** (2 ** 3) = 256</tt> different rule sets in the simple example of radius = 1. 
+<p>
+As a shorthand, we can actually refer to an entire ruleset by referring to its output column. For example, ruleset #110 is just 110 in binary which is 01101110. Ruleset #0 is 00000000, and ruleset #255 is 11111111. We will take the leftmost binary digit to be the most-significant, and so we will match it left-to-right as bottom-to-top. Therefore, ruleset #110 is:
+<p>
+<pre class="code">
+Rule Left   Cell   Right      Output
+     ----   ----   -----      ------
+  0    0     0       0          0
+  1    0     0       1          1
+  2    0     1       0          1
+  3    0     1       1          1
+  4    1     0       0          0
+  5    1     0       1          1
+  6    1     1       0          1
+  7    1     1       1          0
+</pre>
+<p>
+Notice that the output column is (from bottom to top) 01101110 which is 110 in decimal.
+<p>
+This is a nice representation because the decimal number 110 represents the entire table!
+ <img width="11" src="../wiki/img/idea.png"> Draw the entire table for rule 54.
+<p>
+<p>
+<h2 width="804"> The CA Python library</h2>
+<p>
+To explore 1D CA's, we will be using the language Python. You don't need to know the language for now, and you will be able to run the commands as shown.
+<p>
+First, you will need to be sitting in front of one of the computers in Park 231. You will log into Linux, and will be able to run the following examples. First, you must open a &quot;terminal&quot; by selecting &quot;Applications&quot; -&gt; &quot;System tools&quot; -&gt; &quot;Terminal&quot;.
+<p>
+To use the code interactively, try (don't type in the % nor the &gt;&gt;&gt; as those represent the prompts):
+<p>
+<pre class="code">
+% python
+&gt;&gt;&gt; from pyrobot.general.ca import *
+&gt;&gt;&gt; rules = Rules(radius=1)
+&gt;&gt;&gt; rules.init(110)
+</pre>
+<p>
+<tt class="wiki">rules.data</tt> returns <tt class="wiki">[[0, 1, 1, 0, 1, 1, 1, 0]]</tt>. You can also see it by:
+<p>
+<pre class="code">
+&gt;&gt;&gt; rules.display()
+  0 .XX.XXX. 0.62
+</pre>
+<p>
+In this output, zero is represented by a dot, and one by an X. The first zero indicates the row (not meaningful for rules), and the last floating-point number (0.62 in this case) is the percent of ones in the rule.
+<p>
+Next, we create a matrix for creating a series of transformations. We will call these histories of 1D rows a <i>lattice</i>:
+<p>
+<pre class="code">
+&gt;&gt;&gt; lat = Lattice(size=65)
+&gt;&gt;&gt; rules.watch(lat)
+</pre>
+<p>
+You can set particular 1's and 0's:
+<p>
+<pre class="code">
+&gt;&gt;&gt; lat = Lattice()
+&gt;&gt;&gt; lat.init(&quot;0&quot; * lat.size)
+&gt;&gt;&gt; lat.data[0][lat.size / 2] = 1
+</pre>
+<p>
+The last line will set the middle cell to a state of 1.
+<p>
+Rules have the following keywords and defaults:
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default Value</b> </td></tr>
+<tr><td> radius     </td><td> 3   </td></tr>
+<tr><td> values (K) </td><td> 2   </td></tr>
+<tr><td> bias       </td><td> 0.5 </td></tr>
+</table><p>
+Bias is a value for determining what percentage of the rules should be randomly set to 1's. You can also initialize the rules by giving a specific string, or a ruleset number:
+<p>
+<pre class="code">
+&gt;&gt;&gt; rules = Rules(radius = 1)
+&gt;&gt;&gt; rules.init(110)              # equivalent to rules.init(&quot;01101110&quot;)
+&gt;&gt;&gt; rules.data
+</pre>
+<p>
+Lattice has the following keywords and defaults:
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default Value</b> </td></tr>
+<tr><td> size     </td><td> 149   </td></tr>
+<tr><td> height </td><td> 150   </td></tr>
+<tr><td> bias       </td><td> 0.5 </td></tr>
+</table><p>
+You can see the lattice by doing either of the following:
+<p>
+<pre class="code">
+&gt;&gt;&gt; lat.display()   # OR
+&gt;&gt;&gt; rules.watch(lat)
+</pre>
+<p>
+Other methods to try:
+<p>
+<pre class="code">
+&gt;&gt;&gt; lat.randomize( .7)  # randomizes to about 70% 1's
+&gt;&gt;&gt; rules.randomize(.1)  # randomizes to about 10% 1's
+</pre>
+<p>
+Problems to try:
+<p>
+<ol type="1"><li>If you shift the initial conditions to the left or right (and wrap), what is the difference in the resulting behavior?</li>
+<li>Try seeing what the effect of making the size of the lattice very small is, but keeping the rule and initial conditions the same.</li>
+<li>In what way can this be seen as computing?</li>
+<li>Keep the initial condition the same, but try all 256 rules on it, where <tt class="wiki">K = 2, r = 1</tt>. What patterns do you see?</li>
+<li>Imagine <tt class="wiki">K = 2, r = 3</tt>. What is the size of the table? How many different rulesets are there? How can you find some interesting ones?</li>
+<li>What can be said of rulesets that are inverses of each other (such as, &quot;1001&quot; and &quot;0110&quot;)?</li>
+<li>How would the behavior of a CA change if the states were just probabilistically likely, rather than deterministic? Or if there was a mutuation rate that randomly flipped a bit?</li>
+<li>How could you make the CA more continuous?</li>
+<li>How could you add &quot;conservation&quot; to the CA (ie, so that there is always the same number of ones)?</li>
+<li>Explore &quot;reversable&quot; CAs.</li>
+</ol><p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Flake, <i>The Computational Beauty of Nature</i></li>
+<li>Wolfram, <i>A New Kind of Science</i></li>
+</ol><p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleCA?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleCA?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219092820", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Using_20the_20Sony_20AIBO_20Robot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Using the Sony AIBO Robot</h1>
+<p>
+This module describes how to use the Sony AIBO robot dog in Pyro.  
+<p>
+<p>
+<h2 width="804"> Connecting to the AIBO</h2>
+<p>
+To use the AIBO, first load your Tekkotsu memstick into the AIBO's
+memstick slot. (See &quot;Setting up Your Memstick&quot; below if you haven't
+already done this.) Then turn the dog on; you will hear a beep, then a
+growling noise. This means that the robot is ready.
+<p>
+<p>
+<h2 width="804"> Running robot brains on the AIBOs</h2>
+<p>
+The details of how to do this depend on the site:
+<p>
+<ul><li><a href="../page_SwarthmoreRobotDetails/">SwarthmoreRobotDetails</a></li>
+<li><a href="../page_BrynMawrRobotDetails/">BrynMawrRobotDetails</a></li>
+</ul><p>
+<p>
+<h2 width="804"> Know your Aibo</h2>
+<p>
+The ERS-7 comes with all of the following:
+<p>
+<ul><li>576 MH<b></b>z MIPS R7000</li>
+<li>64 MB RAM</li>
+<li>802.11b wireless ethernet (standard)</li>
+<li>Memory Stick reader/writer (in dog)</li>
+<li>18 PID joints, each with force sensing</li>
+<ul><li>4 legs</li>
+<ul><li>3 joints each (elevate, rotate, knee)</li>
+<li>1 paw button each</li>
+</ul><li>3 joints on neck (tilt, pan, nod)</li>
+<li>2 joints on tail (tilt, pan)</li>
+<li>1 joint on mouth</li>
+</ul><li>2 ears, 1 boolean joint each (flick up or down)</li>
+<li>26 independent LEDs</li>
+<li>Video camera</li>
+<ul><li>56.9° wide and 45.2° high</li>
+<li>Resolutions: 208 x 160, 104 x 80, 52 x 40</li>
+<li>30 frames per second</li>
+</ul><li>Stereo microphones</li>
+<li>3 IR distance sensors</li>
+<li>X, Y, and Z accelerometers</li>
+<li>4 pressure sensitive buttons (one on head, three on back)</li>
+<li>1 boolean button under mouth</li>
+<li>Sensor updates every 32 ms, with 4 samples per update.</li>
+</ul><p>
+Nearly all of these features are fully integrated into the Python
+Robotics system. At the moment, however, both ear movement and sound
+detection using the microphones remain unimplemented.
+<p>
+<p>
+<h2 width="804"> AIBO Movement Control</h2>
+<p>
+The AIBO can be moved using the standard forward/backward and rotate
+interfaces (ie, <b>robot.move()</b>). There is also an additional
+control: <b>robot.strafe(amount)</b>.  Strafing is a side-to-side
+movement.
+<p>
+Three different types of walks can be imported using the command
+<b>robot.setWalk(file)</b>, where <i>file</i> can be one of the following:
+<i>PACE.PRM, TIGER.PRM, WALK.PRM</i>.
+<p>
+<p>
+<h2 width="804"> Individual Joint Control</h2>
+<p>
+The AIBO has a number of joints to be manipulated. The values of the
+joint positions are normalized to a range from -1.0 to 1.0, or in some
+cases 0.0 to 1.0. This table lists the joint names, ranges, and some
+useful values to know.
+<p>
+<table border="1"><tr><td><b>joint</b></td><td><b>range</b></td><td>   </td><td><b>significant values</b></td></tr>
+<tr><td>mouth</td><td>0.0 : 1.0</td><td>   </td><td>0.0 is closed, 1.0 is open</td></tr>
+<tr><td>tail pan</td><td>-1.0 : 1.0</td><td>   </td><td></td></tr>
+<tr><td>tail tilt</td><td>-1.0 : 1.0</td><td>  </td><td></td></tr>
+<tr><td>front rotator</td><td>-1.0 : 1.0</td><td>   </td><td>0.0 pointing down, 1.0 max forward, -1.0 max backward</td></tr>
+<tr><td>back rotator</td><td>-1.0 : 1.0</td><td>   </td><td>0.0 pointing down, 1.0 max backward, -1.0 max forward</td></tr>
+<tr><td>elevator</td><td>-1.0 : 1.0</td><td>   </td><td>0.0 straight down, 1.0 max away from body, -1.0 close to the body</td></tr>
+<tr><td>front knee</td><td>-1.0 : 1.0</td><td>   </td><td>0.0 straight, 1.0 max bent, -1.0 max extended</td></tr>
+<tr><td>back knee</td><td>-1.0 : 1.0</td><td>   </td><td>0.0 straight, 1.0 max bent, -1.0 max extended</td></tr>
+</table><p>
+To get the value of a joint, use <b>getJoint(jointName)</b>, where <i>jointName</i> is one of the following:
+<ul><li>leg [front | back] [left | right] [rotator | elevator | knee]</li>
+<li>head [tilt | pan | roll | nod]</li>
+<li>tail [tilt | pan]</li>
+<li>mouth</li>
+</ul><p>
+Examples:
+<pre class="code">
+robot.getJoint(&quot;leg front left rotator&quot;)
+robot.getJoint(&quot;head roll&quot;)
+robot.getJoint(&quot;mouth&quot;)
+robot.getJoint(&quot;tail tilt&quot;)
+</pre>
+<p>
+To set the position of a joint use <b>setPose(jointName, amount)</b>. <i>amount</i> is a floating-point value between -1.0 and 1.0 (see table above). <i>jointName</i> is any of the possiblities from <b>getJoint()</b>. For example:
+<pre class="code">
+robot.setPose(&quot;leg front right elevator&quot;, -0.4)
+robot.setPose(&quot;mouth&quot;, 0.35)
+</pre>
+<p>
+Alternatively, you can leave off the <i>[elevator | rotator | knee]</i>
+component of the leg joints and specify all three values at
+once. Similarly, you can specify both the <i>pan</i> and <i>tilt</i> of the
+tail with one command.
+<p>
+<ul><li>leg [front | back] [left | right], amountRotator, amountElvevator, amountKnee</li>
+<li>tail, amountPan, amountTilt</li>
+</ul><p>
+Like this:
+<pre class="code">
+robot.setPose(&quot;leg back left&quot;, 0.0, -0.2, 0.6)
+robot.setPose(&quot;tail&quot;, 1.0, 0.5)
+</pre>
+<p>
+<p>
+<h2 width="804"> AIBO Sounds</h2>
+<p>
+You can make the AIBO speak like this:
+<p>
+<pre class="code">
+robot.playSound(&quot;filename&quot;)
+</pre>
+<p>
+Here are some of the available sound file names: 
+3BARKS.WAV, 3YIPS.WAV, BARKHIGH.WAV, BARKLOW.WAV, BARKMED.WAV
+BARKREAL.WAV, CAMERA.WAV, CATCRY.WAV, CATYOWL.WAV, CRASH.WAV
+CUTEY.WAV, DONKEY.WAV, FART.WAV, GLASS.WAV, GROWL.WAV
+GROWL2.WAV, GRRR.WAV, HOWL.WAV, MEW.WAV, PING.WAV, ROAR.WAV
+SKID.WAV, SNIFF.WAV, TICK.WAV, TOC.WAV, WHIIP.WAV, WHIMPER.WAV
+WHOOP.WAV, YAP.WAV, YIPPER.WAV
+<p>
+<p>
+<h2 width="804"> AIBO Sensors & Buttons</h2>
+<p>
+You can read the values of the AIBO's sensors and buttons in a similar way.
+<p>
+To get the value of a particular sensor use <b>getSensor(sensorName)</b> where <i>sensorName</i> can be any of the following:
+<ul><li>ir [near | far | chest]</li>
+<li>accel [front-back | right-left | up-down]</li>
+<li>power [remaining | thermo | capacity | voltage | current]</li>
+</ul><p>
+<pre class="code">
+robot.getSensor(&quot;ir near&quot;)
+robot.getSensor(&quot;accel right-left&quot;)
+</pre>
+<p>
+This table explains the values returned by the sensors.
+<table border="1"><tr><td><b>sensor</b></td><td><b>unit</b></td><td><b>range of values</b></td></tr>
+<tr><td>ir near</td><td>mm</td><td>50-500</td></tr>
+<tr><td>ir far</td><td>mm</td><td>200-1500</td></tr>
+<tr><td>ir chest</td><td>mm</td><td>100-900</td></tr>
+<tr><td>accel (all)</td><td>positive-negative values</td></tr>
+<tr><td>power remaining</td><td>% of power remaining</td><td>0.0-1.0</td></tr>
+<tr><td>power thermo</td><td>deg. celcius</td><td></td></tr>
+<tr><td>power capacity</td><td>milli-amp hours</td><td></td></tr>
+<tr><td>power voltage</td><td>volts</td><td></td></tr>
+<tr><td>power current</td><td>negative milli-amp hours</td><td></td></tr>
+</table><p>
+To read the raw value of a button use <b>getButton(buttonName)</b> where <i>buttonName</i> is one of:
+<ul><li>paw [front | back] [left | right] : returns whether it's on or off</li>
+<li>chin : pressure</li>
+<li>head : pressure</li>
+<li>body [front | middle | rear] : returns the amount of pressure being applied</li>
+<li>wireless</li>
+<pre class="code">
+robot.getButton(&quot;paw front left&quot;)
+robot.getButton(&quot;chin&quot;)
+robot.getButton(&quot;body middle&quot;)
+</pre>
+</ul><p>
+<p>
+<h2 width="804"> Head Movement/Using the AiboCamera</h2>
+To make use of the AIBO's head camera, type
+<pre class="code">
+robot.startDevice(&quot;AiboCamera&quot;)
+</pre>
+at the pyrobot command line. A window will pop up displaying the real-time image taken from the AIBO's camera. The AIBO Camera is fully integrated with Pyro's vision system, so you can filter, blobify, etc.
+<p>
+The robot's head is implemented as a standard pan/tilt/zoom device, but the zoom parameter is ignored. An additonal parameter, <i>roll</i>, controls the angle of the head relative to the neck.
+<pre class="code">
+robot.ptz[0].pan(0.3)
+robot.ptz[0].roll(1.0)
+</pre>
+<p>
+The ranges of the pan/tilt/roll parameters are:
+<table border="1"><tr><td><b>param</b></td><td><b>range</b></td><td><b>significant values</b></td></tr>
+<tr><td>pan</td><td>-1.0 : 1.0</td><td>0.0 centered, 1.0 max left, -1.0 max right</td></tr>
+<tr><td>tilt</td><td>-1.0 : 0.0</td><td>0.0 highest, -1.0 lowest</td></tr>
+<tr><td>roll</td><td>0.0 : 1.0</td><td>0.0 lowest (straight ahead), 1.0 highest (about 45 degrees up)</td></tr>
+</table><p>
+<p>
+<h2 width="804"> Some AIBO Brains</h2>
+<p>
+<tt class="wiki">TrackBall.py</tt> will follow a blob. See the vision module for more information.
+<p>
+<tt class="wiki">AiboFindBall.py</tt> will attempt to kick a ball into a goal.
+<p>
+<p>
+<h2 width="804"> Requirements</h2>
+<p>
+Hardware:
+<ul><li>Aibo (ERS-7 comes with wireless)</li>
+<li>Wireless access point</li>
+<li>Sony memstick (16MB will do)</li>
+<li>Memstick reader/writer</li>
+<li>Linux host computer</li>
+</ul><p>
+Software:
+<ul><li>Python</li>
+<li>Pyro (at least version 3.5.0) - build with Vision system, and Aibo camera</li>
+<li>Tekkotsu 2.4 Memstick</li>
+</ul><p>
+<p>
+<h2 width="804"> Setting up Your Memstick</h2>
+<p>
+Pyro uses the <a href="http://www-2.cs.cmu.edu/~tekkotsu/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Tekkotsu</a> Monitoring
+system, version 2.4, to control the AIBO robot over the wireless. 
+Don't use the 3.0 version until we update.
+<p>
+<ol type="1"><li>Make sure that the AIBO is charged, and the wireless is configured properly.</li>
+<li>Download Tekkotsu Monitor and Tekkotsu Memstick software (with our patches).</li>
+<li>Copy the Memstick software onto a blank pink AIBO memstick (16MB will do). There will be three directories on the memstick when you are done: <tt class="wiki">config</tt>, <tt class="wiki">data</tt>, and <tt class="wiki">open-r</tt>.</li>
+<li>Edit the <tt class="wiki">wlanconf.txt</tt> file on the memstick:</li>
+<tt class="wiki">/memstick/open-r/system/conf/wlanconf.txt</tt>
+</ol><p>
+It might look something like:
+<p>
+<pre class="code">
+HOSTNAME=aibo
+ETHER_IP=109.23.34.76
+ETHER_NETMASK=255.255.255.0
+IP_GATEWAY=109.23.34.1
+ESSID=SomeKeyWord
+WEPENABLE=0
+WEPKEY=AIBO2
+APMODE=1
+CHANNEL=6
+DNS_SERVER_1=109.23.1.6
+DNS_DEFDNAME=college.edu
+USE_DHCP=0
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> If you have any spaces in your ESSID, don't put any kind of quote marks around it. For example, if your ESSID was <tt class="wiki">Clever DogWireless</tt>, the line would be:
+<p>
+<pre class="code">
+ESSID=Clever DogWireless
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> Also, don't forget to put 0x in front of your WEPKEY if it is in hexidecimal.
+<p>
+<ol type="5" start="5"><li>Edit your MEMSTICK/config/tekkotsu.cfg and change all of the lines that have &quot;rawcam&quot; and &quot;udp&quot; on them so that they refer to &quot;tcp&quot; rather than &quot;udp&quot;. For example, change:</li>
+</ol><p>
+<pre class="code">
+rawcam_transport=udp
+to 
+rawcam_transport=tcp
+</pre>
+<p>
+<ol type="5" start="6"><li>Boot the Aibo on this new memstick. You should hear a growl after a few seconds. You should also be able to <tt class="wiki">ping</tt> it (if you don't block ping data in your firewall). You will also need to have access to the following ports: 10011, 10012, 10020, 10031, 10032, 10050, 10051, 10053, and 10061.</li>
+<li>Run Pyro version 3.5.0 or greater.</li>
+</ol><p>
+Bryn Mawr student Ioana Butoi did the work to get the AIBO interface running.
+For further informationb please visit: 
+<p>
+Next: <a href="../page_Using_20the_20IntelliBrain-Bot/">Using the IntelliBrain-Bot</a>
+Up: <a href="../page_PyroHardware/">PyroHardware</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Sony_20AIBO_20Robot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Sony_20AIBO_20Robot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,748 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102837", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleSelfOrganizingMap</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module Self Organizing Map</h1>
+<p>
+The Self-Organizing Map (or SOM for short) was invented by Teuvo Kohonen around 1981. It is a method of automatically creating a topologically sorted <i>map</i> of representations. To explore this technique we will use software written by Kohonen's research lab. However, we won't use this software directly, but through a Python <i>wrapper</i> class. A wrapper is just a small bit of code that &quot;wraps&quot; around function calls to make those functions available to another system. In our case, the SOM code is written in C and we are, of course, writing in Python. For this module we will use the <tt class="wiki">pyrobot.brain.psom</tt> class.
+<p>
+We will use the term <i>self-organization</i> to refer to those systems that create their own representation and structures with little or no feedback from an outside teacher. This means that a system is free to represent items as it chooses. Because we don't have a teacher, we must use an <i>unsupervised</i> training procedure. In unsupervised training, we may provide some hints (or <i>feedback</i>) as to how well a system is doing, but we will be agnostic as to how the system solves a problem.
+<p>
+We will use the term <i>map</i> to refer to an N-dimensional topological representation. The SOM is a technique for creating such a topological map. It is topological in that similar patterns appear closer to each other, and ones that are less similar are further away. For these experiments, we will be creating 2-dimensional maps, so they will look similar in some ways to the everyday kind of spatial maps we use to get from place to place.
+<p>
+For more information on the C SOM implementation, please see <a href="http://emergent.brynmawr.edu/~dblank/cs380/devrobs/som_doc.ps"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;som_doc.ps</a>
+<p>
+For more information on our implementation of the SOM, see the source code at <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/brain/psom/__init__.py">svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/brain/psom/__init__.py</a>, and click on the topmost <b>(view)</b>.
+<p>
+To explore exactly what a SOM is and can do for us, let's examine a toy problem.
+<p>
+<p>
+<h2 width="804"> SOM: Step-by-Step Example</h2>
+ <img width="11" src="../wiki/img/alert.png"> This example creates a graphical window on your display. You need to be running a graphical windows system on your computer, not just a console window, for this demonstration.
+<p>
+To begin examination of the SOM, we will do an interactive example. Start up Python, and enter the following commands at the Python prompt. Later we will create scripts that we can save and reuse. 
+<p>
+First we load the SOM Python wrapper, called <tt class="wiki">psom</tt>:
+<p>
+<pre class="code">
+from pyrobot.brain import psom
+</pre>
+<p>
+Don't worry if you see a warning message from Python. Next we load a visualization tool for the SOM, called <tt class="wiki">vis</tt>:
+<p>
+<pre class="code">
+from pyrobot.brain.psom import vis
+</pre>
+<p>
+Now we are ready to begin creating and training a SOM. First, let's imagine a problem we would like to solve. Let's imagine that we are getting data from a set of sensors and we would like to build a topological map of the clusters of these sensor readings. Let's imagine that we have a robot with 5 sensors, and that the sensors are returning values between 0 and 1. For this simple example, let's create a map that is relatively small, say 3 x 4 units. We create the SOM with visualization ability using the <tt class="wiki">VisPsom</tt> class in the <tt class="wiki">vis</tt> module:
+<p>
+<pre class="code">
+mysom = vis.VisPsom(3, 4, dim=5)
+</pre>
+<p>
+Now you should see a window that looks like the following:
+<p>
+<img src="../_dblank/images/vispsom.jpg">
+<p>
+On the top of the window we see a representation of the map. It is 3 columns across, and 4 rows down. The cells are offset because the topology type is <i>hexagonal</i>. There are no numbers showing in each cell indicating that no patterns have been trained to any cell. On the bottom of the window there is a button labeled &quot;Show Map Count&quot;. We will discuss that option below. 
+<p>
+There are two types of topology: hexagonal and rectangular. The hexagonal grid is connected and labeled as shown:
+<p>
+<img src="../_dblank/images/hexagon.gif">
+<p>
+Before we can begin developing the self-organizing map, it must be initialized. Unlike backpropagation neural networks, this training method requires that we know approximately how many patterns we will be training as the learning follows a schedule. We will say 100 patterns for now. Also, we need to supply two learning parameters: the learning rate (called <i>alpha</i>), and the radius of the learning effect around a cell. Let's use 0.02 as alpha, with a radius of 3.0. Therefore, the initialization statement would be:
+<p>
+<pre class="code">
+mysom.init_training(0.02, 3, 100) 
+</pre>
+<p>
+Now we are ready to begin the self-organization process. However, before we begin training, there is one other property of the interface we can explore. After the initialization, each cell has been assigned a random vector exactly the length of the patterns on which we will be training. We will call these <i>model vectors</i> as they represent the model, or ideal, matching pattern for a cell. To see a cell's model vector simply click on the cell. A window will appear with the title of the window indicating the (x,y) location of the cell. Inside the window is the model vector, top to bottom. If you click on the upper left cell you will see a window that looks similar to the following:
+<p>
+<img src="../_dblank/images/model.jpg">
+<p>
+This is a representation of a vector that is approximately [0.6, 0.4, 0.9, -0.1, 0.0]. You may want to compare those values as learning proceeds. Notice that these random values are typically between -1 and 1 even though we didn't say what kind of data we would be training it on! For later testing, open a model vector window for each cell in the map. These windows will remain with these values so that we can compare them later. That might cover your screen, and look something like:
+<p>
+<img src="../_dblank/images/modelall.jpg">
+<p>
+Now, we will begin self-organization. To train the SOM, we present a series of vectors to the map. Currently, the map requires that the vector be represented as a special <tt class="wiki">psom.vector</tt>. Recall that we have decided that our imaginary robot has 5 sensors. So, to train the SOM on the pattern [0,1,0,1,1], we enter:
+<p>
+<pre class="code">
+model = mysom.train( psom.vector( [0,1,0,1,1] ))
+</pre>
+<p>
+This creates a <tt class="wiki">psom.vector</tt> by passing the array of values to it. That vector is then passed to the <tt class="wiki">train()</tt> method.
+<p>
+The SOM will compare this training vector with all of the model vectors of the map. Recall that each cell has a model vector. The closest vector (computed using a sum of squared differences) is identified, and declared the winner. This winning cell is colored black, and the number in the circle of the cell is incremented by one. Finally, the model vector of the cell, and the surrounding neighborhood cells are adjusted so that next time the model vector will even more closely resemble the training vector ([0,1,0,1,1] in this case.)
+<p>
+To see if this is true, click on the black cell and compare the new model vector with the old one. Did the values change to more closely match? How much did each value change? Did they all change by the same amount? When we trained the SOM on the pattern, some of the nearby cells in the neighborhood were adjusted. How much did these cells change? Can you find a model vector that didn't change? Explain.
+<p>
+The winning cell (the black one) has an (x,y) location on the map. This location can also be examined programmatically. Notice that the <tt class="wiki">train()</tt> method also returned a value that we stored in the variable <tt class="wiki">model</tt>. To see the location of the winning cell, enter:
+<p>
+<pre class="code">
+print model.point.x, model.point.y
+</pre>
+<p>
+Now examine the values of another cell's model vector. Create a training vector that is very similar and train the SOM on it. Did the cell you examined actually win? Remember, to train a new pattern, use the <tt class="wiki">train()</tt> method with a special <tt class="wiki">psom.vector</tt>:
+<p>
+<pre class="code">
+model = mysom.train( psom.vector( VECTOR ))
+</pre>
+<p>
+Now let's try training on 100 examples.  To do this it would be helpful if we could generate random bit vectors as our test cases. 
+Let's import the <tt class="wiki">random</tt> module and write a few helper functions.  In Python, executing <tt class="wiki">random.random()</tt> will return a pseudo random real value between 0 and 1.  
+<p>
+<pre class="code">
+import random
+def randomBit():
+  if random.random() &lt; 0.5:
+     return 0
+  else:
+     return 1
+def randomVec(n):
+  vec = range(n)
+  for i in range(n):
+     vec[i] = randomBit()
+  return vec
+</pre>
+<p>
+Now we can use a loop to train the SOM on 100 examples.
+<p>
+<pre class="code">
+for i in range(100):
+  vec = randomVec(5)
+  print vec
+  model = mysom.train(psom.vector(vec))
+</pre>
+<p>
+Notice as you train other patterns that a new cell becomes black. That is the new winning cell. The old black cells will slowly turn lighter. This gives you a visual sense of the recent history of what cells have won. You can think of a path going from winning cell to winning cell on each training step as a trajectory over the map.
+ <img width="11" src="../wiki/img/idea.png"> One final trick to the GUI: if you click on a cell with the left mouse button and drag into over to another cell and release, you will see the difference between two cell's model vectors. After training for awhile, you'll find the difference between nearby cells is less than the difference between cells that are further away. That is why we call it a topological map.
+<p>
+<p>
+<h2 width="804"> Exercise #1: Mapping Binary Representations</h2>
+<p>
+For this exercise we will take the binary representations of all of the numbers between 0 and 255 inclusive and map them to a SOM. First, we need to generate the codes. We need an array of all of the numbers, each as a vector of the bits. For example, the array should start like so:
+<p>
+<pre class="code">
+[[0, 0, 0, 0, 0, 0, 0, 0], 
+ [0, 0, 0, 0, 0, 0, 0, 1], 
+ [0, 0, 0, 0, 0, 0, 1, 0], 
+ [0, 0, 0, 0, 0, 0, 1, 1], 
+ [0, 0, 0, 0, 0, 1, 0, 0],
+ ...
+]
+</pre>
+<p>
+To generate this list, you could do it a simple way, maybe something like:
+<p>
+<pre class="code">
+def make8BitList():
+    &quot;&quot;&quot;
+    Makes an array of all of the binary codes (as themselves an array)
+    from 0 to 255. This isn't very flexible, and involves the same
+    code over and over. Not a very good design, but easy to understand.
+    &quot;&quot;&quot;
+    retval = []
+    for b7 in range(2):
+        for b6 in range(2):
+            for b5 in range(2):
+                for b4 in range(2):
+                    for b3 in range(2):
+                        for b2 in range(2):
+                            for b1 in range(2):
+                                for b0 in range(2):
+                                    retval.append( [ b7, b6, b5, b4,
+                                                     b3, b2, b1, b0 ] )
+    return retval
+</pre>
+<p>
+Here is a better version:
+<p>
+<pre class="code">
+def makeBitList(maxbits = 8):
+    &quot;&quot;&quot;
+    This version is much more flexible as it relies on a general function
+    that takes any number and converts it to binary. You can make any
+    size bit representation that you want:
+    makeBitList(2) will give you: [[0, 0], [0, 1], [1, 0], [1, 1]]
+    for example. Defaults to 8 bits.
+    &quot;&quot;&quot;
+    retval = []
+    for i in range( (2 ** maxbits)):
+        retval.append( dec2bin(i, maxbits) )
+    return retval
+def dec2bin(val, maxbits = 8):
+    &quot;&quot;&quot;
+    A decimal to binary converter. Returns bits in a list.
+    &quot;&quot;&quot;
+    retval = []
+    for i in range(maxbits - 1, -1, -1):
+        bit = int(val / (2 ** i))
+        val = (val % (2 ** i))
+        retval.append(bit)
+    return retval
+</pre>
+<p>
+Use either of the versions above to generate your array of all 256 representations. Now, create a SOM. You decide the rows and columns, but remember that the dim will need to be set to 8 (the size of our representations). Initialize the SOM. You can say <i>exactly</i> how many patterns it will see.
+<p>
+Train the SOM by calling the <tt class="wiki">train()</tt> method in a loop.
+ <img width="11" src="../wiki/img/idea.png"> If you place code in a file that will create a window, and run it like <tt class="wiki">python file.py</tt> then the file will simply exit when finished. If you want to keep the window open, you need to call the window object's <tt class="wiki">mainloop()</tt> method. For the example above, you can do that by putting this line at the end of your file:
+<p>
+<pre class="code">
+mysom.win.mainloop()
+</pre>
+<p>
+Examine how the SOM self-organized its model vectors to best cover the space of possibilities.  Try training the SOM a few times. Do they all train equally well? That is, do they cover the space evenly so that about the same number of vectors get mapped to each cell? Characterize how one of the SOMs you trained has organized its map.
+<p>
+To test how the SOM generalizes, try testing values that you didn't train the network on. For this, we can use the <tt class="wiki">mysom.map()</tt> that returns a model vector object, as above. For example,
+<p>
+<pre class="code">
+model = mysom.map( psom.vector( [0, 0, 0, .5, .5, .5, .5, .5] ) )
+print &quot;test pattern mapped to&quot;, model.point.x, model.point.y 
+</pre>
+<p>
+Do the vectors get mapped to an appropriate cell? Explain.
+ <img width="11" src="../wiki/img/idea.png"> To see the counts that are being mapped, click on the button &quot;Show Map Count&quot;. To go back to the previous view, click &quot;Show Train Count&quot;. Also, notice that the last mapped cell appears green.
+<p>
+Finally, try training the SOM again, but this time present the binary vectors in random order rather than   numerical order. Make sure you show each pattern only once. How does the map differ from the non-random training?
+<p>
+<p>
+<h2 width="804"> Mapping Sonar Data</h2>
+<p>
+Now, let's create a map using data from the robot. To get started, let's take vectors of range data from the robot. Because this data can vary much more than did our artificial example above, we will first collect some sample data, store it to a file, and use that data to initialize the SOM. This will still involve a randomization initialization, but will be based on real data.
+<p>
+Here is the outline of the program for collecting sonar data in a SOM ready format.  We will fill in this outline, step by step. 
+<p>
+<pre class="code">
+# import necessary modules 
+# define any helper functions which are not part of the class 
+# define the brain to collect sonar data 
+class SOMcollect(Brain):
+   def setup(self):
+      # open the data file
+      # write the dimension of the vectors to the data file
+      # initialize counter and other class variables
+   def step(self):
+      # check whether it is time to end data collection
+      if self.counter &gt;= 100:
+         # close the data file
+         # stop robot
+         # stop brain
+      else:
+         # write current sonar data to file
+	 # update counter
+         # move the robot  
+def INIT(engine):
+   return SOMcollect('SOMcollect', engine)
+</pre>
+<p>
+<p>
+<h3 width="804"> Using files</h3>
+<p>
+First we need a method to write data to a file in the particular format that our SOM can use. To create a file, we need only call the <tt class="wiki">open()</tt> method with two parameters: the name of the new file, and &quot;w&quot; to indicate that we will write to it, like so:
+<p>
+<pre class="code">
+datafile = open(&quot;range.dat&quot;, &quot;w&quot;)
+</pre>
+<p>
+<tt class="wiki">datafile</tt> is now a file variable. We can write to the file using the <tt class="wiki">datafile.write()</tt> method. The first line in the file should be the dimension of the map. In our case, that will be the sensor count. You can get that value dynamically via either of these two methods:
+<p>
+<pre class="code">
+count = len(self.robot.range[&quot;all&quot;])
+count = self.robot.range.count
+</pre>
+<p>
+To write that value out on the first line of the file:
+<p>
+<pre class="code">
+datafile.write( str(count) + &quot;\n&quot; )
+</pre>
+<p>
+This should be followed by a list of the range sensor data, each separated by a space, one set of readings per line. Notice that the <tt class="wiki">write()</tt> method requires the data be a string. One method might look like the following:
+<p>
+<pre class="code">
+def saveListToFile(ls, file): 
+    for i in range(len(ls)): 
+        file.write(str(ls[i]) + &quot; &quot;) 
+    file.write(&quot;\n&quot;) 
+</pre>
+<p>
+This small function is not part of a class (it could be) but is just pasted somewhere in your program or brain file. You can call it like:
+<p>
+<pre class="code">
+saveListToFile( [s.value for s in self.robot.range[&quot;all&quot;]], datafile)
+</pre>
+<p>
+To close the <tt class="wiki">datafile</tt> use <tt class="wiki">datafile.close()</tt>.
+<p>
+<p>
+<h3 width="804"> Collecting data</h3>
+<p>
+We'd like to get a good sampling of sonar data that a robot typically encounters as it moves around the environment.  To control the robot we can use one of the avoid obstacle brains we wrote earlier. However, we want to make sure that each piece of sample data is taken from a unique location. This might require that you not save the sensor values every step, but maybe wait a few seconds between saving them. You might also want to make sure that you are in very different areas, maybe by having your program watch the X, Y, and Theta values to make sure they change enough, for example:
+<p>
+<pre class="code">
+    dist_away_enough = .25
+    x = self.robot.x
+    y = self.robot.y
+    dist = distance(x, y, self.lastx, self.lasty) # from pyrobot.geometry
+    print &quot;Distance =&quot;, dist
+    if dist &gt; dist_away_enough:
+         saveListToFile( [s.value for s in self.robot.range[&quot;all&quot;]], datafile)
+         self.lastx = self.robot.x
+         self.lasty = self.robot.y
+</pre>
+<p>
+Note that <tt class="wiki">self.robot.x</tt> and <tt class="wiki">self.robot.y</tt> are just approximate values computed by the robot's <i>dead reckoning</i> algorithms. These are guaranteed to get more and more off from reality as the robot moves about. But they should work fine in this case as we are only concerned with relative distance. Like the <tt class="wiki">saveListToFile</tt> function, the <tt class="wiki">distance()</tt> function is not part of the brain class, but is a useful helper function that is defined above the class. 
+<p>
+<p>
+<h3 width="804"> Putting it all together</h3>
+<p>
+Based on the outline of the code given previously and the details given above we can create a final working program for collecting SOM data.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+import math
+import time 
+def saveListToFile(ls, file):  
+   for i in range(len(ls)):  
+      file.write(str(ls[i]) + &quot; &quot;)  
+   file.write(&quot;\n&quot;)  
+def sqr(n):
+   return n*n
+def distance(x1, y1, x2, y2):
+   return math.sqrt(sqr(x1-x2) + sqr(y1-y2))
+class SOMcollect(Brain):
+   def setup(self):
+      self.datafile = open(&quot;range.dat&quot;, &quot;w&quot;)
+      count = self.robot.range.count
+      self.datafile.write(str(count) + &quot;\n&quot;)
+      self.counter = 0
+      self.lastx = 0
+      self.lasty = 0
+   def wander(self): 
+      robot = self.robot 
+      left = min([s.value for s in self.robot.range[&quot;front-left&quot;]])
+      front = min([s.value for s in self.robot.range[&quot;front&quot;]])
+      right = min([s.value for s in self.robot.range[&quot;front-right&quot;]])
+      if front &lt; 1.0:
+         self.move(0.0, 0.5)
+      elif left &lt; 1.0:
+         self.move(0.0, -0.5)
+      elif right &lt; 1.0:
+         self.move(0.0, 0.5)
+      else:
+         self.move(0.5, 0.0)
+   def moveOrKick(self):
+      if self.robot.stall:
+         print &quot;stuck--reversing&quot;
+         self.move(-0.5, 0.0)
+         time.sleep(0.5)
+      else:
+         self.wander()
+   def step(self):
+      robot = self.robot 
+      if self.counter &gt;= 100:
+         self.datafile.close()
+         print &quot;done collecting data&quot;
+         self.stop()
+         self.pleaseStop()
+      else:
+         x = self.robot.x 
+         y = self.robot.y
+         if distance(x, y, self.lastx, self.lasty) &gt; 0.25:
+            saveListToFile([s.value for s in self.robot.range[&quot;all&quot;]],
+                           self.datafile) 
+            self.lastx = x
+            self.lasty = y
+            self.counter += 1
+            print &quot;collected&quot;, self.counter
+         self.moveOrKick()   
+def INIT(engine):
+   return SOMcollect('SOMcollect', engine) 
+</pre>
+<p>
+<p>
+<h3 width="804"> Initializing a SOM with sample data</h3>
+<p>
+Once you have the <tt class="wiki">range.dat</tt> file created, you don't need <tt class="wiki">SOMcollect.py</tt> brain anymore; it has served its duty. Now we have <i>real</i> sample data we can give the SOM a better idea of how to initialize itself. (This is true even if you collected the data from a simulator.) We initialize the SOM with the datafile using another method from <tt class="wiki">pyrobot.psom</tt> like so:
+<p>
+<pre class="code">
+dataset = psom.dataset(file=&quot;range.dat&quot;)
+mysom   = vis.VisPsom(ROWS, COLS, data = dataset)
+</pre>
+<p>
+The <tt class="wiki">psom.dataset()</tt> method will load the file <tt class="wiki">&quot;range.dat&quot;</tt> in. You use the <tt class="wiki">data</tt> keyword in the <tt class="wiki">vis.VisPsom()</tt> arguments to indicate the initialization data is coming from that set.
+<p>
+We then call <tt class="wiki">mysom.init_training()</tt> as before like so:
+<p>
+<pre class="code">
+mysom.init_training(0.02, 3, 100) 
+</pre>
+<p>
+Using the <tt class="wiki">SOMcollect.py</tt> program as a foundation, we can create a <tt class="wiki">SOMtrain.py</tt> program.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+from pyrobot.brain import psom 
+from pyrobot.brain.psom import vis 
+import time
+import math
+def sqr(n):
+   return n*n
+def distance(x1, y1, x2, y2):
+   return math.sqrt(sqr(x1-x2) + sqr(y1-y2))
+class SOMtrain(Brain):
+   def setup(self):
+      #uncomment the next 2 lines to initialize SOM from a data set
+      dataset = psom.dataset(file=&quot;range.dat&quot;) 
+      self.mysom  = vis.VisPsom(6,8, data = dataset)
+      #uncomment the next line to initialize SOM from random data
+      #self.mysom = vis.VisPsom(6,8,dim=16,rmin=0.0,rmax=4.0)
+      self.mysom.init_training(0.02, 6, 200)
+      self.counter = 0
+      self.lastx = 0
+      self.lasty = 0
+   def wander(self): 
+      robot = self.robot 
+      left = min([s.value for s in self.robot.range[&quot;front-left&quot;]])
+      front = min([s.value for s in self.robot.range[&quot;front&quot;]])
+      right = min([s.value for s in self.robot.range[&quot;front-right&quot;]])
+      if front &lt; 1.0:
+         self.move(0.0, 0.5)
+      elif left &lt; 1.0:
+         self.move(0.0, -0.5)
+      elif right &lt; 1.0:
+         self.move(0.0, 0.5)
+      else:
+         self.move(0.5, 0.0)
+   def moveOrKick(self):
+      if self.robot.stall:
+         print &quot;stuck--reversing&quot;
+         self.move(-0.5, 0.0)
+         time.sleep(0.5)
+      else:
+         self.wander()
+   def step(self):
+      robot = self.robot
+      if (self.counter &gt; 200):
+         print &quot;done training&quot;
+         self.stop()
+         self.pleaseStop()
+      else:
+         x = self.robot.x 
+         y = self.robot.y
+         if distance(x, y, self.lastx, self.lasty) &gt; 0.25:
+            self.lastx = x
+            self.lasty = y
+            vector = psom.vector([s.value for s in self.robot.range[&quot;all&quot;]])
+            print vector,
+            model = self.mysom.train(vector)
+            print model.point.x, model.point.y,
+            self.counter += 1
+            print &quot;step&quot;, self.counter
+         self.moveOrKick()
+def INIT(engine):
+   return SOMtrain('SOMtrain', engine) 
+</pre>
+<p>
+Load the above program into Pyro using the simulated Pioneer robot.  Before pressing &quot;Run&quot;,  look at the initial model vectors that were created from the data.  The range of actual sonar data is from 0 to 4, but the range of the model vectors is a bit larger.  The initialization procedures in the SOM try to guess the actual range from the example data.  Since so many of our data points had values close to 4, the model vectors are more heavily weighted around 4, with some values being greater than 4.  Now run the program and examine the resulting map.
+<p>
+<p>
+<h2 width="804"> Exercise #2: Compare SOM With and Without Sampling</h2>
+<p>
+Compare a SOM initialized with the dataset collected above, with one that isn't initialized with a dataset. Characterize the differences. To help visualize the differences, you can make it so that the SOM doesn't just show a list of numbers when you click on a cell, but shows a graphical representation. To enable this option, create your SOM with the <tt class="wiki">vis_vectortype</tt> and <tt class="wiki">opts</tt> keywords:
+<p>
+<pre class="code">
+mysom = vis.VisPsom(COLS, ROWS, data=dataset,
+                    vis_vectortype = 'Hinton',
+                    opts=(MAXVALUE,))
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> Note the comma after the MAXVALUE; <tt class="wiki">opts</tt> is a list and the comma is necessary.
+<p>
+'Hinton' is a type of visual display where the magnitude of a value is represented as the size of a box. For example, the following code:
+<p>
+<pre class="code">
+from pyrobot.gui.plot.hinton import *
+hinton1 = Hinton(6)
+hinton1.update([0.0, 1.0, .5, 0.0, -1.0, -.5])
+hinton2 = Hinton(7)
+v = [1.0, 1.0, 1.0, 1.0, -1.0, 1.0, -1.0, -5.0]
+hinton2.update(v)
+hinton1.win.mainloop()
+hinton2.win.mainloop()
+</pre>
+<p>
+produces these windows:
+<p>
+<img src="../_dblank/images/hinton.jpg">
+<p>
+When you pass the values <tt class="wiki">vis_vectortype = 'Hinton'</tt> it will automatically create the window with the appropriate number of representations and create a window when you click on a cell. <tt class="wiki">opts</tt> takes the value <tt class="wiki">MAXVALUE</tt> which is the largest magnitude of any value that you will represent. You can get this from the sensors dynamically by asking:
+<p>
+<pre class="code">
+MAXVALUE = self.robot.range.getMaxvalue()
+</pre>
+<p>
+<p>
+<h2 width="804"> Introduction to Vision</h2>
+<p>
+To do the final exercise with the SOM, you will need to be familiar with <tt class="wiki">pyrobot.camera</tt> and <tt class="wiki">pyrobot.vision</tt> modules. You can actually do this exercise even if you do not have a camera, as there is a <tt class="wiki">pyrobot.camera.fake</tt> module that simulates a camera, and even can provide you with images.
+<p>
+First, as we will be initially working outside of Pyro, we need to make sure that the environment variables are set, if you didn't do that above. For example, you might enter at the shell prompt:
+<p>
+<pre class="code">
+export PYROBOT=/usr/local/pyrobot
+export PYTHONPATH=/usr/local
+</pre>
+<p>
+If you don't know where Pyro is installed, try <tt class="wiki">which pyrobot</tt> and that should show you if it is in your path.
+<p>
+Now, we can start Python again (often python2.2) at the shell prompt and then enter this at the Python prompt:
+<p>
+<pre class="code">
+from pyrobot.camera.fake import FakeCamera
+from pyrobot.vision.cvision import VisionSystem
+camera = FakeCamera(visionSystem = VisionSystem())
+</pre>
+<p>
+If we were opening a real camera, we would give a height and a width, and also depth. We'll explore the camera and vision modules thoroughly in <a href="../page_PyroModuleVision/">PyroModuleVision</a>. For now, we'll just explore enough to get by.
+<p>
+From this point forward, this interface works just like a real camera, so you can do all of the following regardless of the camera type.
+<p>
+One of the first things to check is to see a pixel value:
+<p>
+<pre class="code">
+camera.getVal(6, 10)
+</pre>
+<p>
+This will return the tuple (109, 89, 79) which represents the (red, green, blue) values at the point (6, 10). Each of these values lies between 0 (no color; black) and 255 (full color; white).
+<p>
+The pixel at (0,0) is the first value in the upper left-hand corner. The the position in the lower right-hand corner is (WIDTH - 1, HEIGHT - 1). 
+<p>
+If you want to see the entire image, you can get a quick gestalt glimpse with the following:
+<p>
+<pre class="code">
+camera.display()
+</pre>
+<p>
+If your terminal window is large enough and your font small enough, you'll see something like:
+<p>
+<img src="../_dblank/images/ascii.jpg">
+<p>
+You can also make a window:
+<p>
+<pre class="code">
+camera.makeWindow()
+camera.update()
+</pre>
+<p>
+To force it to update, you can:
+<p>
+<pre class="code">
+camera.update()
+camera.updateWindow()
+</pre>
+<p>
+If you want to see a a full image in color, you'll need to first save it to a file and use a graphics program to view it. In Python:
+<p>
+<pre class="code">
+camera.saveToFile(&quot;testimage.ppm&quot;)
+</pre>
+<p>
+and in the shell or file manager, run <tt class="wiki">display</tt> or <tt class="wiki">xv</tt> or similar program. You should see something like:
+<p>
+<img src="../_dblank/images/testimage.jpg">
+<p>
+To see image properties:
+<p>
+<pre class="code">
+camera.width
+camera.height
+</pre>
+<p>
+See the source code of the vision module at <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/vision/__init__.py">svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/vision/__init__.py</a> for more details. Click on the topmost <b>(view)</b> link.
+<p>
+Our first problem is to figure out how to get a matrix of (red, green, blue) values into the SOM. There are a few alternatives:
+<p>
+<ol type="1"><li>Just make one large vector (width x height x 3 colors) and train on that</li>
+<li>Make three different <a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a> one each for each plane of color</li>
+<li>Convert the image to a gray scale; and store those values</li>
+</ol><p>
+We will go with option #3, so we don't have to worry about color issues. We can force the image to gray scale using <tt class="wiki">camera.grayScale()</tt>. Furthermore, 100 x 80 is still a large vector to feed to the SOM. 
+<p>
+We'll further reduce the size of the image using <tt class="wiki">image = camera.getScaledImage()</tt>:
+<p>
+<pre class="code">
+camera.addFilter(&quot;grayScale&quot;)
+camera.update()
+camera.updateWindow()
+image = camera.getScaledImage()
+data = image.getPlane(0)
+</pre>
+ <img width="11" src="../wiki/img/idea.png"> Using <tt class="wiki">camera.getScaledImage(mode = 'sample')</tt> (the default) is a faster method than the alternative (<tt class="wiki">camera.getScaledImage(mode = 'average')</tt>, as it simply takes every Nth pixel value rather than averaging the surrounding values. However, the resulting image may look much more blocky.
+<p>
+<tt class="wiki">data</tt> is now a vector of values, each between 0 and 255 representing a 50 x 40 image (50 columns by 40 rows). Each value is the gray scale of the image at that position. We could use <tt class="wiki">data</tt> directly as our training vectors; however, it would be just a bit better if we scale the values between 0 and 1:
+<p>
+<pre class="code">
+training_vector = map( lambda (n): n / 255.0, data )
+</pre>
+<p>
+This snippet maps the function <tt class="wiki">lambda (n): n / 255.0</tt> to each of the values in <tt class="wiki">data</tt>.
+<p>
+The only piece of information that you need is to know how to get another image from the camera. For that you simply use the <tt class="wiki">camera.update()</tt> method. You do need to <tt class="wiki">getScaledImage</tt> and <tt class="wiki">getPlane</tt> from each new image.
+<p>
+Because the vectors that we will be training the SOM on can be viewed as 2D, we will display the model vectors as 2D as well. To do that we use the 'Matrix' class rather than 'Hinton' when creating the SOM as follows:
+<p>
+<pre class="code">
+mysom = vis.VisPsom(COLS, ROWS, data=dataset,
+                    title = 'Camera SOM',
+                    vis_vectortype = 'Matrix',
+                    opts=(IMAGE_COLS, IMAGE_ROWS, MAXVALUE))
+</pre>
+<p>
+Notice that IMAGE_ROWS and IMAGE_COLS has nothing to do with the ROWS and COLS of the SOM, but are the rows and columns of how we could interpret the training vectors. For example, if we train on images that are 50 x 40, then are training vectors are 2000 in length, but we will view those 2000 place vectors as 50 by 40 images. Also, we are using the <b>title</b> keyword as well in this example. MAXVALUE will be 1.0, IMAGE_COLS will be 50, and IMAGE_ROWS will be 40 for our camera examples. 
+<p>
+<p>
+<h2 width="804"> Exercise #3: Vision SOM</h2>
+<p>
+For this exercise, build a SOM and train it using 20 shrunken grayscale images from the <tt class="wiki">FakeCamera()</tt> class without sampling. What does the resulting SOM look like? How many different cells received a training vector? Why would this happen? 
+<p>
+Now, try the same experiment, but create a sample dataset composed of 10 images and train on the remaining 10. Now, what does the SOM do? Compare these results the SOM without a sampling stage.
+<p>
+Finally, use the dataset composed of 10 image vectors to initialize the SOM, but train for 60 more images, then map the next 20. Click the &quot;Show Map Counts&quot; button to see the distribution of the mapped image vectors. How well are these distributed?
+<p>
+Note that there are only about 22 images in the <tt class="wiki">FakeCamera()</tt> class, but it will just cycle through them.
+<p>
+<p>
+<h1 width="804"> Variations on a Theme</h1>
+<p>
+How would you train a SOM from a dataset that comes from a file? 
+<p>
+Here is a version that doesn't use the SOM GUI, so it is a bit faster:
+<p>
+<pre class="code">
+from pyrobot.brain.psom import *
+mydataset = dataset(file='ex.dat')
+mysom = psom(12,8,data=mydataset)
+mysom.init_training(0.02,4.0,5000)
+mysom.train_from_dataset(mydataset)
+mysom.save_to_file(&quot;test2.cod&quot;)
+</pre>
+<p>
+A visual demonstration of clasifying a set of data.
+<p>
+<pre class="code">
+import pyrobot.brain.psom as psom
+from pyrobot.brain.psom import vis
+MALE, FEMALE, SWAT, BMC, YES, NO = 0,1,0,1,1,0
+ECON, CS, BIO, PSYCH, PHIL, WRITER, GENDER = .10, .25, .40, .55, .70, .85, 1.0
+people =[
+    {&quot;name&quot;:&quot;lisa&quot;, &quot;sex&quot;:FEMALE, &quot;school&quot;:SWAT, &quot;glasses&quot;:NO, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;doug&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:NO, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;wil&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:NO, &quot;field&quot;:BIO}, 
+    {&quot;name&quot;:&quot;paul&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:BIO}, 
+    {&quot;name&quot;:&quot;anne&quot;, &quot;sex&quot;:FEMALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:GENDER}, 
+    {&quot;name&quot;:&quot;karen&quot;, &quot;sex&quot;:FEMALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:BIO}, 
+    {&quot;name&quot;:&quot;ted&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:BIO}, 
+    {&quot;name&quot;:&quot;rebekah&quot;, &quot;sex&quot;:FEMALE, &quot;school&quot;:BMC, &quot;glasses&quot;:NO, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;mark&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:SWAT, &quot;glasses&quot;:YES, &quot;field&quot;:ECON}, 
+    {&quot;name&quot;:&quot;geoff&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;deepak&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:NO, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;rich&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:SWAT, &quot;glasses&quot;:YES, &quot;field&quot;:CS}, 
+    {&quot;name&quot;:&quot;alan&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:SWAT, &quot;glasses&quot;:YES, &quot;field&quot;:PHIL}, 
+    {&quot;name&quot;:&quot;jan&quot;, &quot;sex&quot;:FEMALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:WRITER}, 
+    {&quot;name&quot;:&quot;rob&quot;, &quot;sex&quot;:MALE, &quot;school&quot;:BMC, &quot;glasses&quot;:YES, &quot;field&quot;:PSYCH}
+    ]
+COLS = 4
+ROWS = 3
+MAXVALUE = 1
+dataset = []
+for person in people:
+    dataset.append( (person[&quot;name&quot;], person[&quot;sex&quot;], person[&quot;school&quot;],
+                     person[&quot;glasses&quot;], person[&quot;field&quot;]) )
+mysom = vis.VisPsom(COLS, ROWS, dim=4,
+                    vis_vectortype = 'Hinton',
+                    opts=(MAXVALUE,))
+mysom.init_training(0.02, 3, 100)
+# train:
+for i in range(30):
+    for vector in dataset:
+        name, data = vector[0], vector[1:]
+        model = mysom.train( psom.vector(data) )
+# add labels:
+for vector in dataset:
+    name, data = vector[0], vector[1:]
+    model = mysom.map( psom.vector(data) )
+    x, y = model.point.x, model.point.y
+    mysom.add_label(x, y, label=&quot;\n&quot; + name)
+mysom.win.mainloop()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SOMExampleProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SOMExampleProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Kohonen, T. <a href="http://emergent.brynmawr.edu/~dblank/cs380/devrobs/som_doc.ps"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;som_doc.ps</a>.</li>
+<li>Kohonen, T. (2001) <i>Self Organizing Maps</i>. Germany : Springer. 3rd Edition.</li>
+</ol><p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleSelfOrganizingMap?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleSelfOrganizingMap?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

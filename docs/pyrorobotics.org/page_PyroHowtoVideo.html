@@ -1,0 +1,113 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219103915", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroHowtoVideo</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro HOWTO Video</h1>
+<p>
+This page documents how you can make tutorial videos (often called &quot;screencasts&quot;) as shown on <a href="../video/">PyroRobotics.org/video/</a>
+<p>
+You could make movie files in a number of different formats. However, to remain compatible with as many <a href="../page_OSes/">OSes</a> as possible, we recommend making Flash movies (SWF files). There are commerical solutions for this task, but you can also do this with completely free programs. We use a 100% Python solution that captures a VNC desktop, and converts it directly to a SWF file. This should work under Linux, Mac, or Windows.
+<p>
+<p>
+<h2 width="804"> Installation</h2>
+<p>
+<ol type="1"><li>Download and install VNC, server and viewer. Under Fedora Core 4, simple run <tt class="wiki">yum install vnc vnc-server</tt> as root. You might want to change your ~/.vnc/xstartup:</li>
+<pre class="code">
+#!/bin/sh
+# Uncomment the following two lines for normal desktop:
+# unset SESSION_MANAGER
+# exec /etc/X11/xinit/xinitrc
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r &#36;HOME/.Xresources ] && xrdb &#36;HOME/.Xresources
+# xsetroot -solid grey
+vncconfig -iconic &
+# xterm -geometry 80x24+10+10 -ls -title &quot;&#36;VNCDESKTOP Desktop&quot; &
+gnome-session --sm-disable
+gnome-session  &
+</pre>
+<li>You'll need a way of recording audio and producing MP3s. We use audacity. FC4 users run <tt class="wiki">yum install audacity</tt> as root.</li>
+<li>Finally, you'll need <a href="http://www.unixuser.org/~euske/vnc2swf/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;pyvnc2swf</a>. Put these in your current directory. Look for a version 0.6.5 or higher (which has a patch to work with audacity MP3 files).</li>
+ <img width="11" src="../wiki/img/alert.png"> To get audacity to record, I had to run <tt class="wiki">alsamixer</tt>, press F4 and turn all of the capture devices up to 100%.
+</ol><p>
+<p>
+<h2 width="804"> Recording a movie</h2>
+<p>
+<ol type="1"><li>Start up a vnc server: <tt class="wiki">vncserver -geometry 800x600</tt> and give it a password. 800 x 600 is big enough, but not too big.</li>
+<li>Open up a view to the server <tt class="wiki">vncviewer :1</tt></li>
+<li>Start vnc2swf <tt class="wiki">python vnc2swf.py -o output.swf -C 800x600+0+0</tt>. Select port 5901 (the 1 refers to the :1 of step 1). Press start. A window will appear to enter the password. Type it in, but don't press &quot;Ok&quot; yet.</li>
+<li>Start audacity, and press the record button.</li>
+<li>Wait three seconds, and then press the &quot;Ok&quot; button of vnc2swf.</li>
+<li>Speak and click, type, etc.</li>
+<li>When finished, stop recording and then press &quot;Stop&quot; of vnc2swf.</li>
+<li>Export the audio as an MP3. Make sure you select <a href="../page_ID3v2/">ID3v2</a> when you export. Save it as &quot;audio.mp3&quot;</li>
+<li>In audacity, delete the first three seconds.</li>
+<li>Now, add the audio to the swf video file: <tt class="wiki">python edit.py -V -C 800x600+0+0 -c -o output-audio.swf -a audio.mp3 output.swf</tt></li>
+<li>You can now load the file <tt class="wiki">output-audio.html</tt> and watch and listen to your movie.</li>
+</ol><p>
+<p>
+<h2 width="804"> Cleaning up</h2>
+<p>
+<ol type="1"><li>vncserver -kill :1</li>
+</ol><p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroHowtoVideo?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroHowtoVideo?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,699 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094139", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleBehaviorBasedControl</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to the idea of combining reactive and sequential control. This module explores two such methods: fuzzy logic and subsumption. When completed, the reader should be ready to design and created complex, real world robot controllers.</i>
+<p>
+<p>
+<h1 width="804"> PyroModuleBehaviorBasedControl</h1>
+<p>
+This Pyro module will explore the behavior-based paradigm of designing robot controllers. A &quot;behavior&quot; is a block of control code that is responsible for a particular kind of situation or movement. Behavior-based control is a &quot;bottom up&quot; paradigm rather than a &quot;top down&quot; one. Top down control is a centralized algorithm that determines how to move a robot. In bottom up control schemes, the actual movement is determined via an interaction between these behaviors.
+<p>
+There are two main variations of behavior-based strategies: &quot;vertical&quot; and &quot;horizontal&quot; behavior-based control systems. This distinction should become clear in the following sections.
+<p>
+<p>
+<h1 width="804"> Vertical Behaviors</h1>
+<p>
+The first example of behavior-based control that we will examine is the <b>subsumption architecture</b>. To understand this architecture imagine that we have a collection of small <i>behaviors</i> each designed for a particular situation. Consider:
+<p>
+<pre class="code">
+class Wander(SubsumptionBehavior):
+    def update(self):
+        self.move( .2, random.random() * 2 - 1)
+class Avoid(SubsumptionBehavior):
+    def update(self):
+        if min([s.value for s in self.robot.range[&quot;front-all&quot;]]) &lt; 1:
+            self.move( -.2, 0)
+</pre>
+<p>
+Each of these little nuggets contain a call to <tt class="wiki">move()</tt> with a desired translation and rotation amount. For example, the <tt class="wiki">Avoid</tt> behavior says that if there is an obstacle within 1 unit in the front of the robot, then it should move slowly backwards (-2). Likewise, <tt class="wiki">Wander</tt> says to move slowly forward, and turn the wheels a random amount between hard left (1) and hard right (-1). Notice that <tt class="wiki">Wander</tt> doesn't have any conditionals; it just wanders. On the other hand, <tt class="wiki">Avoid</tt> only issues a move statement when the conditional is true, and doesn't even have an ELSE statement.
+<p>
+Now, the question remains as to how to integrate these behaviors together. In the subsumption architecture paradigm, only one behavior will have control at any one moment. We need only give priority to one behavior over another. Low priority behaviors will have control if there is nothing pressing to take care of immediately. However, if a higher level behavior's conditional is triggered, then it will take control. For example, in the above example, Wander would have lowest priority, and Avoid would have higher. Avoid would only &quot;kick in&quot; when something gets close to the front of the robot. We can then create a stack of behaviors, those with highest priority on top, thus the term vertical behavior-based robotics. 
+<p>
+To build a simple subsumption engine in Python is quite straightforward. We can extend the pyrobot.brain base class to give us the basics. All that is required is to define a <tt class="wiki">update()</tt> method that executes one execution cycle of the algorithm. Here is a simple version of the algorithm:
+<p>
+<ol type="1"><li>For each behavior (starting with the highest), see if its conditional trigger is satisfied</li>
+<li>If it is, then stop checking the other behaviors and return and make the movement</li>
+</ol><p>
+Here is a skeleton of a step method to implement the above pseudocode:
+<p>
+<pre class="code">
+class SubsumptionBrain(Brain):
+    ...
+    def step(self):
+        b = self.updateAll()
+        self.move(self.behaviors[b].translate,
+                             self.behaviors[b].rotate)
+    def updateAll(self):
+        for b in range(len(self.behaviors) - 1, 0, -1):
+            self.behaviors[b].update()
+            if self.behaviors[b].flag:
+                return b
+        # if none fired, return lowest:
+        self.behaviors[0].update()
+        return 0
+</pre>
+<p>
+We then need only flesh out the <a href="../page_SubsumptionBehavior/">SubsumptionBehavior</a> class and fill in a few details:
+<p>
+<pre class="code">
+class SubsumptionBehavior:
+    def move(self, translate, rotate):
+        self.translate = translate
+        self.rotate = rotate
+        self.flag = 1
+</pre>
+<p>
+Notice that the move method of each behavior doesn't actually move the robot. Rather, it saves the desired movement and sets flag to true. In this manner each behavior can be running on its own timescale, but we can centralize the actual call to make the robot move. This makes the programming a bit easier later on. For example, if we allow two behaviors to have the same priority we need to have a further mechanism to arbitrate the tie. In this simple example however, we will have a priority stack without the possibility of ties.
+<p>
+Now we add the behaviors to the brain, lowest priority behaviors first:
+<p>
+<pre class="code">
+def INIT(engine):
+    subsumption = SubsumptionBrain( engine )
+    # add behaviors, lowest priorities first:
+    subsumption.add( Wander() )
+    subsumption.add( Avoid() )
+    return subsumption
+</pre>
+<p>
+Recall that INIT is a special method in Pyro loadable object files (like brains, simulators, and robots) that will return a brain when passed an engine.
+<p>
+Putting it all together:
+<p>
+<pre class="code">
+# A Subsumption Behavior-based Brain
+# Subsumption.py
+from pyrobot.brain import Brain
+import time
+import random
+class SubsumptionBehavior:
+    def __init__(self):
+        self.translate = 0
+        self.rotate = 0
+        self.flag = 0
+    def setRobot(self, robot):
+        self.robot = robot
+    def move(self, translate, rotate):
+        self.translate = translate
+        self.rotate = rotate
+        self.flag = 1
+class SubsumptionBrain(Brain):
+    def __init__(self, engine):
+        Brain.__init__(self, 'SubsumptionBrain', engine)
+        self.behaviors = []
+	self.robot = engine.robot
+    def add(self, behavior):
+        behavior.setRobot( self.robot )
+        self.behaviors.append( behavior )
+    def step(self):
+        b = self.updateAll()
+        print &quot;%s is in control&quot; % self.behaviors[b].__class__.__name__
+        self.move(self.behaviors[b].translate,
+                  self.behaviors[b].rotate)
+        time.sleep(1)
+    def updateAll(self):
+        # for all except lowest:
+        for b in range(len(self.behaviors) - 1, 0, -1):
+            self.behaviors[b].flag = 0
+            self.behaviors[b].update()
+            # if it fired, return number:
+            if self.behaviors[b].flag:
+                return b
+        # if none fired, return lowest:
+        self.behaviors[0].update()
+        return 0
+# -----------------------------------------------------
+class Wander(SubsumptionBehavior):
+    def update(self):
+        self.move( .2, random.random() * 2 - 1)
+class Avoid(SubsumptionBehavior):
+    def update(self):
+        if min([s.value for s in self.robot.range[&quot;front-all&quot;]]) &lt; 1:
+            self.move( -.2, 0)
+def INIT(engine):
+    subsumption = SubsumptionBrain( engine )
+    # add behaviors, lowest priorities first:
+    subsumption.add( Wander() )
+    subsumption.add( Avoid() )
+    return subsumption
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/Subsumption_2epy?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/Subsumption_2epy?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Behavior-based controllers are typically purely reactive. That is, they have no memory and merely react to the immediate environment. In the next section we will examine a method of also adding &quot;state&quot; (and therefore memory) to the behavior-based paradigm.
+<p>
+<p>
+<h2 width="804"> Exercise #1</h2>
+<p>
+Create a subsumption-based controller with a minimum of 4 behaviors. Create a behavior that will wander, avoid obstacles, and follow a wall. 
+<p>
+<p>
+<h1 width="804"> Horizontal Behaviors</h1>
+<p>
+In this version of behavior-based robotics, multiple behaviors may be active at once. This requires some idea of behavior &quot;blending.&quot; In this manner, behaviors are not in a vertical stack based on priorities, but all on the same level, thus the horizontal name.
+<p>
+These types of brains are made up of states, and each state is composed of a set of behaviors. States are like states in an FSM. You can &quot;goto&quot; one state from another, thereby switching the set of active behaviors.
+<p>
+Behaviors can affect multiple controllers. For example, a set of behaviors could affect 'rotate' and 'translate'.
+<p>
+Let's take a look at the skeleton of a behavior-based brain.
+<p>
+<pre class="code">
+1  # A Behavior-based brain
+2  
+3  from pyrobot.brain.fuzzy import *
+4  from pyrobot.brain.behaviors import *
+5  
+6  class StraightAheadAndAvoid(Behavior):
+7      def update(self):
+8          self.IF([Nothing blocking],      'translate', 0.25)
+9          self.IF([Nothing blocking],      'rotate',    0.0)
+10         self.IF([Something is blocking], 'translate', 0.0)
+11         self.IF([Something is blocking], 'rotate',    [Turn Away])
+12 
+13 class state1 (State):
+14     def setup(self):
+15         self.add(StraightAheadAndAvoid(1, {'translate': 1.0, 'rotate': 1.0}))
+16 
+17 def INIT(engine): 
+18     brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+19                                 'rotate' : engine.robot.rotate, \
+20                                 'update' : engine.robot.update }, engine)
+21     brain.add(state1(1)) 
+22     return brain
+</pre>
+<p>
+<b>Figure 1: A basic behavior-based brain.</b>
+<p>
+This brain, as its name suggests, tries to go straight when it can, and will steer clear of obstacles when it must. Lines 8 - 11 define this behavior in terms of 4 rules.
+<p>
+In lines 18-20 we see that the constructor of the Behavior<b></b>Based<b></b>Brain class takes a dictionary of named controllers and their associated functions to access them. In this example, we have passed in 'translate', 'rotate', and 'update'. 'update' is needed so that the brain knows what to call to update the sensor readings. 'rotate' and 'translate' are arbitrary names for the particular controllers we want this brain to control. It could control many other effectors, such as the camera's pan-tilt-zoom for example.
+<p>
+This brain has exactly one state called 'state1'. state1 contains one behavior,  Straight<b></b>Ahead<b></b>And<b></b>Avoid. state1 is added to the brain in line 21, and the behavior is added to the state in line 15. Notice that when adding a state to a brain, or a behavior to a state that we can pass a value indicating whether the state/behavior is initially active. In addition, when adding a behavior to a state you can provide a dictionary of effects. We will discuss that below. These effects are only meaningful when you have multiple behaviors.
+<p>
+Straight<b></b>Ahead<b></b>And<b></b>Avoid attempts to move the robot away from obstacles and attempts to move the robot straight forward at a steady speed (0.25). As mentioned, these &quot;desires&quot; are expressed using these rules:
+<p>
+<pre class="code">
+8          self.IF([Nothing blocking],      'translate', 0.25)
+9          self.IF([Nothing blocking],      'rotate',    0.0)
+10         self.IF([Something is blocking], 'translate', 0.0)
+11         self.IF([Something is blocking], 'rotate',    [Turn Away])
+</pre>
+<p>
+These can be read as: 
+<p>
+<pre class="code">
+8          &quot;if nothing is blocking the robot, then go ahead (translate) at 0.25.&quot;
+9          &quot;if nothing is blocking the robot then don't rotate.&quot;
+10         &quot;if something is blocking the robot, then go ahead (translate) at 0.0.&quot;
+11         &quot;if something is blocking the robot then set rotate to the value [Turn Away].&quot;
+</pre>
+<p>
+The IF method takes three arguments: a value of truth, the name of a controller, and an amount to adjust the controller. A behavior can have any number of IF rules for any of the named controllers.
+<p>
+All of the active behaviors (there can be more than one) run through their IF rules and add up all of the truth values for each of the controllers. Part of the power of this paradigm is that the truth on each rule can be partially true, and multiple rules can &quot;fire&quot;. To examine exactly how such a brain can control a robot, let's go through an example with specific values.
+<p>
+Consider [Something is blocking] is only partially true (say 0.2 true). Also, let's say that that [Nothing blocking] is, say, 0.4 true. (One might think that the concepts &quot;blocking&quot; and &quot;not blocking&quot; should be symmetric, but that doesn't have to be.) First, we total the amount of truth for each controller. In our example:
+<p>
+<table border="1"><tr><td> Line </td><td> Rule </td><td> Amount of Truth </td><td> Controller </td><td> Controller value </td></tr>
+<tr><td> 8    </td><td> 1     </td><td> 0.4             </td><td> translate  </td><td> 0.25 </td></tr>
+<tr><td> 9    </td><td> 2     </td><td> 0.4             </td><td> rotate     </td><td> 0.0 </td></tr>
+<tr><td> 10   </td><td> 3     </td><td> 0.2             </td><td> translate  </td><td> 0.0 </td></tr>
+<tr><td> 11   </td><td> 4     </td><td> 0.2             </td><td> rotate     </td><td> [Turn Away] </td></tr>
+</table><p>
+Therefore, both controllers truth's sum to 0.6. To compute how much each rule contributes, we multiply the controller value by the weighted value of the truth of the rule. For example:
+<p>
+<table border="1"><tr><td> Line </td><td> Rule </td><td> Weighted Amount of Truth  </td><td> Controller </td><td> Controller value * Weight </td></tr>
+<tr><td> 8    </td><td> 1 </td><td> 0.4 / 0.6 = 0.66 </td><td> translate  </td><td> 0.25 * 0.66 </td></tr>
+<tr><td> 9    </td><td> 2 </td><td> 0.4 / 0.6 = 0.66 </td><td> rotate     </td><td> 0.0 * 0.66 </td></tr>
+<tr><td> 10   </td><td> 3 </td><td> 0.2 / 0.6 = 0.33 </td><td> translate  </td><td> 0.0 * 0.33 </td></tr>
+<tr><td> 11   </td><td> 4 </td><td> 0.2 / 0.6 = 0.33 </td><td> rotate     </td><td> [Turn Away] * 0.33 </td></tr>
+</table><p>
+If we assume that [Turn Away] has a value of -0.7, we then sum up the weighted control values for each controller:
+<p>
+<table border="1"><tr><td> Controller </td><td> Sum </td></tr>
+<tr><td> translate </td><td> 0.165 + 0.0 = 0.165 </td></tr>
+<tr><td> rotate    </td><td> 0.0 + -0.231 = -0.231 </td></tr>
+</table><p>
+Finally, these values are weighted by the active states' designated effect (there can be more than one state active). In this case there is only one state active and so we don't need to weight this set of behaviors with others. These computed values become the values sent to the controllers.
+<p>
+Let's see if Pyro gives these values for a simple behavior-based brain:
+<p>
+<pre class="code">
+# A Behavior-based brain
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+class StraightAheadAndAvoid(Behavior):
+    def update(self):
+        self.IF(0.4, 'translate', 0.25)
+        self.IF(0.4, 'rotate',    0.0)
+        self.IF(0.2, 'translate', 0.0)
+        self.IF(0.2, 'rotate',    -0.7)
+class state1 (State):
+    def setup(self):
+        self.add(StraightAheadAndAvoid(1, {'translate': 1.0, 'rotate': 1.0}))
+def INIT(engine): 
+    brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+                                'rotate' : engine.robot.rotate, \
+                                'update' : engine.robot.update }, engine)
+    brain.add(state1(1)) 
+    return brain
+</pre>
+<p>
+Run this brain on any robot of your choice and observe its behavior. To help visualize what rules are firing, and by how much, click on the <b>View</b> button (or go to Brain &gt; Watch, depending on your version). You should see a window similar to the following:
+<p>
+<img src="../_dblank/images/brainview.gif">
+<p>
+Notice that for each rule that fires there is a line in the display. Each rule is indicated by the name of the state:name of the behavior:rule name/number. The actual value sent to each controller is in black above the pie chart. As can be seen, the computed values match our calculation above (-0.23 and 0.17). The (1.0) at the beginning of every line indicates the relative effect that each rule had. This value will change if you have multiple behaviors with differing effects.
+ <img width="11" src="../wiki/img/alert.png"> You can give a rule a more meaningful name by providing a fourth argument to the IF method.
+<p>
+<p>
+<h2 width="804"> Behavior Options</h2>
+<p>
+The horizontal behavior-based brain behaviors have the following methods:
+<p>
+<table border="1"><tr><td> setup() </td><td> called when behavior is created (like a constructor) </td></tr>
+<tr><td> update() </td><td> called each step </td></tr>
+<tr><td> onActivate() </td><td> called when this behavior becomes active </td></tr>
+<tr><td> onDeactivate() </td><td> called when this behavior becomes inactive </td></tr>
+<tr><td> robot </td><td> returns current robot </td></tr>
+</table><p>
+Also, another State method (other than those already discussed in the previous section on Finite State Machine) is needed to add behaviors to the state:
+<p>
+<table border="1"><tr><td> add()  </td><td> used to add behaviors to the class </td></tr>
+</table><p>
+<p>
+<h2 width="804"> Another Example</h2>
+<p>
+Before actually designing a brain that does something useful, let's explore another variation in creating behavior based brains. In this variation, let's consider the same rules from above, but split into two different behaviors:
+<p>
+<pre class="code">
+1  # A Behavior-based brain
+2  
+3  from pyrobot.brain.fuzzy import *
+4  from pyrobot.brain.behaviors import *
+5  
+6  class StraightAhead(Behavior):
+7      def update(self):
+8          self.IF([Nothing blocking],      'translate', 0.25)
+9          self.IF([Nothing blocking],      'rotate',    0.0)
+10 
+11 class Avoid(Behavior):
+12     def update(self):
+13         self.IF([Something is blocking], 'translate', 0.0)
+14         self.IF([Something is blocking], 'rotate',    [Turn Away])
+15 
+16 class state1 (State):
+17     def setup(self):
+18         self.add(StraightAhead(1, {'translate': 0.3, 'rotate': 0.3}))
+19         self.add(Avoid(        1, {'translate': 0.3, 'rotate': 0.3}))
+20 
+21 def INIT(engine): 
+22     brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+23                                 'rotate' : engine.robot.rotate, \
+24                                 'update' : engine.robot.update }, engine)
+25     brain.add(state1(1)) 
+26     return brain
+</pre>
+<p>
+<b>Figure 2: A basic behavior-based brain with 2 behaviors.</b>
+<p>
+In this version, we have divided the rules dealing with obstacles into a behavior named Avoid, and the ones that deal with going straight into a behavior named Straight<b></b>Ahead. At this point we should make note of line 18 and 19. As before, we add behaviors with the add() method which takes two arguments: whether the behavior is active or not, and a dictionary of controllers that this behavior may effect. Associated with each controller is an effect weighting. This is a value relative to other behavior's effects. In this example, we let the Avoid behavior affect the translate and rotate controllers exactly as much as the <tt class="wiki">StraightAhead</tt> behavior (both at arbitrary values 0.3).
+<p>
+Filling in values as before gives:
+<p>
+<pre class="code">
+# A Behavior-based brain
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+class StraightAhead(Behavior):
+    def update(self):
+        self.IF(0.4, 'translate', 0.25)
+        self.IF(0.4, 'rotate',    0.0)
+class Avoid(Behavior):
+    def update(self):
+        self.IF(0.2, 'translate', 0.0)
+        self.IF(0.2, 'rotate',    -0.7)
+class state1 (State):
+    def setup(self):
+        self.add(StraightAhead(1, {'translate': 0.3, 'rotate': 0.3}))
+        self.add(Avoid(1,         {'translate': 0.3, 'rotate': 0.3}))
+def INIT(engine): 
+    brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+                                'rotate' : engine.robot.rotate, \
+                                'update' : engine.robot.update }, engine)
+    brain.add(state1(1)) 
+    return brain
+</pre>
+<p>
+This should give exactly the same behavior as before. Now, let's change the effect of one of the behaviors. Change the Avoid behavior so that its effects on both controllers are double that of Straight<b></b>Ahead. You should get values similar to the following:
+<p>
+<img src="../_dblank/images/brainview2.gif">
+<p>
+Now, let's explore fuzzy logic.
+<p>
+<p>
+<h3 width="804"> IF and Fuzzy Logic</h3>
+<p>
+As you have seen, the behavior brain class contains a method named IF. It has the following form:
+<p>
+<pre class="code">
+    self.IF( FUZZYVALUE, CONTROL, AMOUNT [, NAME])
+</pre>
+<p>
+where FUZZYVALUE is a floating point value between 0 and 1. CONTROL is any controller name, amount is the amount you wish to set the controller to, and NAME is an optional name for the rule. NAME is useful for debugging as the name will show up in the brain view.
+<p>
+An example:
+<p>
+<pre class="code">
+    self.IF( .4, 'translate', .8, 'Rule1')
+</pre>
+<p>
+This is read: &quot;This rule (named Rule1) is only somewhat true (0.4 out of 1.0) so I don't want to go forward nearly as much as I would if this were more true.&quot;
+<p>
+Often, you want to compute the FUZZYVALUE based on some criteria, for example, how close you are to a wall. For this you can use a <a href="../page_FuzzyClassifier/">FuzzyClassifier</a> and apply the classifier to a variable or set of variables.
+<p>
+A Fuzzy<b></b>Classifier contains a membership function which maps values to a floating-point value between zero and one.  There are a number of built-in types of Fuzzy<b></b>Classifiers; you can either use one of these and specify its parameters, or you can build your own.  
+<p>
+You can create a simple fuzzy classifier using the following code:
+<p>
+<pre class="code">
+import pyrobot.brain.fuzzy
+fuzvariable = RisingFuzzy(SMALLVALUE, BIGGERVALUE)
+</pre>
+<p>
+That creates a Fuzzy<b></b>Classifier with a linear, rising membership function.  To fuzzify a value, call the Fuzzy<b></b>Classifier like this:
+<p>
+<pre class="code">
+fuzvariable(VALUE)
+</pre>
+<p>
+This returns a <a href="../page_FuzzyValue/">FuzzyValue</a> between 0 and 1.
+<p>
+<tt class="wiki">RisingFuzzy</tt>'s membership function looks like this:
+<p>
+<pre class="code">
+F |
+ 1|                  * * *
+u |                *
+  |              *
+z |            *
+  |          *
+z |        *
+  |      *
+y |    *
+---*-*-|-------------|---------
+       a             b
+            Var
+</pre>
+<p>
+and
+<p>
+<pre class="code">
+FallingFuzzy(a,b)(Var)
+</pre>
+<p>
+will result in this truth-graph:
+<p>
+<pre class="code">
+F |
+ 1|* * *
+u |      *
+  |        *
+z |          *
+  |            *
+z |              *
+  |                *
+y |                  *
+-------|---------------|-*-*---
+       a               b
+            Var
+</pre>
+<p>
+Now, consider the following statement from a behavior based brain:
+<p>
+<pre class="code">
+self.IF(FallingFuzzy(SMALLVALUE, BIGGERVALUE)(VALUE), 'translate', 0)
+</pre>
+<p>
+The IF statement applies to all VALUEs; however, it will only affect translate if it is somewhat true. That is, if <tt class="wiki">FallingFuzzy(SMALLVALUE, BIGGERVALUE)(VALUE)</tt> is above zero, then it could affect translate. The more true the fuzzy expression is, the more it will influence translate. Here, &quot;influence translate&quot; means that it will try to stop it. Of course, what actually happens depends on the other behaviors wishes, too. Recall, this is <i>behavior blending</i>.
+<p>
+Because this fuzzy expression uses a <tt class="wiki">FallingFuzzy</tt>, it becomes more true by having smaller VALUEs. Values that are equal to or less than SMALLVALUE will be 100% true. Values greater than or equal to BIGGERVALUE will be 100% false. Values in-between will have varying degrees of truth.
+<p>
+<p>
+<h3 width="804"> Fuzzy Connectives</h3>
+<p>
+To interactively explore Fuzzy values, try:
+<p>
+<pre class="code">
+&gt;&gt;&gt; from pyrobot.brain.fuzzy import *
+&gt;&gt;&gt; f1 = RisingFuzzy(0, 1)(.5)
+&gt;&gt;&gt; f1
+&lt;pyrobot.brain.fuzzy.FuzzyValue instance at 0x81cc4a4&gt;
+</pre>
+<p>
+However, you probably want to see the value. We can see the value by converting it to a float, or by printing it directly (print is overloaded too):
+<p>
+<pre class="code">
+&gt;&gt;&gt; float(f1)
+0.5
+&gt;&gt;&gt; print f1
+&lt;Fuzzy value 0.5&gt;
+</pre>
+<p>
+To 'and' and 'or' two fuzzy variables, simply use & and |, respectively:
+<p>
+<pre class="code">
+FallingFuzzy(1, 2)(a) & FallingFuzzy(1, 2)(b)
+FallingFuzzy(1, 2)(a) | FallingFuzzy(1, 2)(b)
+</pre> 
+<p>
+Performing an & gives MIN, while | gives MAX (use single ampersand and bar operators):
+<p>
+<pre class="code">
+&gt;&gt;&gt; float(RisingFuzzy(0, 1)(0.25) & FallingFuzzy(0, 1)(0.25))
+0.25
+&gt;&gt;&gt; float(RisingFuzzy(0, 1)(0.25) | FallingFuzzy(0, 1)(0.25))
+0.75
+</pre>
+<p>
+<p>
+<h2 width="804"> Exercise #2</h2>
+<p>
+Here is a brain that can avoid obstacles:
+<p>
+<pre class="code">
+# A Behavior-based brain
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+from math import pi
+class Avoid (Behavior):
+    def direction(self, dir, dist):
+        if dist &lt; 1.0:
+            if dir &lt; 0.0:
+                return 1.0 - dir
+            else:
+                return -1.0 - dir
+        else:
+            return 0.0
+    def update(self):
+        close_dist, close_angl = min([s.value, s.thr/pi for s in self.robot.range[&quot;front&quot;]])
+        print &quot;Closest distance =&quot;, close_dist, &quot;angle =&quot;, close_angl
+        close = FallingFuzzy(0, 1.5)
+        self.IF(close(close_dist), 'translate', 0.0, &quot;TooClose&quot;)
+        self.IF(~close(close_dist), 'translate', .2, &quot;Ok&quot;)
+        self.IF(close(close_dist), 'rotate', self.direction(close_angl, close_dist), &quot;TooClose&quot;)
+        self.IF(~close(close_dist), 'rotate', 0.0, &quot;Ok&quot;)
+class state1 (State):
+    def setup(self):
+        self.add(Avoid(1, {'translate': .3, 'rotate': .3}))
+        print &quot;initialized state&quot;, self.name
+def INIT(engine): 
+    brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+                                'rotate' : engine.robot.rotate, \
+                                'update' : engine.robot.update }, engine)
+    brain.add(state1(1)) 
+    return brain
+</pre>
+<p>
+<p>
+Effects() is used to set the &quot;priority&quot; (or &quot;weight&quot;) that a behavior has on a particular control. You can also set the Effect when you add a behavior to a state. For example, if the following three behaviors are added in a state with these commands:
+<p>
+<pre class="code">
+self.add( Avoid(1, {'translate': 1, 'rotate': 1}))
+self.add( Wander(1, {'translate': .5, 'rotate': .5}))
+self.add( Serve(1, {'translate': .1, 'rotate': .1}))
+</pre>
+<p>
+These lines add three behaviors to the current state: Avoid, Wander, Serve. The 1s indicate that they are all active. All three will contribute to the controllers for translate and rotate. But each one a different amount:
+<p>
+Avoid has a weighting of 1/max, Wander has 0.5/max and Serve has 0.1/max. 
+<p>
+Make this brain work better.
+<p>
+<p>
+<h2 width="804"> Exercise #3</h2>
+<p>
+Consider the following brain:
+<p>
+<pre class="code">
+# This example has two states, &quot;edge&quot; that goes straight, and &quot;turn&quot;
+# that turns 90 degrees to the left. It bounces back and forth between
+# these two states.
+# Note how it uses onActivate() to remember where it was when it
+# started in both cases. It then moves (forward or to the left) until
+# it has moved enough.
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+from pyrobot.geometry import distance
+import math
+from random import random
+class TurnLeftBehavior (Behavior):
+    def setup(self):
+        self.Effects('rotate', .1)
+        self.Effects('translate', .1) 
+    def update(self):
+        self.IF(1, 'rotate', .1)
+        self.IF(1, 'translate', 0)
+class StraightBehavior (Behavior):
+    def setup(self): # method called when created
+        self.Effects('translate', .1) 
+        self.Effects('rotate', .1) 
+    def update(self):
+        self.IF(1, 'translate', .1) 
+        self.IF(1, 'rotate', 0)
+class edge (State):
+    def setup(self):
+        self.add(StraightBehavior(1))
+    def onActivate(self): # method called when activated or gotoed
+        self.startX = self.robot.x
+        self.startY = self.robot.y
+    def update(self):
+        x = self.robot.x
+        y = self.robot.y
+        dist = distance( self.startX, self.startY, x, y) 
+        #print &quot;actual = (%f, %f) start = (%f, %f); dist = %f&quot; \
+        #      % (x, y, self.startX, self.startY, dist)
+        if dist &gt; 1.0:
+            self.goto('turn')
+class turn (State):
+    def setup(self):
+        self.count = 0
+        self.add(TurnLeftBehavior(1))
+    def onActivate(self):
+        self.th = self.robot.th
+    def update(self):
+        th = self.robot.th
+        #print &quot;actual = %f start = %f&quot; % (th, self.th)
+        if angleAdd(th, - self.th) &gt; 90: 
+            self.goto('edge')
+def INIT(engine): # passes in engine, if you need it
+    brain = BehaviorBasedBrain({'translate' : engine.robot.translate, \
+                                'rotate' : engine.robot.rotate, \
+                                'update' : engine.robot.update }, engine)
+    # add a few states:
+    brain.add(edge(1))
+    brain.add(turn())
+    #robot.localize(1, 1.5)
+    return brain
+</pre>
+<p>
+<p>
+<ol type="1"><li>This behavior doesn't avoid obstacles; what must you do to do that?</li>
+<li>This behavior relies completely on odometry for localization (i.e., it uses dead reckoning); wouldn't it be better to add some type of landmark-based system, if landmarks are available?</li>
+<li>This doesn't use very sophisticated behaviors for turning or moving. It would be better, for example, if the turning slowed down when it got closer to its desired angle. How would you do that?</li>
+<li>If you wanted to traverse a map, you would need to have a different state for each position in the map. You could get around that by using the onGoto() and Goto() methods. But you would have to make the next state to goto a parameter that you pass in. Why?</li>
+</ol><p>
+<p>
+<h2 width="804"> Exercise #4</h2>
+<p>
+Although all of the examples above use translate and rotate, the <tt class="wiki">BehaviorBasedBrain</tt> was designed to control arbitrary controls. For example, you could use the <tt class="wiki">BehaviorBasedBrain</tt> to control the pan and tilt of a PTZ unit, like so:
+<p>
+<pre class="code">
+# A Fuzzy Logic PTZ Vision Tracker
+# Uses Python-integrated Vision System
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+class BBB(BehaviorBasedBrain):
+    def destroy(self):
+        print &quot;robot=&quot;, self.robot
+        self.removeDevice(&quot;ptz0&quot;)
+class Track(Behavior):
+    def setup(self):
+        # assumes that a camera device is already running!
+        # we don't put it here, so that you can load whatever
+        # type of camera you want: fake, blob, v4l, etc.
+        self.camera = self.robot.camera[0]
+        self.camWidth = self.camera.width
+        self.camHeight = self.camera.height
+    def update(self):
+        # match a reddish color:
+        self.camera.apply(&quot;match&quot;, 144, 78, 76)
+        # super color red:
+        self.camera.apply(&quot;superColor&quot;, 1, -1, -1, 0, 128)
+        # blobify all red:
+        blob = self.camera.apply(&quot;blobify&quot;, 0, 255, 255, 0, 1, 1, 1)[0]
+        # returns x1, y1, x2, y2, area
+        if blob[4] &gt; 200:
+            cx = (blob[0] + blob[2]) / 2
+            cy = (blob[1] + blob[3]) / 2
+            self.IF(Fuzzy(0, self.camWidth ) &lt;&lt; cx, 'pan',   5.0, &quot;pan left&quot;)
+            self.IF(Fuzzy(0, self.camWidth ) &gt;&gt; cx, 'pan',  -5.0, &quot;pan right&quot;)
+            self.IF(Fuzzy(0, self.camHeight ) &lt;&lt; cy, 'tilt',-5.0, &quot;tilt down&quot;)
+            self.IF(Fuzzy(0, self.camHeight ) &gt;&gt; cy, 'tilt', 5.0, &quot;tilt up&quot;)
+class MyState(State):
+    def setup(self):
+        self.add(Track(1, {'pan': 1, 'tilt': 1}))
+def INIT(engine):
+    ptz = engine.robot.startDevice(&quot;ptz&quot;);
+    brain = BBB({'pan' : ptz.panRel,
+                 'tilt': ptz.tiltRel,
+                 'update' : engine.robot.update },
+                engine)
+    brain.add(MyState(1)) # make it active
+    return brain
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/FuzzyPTZProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/FuzzyPTZProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<ol type="1"><li>Change this brain to allow the robot to do basic obstacle avoidance (don't use Fuzzy Logic)</li>
+<li>Change this brain to allow the robot to do more sophisticated obstacle avoidance (use Fuzzy Logic)</li>
+</ol><p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Arkin, R. C. (1998) <i>Behavior Based Robotics</i>. Cambridge Mass. : MIT Press.</li>
+<li>Brooks, R.A.,(1986) <i>A Robust Layered Control System For A Mobile Robot</i>, IEEE Journal Of Robotics And Automation, RA-2, April. pp. 14-23.</li>
+<li>Brooks, R.A.,(1989) <i>A Robot that Walks; Emergent Behaviors from a Carefully Evolved Network</i>, Neural Computation 1(2)</li>
+<li>Wang, L. (1997) <i>Adaptive Fuzzy Systems for Control</i>. Prentice Hall.</li>
+<li>Cox, E. (1998) <i>The Fuzzy Systems Handbook</i>. Second Edition.</li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleBehaviorBasedControl?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleBehaviorBasedControl?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

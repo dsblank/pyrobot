@@ -1,0 +1,362 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219101812", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: EvolutionOfLanguage</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Evolution of Language</h1>
+<p>
+<i>A more up to date page now exists here: <a href="http://wiki.roboteducation.org/Emergence_of_Communication">wiki.roboteducation.org/Emergence_of_Communication</a></i>
+<p>
+These experiments explore the evolution of language through a genetic algorithm. They are based on:
+<p>
+<ol><p>Marocco, D. and Nolfi, S. (2006) Emergence of communication in teams of embodied and situated agents. In <i>Proceedings of the 6th evolution of language conference.</i>  <a href="http://www.isrl.uiuc.edu/~amag/langev/paper/marocco06embodiedAgents.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Download</a>
+</ol><p>
+<ol><p>Marocco, D. and Nolfi, S. (2006). Self-orgainzation of communication in evolving robots. in <i>Articial Life X</i>, Bloomington, IN.
+</ol><p>
+Genes are the weights of a neural network with the following structure:
+<p>
+<pre class="code">
+                                           +--------------+
+                                           |   3 Output   |    Translate, Rotate, Sound
+                                           +--------------+
+                                             ^         ^
+                                             |         |
+                                             |    +--------------+
+                                             |    |   5 Hidden   | ------------------------------+
+                                             |    +--------------+                               |
+                                             |         ^                                         |
+                                             |         |                                         V
+     +---------+  +------------------------+  +------------------+  +------------------+  +-------------+
+     | 8 Sonar |  |  4 Directional Sounds  |  | 1 Previous Sound |  |  2 Light Sensors |  |  5 Context  |
+     +---------+  +------------------------+  +------------------+  +------------------+  +-------------+
+</pre>
+<p>
+The network is an SRN. There are short-cut connections between the input layer and the output layer. The input contains three types of sensor data: sonar, sound, and light. 
+<p>
+The fitness function of a gene is based on the performance of 4 robots in a square room with two lights. If a robot is in the yellow circle area, then the score is increased by .25 for that step. However, if there are three robots in a yellow area, then no points are awarded. The robots can send signals to each other through one of their output units, and is heard through their inputs. The inputs are &quot;directional microphones&quot; arranged like so:
+<p>
+<pre class="code">
+            +-----+
+            |  0  |
+      +-----+-----+-----+
+      |  3  |     |  1  |
+      +-----+-----+-----+
+            |  2  |
+            +-----+
+</pre>
+<p>
+Output from the closest robot in the four directions becomes input in this bank. Light can be seen across the room.
+<p>
+<img src="../_dblank/images/evolang.gif">
+<p>
+The program is divided into two parts, the brain and a controlling program. However, unlike brains that run in their own thread, these will be run from the controlling program. This allows a tighter coupling than normal, which is needed to make the simulation run faster than real time.
+<p>
+Here is the brain for each robot:
+<p>
+<pre class="code">
+# NNBrain.py
+from pyrobot.brain import Brain
+from pyrobot.brain.conx import SRN
+class NNBrain(Brain):
+    def setup(self):
+        self.robot.range.units = &quot;scaled&quot;
+        self.net = SRN()
+        self.sequenceType = &quot;ordered-continuous&quot;
+        # INPUT: ir, ears, mouth[t-1]
+        self.net.addLayer(&quot;input&quot;, len(self.robot.range) + 4 + 1) # sonar, ears, speech[t-1]
+        self.net.addContextLayer(&quot;context&quot;, 2, &quot;hidden&quot;)
+        self.net.addLayer(&quot;hidden&quot;, 2)
+        # OUTPUT: trans, rotate, say
+        self.net.addLayer(&quot;output&quot;, 3)
+        # ----------------------------------
+        self.net.connect(&quot;input&quot;, &quot;output&quot;)
+        self.net.connect(&quot;context&quot;, &quot;hidden&quot;)
+        self.net.connect(&quot;hidden&quot;, &quot;output&quot;)
+        self.net[&quot;context&quot;].setActivations(.5)
+        self.net.learning = 0
+    def step(self, ot1, or1):
+        t, r = [((v * 2) - 1) for v in [ot1, or1]]
+        self.robot.move(t, r)
+    def propagate(self, sounds):
+        inputs = self.robot.range.distance() + sounds + [self.net[&quot;output&quot;].activation[2]]
+        self.net.propagate(input=inputs)
+        self.net.copyHiddenToContext()
+        return [v for v in self.net[&quot;output&quot;].activation] # t, r, speech
+def INIT(eng):
+    return NNBrain(engine=eng)
+</pre>
+<p>
+The above brain is now part of pyrobot, called <tt class="wiki">NNBrain.py</tt> in <tt class="wiki">pyrobot/plugins/brains/</tt>, and the following controlling program is in <tt class="wiki">pyrobot/examples/evolang.py</tt>.
+ <img width="11" src="../wiki/img/idea.png"> When you run a program, it tries to run with as much system resources as it deserves. With a highly-computational program like this one---especially when you want to log in to another machine and run a long process---it may be useful to be <i>nice</i> to other users on that computer. You can limit the amount of resources with the <i>renice</i> command. A typical usage might look like <b>renice 19 22456</b> where <b>22456</b> is the process id. You can get that from <b>top</b> or <b>ps aux | grep dblank</b>.
+<p>
+Run the program with this command: <tt class="wiki">ipython pyrobot/examples/evolang.py</tt>. You may need to set two environment variables. See <a href="../page_PyroSiteNotes/">PyroSiteNotes</a> for more information for your institution. You will need the latest version of Pyrobot Simulator and the GA class.
+<p>
+<pre class="code">
+&quot;&quot;&quot;
+Based on Marocco and Nolfi 2006.
+&quot;&quot;&quot;
+# First, let's build a simulated world:
+from pyrobot.simulators.pysim import *
+from pyrobot.geometry import distance
+import time, random, math
+# In pixels, (width, height), (offset x, offset y), scale:
+sim = TkSimulator((441,434), (22,420), 40.357554, run=0)  
+# x1, y1, x2, y2 in meters:
+sim.addBox(0, 0, 10, 10)
+# (x, y) meters, brightness usually 1 (1 meter radius):
+sim.addLight(2, 2, 1)
+sim.addLight(7, 7, 1)
+# port, name, x, y, th, bounding Xs, bounding Ys, color
+sim.addRobot(60000, TkPioneer(&quot;RedPioneer&quot;,
+                              1, 1, -0.86,
+                              ((.225, .225, -.225, -.225),
+                               (.15, -.15, -.15, .15)),
+                            &quot;red&quot;))
+sim.addRobot(60001, TkPioneer(&quot;BluePioneer&quot;,
+                             8, 8, -0.86,
+                             ((.225, .225, -.225, -.225),
+                              (.15, -.15, -.15, .15)),
+                            &quot;blue&quot;))
+sim.addRobot(60002, TkPioneer(&quot;GreenPioneer&quot;,
+                              5, 1, -0.86,
+                              ((.225, .225, -.225, -.225),
+                               (.15, -.15, -.15, .15)),
+                            &quot;green&quot;))
+sim.addRobot(60003, TkPioneer(&quot;YellowPioneer&quot;,
+                             8, 1, -0.86,
+                             ((.225, .225, -.225, -.225),
+                              (.15, -.15, -.15, .15)),
+                            &quot;yellow&quot;))
+# add some sensors:
+for robot in sim.robots:
+    robot.addDevice(PioneerFrontSonars())
+    robot.addDevice(PioneerFrontLightSensors())
+# Now, make some client-side connections to the sim robots
+# client side:
+from pyrobot.robot.symbolic import Simbot
+from pyrobot.engine import Engine
+clients = [Simbot(sim, [&quot;localhost&quot;, 60000], 0),
+           Simbot(sim, [&quot;localhost&quot;, 60001], 1),
+           Simbot(sim, [&quot;localhost&quot;, 60002], 2),
+           Simbot(sim, [&quot;localhost&quot;, 60003], 3)]
+engines = [Engine(), Engine(), Engine(), Engine()]
+for n in range(4):
+    engines[n].robot = clients[n]
+    engines[n].loadBrain(&quot;NNBrain&quot;)
+if 0:
+    steps = 500
+    start = time.time()
+    for i in range(steps):
+        for client in clients:
+            client.update()
+        for engine in engines:
+            engine.brain.step()
+        sim.step(run=0)
+    stop = time.time()
+    print &quot;Average steps per second:&quot;, float(steps)/ (stop - start)
+def myquit():
+    for e in engines:
+        e.shutdown()
+import sys
+sys.exitfunc = myquit
+sim.redraw()
+# Now, let's set up the GA:
+from pyrobot.geometry import Polar
+def quadNum(myangle, angle):
+    &quot;&quot;&quot;
+    Given angle, return quad number
+      |0|
+    |3| |1|
+      |2|
+    &quot;&quot;&quot;
+    diff = angle - myangle
+    if diff &gt;= 0:
+        if diff &lt; math.pi/4:
+            return 0
+        elif diff &lt; math.pi/4 + math.pi/2:
+            return 3
+        elif diff &lt; math.pi:
+            return 2
+        else:
+            return 1
+    else:
+        if diff &gt; -math.pi/4:
+            return 0
+        elif diff &gt; -math.pi/4 - math.pi/2:
+            return 1
+        elif diff &gt; -math.pi:
+            return 2
+        else:
+            return 3
+def quadTest(robot = 0):
+    location = [0] * 4
+    for n in range(4):
+        location[n] = engines[0].robot.simulation[0].getPose(n)
+    myLoc = location[robot]
+    return quadSound(myLoc, range(4), location)
+def quadSound(myLoc, lastS, location):
+    &quot;&quot;&quot;
+    Computes the sound heard for all quads.
+    myLoc:    (x, y, t) of current robot; t where 0 is up
+    lastS:    last sound made by robots
+    location: (x, y, t) of robots; t where 0 is up
+    &quot;&quot;&quot;
+    closest = [(10000, 0), (10000, 0), (10000, 0), (10000, 0)] # dist, freq
+    for n in range(len(location)):
+        loc = location[n]
+        if loc != myLoc:
+            # distance between robots:
+            dist = distance(myLoc[0], myLoc[1], loc[0], loc[1])
+            # global angle from one robot to another:
+            angle = Polar(loc[0] - myLoc[0], loc[1] - myLoc[1], bIsPolar=0) # 0 to right, neg down (geometry-style)
+            angle = angle.t # get theta
+            if angle &lt; 0:
+                angle = math.pi + (math.pi + angle) # 0 to 2pi
+            angle = (angle - math.pi/2) % (math.pi * 2)
+            q = quadNum(myLoc[2], angle) 
+            #print n, myLoc[2], angle, q
+            if dist &lt; closest[q][0]: # if shorter than previous
+                closest[q] = dist, lastS[n] # new closest
+    return [v[1] for v in closest] # return the sounds
+from pyrobot.brain.ga import *
+import operator
+g = engines[0].brain.net.arrayify()
+class NNGA(GA):
+    def loadWeights(self, genePos):
+        for n in range(len(engines)):
+            engine = engines[n]
+            engine.brain.net.unArrayify(self.pop.individuals[genePos].genotype)
+    def randomizePositions(self):
+        for n in range(len(engines)):
+            engine = engines[n]
+            # Put each robot in a random location:
+            x, y, t = 1 + random.random() * 7, 1 + random.random() * 7, random.random() * math.pi * 2
+            engine.robot.simulation[0].setPose(n, x, y, t)
+    def fitnessFunction(self, genePos):
+        if genePos &gt;= 0:
+            self.loadWeights(genePos)
+            self.randomizePositions()
+        fitness = [0.0] * 4
+        s = [0] * 4 # each robot's sound
+        lastS = [0] * 4 # previous sound
+        location = [(0, 0, 0) for v in range(4)] # each robot's location
+        for i in range(self.seconds * (1000/sim.timeslice)): # simulated seconds (10/sec)
+            # get the locations
+            for n in range(4): # number of robots
+                location[n] = engines[0].robot.simulation[0].getPose(n)
+            # compute the move for each robot
+            for n in range(4): # number of robots
+                engine = engines[n]
+                engine.robot.update()
+                # compute quad for this robot
+                myLoc = location[n]
+                quad = quadSound(myLoc, lastS, location)
+                # compute output for each robot
+                oTrans, oRotate, s[n] = engine.brain.propagate(quad)
+                # then set the move velocities:
+                engine.brain.step(oTrans, oRotate)
+            # save the sounds
+            for n in range(4): # number of robots
+                lastS = [v for v in s]
+            # make the move:
+            sim.step(run=0)
+            sim.update_idletasks()
+            # compute fitness
+            closeTo = [0, 0] # how many robots are close to which lights?
+            for n in range(len(engines)):
+                engine = engines[n]
+                # only allow two per feeding area
+                reading = max(engine.robot.light[0].values())
+                if reading &gt;= 1.0:
+                    # get global coords
+                    x, y, t = engine.robot.simulation[0].getPose(n)
+                    # which light?
+                    dists = [distance(light.x, light.y, x, y) for light in sim.lights]
+                    if dists[0] &lt; dists[1]:
+                        closeTo[0] += 1
+                    else:
+                        closeTo[1] += 1
+            for n in range(len(engines)):
+                if engines[n].robot.stall: continue
+                for total in closeTo:
+                    if total &lt;= 2:
+                        fitness[n] += .25 * total
+                    else:
+                        fitness[n] -= 1.0
+        fit = reduce(operator.add, fitness)
+        fit = max(0.01, fit)
+        print &quot;Fitness %d: %.5f&quot; % (genePos, fit)
+        return fit
+    def setup(self, **args):
+        if args.has_key('seconds'):
+            self.seconds = args['seconds']
+        else:
+            # default value
+            self.seconds = 20 # how much simulated real time to run, in sim seconds
+    def isDone(self):
+        return 0
+class Experiment:
+    def __init__(self, seconds, popsize, maxgen):
+        self.ga = NNGA(Population(popsize, Gene, size=len(g), verbose=1,
+                                  imin=-1, imax=1, min=-50, max=50, maxStep = 1,
+                                  elitePercent = .1),
+                       mutationRate=0.05, crossoverRate=0.6,
+                       maxGeneration=maxgen, verbose=1, seconds=seconds)
+    def evolve(self, cont = 0):
+        self.ga.evolve(cont)
+    def stop(self):
+        for n in range(4):
+            engines[n].robot.stop()
+    def saveBest(self, filename):
+        net = engines[0].brain.net
+        net.unArrayify(self.ga.pop.bestMember.genotype)
+        net.saveWeightsToFile(filename)
+    def loadGenotypes(self, filename):
+        engines[0].brain.net.loadWeightsFromFile(filename)
+        genotype = engines[0].brain.net.arrayify()
+        for p in self.ga.pop:
+            for n in range(len(genotype)):
+                p.genotype[n] = genotype[n]
+    def loadWeights(self, filename):
+        for n in range(4):
+            engines[n].brain.net.loadWeightsFromFile(filename)
+    def test(self, seconds):
+        self.ga.seconds = seconds
+        return self.ga.fitnessFunction(-1) # -1 testing
+if __name__ == &quot;__main__&quot;:
+    e = Experiment(0, 20, 100)
+    e.ga.seconds = 20
+    e.loadWeights(&quot;nolfi-100.wts&quot;)
+    e.loadGenotypes(&quot;nolfi-100.wts&quot;)
+    e.evolve()
+    e.saveBest(&quot;nolfi-200.wts&quot;)
+    e.ga.saveGenesToFile(&quot;nolfi-200.pop&quot;)
+</pre>
+<p>
+Previous: <a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a> Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/EvolutionOfLanguage?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/EvolutionOfLanguage?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

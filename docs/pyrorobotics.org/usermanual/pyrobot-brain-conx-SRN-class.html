@@ -1,0 +1,1019 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129005006", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.conx.SRN</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        <a href="../../usermanual/pyrobot-brain-conx-module/">Module&nbsp;conx</a> ::
+        Class&nbsp;SRN
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-conx-SRN-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class SRN</h2>
+<pre class="base-tree">
+<a href="../../usermanual/pyrobot-brain-conx-Network-class/"><code>Network</code></a> --+
+          |
+         <b>SRN</b>
+</pre><br/>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-brain-governor-GovernorSRN-class/"><code>GovernorSRN</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+A subclass of Network. SRN allows for simple recursive networks by
+copying hidden activations back to a context layer. This subclass
+adds support for sequencing, prediction, and context layers.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+<br/>
+Constructor for SRN sub-class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#addContext" class="summary-sig-name"><code>addContext</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">hiddenLayerName</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+<br/>
+Adds a context layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="addContextLayer"></a><span class="summary-sig"><span class="summary-sig-name">addContextLayer</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">size</span>,
+          <span class="summary-sig-arg">hiddenLayerName</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#addSRNLayers" class="summary-sig-name"><code>addSRNLayers</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inc</span>,
+          <span class="summary-sig-arg">hidc</span>,
+          <span class="summary-sig-arg">outc</span>)</span></code>
+<br/>
+Wraps SRN.addThreeLayers() for compatibility.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#addThreeLayers" class="summary-sig-name"><code>addThreeLayers</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inc</span>,
+          <span class="summary-sig-arg">hidc</span>,
+          <span class="summary-sig-arg">outc</span>)</span></code>
+<br/>
+Creates a three level network with a context layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#backprop" class="summary-sig-name"><code>backprop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Extends backprop() from Network to automatically deal with context
+layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#copyHiddenToContext" class="summary-sig-name"><code>copyHiddenToContext</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Uses key to identify the hidden layer associated with each
+layer in the self.contextLayers dictionary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#networkStep" class="summary-sig-name"><code>networkStep</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+This exists so that other extensions can interface at the point
+where the call is made to Network.step().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#predict" class="summary-sig-name"><code>predict</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inName</span>,
+          <span class="summary-sig-arg">outName</span>)</span></code>
+<br/>
+Sets prediction between an input and output layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#propagate" class="summary-sig-name"><code>propagate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+SRN.propagate: Sets error flags and propagates.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#setContext" class="summary-sig-name"><code>setContext</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Clears the context layer by setting context layer to (default) value 0.5.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#setInitContext" class="summary-sig-name"><code>setInitContext</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Clear context layer between sequences.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#setLearnDuringSequence" class="summary-sig-name"><code>setLearnDuringSequence</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Set self.learnDuringSequence.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#setSequenceType" class="summary-sig-name"><code>setSequenceType</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+You must set this! Set it to &quot;epoch&quot; or &quot;pattern&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#step" class="summary-sig-name"><code>step</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+SRN.step()
+Extends network step method by automatically copying hidden
+layer activations to the context layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-SRN-class/#sweepCrossValidation" class="summary-sig-name"><code>sweepCrossValidation</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+sweepCrossValidation() will go through each of the crossvalidation input/targets.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Network</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__getitem__" class="summary-sig-name"><code>__getitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Returns the layer specified by name.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__len__" class="summary-sig-name"><code>__len__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the number of layers in the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns string representation of network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#activationFunction" class="summary-sig-name"><code>activationFunction</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+Determine the activation of a node based on that nodes net input.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#ACTPRIME" class="summary-sig-name"><code>ACTPRIME</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">act</span>)</span></code>
+<br/>
+Used in compute_error.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#add" class="summary-sig-name"><code>add</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+<br/>
+Adds a layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#addLayer" class="summary-sig-name"><code>addLayer</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">size</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#addPattern" class="summary-sig-name"><code>addPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Adds a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#arrayify" class="summary-sig-name"><code>arrayify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns an array of node bias values and connection weights
+for use in a GA.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#associate" class="summary-sig-name"><code>associate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inName</span>,
+          <span class="summary-sig-arg">outName</span>)</span></code>
+<br/>
+inName layer and outName layer will be auto-associating.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#ce_init" class="summary-sig-name"><code>ce_init</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initializes error computation.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#change_weights" class="summary-sig-name"><code>change_weights</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Changes the weights according to the error values calculated
+during backprop().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#changeLayerSize" class="summary-sig-name"><code>changeLayerSize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layername</span>,
+          <span class="summary-sig-arg">newsize</span>)</span></code>
+<br/>
+Changes layer size.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#closeLog" class="summary-sig-name"><code>closeLog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Close the layerName's log file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compare" class="summary-sig-name"><code>compare</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">v1</span>,
+          <span class="summary-sig-arg">v2</span>)</span></code>
+<br/>
+Compares two values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compute_error" class="summary-sig-name"><code>compute_error</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Computes error for all non-output layers backwards through all
+projections.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compute_wed" class="summary-sig-name"><code>compute_wed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Computes weight error derivative for all connections in
+self.connections starting with the last connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#connect" class="summary-sig-name"><code>connect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">toName</span>)</span></code>
+<br/>
+Connects two layers by instantiating an instance of Connection
+class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyActivations" class="summary-sig-name"><code>copyActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">vec</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies activations in vec to the specified layer, replacing
+patterns if necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyTargets" class="summary-sig-name"><code>copyTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">vec</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies targets in vec to specified layer, replacing patterns
+if necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyVector" class="summary-sig-name"><code>copyVector</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector1</span>,
+          <span class="summary-sig-arg">vec2</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies vec2 into vector1 being sure to replace patterns if
+necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#cycle" class="summary-sig-name"><code>cycle</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Alternate to sweep().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#delPattern" class="summary-sig-name"><code>delPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>)</span></code>
+<br/>
+Delete a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#diff" class="summary-sig-name"><code>diff</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Returns value to within 0.001.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#display" class="summary-sig-name"><code>display</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Displays the network to the screen.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getActivationsDict" class="summary-sig-name"><code>getActivationsDict</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameList</span>)</span></code>
+<br/>
+Returns a dictionary of layer names that map to a list of activations.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getActive" class="summary-sig-name"><code>getActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns the value of the active flag for the layer specified
+by layerName.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getConnection" class="summary-sig-name"><code>getConnection</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">lfrom</span>,
+          <span class="summary-sig-arg">lto</span>)</span></code>
+<br/>
+Returns the connection instance connecting the specified (string)
+layer names.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getCorrect" class="summary-sig-name"><code>getCorrect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns the number of correct activation within tolerance of a
+layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getData" class="summary-sig-name"><code>getData</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Returns dictionary with input and target given pos.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getDataCrossValidation" class="summary-sig-name"><code>getDataCrossValidation</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getEpsilon" class="summary-sig-name"><code>getEpsilon</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the epsilon for the Network instance.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getError" class="summary-sig-name"><code>getError</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*layerNames</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getLayer" class="summary-sig-name"><code>getLayer</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Returns the layer with the argument (string) name.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getLayerIndex" class="summary-sig-name"><code>getLayerIndex</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>)</span></code>
+<br/>
+Given a reference to a layer, returns the index of that layer in
+self.layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getPattern" class="summary-sig-name"><code>getPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>)</span></code>
+<br/>
+Returns the pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getWeights" class="summary-sig-name"><code>getWeights</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">toName</span>)</span></code>
+<br/>
+Gets the weights of the connection between two layers (argument strings).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getWord" class="summary-sig-name"><code>getWord</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pattern</span>)</span></code>
+<br/>
+Returns the word associated with pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#initialize" class="summary-sig-name"><code>initialize</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initializes network by calling Connection.initialize() and
+Layer.initialize().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadCrossValidation" class="summary-sig-name"><code>loadCrossValidation</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadDataFromFile" class="summary-sig-name"><code>loadDataFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">ocnt</span>)</span></code>
+<br/>
+Loads data (targets/inputs) from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadInputPatternsFromFile" class="summary-sig-name"><code>loadInputPatternsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads inputs as patterns from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadInputsFromFile" class="summary-sig-name"><code>loadInputsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads inputs from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadTargetPatternssFromFile" class="summary-sig-name"><code>loadTargetPatternssFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads targets as patterns from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadTargetsFromFile" class="summary-sig-name"><code>loadTargetsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads targets from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadVectorsFromFile" class="summary-sig-name"><code>loadVectorsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>,
+          <span class="summary-sig-arg">patterned</span>)</span></code>
+<br/>
+Load a set of vectors from a file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadWeightsFromFile" class="summary-sig-name"><code>loadWeightsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+Loads weights from a file in pickle, plain, or tlearn mode.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#logLayer" class="summary-sig-name"><code>logLayer</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">fileName</span>)</span></code>
+<br/>
+Sets the layerName's log feature.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#logMsg" class="summary-sig-name"><code>logMsg</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">message</span>)</span></code>
+<br/>
+Logs a message with layerName log.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapInput" class="summary-sig-name"><code>mapInput</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Adds layerName and offset to inputMap.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapInputs" class="summary-sig-name"><code>mapInputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameOffsetPairs</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapTarget" class="summary-sig-name"><code>mapTarget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Adds layerName and offset to targetMap.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapTargets" class="summary-sig-name"><code>mapTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameOffsetPairs</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#path" class="summary-sig-name"><code>path</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayer</span>,
+          <span class="summary-sig-arg">endLayer</span>)</span></code>
+<br/>
+Used in error checking with verifyArchitecture() and in prop_from().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#patternVector" class="summary-sig-name"><code>patternVector</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Replaces vector with patterns.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#postStep" class="summary-sig-name"><code>postStep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#postSweep" class="summary-sig-name"><code>postSweep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#preStep" class="summary-sig-name"><code>preStep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#preSweep" class="summary-sig-name"><code>preSweep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#Print" class="summary-sig-name"><code>Print</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">msg</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#prompt" class="summary-sig-name"><code>prompt</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#prop_from" class="summary-sig-name"><code>prop_from</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayers</span>)</span></code>
+<br/>
+Start propagation from the layers in the list
+startLayers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#propagateFrom" class="summary-sig-name"><code>propagateFrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayer</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Propagates activation through the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#putActivations" class="summary-sig-name"><code>putActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">dict</span>)</span></code>
+<br/>
+Puts a dict of name: activations into their respective layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#randomizeOrder" class="summary-sig-name"><code>randomizeOrder</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Randomizes self.loadOrder, the order in which inputs set with
+self.setInputs() are presented.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#replacePatterns" class="summary-sig-name"><code>replacePatterns</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Replaces patterned inputs or targets with activation vectors.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reportEpoch" class="summary-sig-name"><code>reportEpoch</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">epoch</span>,
+          <span class="summary-sig-arg">tssErr</span>,
+          <span class="summary-sig-arg">totalCorrect</span>,
+          <span class="summary-sig-arg">totalCount</span>,
+          <span class="summary-sig-arg">rmsErr</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reportFinal" class="summary-sig-name"><code>reportFinal</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">epoch</span>,
+          <span class="summary-sig-arg">tssErr</span>,
+          <span class="summary-sig-arg">totalCorrect</span>,
+          <span class="summary-sig-arg">totalCount</span>,
+          <span class="summary-sig-arg">rmsErr</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reportPattern" class="summary-sig-name"><code>reportPattern</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reportStart" class="summary-sig-name"><code>reportStart</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reset" class="summary-sig-name"><code>reset</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets seed values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#resetFlags" class="summary-sig-name"><code>resetFlags</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets layer flags for activation and target.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#RMSError" class="summary-sig-name"><code>RMSError</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns Root Mean Squared Error for all output layers in this network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveDataToFile" class="summary-sig-name"><code>saveDataToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves data (targets/inputs) to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveInputsToFile" class="summary-sig-name"><code>saveInputsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves inputs to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveNetworkForCrossValidation" class="summary-sig-name"><code>saveNetworkForCrossValidation</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveNetworkToFile" class="summary-sig-name"><code>saveNetworkToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">makeWrapper</span>)</span></code>
+<br/>
+Saves network to file using pickle.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveTargetsToFile" class="summary-sig-name"><code>saveTargetsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves targets to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveWeightsToFile" class="summary-sig-name"><code>saveWeightsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+Saves weights to file in pickle, plain, or tlearn mode.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setActive" class="summary-sig-name"><code>setActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets a layer to active.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setAutoCrossValidation" class="summary-sig-name"><code>setAutoCrossValidation</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setAutoSaveWeightsFile" class="summary-sig-name"><code>setAutoSaveWeightsFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setBatch" class="summary-sig-name"><code>setBatch</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.batch to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setEpsilon" class="summary-sig-name"><code>setEpsilon</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets epsilon value for the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInputs" class="summary-sig-name"><code>setInputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inputs</span>)</span></code>
+<br/>
+Sets self.input to inputs.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInputsAndTargets" class="summary-sig-name"><code>setInputsAndTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">data1</span>,
+          <span class="summary-sig-arg">data2</span>)</span></code>
+<br/>
+Network.setInputsAndTargets()
+Sets the corpus of data for training.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInteractive" class="summary-sig-name"><code>setInteractive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets interactive to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setLayerVerification" class="summary-sig-name"><code>setLayerVerification</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setLearning" class="summary-sig-name"><code>setLearning</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets learning to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setMaxRandom" class="summary-sig-name"><code>setMaxRandom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the maxRandom Layer attribute for each layer to value.Specifies
+the global range for randomly initialized values, [-max, max].</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setMomentum" class="summary-sig-name"><code>setMomentum</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.momentum to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setOrderedInputs" class="summary-sig-name"><code>setOrderedInputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.orderedInputs to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setOutputs" class="summary-sig-name"><code>setOutputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">outputs</span>)</span></code>
+<br/>
+For compatiblity.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPattern" class="summary-sig-name"><code>setPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Sets a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPatterned" class="summary-sig-name"><code>setPatterned</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the network to use patterns for inputs and targets.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPatterns" class="summary-sig-name"><code>setPatterns</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">patterns</span>)</span></code>
+<br/>
+Sets patterns to the dictionary argument.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setReportRate" class="summary-sig-name"><code>setReportRate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.reportRate to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setResetEpoch" class="summary-sig-name"><code>setResetEpoch</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.resetEpoch to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setResetLimit" class="summary-sig-name"><code>setResetLimit</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.resetLimit to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSeed" class="summary-sig-name"><code>setSeed</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the seed to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSigmoid_prime_offset" class="summary-sig-name"><code>setSigmoid_prime_offset</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.sigmoid_prime_offset to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setStopPercent" class="summary-sig-name"><code>setStopPercent</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.stopPercent to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSweepReportRate" class="summary-sig-name"><code>setSweepReportRate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.sweepReportRate to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setTargets" class="summary-sig-name"><code>setTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">targets</span>)</span></code>
+<br/>
+Sets the targets.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setTolerance" class="summary-sig-name"><code>setTolerance</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets tolerance to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setup" class="summary-sig-name"><code>setup</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setUseCrossValidationToStop" class="summary-sig-name"><code>setUseCrossValidationToStop</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets flag so that self.stopPercent is compared to cross validation
+percent rather than the regular training data percentage correct.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setVerbosity" class="summary-sig-name"><code>setVerbosity</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.verbosity and each layer verbosity to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setWeight" class="summary-sig-name"><code>setWeight</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">fromPos</span>,
+          <span class="summary-sig-arg">toName</span>,
+          <span class="summary-sig-arg">toPos</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the weight of the connection between two layers (argument strings).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#shareWeights" class="summary-sig-name"><code>shareWeights</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">network</span>,
+          <span class="summary-sig-arg">listOfLayerNamePairs</span>)</span></code>
+<br/>
+Share weights with another network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#sweep" class="summary-sig-name"><code>sweep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Runs through entire dataset.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#toString" class="summary-sig-name"><code>toString</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the network layers as a string.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#train" class="summary-sig-name"><code>train</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cont</span>)</span></code>
+<br/>
+Trains the network on the dataset till a stopping condition is
+met.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#TSSError" class="summary-sig-name"><code>TSSError</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns Total Sum Squared error for the specified layer's pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#unArrayify" class="summary-sig-name"><code>unArrayify</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">gene</span>)</span></code>
+<br/>
+Copies gene bias values and weights to network bias values and
+weights.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyArchitecture" class="summary-sig-name"><code>verifyArchitecture</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Check for orphaned layers or connections.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyArguments" class="summary-sig-name"><code>verifyArguments</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">arg</span>)</span></code>
+<br/>
+Verifies that arguments to setInputs and setTargets are appropriately formatted.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyInputs" class="summary-sig-name"><code>verifyInputs</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used in propagate() to verify that the network input
+activations have been set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyTargets" class="summary-sig-name"><code>verifyTargets</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used in backprop() to verify that the network targets have
+been set.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">'Simple&nbsp;Recurrent&nbsp;Network'</span>,
+          <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for SRN sub-class. Support for sequences and prediction added.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__init__"><code>pyrobot.brain.conx.Network.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="addContext"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addContext</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layer</span>,
+          <span class="sig-arg">hiddenLayerName</span>=<span class="sig-default">'hidden'</span>,
+          <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a context layer. Necessary to keep self.contextLayers dictionary up to date.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addSRNLayers"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addSRNLayers</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inc</span>,
+          <span class="sig-arg">hidc</span>,
+          <span class="sig-arg">outc</span>)</span>
+  </h3>
+<pre class="literalblock">
+Wraps SRN.addThreeLayers() for compatibility.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addThreeLayers"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addThreeLayers</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inc</span>,
+          <span class="sig-arg">hidc</span>,
+          <span class="sig-arg">outc</span>)</span>
+  </h3>
+<pre class="literalblock">
+Creates a three level network with a context layer.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#addThreeLayers"><code>pyrobot.brain.conx.Network.addThreeLayers</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="backprop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">backprop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Extends backprop() from Network to automatically deal with context
+layers. Copies the contexts, if contextCopying is true.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#backprop"><code>pyrobot.brain.conx.Network.backprop</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="copyHiddenToContext"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyHiddenToContext</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Uses key to identify the hidden layer associated with each
+layer in the self.contextLayers dictionary.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="networkStep"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">networkStep</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+This exists so that other extensions can interface at the point
+where the call is made to Network.step(). See governor.py for
+an example.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="predict"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">predict</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inName</span>,
+          <span class="sig-arg">outName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets prediction between an input and output layer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="propagate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">propagate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+SRN.propagate: Sets error flags and propagates.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#propagate"><code>pyrobot.brain.conx.Network.propagate</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="setContext"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setContext</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>=<span class="sig-default">0.5</span>)</span>
+  </h3>
+<pre class="literalblock">
+Clears the context layer by setting context layer to (default) value 0.5.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setInitContext"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setInitContext</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Clear context layer between sequences.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setLearnDuringSequence"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setLearnDuringSequence</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set self.learnDuringSequence.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setSequenceType"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setSequenceType</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+You must set this! Set it to &quot;epoch&quot; or &quot;pattern&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="step"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">step</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+SRN.step()
+Extends network step method by automatically copying hidden
+layer activations to the context layer.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#step"><code>pyrobot.brain.conx.Network.step</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="sweepCrossValidation"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">sweepCrossValidation</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+sweepCrossValidation() will go through each of the crossvalidation input/targets.
+The crossValidationCorpus is a list of dictionaries of input/targets
+referenced by layername.
+Example: ({&quot;input&quot;: [0.0, 0.1], &quot;output&quot;: [1.0]}, {&quot;input&quot;: [0.5, 0.9], &quot;output&quot;: [0.0]})
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-brain-conx-Network-class/#sweepCrossValidation"><code>pyrobot.brain.conx.Network.sweepCrossValidation</code></a> <i>(inherited documentation)</i>
+</dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

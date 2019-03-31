@@ -1,0 +1,186 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160654", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleFSM:UsingGenerators</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Advanced Module: FSM using Python Generators</h1>
+<p>
+In the previous section we saw a Brain architecture for simulating a state machine. However, state machines only allow you to go to one state or another. There really isn't the idea of a subroutine. However, we did introduce the ideas of push/pop in the previous section which allows control to pass back to the state from a substate. But, control always begins again at the beginning of the state.
+<p>
+Sometimes we might like to do something like the following:
+<p>
+<pre class="code">
+    if A:
+       self.gosub(&quot;step1&quot;)
+       self.gosub(&quot;step2&quot;)
+       self.gosub(&quot;step3&quot;)
+    else:
+       self.gosub(&quot;step4&quot;)
+       self.gosub(&quot;step5&quot;)
+</pre>
+<p>
+This idea of sequential gosubs would be very difficult using the push/pop machinery from the previous section. In fact, there is no clear way of doing these short of creating a different path through a FSM for each possible sequence of states.
+<p>
+The problem is that push/pop didn't really transfer control, but merely pushed or popped values off a stack, so when the step method exited, the next state would be picked appropriately.
+<p>
+To implement the above combination of function and state, we need a bit more power in our language. We could just call functions directly, but that would require us to take care of FSM details in our code directly. That is, we would though out the FSM abstractions. However, Python now includes ideas from more sophisticated languages. One idea that we can take advantage here is the idea of a &quot;generator&quot;. Using the &quot;yield&quot; command in Python automatically turns a normal function into a generator.
+<p>
+Consider this simple example:
+<p>
+<pre class="code">
+def generator():
+    yield 1
+    yield 2
+    yield 3
+g = generator()
+for j in g:
+    print j
+</pre>
+<p>
+Here, the function generator that returns a value (1) with the yield statement. The statement &quot;for j in g:&quot; then asks for the instance g to give it a sequence of results. When g is asked for another value, g() continues on from where is last left off, and returns the second yield. When there are no more yields, then j is done.
+<p>
+We can use this same technique to build a control system. The following code sketches this idea out.
+<p>
+<pre class="code">
+&quot;&quot;&quot;
+An advance FSM Brain architecture for allowing a true GOSUB which
+saves the state of the State, and returns to continue where it left
+off. Takes advantage of the new &quot;yield&quot; command in Python.
+All states are generators. Control is handled by using &quot;yield&quot;. Yield
+passes back:
+&quot;continue&quot; - let others have a turn, and continue
+&quot;goto&quot;     - continue processing in another state
+&quot;gosub&quot;    - go do another state as a function
+&quot;quit&quot;     - system will stop
+TODO: allow system to be in multiple states simultaneously.
+&quot;&quot;&quot;
+import random, time
+def process(control, level=0):
+    &quot;&quot;&quot; This function processes the states. &quot;&quot;&quot;
+    command = &quot;goto&quot;
+    state = None
+    arg = None
+    while command not in [&quot;return&quot;, &quot;quit&quot;]:
+        print &quot;at level&quot;, level
+        for stepResults in control: # this is where the call is
+            if type(stepResults) == type(&quot;&quot;):
+                command, state, arg = stepResults, None, None
+            else:
+                command, state, arg = stepResults
+            # -----------------------------
+            if command == &quot;goto&quot; or command == &quot;quit&quot;:
+                break
+            elif command == &quot;gosub&quot;:
+                command = process(state(*arg), level+1) # recursive
+                if command == &quot;quit&quot;:
+                    break
+            elif command == &quot;return&quot;:
+                break
+            time.sleep(.001)
+        print &quot;Ending level&quot;, level
+        if command == &quot;goto&quot;:
+            control = state(*arg)
+    return command
+def State1(*args):
+    &quot;&quot;&quot; Sample state &quot;&quot;&quot;
+    print &quot;Computing in State1&quot;
+    for i in range(100):
+        yield &quot;continue&quot;
+    print
+    r = random.random()
+    if r &lt; .33:
+        print &quot;   pre-goto...&quot;
+        yield &quot;goto&quot;, State2, (11,)
+        print &quot;   ERROR post-goto...&quot; # never gets here
+    elif r &lt; .66:
+        print &quot;   pre-gosub...&quot;
+        yield &quot;gosub&quot;, State2, (12,)
+        print &quot;   post-gosub...&quot;
+    print &quot;end loop...&quot;
+    yield &quot;return&quot; # only do this when done, otherwise will loop
+def State2(*args):
+    print &quot;Computing in State2&quot;
+    for i in range(100):
+        yield &quot;continue&quot;
+    print
+    r = random.random()
+    if r &lt; .33:
+        print &quot;   pre-goto...&quot;
+        yield &quot;goto&quot;, State1, (11,)
+        print &quot;   ERROR post-goto...&quot; # never gets here
+    elif r &lt; .66:
+        print &quot;   pre-gosub...&quot;
+        yield &quot;gosub&quot;, State1, (12,)
+        print &quot;   post-gosub...&quot;
+    print &quot;end loop...&quot;
+    yield &quot;return&quot; # only do this when done, otherwise will loop
+# Get the process running:
+retval = None
+while retval != &quot;quit&quot;:
+    retval = process(State1())
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/FSMGeneratorProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/FSMGeneratorProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleFSM_3aUsingGenerators?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleFSM_3aUsingGenerators?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

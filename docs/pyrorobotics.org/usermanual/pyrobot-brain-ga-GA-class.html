@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129001357", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.ga.GA</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        <a href="../../usermanual/pyrobot-brain-ga-module/">Module&nbsp;ga</a> ::
+        Class&nbsp;GA
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-ga-GA-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class GA</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-general-gaca-GACA-class/"><code>GACA</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+Class which defines everything needed to run a GA.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__init__"></a><span class="summary-sig"><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">population</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="applyFitnessFunction"></a><span class="summary-sig"><span class="summary-sig-name">applyFitnessFunction</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="display"></a><span class="summary-sig"><span class="summary-sig-name">display</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="display_one"></a><span class="summary-sig"><span class="summary-sig-name">display_one</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">p</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="evolve"></a><span class="summary-sig"><span class="summary-sig-name">evolve</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="fitnessFunction"></a><span class="summary-sig"><span class="summary-sig-name">fitnessFunction</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">genePosition</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ga-GA-class/#generate" class="summary-sig-name"><code>generate</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Iteratively creates a new population from the current population.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getGenesFromFile"></a><span class="summary-sig"><span class="summary-sig-name">getGenesFromFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="initGenesFromFile"></a><span class="summary-sig"><span class="summary-sig-name">initGenesFromFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">sampleSize</span>,
+          <span class="summary-sig-arg">mutate</span>,
+          <span class="summary-sig-arg">full</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="initialize"></a><span class="summary-sig"><span class="summary-sig-name">initialize</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="isDone"></a><span class="summary-sig"><span class="summary-sig-name">isDone</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadFromFile"></a><span class="summary-sig"><span class="summary-sig-name">loadFromFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadGenesFromFile"></a><span class="summary-sig"><span class="summary-sig-name">loadGenesFromFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="reInitialize"></a><span class="summary-sig"><span class="summary-sig-name">reInitialize</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="saveGenesToFile"></a><span class="summary-sig"><span class="summary-sig-name">saveGenesToFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">listOfPositions</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="saveToFile"></a><span class="summary-sig"><span class="summary-sig-name">saveToFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setSeed"></a><span class="summary-sig"><span class="summary-sig-name">setSeed</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="generate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">generate</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Iteratively creates a new population from the current population.
+Selects two parents, attempts to cross them, and then attempts to
+mutate the resulting children.  The probability of these operations
+occurring is determined by the crossoverRate and the mutationRate.
+Overwrites the old population with the new population.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

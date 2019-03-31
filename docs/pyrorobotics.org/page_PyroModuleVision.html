@@ -1,0 +1,204 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121033", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleVision</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<font color="red">THIS IS NOW OUTDATED. SEE BELOW FOR UP-TO-DATE MODULES.</font>
+<p>
+<p>
+<h2 width="804"> Framegrabber Interface</h2>
+<p>
+Here is an example of the Video for Linux interface:
+<p>
+<pre class="code">
+robot.startDevice(&quot;V4LCamera&quot;)   
+image = self.robot.camera[0].image
+</pre>
+<p>
+There are many kinds of camera subtypes: blob, fake, and video4linux.
+<p>
+<p>
+<h2 width="804"> Using a Camera in Pyro</h2>
+<p>
+<pre class="code">
+from pyrobot.brain import Brain 
+import time
+def saveListToFile(ls, file): 
+    for i in range(len(ls)): 
+        file.write(str(ls[i]) + &quot; &quot;) 
+    file.write(&quot;\n&quot;)
+def scaleList(ls, maxval):
+    for i in range(len(ls)):
+        ls[i] = ls[i] / (1.0 * maxval)
+    return ls
+class SampleImages(Brain):
+    def setup(self):
+        self.startDevice(&quot;V4LCamera&quot;)
+        self.camera = self.robot.camera[0]
+        print &quot;done initializing camera&quot;
+        #to save image data in a nnet ready format, uncomment the following line
+        #self.cameradat = open(&quot;camera.dat&quot;, &quot;w&quot;)
+        self.count = 0
+    def step(self):
+        if self.count &lt; 10:
+            self.camera.update()
+            image = self.camera.getShrunkenImage(xscale = 0.5, mode = 'sample')
+            #to save image data in a nnet ready format, uncomment the following line
+            #saveListToFile(scaleList(image.data, 255), self.cameradat)
+            #to save image data as ppm files, uncomment the following line
+            image.saveToFile(&quot;image%d.ppm&quot; % self.count)
+            self.wander(0.9)
+            time.sleep(0.3)
+            self.stop()
+            self.count += 1
+            print &quot;step&quot;, self.count
+        else:
+            print &quot;done collecting samples&quot;
+            self.stop()
+            #to save image data in a nnet ready format, uncomment the following line
+            #self.cameradat.close()
+            self.pleaseStop()
+    def wander(self, minSide): 
+        robot = self.robot
+        front = min([s.value for s in self.robot.range[&quot;front&quot;]])
+        left = min([s.value for s in self.robot.range[&quot;front-left&quot;]])
+        right = min([s.value for s in self.robot.range[&quot;front-right&quot;]])
+        if front &lt; minSide:
+            robot.move(0,-0.3)
+        elif left &lt; minSide: 
+            robot.move(0,-0.3) 
+        elif right &lt; minSide:
+            robot.move(0,0.3) 
+        else: 
+            robot.move(0.2, 0)
+def INIT(engine):
+    return SampleImages('SampleImages', engine)
+</pre>  
+<p>
+Some notes:
+<p>
+<ol type="1"><li>The video4linux camera begins with dimensions 384 by 240. You may want to adjust that using shrunkenImage() and grayScale().</li>
+</ol><p>
+All cameras derive from Pyro<b></b>Image and Service, discussed below.
+<p>
+<p>
+<h2 width="804"> PyroImage Class</h2>
+<p>
+This page documents Pyro<b></b>Image, the main image class in Pyro.
+<p>
+This class has methods to do standard vision processing: blob detection and tracking, convolution, etc.
+<p>
+See pyrobot/vision/__init__.py for many examples.
+<p>
+<pre class="code">
+from pyrobot.vision import *
+</pre>
+<p>
+Pyro<b></b>Image implements the following methods:
+<p>
+<pre class="code">
+class PyroImage:
+   def loadFromFile(filename):
+   def saveToFile(filename):
+   def shrink(self, xscale=0.5, yscale='unset', mode='average'):
+   def getShrunkenImage(self, xscale=0.5, yscale='unset', mode='average'):
+   def grayScale(self):
+   def getGrayScale(self):
+   def getColorFilter(self, r, g, b):
+   def display(self):
+   def set(self, x, y, val, offset = 0):
+   def setVal(self, x, y, val):
+   def get(self, x, y, offset = 0):
+   def getVal(self, x, y):
+   def reset(self, vector):
+   def resetToColor(self,r,g,b):
+   def incr(self, x, y, offset = 0):
+   def cropPixels(self, l, t='unset', r='unset', b='unset'):
+   def getBitmap(self, cutoff, cutoff2='unset', mode='brightness'):
+   def histogram(self, cols = 20, rows = 20, initvals = 0):
+   def convolve(self, convmask, bit = 0, threshold = 0):
+   def swapPlanes(self, plane1, plane2):
+class Histogram(PyroImage):
+   def display(self):
+   def compare(self, hist):
+class Bitmap(PyroImage):
+   def display(self):
+   def avgColor(self, img):
+class Point:
+   def set(self, x, y):
+   def setx(self, x):
+   def sety(self, y):
+   def clear(self):
+class Blob:
+   def addpixel(self, pixel):
+   def joinblob(self, other):
+   def width(self):
+   def height(self):
+   def area(self):
+   def density(self):
+   def display(self):
+class Blobdata:
+   def sort(self, mode=&quot;mass&quot;):
+   def display(self):
+</pre>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleVision?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleVision?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160857", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Introduction_20to_20Computer_20Vision</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Images</h1>
+<p>
+Images are stored as a collection of pixels.  In a color image, each pixel consists of a red value, a green value and a blue value.  Combinations of these three colors allow for all colors to be represented.  In our system, the color values will range from 0 to 255.  
+<p>
+Representing the red, green and blue values as a tuple, <i>(r, g, b)</i>, can be seen as the following cube structure:
+<p>
+<img src="../robots/PyroImages/RGBcube.gif"> 
+<p>
+For grayscale images, pixels are represented by a single number ranging from 0 to 255, where 0 is very black and 255 is very white. 
+<p>
+To get real images into Pyro you need a special card in your computer or robot called a <i>frame grabber.</i> A frame grabber is used to take analog images coming from a video camera and digitize them. Pyro can use the Video for Linux (V4L) interface, a standard and popular interface that works with many kinds of frame grabbers. Any frame grabber that uses the V4L interface can be used in Pyro. 
+<p>
+Pyro also has three other cameras in case you don't have a real camera: a simulated camera for the Stage simulator, an Open<b></b>GL-based camera for the Gazebo simulator, and a fake camera for taking a sequence of PPM images and turning them into a view that look like a live camera.
+<p>
+<p>
+<h1 width="804"> Image Processing</h1>
+<p>
+Processing an image for a robot generally falls into 3 steps.  After the image is received, it goes through a series of filters.  After the filters, the image is <i>blobified</i>.  Blobifying and image is a way of grouping a set of pixels together, finding a large block of pixels that touch each other, and then producing a list of bounding boxes around the largest groups. We'll discuss blobbing later, because it is so useful.
+<p>
+After the blobbing step, the robot can be programmed to act on the list of bounding boxes.  For example, the robot can be programmed to move toward the largest blob of a specific color in an image.  Blobifying is not the only method to do vision processing with a robot, but it is a very common technique.
+<p>
+<p>
+<h2 width="804"> Filtering</h2>
+<p>
+When filtering, the overall image is changed.  Some filters, such as blurring, make changes to all three colors in each pixel.  However, in Pyro, filters that look to see if a specific color is in the image, write their results out to only one of the three color channels.  For instance, if we wanted to filter an image to see if it has any pixels whose RGB values are (180,50,90) then all the pixels that have that value will get a  non-zero value (usually 255) placed in one of the channels, and zeros placed in the other two channels.  These type of filters have a parameter where the user can specify what channel they want the output to be placed.  If the user filters for a specific color, and specifies the output &quot;channel&quot; as 1 (Green; 0 is Red and 2 is Blue), the image after the filter is complete, providing that specific color was found, will be displayed as green spots. These spots represent where the color being filtered for was located throughout the image.
+<p>
+<p>
+<h2 width="804"> Blobbing </h2>
+<p>
+Blobs are areas of an image that meet a particular simple criteria. For example, a set of blobs can be constructed from a regular image based on color. The blob interface turns a possibly large image into a list of areas and locations ((x1, y1, x2, y2, area), ...).
+<p>
+After the image has been filtered to a specific color output channel, blobbing the image is usually the final process to be done.  Blobifying looks at the pixels in a channel and creates a list of coordinates where each blob is located.  This information can be used to move the robot toward the largest blob, for example.
+<p>
+<p>
+<h2 width="804"> Edge Detection</h2>
+<p>
+Another type of filter, called edge detection, searches for changes in intensities (high values of R, G, or B).  When two pixels next to each other have very different intensities, then we probably have an &quot;edge&quot; or border between two objects.  Edge detection can be used to find walls in corridors, detect motion, and find particular shapes.
+<p>
+In Pyro, there are actually two image processing systems: one that is tightly integrated with Python, and an advanced one that is fairly separate from Python. We'll explore the former interface first.
+<p>
+Next section: <a href="../page_PyroModuleVisionSystem/">PyroModuleVisionSystem</a> 
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Computer Vision Education Digital Library Collection. <a href="http://cved.org/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;cved.org/</a>.</li>
+</ol><p>
+Next: <a href="../page_PyroModuleVisionSystem/">PyroModuleVisionSystem</a>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20Computer_20Vision?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20Computer_20Vision?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

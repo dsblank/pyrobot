@@ -1,0 +1,98 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095711", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroSetUp</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro Set Up</h1>
+<p>
+To help configure individual systems, system admins and users can create site-wide configuration files, or personal setups, respectively. These files have the following format:
+<p>
+<pre class="code">
+[pyrobot]
+args=string of whatever you want
+[brain]
+file = BBWander
+[simulator]
+file = Aria
+[world]
+file = jeanne.wld
+[robot]
+file = Aria
+services=blob,truth
+[aria]
+[pioneer]
+[srisim]
+[khepera]
+port = /dev/ttyS0
+</pre>
+<p>
+Data can be put into multiple config files. They are loaded in this order:
+<p>
+<ol type="1"><li>system-wide .pyrobot or pyrobot.ini file (/usr/local/pyrobot/.pyrobot)</li>
+<li>hostname .pyrobot or pyrobot.ini file (/usr/local/pyrobot/.pyrobot-machine.college.edu)</li>
+<li>user homedir .pyrobot or pyrobot.ini file (&#36;HOME/.pyrobot)</li>
+<li>current directory .pyrobot or pyrobot.ini file (&#36;CWD/.pyrobot)</li>
+<li>command line filename given with -i FILENAME</li>
+</ol><p>
+If one or more of these files exist, they will be loaded in the above order, higher numbered ones overwriting lower ones.
+<p>
+You can also add your own sections and items to this file for your own use. For example:
+<p>
+Create a file, say, <b>experiment1.ini</b>:
+<p>
+<pre class="code">
+[settings]
+data = 12
+size = 45
+name = My name is this
+</pre>
+<p>
+And start pyro like:
+<p>
+<pre class="code">
+% pyrobot -i experiment1.ini
+</pre>
+<p>
+Then you will have access to your information through the engine.config interface. From the command line:
+<p>
+<pre class="code">
+engine.config.get(&quot;settings&quot;, &quot;data&quot;)
+engine.config.get(&quot;settings&quot;, &quot;size&quot;)
+engine.config.get(&quot;settings&quot;, &quot;name&quot;)
+</pre>
+<p>
+or from your brains:
+<p>
+<pre class="code">
+self.getEngine().config.get(&quot;settings&quot;, &quot;data&quot;)
+self.getEngine().config.get(&quot;settings&quot;, &quot;size&quot;)
+self.getEngine().config.get(&quot;settings&quot;, &quot;name&quot;)
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> These are all strings by default. You'll need to wrap int() around numbers to treat them as integers, for example.
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroSetUp?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroSetUp?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

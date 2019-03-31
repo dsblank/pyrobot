@@ -1,0 +1,178 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219092649", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Gazebo_20Simulator</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> The Gazebo Simulator</h1>
+<p>
+Gazebo is a new simulator that is compatible with Player/Stage. It allows multiple robots to be simulated in high-fidelity Open<b></b>GL, especially useful in outdoor scenes. The client side of Gazebo is Player again and is identical to the Pyro interface for Stage. Gazebo world files are very different, and come in two parts: the world file, and a config file. However, Pyro hides this complexity for the novice user.
+<p>
+This is how worlds look in Gazebo:
+<p>
+<img src="../_dblank/images/gazebo.gif">
+<img src="../_dblank/images/gzcamera.gif">
+<p>
+<p>
+<h2 width="804"> The World File</h2>
+<p>
+The world file is an XML file that describes all of the items in a world, including the robot, the lighting, objects, sky, and ground. Here is <tt class="wiki">pioneer2dxSonars.world</tt>:
+<p>
+<pre class="code">
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;gz:world
+  xmlns:gz='http://playerstage.sourceforge.net/gazebo/xmlschema/#gz'
+  xmlns:model='http://playerstage.sourceforge.net/gazebo/xmlschema/#model'
+  xmlns:window='http://playerstage.sourceforge.net/gazebo/xmlschema/#window'
+  xmlns:params='http://playerstage.sourceforge.net/gazebo/xmlschema/#params'&gt;
+  &lt;params:GlobalParams&gt;
+    &lt;gravity&gt;0.0 0.0 -9.8&lt;/gravity&gt;
+  &lt;/params:GlobalParams&gt;
+  &lt;model:MapExtruder&gt;
+    &lt;id&gt;map1&lt;/id&gt;
+    &lt;xyz&gt;1 1 0&lt;/xyz&gt;
+    &lt;imageFile&gt;example2.png&lt;/imageFile&gt;
+    &lt;threshold&gt;200&lt;/threshold&gt;
+    &lt;scale&gt;0.1&lt;/scale&gt;
+    &lt;height&gt;2.0&lt;/height&gt;
+    &lt;width&gt;0.1&lt;/width&gt;
+    &lt;color&gt;0.0 1.0 0.0&lt;/color&gt;
+  &lt;/model:MapExtruder&gt;
+  &lt;model:GroundPlane&gt;
+    &lt;id&gt;ground1&lt;/id&gt;
+    &lt;texture2D&gt;grid.ppm&lt;/texture2D&gt;
+  &lt;/model:GroundPlane&gt;
+  &lt;model:LightSource&gt;
+    &lt;id&gt;light1&lt;/id&gt;
+    &lt;xyz&gt;0 0 10&lt;/xyz&gt;
+  &lt;/model:LightSource&gt;
+  &lt;model:ObserverCam&gt;
+    &lt;id&gt;usercam1&lt;/id&gt;
+    &lt;xyz&gt;-1.5 0.0 2.0&lt;/xyz&gt;
+    &lt;rpy&gt;0.0 30.0 0.0&lt;/rpy&gt;
+    &lt;updatePeriod&gt;0.1&lt;/updatePeriod&gt;
+    &lt;displayRays&gt;true&lt;/displayRays&gt;
+    &lt;window&gt;
+      &lt;title&gt;Gazebo1&lt;/title&gt;
+      &lt;size&gt;320 240&lt;/size&gt;
+      &lt;xyz&gt;0 0&lt;/xyz&gt;
+    &lt;/window&gt;
+  &lt;/model:ObserverCam&gt;
+  &lt;model:Pioneer2DX&gt;
+    &lt;id&gt;robot1&lt;/id&gt;
+    &lt;xyz&gt;-0.35 0 0.25&lt;/xyz&gt;
+    &lt;rpy&gt;0 0 0&lt;/rpy&gt;
+  &lt;model:ObserverCam&gt;
+    &lt;id&gt;usercam2&lt;/id&gt;
+    &lt;xyz&gt;-1.5 0.0 2.0&lt;/xyz&gt;
+    &lt;rpy&gt;0.0 30.0 0.0&lt;/rpy&gt;
+    &lt;updatePeriod&gt;0.1&lt;/updatePeriod&gt;
+    &lt;displayRays&gt;true&lt;/displayRays&gt;
+    &lt;window&gt;
+      &lt;title&gt;Gazebo2&lt;/title&gt;
+      &lt;size&gt;320 240&lt;/size&gt;
+      &lt;xyz&gt;0 0&lt;/xyz&gt;
+    &lt;/window&gt;
+  &lt;/model:ObserverCam&gt;
+    &lt;model:Pioneer2Sonars&gt;
+      &lt;id&gt;sonars1&lt;/id&gt;
+    &lt;/model:Pioneer2Sonars&gt;
+    &lt;model:SickLMS200&gt;
+      &lt;id&gt;laser1&lt;/id&gt;
+      &lt;xyz&gt;0.0 0 0.101&lt;/xyz&gt;
+      &lt;rayCount&gt;91&lt;/rayCount&gt;
+      &lt;rangeCount&gt;361&lt;/rangeCount&gt;
+    &lt;/model:SickLMS200&gt;
+  &lt;/model:Pioneer2DX&gt;
+  &lt;model:SimpleSolid&gt;
+      &lt;xyz&gt;2.0 0.0 0.35&lt;/xyz&gt;
+      &lt;shape&gt;box&lt;/shape&gt;
+      &lt;size&gt;0.7 0.7 0.7&lt;/size&gt;
+      &lt;color&gt;1 0 0&lt;/color&gt;
+    &lt;/model:SimpleSolid&gt;
+&lt;/gz:world&gt;
+</pre>
+<p>
+This world has two cameras: observercam1 and observercam2. However, one camera will be tied to the robot's location, and the other will remain fixed.
+<p>
+The world file also defines sonars and laser. You can see much more detail about this file format at: <a href="http://playerstage.sourceforge.net/doc/Gazebo-manual-0.4.0-html/node5.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;The World File</a>, from the Player/Stage/Gazebo people.
+<p>
+To connect onto a rendered world you also need a config file.
+<p>
+<p>
+<h2 width="804"> The Config File</h2>
+<p>
+In Pyro, a world's associated config file is in the same subdirectory, and has the same name as the world file, but with an appended &quot;.cfg&quot;.
+<p>
+<pre class="code">
+position:0
+(
+  driver &quot;gz_position&quot;
+  gz_id &quot;robot1&quot;
+)
+sonar:0
+(
+  driver &quot;gz_sonars&quot;
+  gz_id &quot;sonars1&quot;
+)
+laser:0
+(
+  driver &quot;gz_laser&quot;
+  gz_id &quot;laser1&quot;
+)
+ptz:0
+(
+  driver &quot;gz_ptz&quot;
+  gz_id &quot;usercam1&quot;
+)
+camera:0
+(
+  driver &quot;gz_camera&quot;
+  gz_id &quot;usercam1&quot;
+)
+</pre>
+<p>
+In this file, you define a robot just like you would in Player server files. Here, you must know the gz_id of an item which you get from the world file. You must also know the name of the driver, which you can get from the Gazebo Manual, in the section <a href="http://playerstage.sourceforge.net/doc/Gazebo-manual-0.4.0-html/node6.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Working with Player</a>.
+<p>
+<p>
+<h2 width="804"> Pyro and Gazebo</h2>
+<p>
+You can create your own version of any Gazebo world file by selecting <b>Server:</b>, then <b>Gazebo</b><b>Simulator</b>, then highlight the world you would like to copy and click on the <b>My Copy</b> button. This will copy both the world and config file to your home directory, and open up Emacs (by default) with both files ready to be edited.
+<p>
+When you have made your changes, simple select <b>Server:</b>, then <b>Gazebo</b><b>Simulator</b>, then click the <b>Home</b> button on the top right of the file dialog window. Then select your version of the copied world.
+<p>
+<p>
+<h2 width="804"> Exercises</h2>
+<p>
+<b>Exercise 1:</b> create a 3D world just like the tutorial world in the Pyrobot and Stage Simulator sections.
+<p>
+<b>Exercise 2:</b> Team up with a partner, and create a world with two robots in it, a maze, and a colored object. Position your robots an equal distance from the object. Then each of you start Pyro (on the same computer, or different ones if you don't have a firewall) and with the <b>Joystick.py</b> brain, each race to see who can get to the colored object first.
+<p>
+Next: <a href="../page_The_20Robocup_20Simulator/">The Robocup Simulator</a>
+Up: <a href="../page_Robot_20Simulators/">Robot Simulators</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Gazebo_20Simulator?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Gazebo_20Simulator?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

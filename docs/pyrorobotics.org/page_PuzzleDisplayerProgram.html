@@ -1,0 +1,108 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121133", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PuzzleDisplayerProgram</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<pre>
+# Put this in the directory with the 1-8.gifs and run like:
+#   python PuzzleDisplayer.py 13s824765 7128s3654
+# Assumes that you have a file called EightPuzzle
+# which either imports or defines your search function.
+# In addition, you should alias your search function:
+# SolveIt = A_star
+from Search import *
+from EightPuzzleState import *
+import Tkinter, sys, time, posixpath
+class Display(Tkinter.Toplevel):
+    def __init__(self, root, start, goal, node):
+        Tkinter.Toplevel.__init__(self, root)
+        self.root = root
+        self.start = start
+        self.goal = goal
+        self.node = node
+        self.tileImage = {}
+        self.tileButton = {}
+        for i in range(1, 9):
+            file = "%d.gif" % i
+            if posixpath.exists(file):
+                self.tileImage[i] = Tkinter.PhotoImage(file=file)
+                self.tileButton[i] = Tkinter.Button(self, text="%d" % i, image = self.tileImage[i])
+            else:
+                self.tileImage[i] = None
+        self.protocol('WM_DELETE_WINDOW',self.destroy)
+        self.wm_title("Eight Puzzle")
+        path = []
+        while node != None:
+            path.insert(0, node)
+            node = node.parent
+        for node in path:
+            self.drawBoard(node.state)
+            self.root.update_idletasks()
+            time.sleep(1)
+    def drawBoard(self, state):
+        for y in range(3):
+            for x in range(3):
+                value = state.getTile(x, y)
+                if value != ' ':
+                    self.tileButton[int(value)].grid_configure(row=y,column=x,
+                          sticky=Tkinter.E+Tkinter.W+Tkinter.N+Tkinter.S)
+    def destroy(self):
+        sys.exit(1)
+if __name__ == '__main__':
+    # if you don't pass in args, show proper usage:
+    if len(sys.argv) != 3:
+        print """
+usage: python PuzzleDisplayer.py START GOAL
+       where START #########
+             GOAL  #########
+       examples: python PuzzleDisplayer.py 13s824765 1238s4765
+                 python PuzzleDisplayer.py 75648s123 12345678s
+                 python PuzzleDisplayer.py 13s824765 7128s3654
+"""
+        sys.exit(1)
+    else:
+        # parse command line into representation
+        s = []
+        for c in sys.argv[1]:
+            if c == 'S' or c == 's':
+                s.append( ' ' )
+            else:
+                s.append( int(c) )
+        g = []
+        for c in sys.argv[2]:
+            if c == 'S' or c == 's':
+                g.append( ' ' )
+            else:
+                g.append( int(c) )
+    start = EightPuzzleState(*s) # pass in list as args
+    goal = EightPuzzleState(*g) # pass in list as args
+    node = SolveIt(start, goal) # solve it!
+    root = Tkinter.Tk() # make a root window
+    root.withdraw() # hide it
+    display = Display(root, start, goal, node) # show solution
+    display.mainloop() # leave it on screen
+</pre>
+<hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PuzzleDisplayerProgram?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PuzzleDisplayerProgram?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

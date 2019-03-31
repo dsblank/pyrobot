@@ -1,0 +1,200 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160800", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Introduction_20to_20Neural_20Nets</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Introduction to Neural Networks</h1>
+<p>
+We will assume that you have already been exposed to neural network modeling. This section is designed to quickly help you recap the basics that you will need in order to create and experiment with neural networks in Pyro. 
+<p>
+We will concentrate mostly on <b>backpropagation networks</b> here. A typical backprop network is a three layer network containing <b>input</b>, <b>hidden</b>, and <b>output</b> layers. Each layer contains a collection of nodes.
+Typically, the nodes in a layer are fully connected to the next layer.  For instance, every input node will have a weighted connection to every hidden node.  Similarly, every hidden node will have a weighted connection to every output node.  
+<p>
+Processing in a backprop network works as follows.  Input is propagated forward from the input layer through the hidden layer and finally through the output layer to produce a response.  Each node, regardless of the layer it is in, uses the same transfer function in order to propagate its information forward to the next layer. This is described next.
+<p>
+<p>
+<h2 width="804"> Transfer Function of a Node</h2>
+<p>
+Each node maintains an activation value that depends on the activation values of its incoming neighbors, the weights from its incoming neighbors, and its own default bias value.  To compute this activation value, we first calculate the node's net input.
+<p>
+The net input is a weighted sum of all the incoming activations plus the node's bias value:
+<p>
+<pre class="code">
+ for i in toNodes:
+   netInput[i] = bias[i]
+   for j in fromNodes:
+       netInput[i] += (weight[i][j] * activation[j])
+</pre>
+<p>
+where <tt class="wiki">weight[i][j]</tt> is the weight, or connection strength, from the <i>j</i>-th node to the <i>i</i>-th node, <tt class="wiki">activation[j]</tt> is the activation signal of the <i>j</i>-th node, and <tt class="wiki">bias[i]</tt> is the bias value of the <i>i</i>-th node. 
+<p>
+After computing the net input, each node has to compute its output activation. The activation function used in backprop networks is generally:
+<pre class="code">
+   def activationFunction(netInput):
+       return 1.0 / (1.0 + exp(-netInput))
+   for i in toNodes:
+       activation[i] = activationFunction(netInput[i])
+</pre>
+<p>
+This is a sigmoid function, as shown in the plot below. Notice that the function is monotonically increasing and bounded by 0.0 and 1.0 as the net input approaches negative infinity and positive infinity, respectively.
+<p>
+<img src="../_dkumar/wikigifs/sigmoid.jpeg">
+<p>
+The value that results from applying the activation function to the net input is the signal that will be sent as output to all the nodes in the next layer. 
+<p>
+<p>
+<h2 width="804"> Learning Rule</h2>
+<p>
+Backprop networks fall under the category of <i>supervised learning</i> schemes. That is, during training, the network is presented a training input, the inputs are propagated using the transfer function, until output appears in the output layer. The output is then compared with the expected or target output and an error is computed. The error is then backpropagated by applying the learning rule. 
+<p>
+A learning rule modifies the weights between nodes. The backpropagation algorithm, also called the <i>generalized delta rule</i>, systematically changes the weights by using a weight change equation. We use an optional momentum term in the weight change rule to help speed up convergence. The weight change rule is different for weights between the hidden-output layer nodes and the input-hidden layer nodes. For the hidden-output layer nodes it is:
+<p>
+<pre class="code">
+for i in toNodes:
+   error[i] = (desiredOutput[i] - actualOutput[i])
+   delta[i] = error[i] * actualOutput[i] * (1 - actualOutput[i])
+   for j in fromNodes:
+      weightUpdate[i][j] = (EPSILON * delta[i] * actualOutput[j]) + (MOMENTUM * weightUpdate[i][j])
+</pre>
+<p>
+That is, at the <i>i</i>-th output node, the error is the difference between desired and actual outputs. The weight change between a hidden layer node <i>j</i> and output node <i>i</i> &#8212; <tt class="wiki">weight[i][j]</tt> &#8212; is a fraction of the computed delta value and additionally a fraction of the weight change from the previous training step. MOMENTUM is a constant that ranges between 0.0 and 1.0 and EPSILON is called the learning rate and is also a constant that varies between 0.0 and 1.0.
+<p>
+In the above code <tt class="wiki">delta[i] * actualOutput[j]</tt> is the partial derivative of the overall error with respect to each weight. This is the slope of error. Thus, backprop changes the weight a tiny portion of the slope of the error. We only know the slope of this curve, not the shape, and thus have to take very small steps.
+<p>
+Scott Fahlman did a clever approximation of the second derivative, which allows us to make much larger steps when appropriate. Let:
+<p>
+<pre class="code">
+slope[i][j] = delta[i] * actualOutput[j]
+</pre>
+<p>
+If we have a second slope measurement, make an assumption about the curve of the error, then we can change the above backprop update to:
+<p>
+<pre class="code">
+for i in toNodes:
+   error[i] = (desiredOutput[i] - actualOutput[i])
+   delta[i] = error[i] * actualOutput[i] * (1 - actualOutput[i])
+   for j in fromNodes:
+      slope[i][j] = delta[i] * actualOutput[j]
+      weightUpdate[i][j] = (slope[i][j] / (prevSlope[i][j] - slope[i])) * weightUpdate[i][j]
+      prevSlope[i][j] = slope[i][j]
+</pre>
+<p>
+Notice that there are two slope values, slope and prevSlope. This is similar in spirit to Newton's method. It isn't a formally derived equation, like the original backprop, because it makes a couple of assumptions and is an approximation. But in practice it works quickly most of the time. If you don't get a solution quickly, you can reset the weights and try again.
+<p>
+Notice that this equation gets rid of epsilon and momentum. However, there are some complications that do require a learning parameter, and so epsilon is reused in a slightly different way. There is no need for momentum now, though.
+<p>
+Fahlman called this variation &quot;quickprop&quot; and we will look at both of these learning methods in the following sections.
+<p>
+<p>
+<h2 width="804"> Training a Neural Network</h2>
+<p>
+Given a task, how does one train a neural network to do/solve the task? This involves the following steps:
+<p>
+<ol type="1"><li>Determine an appropriate network architecture.</li>
+<li>Define a data set that will be used for training.</li>
+<li>Define the neural network parameters to be used for training.</li>
+<li>Train the network.</li>
+<li>Test the trained network.</li>
+<li>Do post training analysis.</li>
+</ol><p>
+<p>
+<h3 width="804"> Determining an appropriate architecture</h3>
+<p>
+Recall that a neural network consists of an input layer, an output layer, and zero or more hidden layers. Once a network has been trained, when you present an input to the network, the network will propagate the inputs through its layers to produce an output (using the transfer function described above). If the input represents an instance of the task, the output should be the solution to that instance after the network has been trained. Thus, one can view a neural network as a general pattern associator. Thus, given a task, the first step is to identify the nature of inputs to the pattern associator. This is normally in the form of number of nodes required to represent the input. Similarly, you will need to determine how many output nodes will be required. For example, consider a simple logical connective, AND whose input-output characteristics are summarized in the table below:
+<p>
+<table border="1"><tr><td> <b>Input A</b> </td><td> <b>Input B</b></td><td> Output</td></tr>
+<tr><td> 0 </td><td> 0 </td><td> 0</td></tr>
+<tr><td> 0 </td><td> 1 </td><td> 0 </td></tr>
+<tr><td> 1 </td><td> 0 </td><td> 0 </td></tr>
+<tr><td> 1 </td><td> 1 </td><td> 1 </td></tr>
+</table><p>
+This is a very simple example, but it will help us illustrate all of the important concepts in defining and training neural networks.
+<p>
+In this example, it is clear that we will need two nodes in the input layer, and one in the output layer. We can start by assuming that we will not need a hidden layer. In general, as far as the design of a neural network is concerned, you always begin by identifying the size of the input and output layers. Then, you decide how many hidden layers you would use. In most situations you will need one hidden layer, though there are no hard and fast rules about its size. Through much empirical practice, you will develop your own heuristics about this. We will return to this issue later. In the case of the AND network, it is simple enough that we have decided not to use any hidden layers.
+<p>
+<p>
+<h3 width="804"> Define a data set that will be used for training</h3>
+<p>
+Once you have decided on the network architecture, you have to prepare the data set that will be used for training. Each item in the data set represents an input pattern and the correct output pattern that should be produced by the network (since this is supervised training). In most tasks, there can be an infinite number of such input-output associations. Obviously it would be impossible to enumerate all associations for all tasks (and it would make little sense to even try to do this!). You have to then decide what comprises a good representative data set that, when used in training a network, would generalize to all situations.
+<p>
+In the case of the AND network, the data set is very small, finite (only 4 cases!), and exhaustive.
+<p>
+The other issue you have to take into consideration here is that of the range of each input and output value. Remember the transfer function of a node is a sigmoid-function that serves to squash all input values between 0.0 and 1.0. Thus, regardless of the size of each input value into a node, the output produced by each node is between 0.0 and 1.0. This means that all output nodes have values in that range. If the task you are dealing with expects outputs between 0.0 and 1.0, then there is nothing to worry about. However, in most situations, you will need to <b>scale</b> the output values back to the values in the task domain. 
+<p>
+In reality, it is also a good idea to scale the input values from the domain into the 0.0 to 1.0 range (especially if most input values are outside the -5.0 and 5.0 range). Thus, defining a data set for training almost always requires a collection of input-output pairs, as well as scaling and unscaling operations. Luckily, for the AND task, we do not need to do any scaling, but we will see several examples of this later.
+<p>
+<p>
+<h3 width="804"> Define the neural network parameters</h3>
+<p>
+The next step is to define the parameters required to train the neural network. These include the following:
+<p>
+<ol type="1"><li>The learning constant</li>
+<li>The momentum constant</li>
+<li>The tolerance</li>
+<li>Other training-related parameters</li>
+</ol><p>
+The learning rate, EPSILON, and the momentum constant, MOMENTUM, have to be between 0.0 and 1.0 and are critical to the overall training algorithm. The appropriate values of these constants are best determined by experimentation. Tolerance (which is also between 0.0 and 1.0) refers to the level of tolerance that is acceptable for determining correctness of the output. For example, if tolerance is set to 0.1, then an output value within 10% of the desired output is considered correct. Other training parameters generally exist to specify the reporting rate of the progress of the training, where to log such progress, etc. We will see specific examples of these as we start working with actual networks.
+<p>
+For the AND network, we will set EPSILON to 0.5, MOMENTUM to 0.0, report the progress every 5 epochs (see below).
+<p>
+<p>
+<h3 width="804"> Train the network</h3>
+<p>
+Once all the parameters are specified, you start the training process. This involves presenting each input pattern to the network, propagating it all the way until an output is produced, comparing the output with the desired target, computing the error, backpropagating the error, and applying the learning rule.  This process is repeated  until all inputs are exhausted. A single pass through an entire data set is called an <b>epoch</b>. In general, you always train the network for several epochs (can be anywhere from a few hundred to millions!) until the network begins to show more improved and stable performance. Performance of the network is generally measured in terms of the <b>total sum-squared error</b> or <b>TSS</b> for short. This is the error in each pattern squared and summed over all the patterns. Initially, you will notice that the TSS is quite high, but it will slowly decrease as the number of epochs increase. 
+<p>
+You can either stop the training process after a certain number of epochs have elapsed, or after the TSS has decreased to a specific amount.
+<p>
+<p>
+<h3 width="804"> Test the trained network</h3>
+<p>
+Once the network has been trained, it is time to test it. There are several ways of doing this. Perhaps the easiest is to turn learning off (another training parameter) and then see the outputs produced by the network for each input in the data set. When a trained network is going to be used in a <i>deployed</i> application, all you have to do is save the weights of all interconnections in the network into a file. The trained network can then be recreated at anytime by reloading the weights.
+ <img width="11" src="../wiki/img/idea.png"> Instead of training-then-testing, there is another methodology: you can test-while-training. Pyro's neural network system supports the idea of <i>cross validation</i>. With cross validation one defines a training corpus and testing corpus at the beginning. Occasionally, as training proceeds on the training corpus, the system will stop training momentarily (by turning learning off) and test its current weights on the test corpus. This methodology has the advantage of being able to stop when performance on the test corpus begins to drop, thereby preventing over-training. See <a href="../page_Conx_20Implementation_20Details/">Conx Implementation Details</a> for more details on cross validation.
+<p>
+<p>
+<h3 width="804"> Do post training analysis</h3>
+<p>
+Perhaps the most important step in using neural networks is the analysis one performs once a network has been trained. There are a whole host of analysis techniques, we will present some of them as we go along.
+<p>
+Next, we will introduce you to the Pyro package called, <b>conx</b> that is used to create and experiment with neural networks. We will use the AND network example from this section to learn about conx.
+<p>
+Next section: <a href="../page_Building_20Neural_20Networks_20using_20Conx/">Building Neural Networks using Conx</a>
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Rumlehart, <tt class="wiki">McClelland</tt>, PDP Research Group. (1987) <i>Parallel Distributed Processing: Explorations in the Microstructure of Cognition</i>. Cambridge, Mass. : MIT Press.</li>
+<li>Rumlehart, <tt class="wiki">McClelland</tt>. (1988) <i>Explorations in Parallel Distributed Processing: A Handbook of Models, Programs, and Exercises</i>. Cambridge, Mass. : MIT Press.</li>
+<li>Elman, et al. (1998) <i>Rethinking Innateness: A Connectionist Perspective on Development</i>. Cambridge, Mass. : MIT Press.</li>
+<li>Elman, J. & Plunkett, K. (1998) <i>Exercises in Rethinking Innateness: A Handbook for Connectionist Simulations</i>. Cambridge, Mass. : MIT Press.</li>
+<li>Hinton, G. (1992) How Neural Networks Learn From Experience. <i>Scientific American</i>. September.</li>
+</ol><p>
+Next: <a href="../page_Building_20Neural_20Networks_20using_20Conx/">Building Neural Networks using Conx</a>
+Up: <a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a>
+<ol><p>
+</ol><p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20Neural_20Nets?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20Neural_20Nets?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

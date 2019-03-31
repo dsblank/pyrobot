@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129013208", "pyrorobotics.org");
+</script>
+  <title>pyrobot.general.boids.Board</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-general-module/">Package&nbsp;general</a> ::
+        <a href="../../usermanual/pyrobot-general-boids-module/">Module&nbsp;boids</a> ::
+        Class&nbsp;Board
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-general-boids-Board-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Board</h2>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-general-boids-Board-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>,
+          <span class="summary-sig-arg">title</span>)</span></code>
+<br/>
+A board for boids to explore...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="addBoid"></a><span class="summary-sig"><span class="summary-sig-name">addBoid</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boid</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="adjustDirections"></a><span class="summary-sig"><span class="summary-sig-name">adjustDirections</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">weights</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="angleTo"></a><span class="summary-sig"><span class="summary-sig-name">angleTo</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">b1</span>,
+          <span class="summary-sig-arg">b2</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="avoid"></a><span class="summary-sig"><span class="summary-sig-name">avoid</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">num</span>,
+          <span class="summary-sig-arg">radius</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="center"></a><span class="summary-sig"><span class="summary-sig-name">center</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">num</span>,
+          <span class="summary-sig-arg">radius</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-general-boids-Board-class/#close" class="summary-sig-name"><code>close</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+close the window...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="copy"></a><span class="summary-sig"><span class="summary-sig-name">copy</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">num</span>,
+          <span class="summary-sig-arg">radius</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="dist"></a><span class="summary-sig"><span class="summary-sig-name">dist</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x1</span>,
+          <span class="summary-sig-arg">y1</span>,
+          <span class="summary-sig-arg">x2</span>,
+          <span class="summary-sig-arg">y2</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-general-boids-Board-class/#draw" class="summary-sig-name"><code>draw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initialize the board.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="drawBoid"></a><span class="summary-sig"><span class="summary-sig-name">drawBoid</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boid</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-general-boids-Board-class/#move" class="summary-sig-name"><code>move</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Make the boids move...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="view"></a><span class="summary-sig"><span class="summary-sig-name">view</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">num</span>,
+          <span class="summary-sig-arg">radius</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>,
+          <span class="sig-arg">height</span>,
+          <span class="sig-arg">title</span>=<span class="sig-default">'Boids'</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+A board for boids to explore
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="close"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">close</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+close the window
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="draw"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">draw</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Initialize the board. You must do this if you ever want to see the path
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="move"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">move</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Make the boids move
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:28 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

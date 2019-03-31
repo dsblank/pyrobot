@@ -1,0 +1,72 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093942", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleNeuralNetworks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to neural networks and related learning paradigms. This module provides an overview of backpropagation learning, and explores Pyro's neural network library, conx. When completed, the reader should be ready to design and create neural networks for learning on- and off-line with a robot.</i>
+<p>
+<p>
+<h1 width="804"> Neural Networks in Pyro</h1>
+<p>
+To create neural networks in Pyro we will use the <a href="../page_Conx/">Conx</a> module, which
+is a network scripting language and environment.  Conx was designed to
+be used by connectionist researchers, as well as a teaching tool for
+AI and robotics courses. The idea behind this system is to allow
+experimenters to quickly and easily create, train, and test basic
+architectures such as feedforward and simple recurrent neural
+networks.
+<p>
+<p>
+<h2 width="804"> Conx Classes</h2>
+<p>
+Conx is primarily based on three classes: Layer, Connection, and Network.  
+<p>
+<ul><li>A Layer is a collection of nodes.</li>
+<li>A Connection is a collection of weights linking two layers.</li>
+<li>A Network is a collection of layers and connections.</li>
+</ul><p>
+A Network contains all of the parameters and methods necessary to run
+back-propagation learning.
+<p>
+Conx includes a specialized Network class, called SRN, which can be
+used to create an Elman-style simple recurrent network.
+<p>
+<p>
+<h2 width="804"> Neural Networks Table of Contents</h2>
+<p>
+<ol type="1"><li><a href="../page_Introduction_20to_20Neural_20Nets/">Introduction to Neural Nets</a></li>
+<li><a href="../page_Building_20Neural_20Networks_20using_20Conx/">Building Neural Networks using Conx</a></li>
+<li><a href="../page_Generalization_20in_20a_20Neural_20Network/">Generalization in a Neural Network</a></li>
+<li><a href="../page_Autoassociative_20and_20Recurrent_20Networks/">Autoassociative and Recurrent Networks</a></li>
+<ol type="i"><li><a href="../page_SRNModuleExperiments/">SRNModuleExperiments</a></li>
+</ol><li><a href="../page_Cascade_20Correlation_20Network/">Cascade Correlation Network</a></li>
+<li><a href="../page_Robot_20Learning_20using_20Neural_20Networks/">Robot Learning using Neural Networks</a></li>
+<li><a href="../page_Conx_20Implementation_20Details/">Conx Implementation Details</a></li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleNeuralNetworks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleNeuralNetworks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

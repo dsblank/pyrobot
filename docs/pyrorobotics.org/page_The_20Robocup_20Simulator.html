@@ -1,0 +1,430 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093245", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Robocup_20Simulator</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> The Robocup Simulator</h1>
+<p>
+The Robocup Simulator is a robot soccer (football) platform. It has been around for a few years. There are competitions each year for both the simulator, and real robots. There is even a humanoid robot league! You can read about it at the main Robocup website:
+<p>
+<a href="http://www.robocup.org/">www.robocup.org/</a>
+<p>
+Before you can use the Robocup Soccer Simulator, you will need to make sure you have an up-to-date version of Pyro. It should be at least 3.2.1. Also, you will need to have the Soccer Simulator installed at your site. For information on installing the software, please see <a href="../page_RobocupSoccerInstallation/">RobocupSoccerInstallation</a>.
+<p>
+<p>
+<h1 width="804"> Running Pyro with Robocup</h1>
+<p>
+To try a quick demo of the soccer simulator:
+<p>
+<ol type="0"><li>Run <b>pyrobot</b></li>
+<li>Select <b>Robocup</b><b>Simulator</b> with the <b>Server:</b> button.</li>
+<li>Select the world <b>Soccer.world</b> in the second window (the world window) that pops up.</li>
+<li>Select <b>Robocup.py</b> with the <b>Robot:</b> button.</li>
+<li>Click on &quot;kick off&quot; in the Soccer window (upper left corner). This will start the clock and allow you to move your robot.</li>
+<li>Click on <b>Joystick</b> under the <b>Robot</b> menu in the Pyro window.</li>
+<li>Move the robot around.</li>
+</ol><p>
+You should see something that looks like this:
+<p>
+<img src="../_dblank/images/robocup.gif">
+<p>
+Your robot is the yellow one on the field.
+<p>
+<p>
+<h2 width="804"> The Robocup Window</h2>
+<p>
+In the Robocup window you can left-click and drag an area on the field to zoom into it.
+ <img width="11" src="../wiki/img/idea.png"> The white circle in the center of the field is the ball. Can you run into the ball by driving the robot with the joystick?
+<p>
+<p>
+<h1 width="804"> The Robocup Language</h1>
+<p>
+These robots are very different from any other robots that we have seen. These robots don't have sensors in the traditional sense. Instead, they have lists of landmarks, and distances to them. You will be able to figure out where each robot is by doing some calculations.
+ <img width="11" src="../wiki/img/idea.png"> You could make a fake &quot;range&quot; sensor. Then you would be able to run most of the other brains in Pyro. However, the Robocup robot type doesn't currently have a range sensor, so most standard brains can't be used. You can, however, do anything that just requires translation and rotation.
+<p>
+There are many things that each robot can do, including, kicking, catching, speaking, hearing and even turning their necks! To make things even more complex, you will also have to worry about stamina, power, acceleration, friction, and a host of other variables. First, let's look at the basics.
+<p>
+You communicate with each robot by sending <i>messages</i>. To send a message to a robot you use the <tt class="wiki">robot.sendMsg(MESSAGE)</tt> command. Messages take the form:
+<p>
+<table border="1"><tr><td> <b>Command</b> </td><td> <b>Explanation</b> </td><td> <b>Examples</b> </td><td> <b>Notes</b> </td><td> <b>Once Per Cycle?</b> </td></tr>
+<tr><td> dash  </td><td> used to move (translate) </td><td> (dash 75) (dash -34) </td><td> ranges from -100 to 100 </td><td> Yes </td></tr>
+<tr><td> turn  </td><td> used to turn (rotate) </td><td> (turn 90) </td><td> ranges from -180 to 180; positive is to RIGHT! </td><td> Yes </td></tr>
+<tr><td> move  </td><td> truth command </td><td> (move -25 0) </td><td> this will put it 25 units to the left, centered vertically </td><td> Yes </td></tr>
+<tr><td> kick </td><td> used to kick the ball </td><td> (kick 100 0) </td><td> (kick POWER DIRECTION) </td><td> Yes </td></tr>
+<tr><td> catch </td><td> grab the ball </td><td> (catch DIRECTION) </td><td> </td><td> Yes </td></tr>
+</table> <img width="11" src="../wiki/img/idea.png"> Get up very close to the ball (your player will need to overlap the ball) and kick it. Once you are close enough, enter <tt class="wiki">robot.sendMsg(&quot;(kick 100 0)&quot;)</tt> in Pyro's command box.
+<p>
+Other commands, which can be executed in tandom with other commands:
+<p>
+<pre class="code">
+(change_view WIDTH QUALITY)
+(say MESSAGE)
+(sense_body)
+(score)
+(turn_neck ANGLE)
+(hear TIME SENDER MESSAGE)
+</pre>
+<p>
+Sender: self, referee
+<p>
+<p>
+<h3 width="804"> State</h3>
+<p>
+You can find information about the state of a robot or the game by looking at the attributes of the robot. Entering <tt class="wiki">robot.printView()</tt> on the commandline or clicking on <b>View</b> on the Robot line in the main Pyro window shows something like:
+<p>
+<pre class="code">
+devices/
+   truth0/
+      name = truth0
+      pose = (-50, 0)
+      type = truth
+robot/
+   builtinDevices = ['truth']
+   goalie = True
+   hear = ['referee', 'drop_ball']
+   hear:time = 200
+   host = localhost
+   init = ['l', 1, 'before_kick_off']
+   name = TeamA
+   player_param = {'inertia_moment_delta_factor': 25,
+                   'stamina_inc_max_delta_factor': 0,
+                   'player_types': 7, 'effort_min_delta_factor': -0.002, 'kickable_margin_delta_min': 0,
+                   'player_speed_max_delta_min': 0, 'new_dash_power_rate_delta_max': 0.002,
+                   'player_decay_delta_max': 0.20000000000000001, 'player_speed_max_delta_max': 0,
+                   'new_stamina_inc_max_delta_factor': -10000.0, 'effort_max_delta_factor': -0.002,
+                   'extra_stamina_delta_min': 0, 'extra_stamina_delta_max': 100, 'random_seed': -1.0,
+                   'player_decay_delta_min': 0, 'pt_max': 3, 'dash_power_rate_delta_min': 0,
+                   'dash_power_rate_delta_max': 0, 'new_dash_power_rate_delta_min': 0,
+                   'player_size_delta_factor': -100.0, 'kickable_margin_delta_max': 0.20000000000000001,
+                   'subs_max': 3, 'kick_rand_delta_factor': 0.5}
+   player_type:0 = {'effort_max': 1, 'kickable_margin': 0.69999999999999996, 'extra_stamina': 0,
+                    'player_size': 0.29999999999999999, 'player_decay': 0.40000000000000002,
+                    'player_speed_max': 1.2, 'kick_rand': 0, 'dash_power_rate': 0.0060000000000000001,
+                    'effort_min': 0.59999999999999998, 'stamina_inc_max': 45, 'inertia_moment': 5}
+   player_type:1 = {'effort_max': 0.99860000000000004, 'kickable_margin': 0.84219999999999995,
+                    'extra_stamina': 0.69999999999999996, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.55200000000000005, 'player_speed_max': 1.2,
+                    'kick_rand': 0.071099999999999997, 'dash_power_rate': 0.0060179999999999999,
+                    'effort_min': 0.59860000000000002, 'stamina_inc_max': 44.82,
+                    'inertia_moment': 8.8000000000000007}
+   player_type:2 = {'effort_max': 0.80740000000000001, 'kickable_margin': 0.89780000000000004,
+                    'extra_stamina': 96.299999999999997, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.53239999999999998, 'player_speed_max': 1.2,
+                    'kick_rand': 0.098900000000000002, 'dash_power_rate': 0.0076680000000000003,
+                    'effort_min': 0.40739999999999998, 'stamina_inc_max': 28.32,
+                    'inertia_moment': 8.3100000000000005}
+   player_type:3 = {'effort_max': 0.81779999999999997, 'kickable_margin': 0.75560000000000005,
+                    'extra_stamina': 91.099999999999994, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.53920000000000001, 'player_speed_max': 1.2,
+                    'kick_rand': 0.027799999999999998, 'dash_power_rate': 0.0061919999999999996,
+                    'effort_min': 0.4178, 'stamina_inc_max': 43.079999999999998,
+                    'inertia_moment': 8.4800000000000004}
+   player_type:4 = {'effort_max': 0.89800000000000002, 'kickable_margin': 0.71160000000000001,
+                    'extra_stamina': 51, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.55200000000000005, 'player_speed_max': 1.2,
+                    'kick_rand': 0.0057999999999999996, 'dash_power_rate': 0.0067219999999999997,
+                    'effort_min': 0.498, 'stamina_inc_max': 37.780000000000001,
+                    'inertia_moment': 8.8000000000000007}
+   player_type:5 = {'effort_max': 0.86360000000000003, 'kickable_margin': 0.8054,
+                    'extra_stamina': 68.200000000000003, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.443, 'player_speed_max': 1.2, 'kick_rand': 0.052699999999999997,
+                    'dash_power_rate': 0.0061159999999999999, 'effort_min': 0.46360000000000001,
+                    'stamina_inc_max': 43.840000000000003, 'inertia_moment': 6.0750000000000002}
+   player_type:6 = {'effort_max': 0.83999999999999997, 'kickable_margin': 0.74860000000000004,
+                    'extra_stamina': 80, 'player_size': 0.29999999999999999,
+                    'player_decay': 0.51719999999999999, 'player_speed_max': 1.2,
+                    'kick_rand': 0.024299999999999999, 'dash_power_rate': 0.0066880000000000004,
+                    'effort_min': 0.44, 'stamina_inc_max': 38.119999999999997,
+                    'inertia_moment': 7.9299999999999997}
+   port = 6000
+   see = [[['f', 'g', 'l', 'b'], 25.800000000000001, -29.0],
+          [['g', 'l'], 23.800000000000001, -13.0, -0.0, 0],
+          [['f', 'g', 'l', 't'], 23.600000000000001, 4, -0.0, 0],
+          [['f', 'p', 'l', 'c'], 7.7999999999999998, -33.0, -0.0, -0.0],
+          [['f', 'l', 0], 28.800000000000001, -12.0, -0.0, 0],
+          [['f', 'l', 't', 10], 29.100000000000001, 8],
+          [['f', 'l', 't', 20], 32.799999999999997, 26, -0.0, 0],
+          [['f', 'l', 't', 30], 38.5, 39],
+          [['f', 'l', 'b', 10], 31.5, -30.0],
+          [['f', 'l', 'b', 20], 37, -44.0],
+          [['p', '&quot;TeamA&quot;', 5], 18.199999999999999, -34.0, -0.0, -0.0, 176, 176],
+          [['p', '&quot;TeamA&quot;', 9], 11, -45.0, -0.0, -0.0, 176, 176],
+          [['l', 'l'], 23.600000000000001, 86]]
+   see:time = 1138
+   sense_body = {'head_angle': 0, 'dash': 530, 'change_view': 0, 'turn_neck': 0, 'move': 2, 'say': 0,
+                 'focus': ['target', 'none'], 'stamina': 2925, 'turn': 99, 'view_mode': 'high',
+                 'tackle': ['expires', 0], 'catch': 0, 'speed': 0, 'arm': ['movable', 0], 'kick': 0}
+   sense_body:time = 1140
+   server_param = {'say_msg_size': 10, 'keepaway_log_dir': '&quot;./&quot;', 'coach': 0, 'nr_normal_halfs': 2,
+                   'kick_rand_factor_l': 1, 'effort_dec': 0.0050000000000000001, 'synch_mode': 0,
+                   'fullstate_l': 0, 'forbid_kick_off_offside': 1, 'fullstate_r': 0, 'kick_power_rate': 0.027,
+                   'catchable_area_w': 1, 'back_passes': 1, 'synch_micro_sleep': 1,
+                   'player_rand': 0.10000000000000001, 'keepaway': 0, 'stamina_inc_max': 45,
+                   'kick_rand_factor_r': 1, 'effort_dec_thr': 0.29999999999999999, 'maxneckang': 90,
+                   'prand_factor_l': 1, 'text_logging': 1, 'visible_angle': 90, 'hear_decay': 1,
+                   'text_log_fixed_name': '&quot;rcssserver&quot;', 'clang_del_win': 1, 'prand_factor_r': 1,
+                   'recover_dec_thr': 0.29999999999999999, 'synch_offset': 60, 'freeform_send_period': 20,
+                   'text_log_compression': 0, 'catchable_area_l': 2, 'clang_win_size': 300, 'recv_step': 10,
+                   'ball_accel_max': 2.7000000000000002, 'effort_inc_thr': 0.59999999999999998,
+                   'player_size': 0.29999999999999999, 'dash_power_rate': 0.0060000000000000001,
+                   'pen_ready_wait': 50, 'keepaway_width': 20, 'point_to_ban': 5, 'wind_force': 0,
+                   'minmoment': -180.0, 'game_log_compression': 0, 'stopped_ball_vel': 0.01,
+                   'effort_inc': 0.01, 'tackle_width': 1, 'hear_inc': 1, 'team_actuator_noise': 0,
+                   'keepaway_log_dated': 1, 'text_log_fixed': 0, 'effort_min': 0.59999999999999998,
+                   'send_step': 150, 'wind_ang': 0, 'goal_width': 14.02, 'keepaway_logging': 1,
+                   'recover_dec': 0.002, 'ball_speed_max': 2.7000000000000002, 'penalty_shoot_outs': 1,
+                   'port': 6000, 'wind_none': 0, 'inertia_moment': 5, 'keepaway_length': 20,
+                   'tackle_power_rate': 0.027, 'pen_setup_wait': 100, 'sense_body_step': 100, 'hear_max': 1,
+                   'landmark_file': '&quot;~/.rcssserver-landmark.xml&quot;', 'control_radius': 2,
+                   'slowness_on_top_for_left_team': 1, 'ball_size': 0.085000000000000006, 'maxneckmoment': 180,
+                   'visible_distance': 3, 'start_goal_l': 0, 'connect_wait': 300, 'pen_allow_mult_kicks': 0,
+                   'record_messages': 0, 'keepaway_log_fixed': 0, 'offside_active_area_size': 2.5,
+                   'minneckmoment': -180.0, 'start_goal_r': 0, 'coach_port': 6001, 'send_comms': 0,
+                   'player_weight': 60, 'simulator_step': 100, 'kickable_margin': 0.69999999999999996,
+                   'text_log_dated': 1, 'catch_ban_cycle': 5, 'team_r_start': '&quot;&quot;',
+                   'keepaway_log_fixed_name': '&quot;rcssserver&quot;', 'tackle_cycles': 10, 'verbose': 0,
+                   'game_log_dated': 1, 'game_log_dir': '&quot;./&quot;', 'log_times': 0,
+                   'game_log_fixed_name': '&quot;rcssserver&quot;', 'wind_rand': 0, 'wind_random': 0, 'recover_init': 1,
+                   'pen_max_extra_kicks': 10, 'olcoach_port': 6002, 'pen_random_winner': 0, 'pen_nr_kicks': 5,
+                   'player_accel_max': 1, 'nr_extra_halfs': 2, 'wind_dir': 0, 'game_over_wait': 100,
+                   'half_time': 3000, 'goalie_max_moves': 2, 'pen_before_setup_wait': 30, 'maxpower': 100,
+                   'game_logging': 1, 'offside_kick_margin': 9.1500000000000004, 'clang_rule_win': 1,
+                   'quantize_step': 0.10000000000000001, 'player_decay': 0.40000000000000002,
+                   'pen_taken_wait': 100, 'player_speed_max': 1.2, 'kick_rand': 0, 'keepaway_start': -1.0,
+                   'max_goal_kicks': 3, 'minpower': -100.0, 'auto_mode': 0, 'coach_w_referee': 0,
+                   'send_vi_step': 100, 'effort_init': 1, 'pen_max_goalie_dist_x': 4, 'clang_mess_delay': 50,
+                   'game_log_version': 3, 'free_kick_faults': 1, 'tackle_exponent': 6, 'ckick_margin': 1,
+                   'audio_cut_dist': 50, 'clang_meta_win': 1, 'recover_min': 0.5, 'catch_probability': 1,
+                   'log_date_format': '&quot;%Y%m%d%H%M-&quot;', 'pen_dist_x': 11, 'say_coach_msg_size': 128,
+                   'team_l_start': '&quot;&quot;', 'ball_rand': 0.050000000000000003, 'freeform_wait_period': 600,
+                   'old_coach_hear': 0, 'kick_off_wait': 100, 'text_log_dir': '&quot;./&quot;',
+                   'ball_weight': 0.20000000000000001, 'game_log_fixed': 0, 'clang_mess_per_cycle': 1,
+                   'slow_down_factor': 1, 'use_offside': 1, 'profile': 0, 'say_coach_cnt_max': 128,
+                   'ball_decay': 0.93999999999999995, 'stamina_max': 4000, 'slowness_on_top_for_right_team': 1,
+                   'clang_advice_win': 1, 'tackle_back_dist': 0.5, 'point_to_duration': 20,
+                   'drop_ball_time': 200, 'clang_define_win': 1, 'tackle_dist': 2, 'maxmoment': 180,
+                   'proper_goal_kicks': 0, 'minneckang': -90.0, 'clang_info_win': 1, 'quantize_step_l': 0.01}
+   simulated = 1
+   stall = 0
+   th = 0
+   thr = 0
+   timestamp = 1094949411.93
+   truth/ = &lt;alias to &quot;devices/truth0&quot;&gt;
+   x = 0
+   y = 0
+</pre>
+<p>
+You can query many of the items as a dictionary, like so:
+<p>
+<pre class="code">
+&gt;&gt;&gt; self.robot.server_param[&quot;game_log_fixed_name&quot;]
+rcssserver
+</pre>
+<p>
+The format of visual information, <tt class="wiki">self.robot.see</tt>:
+<p>
+[ Obj<b></b>Info, Obj<b></b>Info, ...]
+<p>
+where Obj<b></b>Info is:
+<p>
+<ul><li>[Name Distance Direction Dist<b></b>Chng Dir<b></b>Chng Body<b></b>Dir Head<b></b>Dir]</li>
+<li>[Name Distance Direction Dist<b></b>Chng Dir<b></b>Chng]</li>
+<li>[Name Distance Direction]</li>
+<li>[Name Direction]</li>
+</ul><p>
+and Name can be:
+<p>
+<pre class="code">
+  (p &quot;teamname&quot; &quot;uniform number&quot;) - player
+  (b)                             - ball
+  (g r)                           - goal right
+  (g l)                           - goal left
+  (f c)                           - flag center
+  (f [l|c|r] [t|b])               - flag
+  (f p [l|r] [t|c|b])             - flag perimeter of goal
+  (f g [l|r] [t|c|b])             - flag goal
+  (f [l|r|t|b] 0)                 - flag corner
+  (f [t|b] [l|r] [10|20|30|40|50])- flag
+  (f [l|r] [t|b] [10|20|30])      - flag
+  (l [l|r|t|b])                   - line
+  (B)                             - ball
+  (F)                             - flag
+  (G)                             - goal
+  (P)                             - player
+</pre>
+<p>
+For more information on the format of the sensation, see pages 26 - 34 of the <a href="../pyrobot/tars/rcsoccersim.pdf"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;manual</a>.
+<p>
+You can also check the last return messages by looking at a circular history queue <tt class="wiki">robot.history</tt>. For example:
+<p>
+<pre class="code">
+robot.history[self.lastHistory] # the last message read
+robot.history[0]                # message in the 0th spot
+</pre>
+<p>
+This queue contains the last 100 raw messages received.
+<p>
+<p>
+<h1 width="804"> Controlling a Robocup Robot</h1>
+<p>
+We have changed the way that the competition Robocup robots behave so that they act more like other robots so that we can treat these like the others. In this manner, you can use many of the same brains that we used for other robots on the soccer bots. However, you can also disable this behavior, and interact with the robot the standard &quot;Robocup-way&quot;.
+<p>
+One thing that we did was to make it so that the turning of the robot is much less drastic than what Robocup allows. So, using the Pyro move functions (self.move(), self.translate(), and self.rotate()) you get behavior much like you would if these robots were, say, Pioneers, or Kheperas. If you would rather have the standard Robocup behavior, use the <tt class="wiki">robot.sendMsg(&quot;(dash POWER)&quot;)</tt> and <tt class="wiki">robot.sendMsg(&quot;(turn MOMENT)&quot;)</tt> commands.
+<p>
+Another change we made was that a movement command issued will continue to have an effect until you issue another movement command. This is only true if you are using the Pyro move functions (self.move(), self.translate(), and self.rotate()) and self.robot.continuous is 1. If you want to use the Pyro move commands, but don't want the robot move more than one cycle, then set this mode off:
+<p>
+<pre class="code">
+&gt;&gt;&gt; self.robot.continuous = 0
+</pre>
+<p>
+If you would like to make something happen when a message of a particular types comes in (a type of &quot;callback&quot;) then you can define the method message<b></b>Handler() in an extended Robocup<b></b>Robot:
+<p>
+<pre class="code">
+# Your own robot file
+from pyrobot.robot.robocup import *
+class MyRCRobot(RobocupRobot):
+    def messageHandler(self, message):
+        &quot;&quot;&quot; Write your own message handler here. &quot;&quot;&quot;
+        if message[0] == &quot;hear&quot;:
+            print &quot;heard message:&quot;, message[1:]
+</pre>
+<p>
+<p>
+<h2 width="804"> Robocup Camera</h2>
+<p>
+Pyro version 3.2.2 and higher now comes with a Robocup<b></b>Camera device. You load it like you would any device (see the discussion in these sections: <a href="../page_Pyro_20Devices/">Pyro Devices</a>, <a href="../page_Pyro_20Devices_20Advanced/">Pyro Devices Advanced</a>, and  the section on <b>Starting devices on start-up, redux</b> <a href="../page_Pyro_20Brains/">Pyro Brains</a>).
+<p>
+After loading a Robocup robot, select <b>Load</b> -&gt; <b>Devices...</b> -&gt; <b>Robocup</b><b>Camera</b> from the menu. You should see a window pop up, like:
+<p>
+<img src="../_dblank/images/robocup-camera.gif">
+<p>
+The image is generated from the symbolic lists returned from Robocup's server, so it is a very rough approximation of what a real soccer bot would see. However, with this camera you should be able to score a goal, especially with the aid of the laser sensor below. See <a href="../page_Introduction_20to_20Computer_20Vision/">Introduction to Computer Vision</a> and <a href="../page_PyroVisionSystemFunctions/">PyroVisionSystemFunctions</a> for more details on using cameras.
+<p>
+<p>
+<h2 width="804"> Robocup Laser</h2>
+<p>
+Robocup<b></b>Robot now (3.2.2) has a simulated laser scanner. You can start it the way you start any laser scanner:
+<p>
+<pre class="code">
+robot.startDevice(&quot;laser&quot;)
+</pre>
+<p>
+or
+<p>
+<pre class="code">
+pyro -r Robocup -s RobocupSimulator -d laser,RobocupCamera
+</pre>
+<p>
+or
+<p>
+By selecting <b>Load</b> -&gt; <b>Devices...</b> -&gt; <b>Laser</b> from the menu.
+<p>
+The laser scanner is currently a little rough around the edges. Items that the laser hits are currently only 1 degree wide.
+<p>
+<p>
+<h1 width="804"> Team Play</h1>
+<p>
+To compete in the Robocup Soccer Simulation competition, you must have each of the 11 robots controlled by a different process. This will take a little bit of organization to get all of the programs up and running. To practice, let's simplify the control system by having one brain control all of the robots on a team. Once we have that mastered, then we will turn to competition rule play. 
+<p>
+To start a game, first start the simulator, and load an entire team. You can do that from the command line:
+<p>
+<pre class="code">
+pyro -r RobocupTeamA -s RobocupSimulator -w Soccer.world
+</pre>
+<p>
+The opponent will run this from the same computer (it doesn't have to be on the same computer, but for now let's keep it simple). Notice that we don't start another server. The default is the server that we already have running:
+<p>
+<pre class="code">
+pyro -r RobocupTeamB
+</pre>
+<p>
+If you have multiple people running on a single computer, then you'll need to assign different ports when you start the simulator.
+<p>
+You should see something like:
+<p>
+<img src="../_dblank/images/robocup-team.gif">
+<p>
+Click on the &quot;kick off&quot; text again in the soccer window. You can still drive around a single robot with the joystick. But, now you also have 10 other robots that you can also control.
+<p>
+You can control them through the standard Pyro methods:
+<p>
+<pre class="code">
+robot.team[3].move(.5, .3)
+robot.team[7].rotate(.7)
+</pre>
+<p>
+You can also control them through the Robocup method. To send them messages, use the form <tt class="wiki">robot.team[NUMBER].sendMsg(MESSAGE)</tt>, like so:
+<p>
+<pre class="code">
+robot.team[3].sendMsg(&quot;(dash 100)&quot;)
+robot.team[7].sendMsg(&quot;(turn -90)&quot;)
+</pre>
+<p>
+In this manner, you can control all 11 players from a single brain. Each of the items in <tt class="wiki">robot.team[]</tt> is a <tt class="wiki">RobocupRobot</tt>. Position 0 is the goalie, and the robots are initialized in a random spot on the field.
+<p>
+<p>
+<h2 width="804"> Robocup Soccer Competition</h2>
+<p>
+You can open up one Pyro window per robot (as per the Robocup rules). You can do that in a shell script to ease starting and stopping them. Only the first one need start the simulator. Of course, you may not want each of the 11 robots to have a Pyro window on the screen. You can run without a windowed GUI by using the <tt class="wiki">-g tty</tt> setting. However, you can't just run that in the background (as denoted by the ampersand) because the tty gui will want input from the user. But, there is a command to run without further request for IO. By using the <tt class="wiki">-e</tt> flag, you can issue this Pyro command from the command line.
+<p>
+The <tt class="wiki">-e</tt> flag takes commands, separated by semicolons. Often, you may want to <tt class="wiki">-e run</tt>, to get it started. But in this instance, you will want to start the system, and not listen on the gui for any further commands. To do that, use the special <tt class="wiki">-e runtillquit</tt> command.
+<p>
+Finally, you'll want to have brains for the robots, either all different, or some the same. Here is a script to get them all running:
+<p>
+<pre class="code">
+pyro -r Robocup -b RobocupGoalieBrain -e runtillquit -g tty -s RobocupSimulator -w Soccer &
+pyro -r Robocup -b RobocupBrain1 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain2 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain3 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain4 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain5 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain6 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain7 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain8 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain9 -e runtillquit -g tty &
+pyro -r Robocup -b RobocupBrain10 -e runtillquit -g tty &
+</pre>
+<p>
+The brains can kill themselves with <tt class="wiki">self.quit()</tt>. You can also stop these jobs from outside the brain with:
+<p>
+<pre class="code">
+killall pyro
+OR
+killall -9 pyro
+</pre>
+<p>
+<p>
+<h1 width="804"> Assignments</h1>
+ <img width="11" src="../wiki/img/idea.png"> Write a program that plays soccer. You'll need the <a href="../pyrobot/tars/rcsoccersim.pdf"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Robocup Soccer Server Manual</a>.
+<p>
+See <a href="http://www.cs.utexas.edu/users/pstone/Courses/378spring04/assignments/index.html">www.cs.utexas.edu/users/pstone/Courses/378spring04/assignments/index.html</a> for ideas for assignments, or add some here.
+<p>
+Up: <a href="../page_Robot_20Simulators/">Robot Simulators</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Robocup_20Simulator?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Robocup_20Simulator?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

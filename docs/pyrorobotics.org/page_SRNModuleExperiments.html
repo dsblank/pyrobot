@@ -1,0 +1,189 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160811", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: SRNModuleExperiments</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro SRN Experiments</h1>
+<p>
+This section will explore a series of experiments originally designed and run by Jeffery Elman.
+<p>
+First, we will generate a corpus of data of the form:
+<p>
+<pre class="code">
+dog walks .
+dog who dogs who hit chase feeds .
+John chases .
+girl who dogs who feed live walks .
+Mary lives .
+boy sees .
+Mary hits .
+John hits .
+cat sees .
+girls who hear walk .
+boy who hits feeds .
+cat lives .
+girls who hear hit .
+</pre>
+<p>
+<img src="../_dblank/startSmall/grammar-1.gif">  
+<p>
+<img src="../_dblank/startSmall/table1.gif">
+<p>
+<img src="../_dblank/startSmall/network.gif">  
+<p>
+<p>
+<h2 width="804"> Results</h2>
+<p>
+Experiment #1: The network was trained on a corpus of sentences, and the it
+failed miserably. It learned some, but overall very poorly. Maybe Gold was right?
+<p>
+Experiment #2: The network was trained according to a strict schedule, 5 epochs each:
+<p>
+<table border="1"><tr><td> Phase 1 </td><td> 10,000 simple sentences </td><td> 0 complex sentences </td></tr>
+<tr><td> Phase 2 </td><td> 7,500 simple sentences </td><td> 2,500 complex sentences </td></tr>
+<tr><td> Phase 3 </td><td> 5,000 simple sentences </td><td> 5,000 complex sentences </td></tr>
+<tr><td> Phase 4 </td><td> 2,500 simple sentences </td><td> 7,500 complex sentences </td></tr>
+<tr><td> Phase 5 </td><td> 0 simple sentences </td><td> 10,000 complex sentences </td></tr>
+</table><p>
+This worked! However, it was very <i>ad hoc</i> and probably took some fiddling by
+a graduate student to get it to work correctly. In addition, the environment was
+manipulated in a manner very much unlike the way that children learn language;
+they are exposed to it in all its complexity from early on. Could it be learned without
+such a strict manipulative schedule?
+<p>
+Experiment #3: The context bank of the network was randomly wiped out
+every 2 or 3 words with random patterns. The length between wipe-outs
+was slowly increased, until no wipe-outs were made.
+<p>
+This worked!
+<p>
+<img src="../_dblank/startSmall/fig2.gif">  
+<p>
+<img src="../_dblank/startSmall/fig3.gif">  
+<p>
+<img src="../_dblank/startSmall/fig4.gif">  
+<p>
+<img src="../_dblank/startSmall/fig5.gif">  
+<p>
+<img src="../_dblank/startSmall/hiddenspace.gif">  
+<p>
+<p>
+<pre class="code">
+from pyrobot.brain.conx import SRN
+import pyrobot.system.debug
+#class mySRN(SRN):
+#    def preStep(self):
+#        print &quot;pre step...&quot;
+network = SRN()
+network.setSequenceType(&quot;random-continuous&quot;)
+network.addLayer(&quot;input&quot;, 26)
+network.addContextLayer(&quot;context&quot;, 70, &quot;hidden&quot;)
+network.addLayer(&quot;hid1&quot;, 10)
+network.addLayer(&quot;hidden&quot;, 70)
+network.addLayer(&quot;hid2&quot;, 10)
+network.addLayer(&quot;output&quot;, 26)
+network.connect(&quot;input&quot;, &quot;hid1&quot;)
+network.connect(&quot;hid1&quot;, &quot;hidden&quot;)
+network.connect(&quot;context&quot;, &quot;hidden&quot;)
+network.connect(&quot;hidden&quot;, &quot;hid2&quot;)
+network.connect(&quot;hid2&quot;, &quot;output&quot;)
+def makePattern(n):
+    retval = [0.0] * 26
+    retval[-n] = 1.0
+    return retval
+network.predict(&quot;input&quot;, &quot;output&quot;)
+network.setPatterns( {&quot;.&quot;: makePattern(1),
+                      &quot;boy&quot;: makePattern(2),
+                      &quot;girl&quot;: makePattern(3),
+                      &quot;cat&quot;: makePattern(4),
+                      &quot;dog&quot;: makePattern(5),
+                      &quot;chase&quot;: makePattern(6),
+                      &quot;feed&quot;: makePattern(7),
+                      &quot;see&quot;: makePattern(8),
+                      &quot;hear&quot;: makePattern(9),
+                      &quot;walk&quot;: makePattern(10),
+                      &quot;live&quot;: makePattern(11),
+                      &quot;boys&quot;: makePattern(12),
+                      &quot;girls&quot;: makePattern(13),
+                      &quot;cats&quot;: makePattern(14),
+                      &quot;dogs&quot;: makePattern(15),
+                      &quot;chases&quot;: makePattern(16),
+                      &quot;feeds&quot;: makePattern(17),
+                      &quot;sees&quot;: makePattern(18),
+                      &quot;hears&quot;: makePattern(19),
+                      &quot;walks&quot;: makePattern(20),
+                      &quot;lives&quot;: makePattern(21),
+                      &quot;John&quot;: makePattern(22),
+                      &quot;Mary&quot;: makePattern(23),
+                      &quot;hit&quot;: makePattern(24),
+                      &quot;hits&quot;: makePattern(25),
+                      &quot;who&quot;: makePattern(26) } )
+network.loadInputPatternsFromFile(&quot;elman100.dat&quot;, checkEven=0)
+#network.setInteractive(1)
+network.setReportRate(1)
+network.train()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/StartSmallProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/StartSmallProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/SRNModuleExperiments?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/SRNModuleExperiments?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,409 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160822", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Conx_20Implementation_20Details</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Conx Implementation Details</h2>
+ <img width="11" src="../wiki/img/idea.png"> The Conx code, like all Pyro code, can be found in the SVN repository, specifically right <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/brain/conx.py?view=markup"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>. Advanced Pyro users are encouraged to examine the code whenever you have questions about how something was implemented. You can also see the source code in your site's file system, usually at /usr/local/pyrobot/. The Conx code can be found at pyrobot/brain/conx.py.
+<p>
+This section will explore the details of the Conx implementation. In many of these examples, a sample instance of a Network is used and called <tt class="wiki">net</tt>. You can test many of these commands interactively, like:
+<p>
+<pre class="code">
+&#36; python
+&gt;&gt;&gt; from pyrobot.brain.conx import *
+&gt;&gt;&gt; net = Network()
+&gt;&gt;&gt; net.addLayers(2, 3, 1)  # will add and connect three layers named, by default, &quot;input&quot;, &quot;hidden&quot;, &quot;output&quot;
+&gt;&gt;&gt; net.display()
+&gt;&gt;&gt; net.displayConnections()
+</pre>
+<p>
+<p>
+<h3 width="804"> Network Class</h3>
+<p>
+The Network class contains all of the parameters and methods needed to run a neural network. This class relies heavily on both Layer and Connection classes.
+ <img width="11" src="../wiki/img/alert.png"> As a general rule, aside from setting targets and activations manually in complicated networks, the Network class methods should always be used. For example, both Layer and Connection classes have methods called changeSize(). Calling this method at either the Layer or Connection level would be a mistake, however; the Network class method changeSize() should always be called instead.
+<p>
+<p>
+<h4 width="804"> Building a Network</h4>
+<p>
+<table border="1"><tr><td> Network() </td><td> Initializes a network object. </td></tr>
+<tr><td> SRN() </td><td> Initializes a Simple Recurrent Network (Elman) object. </td></tr>
+<tr><td> addLayers(size, size, ...) </td><td> Adds a series of layers, with standard names (such as &quot;input&quot;, &quot;hidden&quot;, and &quot;output&quot;) and connects them up. </td></tr>
+<tr><td> addLayer('layerName', size) </td><td> Adds a layer to the network. Ex. <tt class="wiki">network.addLayer('hidden',3)</tt> will add a layer with name 'hidden' and size 3 to network object. </td></tr>
+<tr><td> connect('fromLayer', 'toLayer') </td><td> Creates a connection between the layer with name 'fromLayer and the layer with name 'toLayer'). This creates an instance of the Connection class automatically. Ex. <tt class="wiki">network.connect('input','output')</tt> will connect the layers named 'input' and 'output' respectively.</td></tr>
+<tr><td> change<b></b>Layer<b></b>Size(layername, newsize) </td><td> Changes layer size. Newsize must be greater than zero. </td></tr>
+</table><p>
+Layers are created and connected in the order of activation flow. To check out the ordering, you could:
+<p>
+<pre class="code">
+&gt;&gt;&gt; from pyrobot.brain.conx import Network
+&gt;&gt;&gt; net = Network()
+&gt;&gt;&gt; net.addLayers(2, 2, 1)
+&gt;&gt;&gt; [layer.name for layer in net.layers]
+['input', 'hidden', 'output']
+&gt;&gt;&gt; [(connect.fromLayer.name, connect.toLayer.name) for connect in net.connections]
+[('input', 'hidden'), ('hidden', 'output')]
+</pre>
+<p>
+<p>
+<h4 width="804"> Accessing elements</h4>
+<p>
+<table border="1"><tr><td> <b>To access a:</b> </td><td> <b>Use this sytnax:</b> </td><td> <b>Example</b> </td></tr>
+<tr><td> Layer         </td><td> <tt class="wiki">net[&quot;layerName&quot;]</tt> </td><td> <tt class="wiki">net[&quot;input&quot;].size</tt> </td></tr>
+<tr><td> Node          </td><td> <tt class="wiki">net[&quot;layerName&quot;][pos]</tt> </td><td> <tt class="wiki">net[&quot;hidden&quot;][1].activation</tt> </td></tr>
+<tr><td> Node Bias     </td><td> <tt class="wiki">net[&quot;layerName&quot;][pos].weight</tt> </td><td> <tt class="wiki">net[&quot;hidden&quot;][1].weight = 0.0</tt> </td></tr>
+<tr><td> Connection    </td><td> <tt class="wiki">net[&quot;fromLayerName&quot;, &quot;toLayerName&quot;]</tt> </td><td> <tt class="wiki">net[&quot;hidden&quot;, &quot;output&quot;].randomize()</tt> </td></tr>
+<tr><td> Weight        </td><td> <tt class="wiki">net[&quot;fromLayerName&quot;, &quot;toLayerName&quot;][fromPos][toPos]</tt> </td><td> <tt class="wiki">net[&quot;input&quot;, &quot;hidden&quot;][0][1] = .4</tt> </td></tr>
+<tr><td> Weight Matrix </td><td> <tt class="wiki">net[&quot;fromLayerName&quot;, &quot;toLayerName&quot;].weight</tt> </td><td> <tt class="wiki">max(max(net[&quot;input&quot;, &quot;hidden&quot;].weight))</tt> </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Running a Network</h4>
+<p>
+<table border="1"><tr><td> setInputs(inputs) </td><td> Inputs must have the form [[...],[...],[...],...] or [{}, {}, ...]. Use this method in combination with setTargets before any call to sweep() or train(). </td></tr>
+<tr><td> setTargets(targets) </td><td> Targets must have the form [[...],[...],[...],...] or [{}, {}, {}]. Use this method in combination with setInputs before any call to sweep() or train(). </td></tr>
+<tr><td> sweep() </td><td> Runs through entire dataset. Must call setInputs(), setTargets(), and associate() methods to initialize all inputs and targets for the entire dataset before calling sweep(). Returns TSS error, total correct, and total count. </td></tr>
+<tr><td> train() </td><td> Trains the network on the dataset till a stopping condition is met. This stopping condition can be a limiting epoch or a percentage correct requirement. Train calls sweep multiple times, and so setInputs and setTargets are still required. </td></tr>
+<tr><td> copyActivations(layer, vec, start=0) </td><td> Copies activations in vec to the specified layer, replacing patterns if necessary. This can be called instead of the Layer class copyActivations. </td></tr>
+<tr><td> copyTargets(layer, vec, start=0) </td><td> Copies targets in vec to specified layer, replacing patterns if necessary. This can be called instead of the Layer class copyTargets. Both copyActivations and copyTargets include more features at the Network class level, including pattern replacement, and ability to chose the starting index of the vector from which to copy the activations or targets. </td></tr>
+<tr><td> setActive(layerName, value) </td><td> Sets a layer to active or inactive. (Affects learning and propagation.) </td></tr>
+<tr><td> getActive(layerName) </td><td> Determine whether a layer is active or not by return value. </td></tr>
+<tr><td> associate(inName, outName) </td><td> inName layer and outName layer will be auto-associating. </td></tr>
+<tr><td> predict(inName, outName) </td><td> outName layer will be predicted (use with loadOrder == 1). </td></tr>
+<tr><td> step(layerName=valueList,..., [init<b></b>Context = 0|1]) </td><td> Does a single step. Calls propagate(...), backprop(...), and change_weights() if learning is set. Format for parameters: &lt;layer name&gt; = &lt;activation/target list&gt;. If init<b></b>Context is passed, then this overrides default network.init<b></b>Context setting. </td></tr>
+<tr><td> propagate(layerName=valueList,...) </td><td> Propagates the network using valueList inputs or targets. </td></tr>
+<tr><td> propagateFrom(startLayerName, layerName=valueList,...) </td><td> Propagates the network starting with &quot;startLayerName&quot;, using valueList inputs or targets. </td></tr>
+<tr><td> backprop(layerName=valueList,...) </td><td> Sets the targets for the layerNames, computes error, and changes weights (if net.learning = 1). Format for parameters: &lt;layer name&gt; = &lt;activation/target list&gt;. If init<b></b>Context is passed, then this overrides default network.init<b></b>Context setting. </td></tr>
+<tr><td> setAutoSaveWeightsFile(filename) </td><td> When Cross Validation is on, will save weights to filename every time CV TSS drops to a new low. </td></tr>
+<tr><td> setAutoCrossValidation(value) </td><td> If true, the system will create a cross validation set directly from the inputs and targets. This is useful for large datasets. </td></tr>
+<tr><td> preSweep() </td><td> Method called before every sweep() </td></tr>
+<tr><td> postSweep() </td><td> Method called after every sweep() </td></tr>
+<tr><td> preProp(layerName=valueList,...) </td><td> Method called before every propagate(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> postProp(layerName=valueList,...) </td><td> Method called after every propagate(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> preBackprop(layerName=valueList,...) </td><td> Method called before every backprop(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> postBackprop(layerName=valueList,...) </td><td> Method called after every backprop(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> preStep(layerName=valueList,...) </td><td> Method called before every step(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> postStep(layerName=valueList,...) </td><td> Method called after every step(). If you wish to alter inputs/targets return an altered form of {layerName: valueList, ...} </td></tr>
+<tr><td> addLayerNode(layerName, bias, weightDict) </td><td> Add a new node to a layer and optionally set bias and weights between layers. </td></tr>
+<tr><td> deleteLayerNode(layerName, pos) </td><td> Remove a node from a layer, given a position. </td></tr>
+</table><p>
+You may call these functions as you wish. The standard method is to just call net.train() which does roughly the following:
+<p>
+<pre class="code">
+net.train(), which calls:
+   net.sweep(), which calls:
+      net.step(), which calls:
+         net.propagate()
+         net.compute_error()
+         net.backprop()
+         net.change_weights()
+</pre>
+<p>
+<p>
+<h4 width="804"> Network IO</h4>
+<table border="1"><tr><td> save<b></b>Weights<b></b>To<b></b>File(filename, mode = 'pickle') </td><td> Saves weights to file in pickle, plain/conx, or tlearn mode. </td></tr>
+<tr><td> load<b></b>Weights<b></b>From<b></b>File(filename, mode = 'pickle') </td><td> Loads weights from a file in pickle, plain/conx, or tlearn mode. </td></tr>
+<tr><td> logLayer(layerName, fileName) </td><td> Sets the layerName's log feature. </td></tr>
+<tr><td> logMsg(layerName, message) </td><td> Logs a message with layerName log. </td></tr>
+<tr><td> arrayify() </td><td> Returns an array of node bias values and connection weights. </td></tr>
+<tr><td> unArrayify(gene) </td><td> Copies gene bias values and weights to network bias values and weights. </td></tr>
+<tr><td> save<b></b>Network<b></b>To<b></b>File(filename) </td><td> Saves network to file using pickle.</td></tr>
+<tr><td> load<b></b>Vectors<b></b>From<b></b>File(filename, cols = None, everyNrows = 1, delim = ' ', checkEven=1) </td><td>  Load a set of vectors from a file. Takes a filename, list of cols you want (or None for all), get every everyNrows (or 1 for no skipping), and a delimeter. If <tt class="wiki">checkEven</tt> is true (the default) then Conx will check to make sure the length of all  lines are the same. </td></tr>
+<tr><td> load<b></b>Inputs<b></b>From<b></b>File(filename, cols = None, everyNrows = 1, delim = ' ', checkEven=1) </td><td> Loads inputs from file. Patterns are removed. If <tt class="wiki">checkEven</tt> is true (the default) then Conx will check to make sure the length of all  lines are the same. </td></tr>
+<tr><td> save<b></b>Inputs<b></b>To<b></b>File(filename) </td><td> Saves inputs to file. </td></tr>
+<tr><td> load<b></b>Targets<b></b>From<b></b>File(filename, cols = None, everyNrows = 1, delim = ' ', checkEven=1) </td><td> Loads targets from file. If <tt class="wiki">checkEven</tt> is true (the default) then Conx will check to make sure the length of all  lines are the same. </td></tr>
+<tr><td> save<b></b>Targets<b></b>To<b></b>File(filename) </td><td> Saves targets to file. </td></tr>
+<tr><td> save<b></b>Data<b></b>To<b></b>File(filename) </td><td> Saves data (targets/inputs) to file. </td></tr>
+<tr><td> load<b></b>Data<b></b>From<b></b>File(filename, ocnt = -1) </td><td> Loads data (targets/inputs) from file. </td></tr>
+<tr><td> display() </td><td> Displays the network to the screen. </td></tr>
+<tr><td> toString() </td><td> Returns the network layers as a string. </td></tr>
+<tr><td> network[layerName].patternReport = N </td><td> Set N to 0 or 1 after building the network to cause the layer to report details at each epoch or not. </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Patterning</h4>
+<p>
+Patterning provides a method for associated human readable identifiers with input vectors. For example, a neural network doesn't learn to predict English words, but instead learns to predict orthogonal labels associated with English words. When examining network behavior, however, it is often useful to translate those labels back to human readable form. That is what patterning accomplishes.
+<p>
+<table border="1"><tr><td> replacePatterns(vector) </td><td> Replaces patterned inputs or targets with activation vectors. </td></tr>
+<tr><td> patternVector(vector) </td><td> Replaces vector with patterns. Used for loading inputs or targets from a file and still preserving patterns.</td></tr>
+<tr><td> setPatterns(patterns) </td><td> Sets patterns to the dictionary argument. </td></tr>
+<tr><td> getPattern(word) </td><td> Returns the pattern with key word. </td></tr>
+<tr><td> getWord(pattern) </td><td> Returns the word associated with pattern. </td></tr>
+<tr><td> setPattern(word, vector) </td><td> Sets a pattern with key word. Better to use addPattern() and delPattern(). </td></tr>
+<tr><td> addPattern(word, vector) </td><td> Adds a pattern with key word. </td></tr>
+<tr><td> delPattern(word) </td><td> Delete a pattern with key word. </td></tr>
+<tr><td> loadInputPatternsFromFile(checkEven=1) </td><td> Loads patterns from file. If <tt class="wiki">checkEven</tt> is true (the default) then Conx will check to make sure the length of all  lines are the same. </td></tr>
+</table><p>
+You may also want to set <tt class="wiki">network[layerName].patternReport = 1</tt> to see the output layer error/correct report by &quot;pattern&quot; in addition to by &quot;node&quot;. This is on by default for output layers that have more than 1 node.
+<p>
+<p>
+<h4 width="804"> Network Parameters</h4>
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default value</b> </td><td> <b>Meaning</b> </td></tr>
+<tr><td> epsilon </td><td> 0.1 </td><td> This is the learning rate for the neural network. </td></tr>
+<tr><td> tolerance </td><td> 0.4 </td><td> The tolerance determines how close an output must be to a target in order to be considered correct. </td></tr>
+<tr><td> batch </td><td> 0 </td><td> A network in batch mode with only train between runs of the network through the entire training set on the error accumulated over the training set. </td></tr>
+<tr><td> epoch </td><td> 0 </td><td> Epochs count the number of times sweep is called when using train. </td></tr>
+<tr><td> count </td><td> 0 </td><td> This records the number of times propagate is called. </td></tr>
+<tr><td> learning </td><td> 1 </td><td> Determines whether the network is currently learning (changing weights) or not learning (weights fixed). </td></tr>
+<tr><td> momentum </td><td> 0.9 </td><td> The momentum parameter indicates how much of the previous change carries over for the next weight change. </td></tr>
+<tr><td> orderedInputs </td><td> 0 </td><td> This parameter determines whether the order of the training set should be preserved or randomized in a call to sweep() of via train(). </td></tr>
+<tr><td> stopPercent </td><td> 1.0 </td><td> A success parameter for train(). </td></tr>
+<tr><td> reportRate </td><td> 25 </td><td> train() will report on the progress every x number of epochs. </td></tr>
+<tr><td> resetEpoch </td><td> 5000 </td><td> If the stopping criteria have not been met after x number of epochs, the network will reset and try learning from scratch. </td></tr>
+<tr><td> resetCount </td><td> 1 </td><td> This is the number of times the network has reset when attempting to train() before giving up. </td></tr>
+<tr><td> resetLimit </td><td> 5 </td><td> This is the number of times the network can reset when attempting to train() before giving up. </td></tr>
+<tr><td> interactive </td><td> 0 </td><td> Interactive mode will display the network's state after each propagation. </td></tr>
+<tr><td> verbosity </td><td> 0 </td><td> Determines how much information to display (higher == more). </td></tr>
+<tr><td> patterned </td><td> 0 </td><td> Set this to 1 to use patterning features. </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Adjusting and Accessing Parameters</h4>
+<p>
+In general, network parameters can be set or accessed using a method set&lt;Parameter&gt;() or get&lt;Parameter&gt;(). For example, to set the batch flag to 1, call <tt class="wiki">network.setBatch(1)</tt>. To determine what the verbosity level is, call <tt class="wiki">network.getVerbosity()</tt>. Here is a list of these methods. Descriptions are not included as these methods follow the pattern described above.
+ <img width="11" src="../wiki/img/alert.png"> Methods that require layer names require the string(s) that was (were) passed to the Layer class constructor, not a reference to the layer(s), i.e. methods getLayer and getConnections require strings, but return references to the identified object.
+<p>
+<table border="1"><tr><td> self.getLayer(name) <i>Alternate syntax</i>: self[name] </td></tr>
+<tr><td> setPatterned(value) </td></tr>
+<tr><td> setInteractive(value) </td></tr>
+<tr><td> setTolerance(value) </td></tr>
+<tr><td> setActive(layerName, value) </td></tr>
+<tr><td> getActive(layerName) </td></tr>
+<tr><td> setLearning(value) </td></tr>
+<tr><td> setMomentum(value) </td></tr>
+<tr><td> set<b></b>Reset<b></b>Limit(value) </td></tr>
+<tr><td> set<b></b>Reset<b></b>Epoch(value) Zero means no limit.</td></tr>
+<tr><td> setBatch(value) </td></tr>
+<tr><td> setSeed(value) </td></tr>
+<tr><td> getConnection(lfrom, lto) </td></tr>
+<tr><td> setVerbosity(value) </td></tr>
+<tr><td> set<b></b>Stop<b></b>Percent(value) </td></tr>
+<tr><td> set<b></b>Report<b></b>Rate(value) </td></tr>
+<tr><td> set<b></b>Max<b></b>Random(value) </td></tr>
+<tr><td> setEpsilon(value) </td></tr>
+<tr><td> getWeights(fromName, toName)</td></tr>
+<tr><td> set<b></b>Ordered<b></b>Inputs(value) </td></tr>
+<tr><td> share<b></b>Weights(other<b></b>Network) </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Cross Validation</h4>
+<p>
+Conx supports the ability to have a second corpus of data that is used just for testing throughout the training process.
+<p>
+Values:
+<p>
+<table border="1"><tr><td> cross<b></b>Validation<b></b>Corpus     </td><td> () </td></tr>
+<tr><td> cross<b></b>Validation<b></b>Report<b></b>Layers </td><td> [] </td></tr>
+<tr><td> cross<b></b>Validation<b></b>Sample<b></b>Rate </td><td> 0 </td></tr>
+<tr><td> cross<b></b>Validation<b></b>Sample<b></b>File </td><td> &quot;sample.cv&quot; </td></tr>
+</table><p>
+Methods:
+<p>
+<table border="1"><tr><td> sweep<b></b>Cross<b></b>Validation() </td></tr>
+<tr><td> save<b></b>Network<b></b>For<b></b>Cross<b></b>Validation(filename, mode = 'a') </td></tr>
+<tr><td> load<b></b>Cross<b></b>Validation(filename) </td></tr>
+<tr><td> set<b></b>Use<b></b>Cross<b></b>Validation<b></b>To<b></b>Stop(value) </td></tr>
+</table><p>
+One could set the cross validation corpus manually:
+<p>
+<pre class="code">
+        n.crossValidationCorpus = ({&quot;input&quot; : [0.1, 0.1], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.2, 0.2], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.3, 0.3], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.4, 0.4], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.5, 0.5], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.6, 0.6], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.7, 0.7], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.8, 0.8], &quot;output&quot; : [0.0]},
+                                   {&quot;input&quot; : [0.9, 0.9], &quot;output&quot; : [0.0]},
+                                   )
+        n.setReportRate(100)
+        n.setUseCrossValidationToStop(1)
+        n.train()
+</pre>
+<p>
+This would test the 9 patterns to see if they produced the targets. The cross validation corpus is a list of dictionaries, each indicating the activations for each input layer and targets for the output layers (by name). <tt class="wiki">tolerance</tt> is used to determine correctness, and <tt class="wiki">crossValidationReportLayers</tt> is either empty which means &quot;all output layers&quot; or is a list of layer names with which to report correctness. <tt class="wiki">sweepCrossValidation()</tt> will go through all patterns and return total sum squared error, number correct, and total number of outputs. it will do this once every <tt class="wiki">reportRate</tt> epochs. You can also call <tt class="wiki">sweepCrossValidation()</tt> manually, if your network doesn't call <tt class="wiki">train()</tt> (for example if you call backprop() directly yourself).
+<p>
+Note that when you have set <tt class="wiki">setUseCrossValidationToStop(1)</tt> that <tt class="wiki">stopPercent</tt> will be compare to the performance on the cross validation set, rather than the performance on the training corpus. However, it will only check for this ending criteria every <tt class="wiki">reportRate</tt> epochs. To check every epoch, use <tt class="wiki">setReportRate(1)</tt>.
+<p>
+Also, conx can help you collect the cross validation corpus. You need only set <tt class="wiki">crossValidationSampleRate</tt> and <tt class="wiki">crossValidationSampleFile</tt> and it will save the associated layers to the file, one sample per line. After training, you could test this by:
+<p>
+<pre class="code">
+        n.learning = 0
+        n.crossValidationSampleRate = 1
+        #saves in &quot;sample.cv&quot;
+        n.sweep()
+        n.learning = 1
+        n.crossValidationSampleRate = 0
+        print &quot;Loading crossvalidation from 'sample.cv'...&quot;
+        n.loadCrossValidation(&quot;sample.cv&quot;)
+        print &quot;Corpus:&quot;, n.crossValidationCorpus
+</pre>
+<p>
+<p>
+This class uses the simpliest form of cross validation, called the <b>holdout method</b>. This method divides the data into two sets: the training data, and the testing data. Conx can also use the training set as the testing set. This is actually quite useful in large datasets to get an accurate picture of how training is progressing. To turn this on use <tt class="wiki">net.setAutoCrossValidation(1)</tt>.
+<p>
+More complex cross validation methods exist (such as k-fold and leave-one-out); however, at present, conx does not implement those.
+<p>
+<p>
+<h3 width="804"> SRN Class</h3>
+<p>
+The SRN class inherits from the network class, so all the methods that are not over-ridden will be the same as described above. You must call <tt class="wiki">net.setSequenceType()</tt> with &quot;random-continuous&quot;, &quot;ordered-continuous&quot;, &quot;random-segmented&quot;, or &quot;ordered-segmented&quot;. The first part of the sequence type indicates whether the patterns are presented in order, or randomly. The second part idicates whether the sequence is continuous or not.
+<p>
+<p>
+<h4 width="804"> SRN Parameters</h4>
+<p>
+<table border="1"><tr><td> <b>Parameter</b> </td><td> <b>Default value</b> </td><td> <b>Meaning</b> </td></tr>
+<tr><td> learn<b></b>During<b></b>Sequence </td><td> 0 </td><td> The network learns during the sequence, not just on sequence boundaries. </td></tr>
+<tr><td> init<b></b>Context </td><td> .5 </td><td> Initialize context to .5 at the beginning of each sequence. </td></tr>
+<tr><td> context<b></b>Copying </td><td> 1 </td><td> Copy the context after each step. Set via set<b></b>Sequence<b></b>Type. </td></tr>
+</table><p>
+<p>
+<h4 width="804"> SRN Methods</h4>
+<p>
+<table border="1"><tr><td> predict(inName, outName) </td><td> Sets prediction between an input and output layer. </td></tr>
+<tr><td> set<b></b>Init<b></b>Context(value) </td><td> Clear context layer between sequences. </td></tr>
+<tr><td> set<b></b>Context<b></b>Copying() </td><td> Sets flag to indicate whether the hidden layer should be copied to the context layer at each step. </td></tr>
+<tr><td> set<b></b>Learn<b></b>During<b></b>Sequence(value) </td><td> Set self.learn<b></b>During<b></b>Sequence. </td></tr>
+<tr><td> addContextLayer(layerName, size, hiddenLayerName) </td><td> Adds a context layer. <img width="11" src="../wiki/img/alert.png"> Use this in place of addLayer() when adding a context layer. </td></tr>
+<tr><td> copy<b></b>Hidden<b></b>To<b></b>Context() </td><td> Call this to copy hidden layer activations to context layers.</td></tr>
+<tr><td> set<b></b>Context(value = .5) </td><td> Clears the context layer. </td></tr>
+<tr><td> set<b></b>Sequence<b></b>Type() </td><td> Set to &quot;random-continuous&quot;, &quot;ordered-continuous&quot;, &quot;random-segmented&quot;, or &quot;ordered-segmented&quot; </td></tr>
+</table><p>
+<p>
+<h3 width="804"> SigmaNetwork Class</h3>
+<p>
+This type of network use Reinforcement Learning and a population encoding. See the source code for more information.
+<p>
+<p>
+<h3 width="804"> General Functions</h3>
+<p>
+These functions are not part of any class, but defined here because they are useful for the Conx classes.
+<p>
+<table border="1"><tr><td> load<b></b>Network<b></b>From<b></b>File(filename) </td><td> Loads a saved network from a file. See net.save<b></b>Network<b></b>To<b></b>File() </td></tr>
+<tr><td> ndim(n[, m]*) </td><td> Creates a random array of size n by m by ... </td></tr>
+<tr><td> random<b></b>Array(size, max) </td><td> Returns an array (Numeric) initialized to random values between -max and max. </td></tr>
+<tr><td> display<b></b>Array(name, a, width = 0) </td><td> Prints any sequence of floats to the screen. </td></tr>
+<tr><td> to<b></b>String<b></b>Array(name, a, width = 0) </td><td> Returns any sequence of floats as a string. </td></tr>
+<tr><td> write<b></b>Array(fp, a) </td><td> Writes a sequence a of floats to file pointed to by file pointer. </td></tr>
+</table><p>
+<p>
+<h3 width="804"> Conx Error Classes</h3>
+<p>
+<table border="1"><tr><td> <b></b>Layer<b></b>Error(<b></b>Attribute<b></b>Error) </td><td> Used to indicate that a layer has some improper attribute (size, type, etc.). </td></tr>
+<tr><td> <b></b>Network<b></b>Error(<b></b>Attribute<b></b>Error) </td><td> Used to indicate that a network has some improper attribute (no layers, no connections, etc.). </td></tr>
+<tr><td> <b></b>SRN<b></b>Error(<b></b>Network<b></b>Error) </td><td> Used to indicate that SRN specific attributes are improper. </td></tr>
+</table><p>
+<p>
+<h3 width="804"> Layer Class</h3>
+<p>
+The Layer class represents everything related to a single layer of nodes in a Conx network. Layers can log data, and signal different data to be displayed.
+<p>
+<p>
+<h4 width="804"> User level methods</h4>
+<p>
+These methods represent those that are most commonly used directly by the user. The Layer class has many more methods that are primarily accessed through Network class methods.
+<p>
+<table border="1"><tr><td> Layer(name, size) </td><td> Constructor for new layer. Specifies the size and layer name. </td></tr>
+<tr><td> copyActivations(array) </td><td> Sets layer activations. Used only for input layers. </td></tr>
+<tr><td> copyTargets(arr) </td><td> Sets layer targets. Used only for output layers.</td></tr>
+<tr><td> getActivations(), get<b></b>Activations<b></b>List() </td><td> Returns the layer's activations as a Numeric array or Python list, respectively. </td></tr>
+<tr><td> patternReport = N </td><td> Trigger epoch level report with N set to 1. You can set this directly. </td></tr>
+</table> <img width="11" src="../wiki/img/alert.png"> Layer class parameters should not be accessed directly, except where noted!
+<p>
+<p>
+<h3 width="804"> Connection Class</h3>
+<p>
+Class which contains references to two layers (from and to) and the weights between them.
+ <img width="11" src="../wiki/img/alert.png"> Connection Class parameters and methods should only be accessed through Network class methods.
+<p>
+<p>
+<h2 width="804"> Tricks and tips</h2>
+<p>
+Want to continue training after an initial train? Try this:
+<p>
+<pre class="code">
+...
+net.train(500)           # trains for 500 (or until learned), and stops
+net.train(500, cont=1)   # continues for 500 more, or until learned
+</pre>
+<p>
+Want to force the network to continue regardless of percent correct? Try this:
+<p>
+<pre class="code">
+...
+net.doWhile = lambda count, correct: 1  # network will continue training while doWhile returns true (1)
+net.train(500)
+</pre>
+<p>
+<p>
+<h2 width="804"> Other Network Types</h2>
+<p>
+<ol type="1"><li>See Cascor<b></b>Network in pyrobot/brain/cascor.py</li>
+<li>See Governor<b></b>Network in pyrobot/brain/governor.py</li>
+</ol><p>
+<hr>
+<p>
+Up: <a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Conx_20Implementation_20Details?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Conx_20Implementation_20Details?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

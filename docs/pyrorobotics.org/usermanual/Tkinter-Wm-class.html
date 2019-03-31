@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129040014", "pyrorobotics.org");
+</script>
+  <title>Tkinter.Wm</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        Module&nbsp;Tkinter ::
+        Class&nbsp;Wm
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/Tkinter-Wm-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Wm</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/Tkinter-Tk-class/"><code>Tk</code></a>,
+    <a href="../../usermanual/Tkinter-Toplevel-class/"><code>Toplevel</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+Provides functions for the communication with the window manager.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_aspect" class="summary-sig-name"><code>aspect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">minNumer</span>,
+          <span class="summary-sig-arg">minDenom</span>,
+          <span class="summary-sig-arg">maxNumer</span>,
+          <span class="summary-sig-arg">maxDenom</span>)</span></code>
+<br/>
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_attributes" class="summary-sig-name"><code>attributes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_client" class="summary-sig-name"><code>client</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Store NAME in WM_CLIENT_MACHINE property of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_colormapwindows" class="summary-sig-name"><code>colormapwindows</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*wlist</span>)</span></code>
+<br/>
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_command" class="summary-sig-name"><code>command</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Store VALUE in WM_COMMAND property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_deiconify" class="summary-sig-name"><code>deiconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Deiconify this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_focusmodel" class="summary-sig-name"><code>focusmodel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">model</span>)</span></code>
+<br/>
+Set focus model to MODEL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_frame" class="summary-sig-name"><code>frame</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return identifier for decorative frame of this widget if present.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_geometry" class="summary-sig-name"><code>geometry</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newGeometry</span>)</span></code>
+<br/>
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_grid" class="summary-sig-name"><code>grid</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">baseWidth</span>,
+          <span class="summary-sig-arg">baseHeight</span>,
+          <span class="summary-sig-arg">widthInc</span>,
+          <span class="summary-sig-arg">heightInc</span>)</span></code>
+<br/>
+Instruct the window manager that this widget shall only be
+resized on grid boundaries.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_group" class="summary-sig-name"><code>group</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set the group leader widgets for related widgets to PATHNAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconbitmap" class="summary-sig-name"><code>iconbitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set bitmap for the iconified widget to BITMAP.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconify" class="summary-sig-name"><code>iconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display widget as icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconmask" class="summary-sig-name"><code>iconmask</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set mask for the icon bitmap of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconname" class="summary-sig-name"><code>iconname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newName</span>)</span></code>
+<br/>
+Set the name of the icon for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconposition" class="summary-sig-name"><code>iconposition</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Set the position of the icon of this widget to X and Y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconwindow" class="summary-sig-name"><code>iconwindow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set widget PATHNAME to be displayed instead of icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_maxsize" class="summary-sig-name"><code>maxsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set max WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_minsize" class="summary-sig-name"><code>minsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set min WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_overrideredirect" class="summary-sig-name"><code>overrideredirect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boolean</span>)</span></code>
+<br/>
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_positionfrom" class="summary-sig-name"><code>positionfrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_protocol" class="summary-sig-name"><code>protocol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">func</span>)</span></code>
+<br/>
+Bind function FUNC to command NAME for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_resizable" class="summary-sig-name"><code>resizable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_sizefrom" class="summary-sig-name"><code>sizefrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_state" class="summary-sig-name"><code>state</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newstate</span>)</span></code>
+<br/>
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_title" class="summary-sig-name"><code>title</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">string</span>)</span></code>
+<br/>
+Set the title of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_transient" class="summary-sig-name"><code>transient</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">master</span>)</span></code>
+<br/>
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_withdraw" class="summary-sig-name"><code>withdraw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_aspect" class="summary-sig-name"><code>wm_aspect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">minNumer</span>,
+          <span class="summary-sig-arg">minDenom</span>,
+          <span class="summary-sig-arg">maxNumer</span>,
+          <span class="summary-sig-arg">maxDenom</span>)</span></code>
+<br/>
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_attributes" class="summary-sig-name"><code>wm_attributes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_client" class="summary-sig-name"><code>wm_client</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Store NAME in WM_CLIENT_MACHINE property of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_colormapwindows" class="summary-sig-name"><code>wm_colormapwindows</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*wlist</span>)</span></code>
+<br/>
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_command" class="summary-sig-name"><code>wm_command</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Store VALUE in WM_COMMAND property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_deiconify" class="summary-sig-name"><code>wm_deiconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Deiconify this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_focusmodel" class="summary-sig-name"><code>wm_focusmodel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">model</span>)</span></code>
+<br/>
+Set focus model to MODEL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_frame" class="summary-sig-name"><code>wm_frame</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return identifier for decorative frame of this widget if present.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_geometry" class="summary-sig-name"><code>wm_geometry</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newGeometry</span>)</span></code>
+<br/>
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_grid" class="summary-sig-name"><code>wm_grid</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">baseWidth</span>,
+          <span class="summary-sig-arg">baseHeight</span>,
+          <span class="summary-sig-arg">widthInc</span>,
+          <span class="summary-sig-arg">heightInc</span>)</span></code>
+<br/>
+Instruct the window manager that this widget shall only be
+resized on grid boundaries.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_group" class="summary-sig-name"><code>wm_group</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set the group leader widgets for related widgets to PATHNAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconbitmap" class="summary-sig-name"><code>wm_iconbitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set bitmap for the iconified widget to BITMAP.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconify" class="summary-sig-name"><code>wm_iconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display widget as icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconmask" class="summary-sig-name"><code>wm_iconmask</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set mask for the icon bitmap of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconname" class="summary-sig-name"><code>wm_iconname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newName</span>)</span></code>
+<br/>
+Set the name of the icon for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconposition" class="summary-sig-name"><code>wm_iconposition</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Set the position of the icon of this widget to X and Y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconwindow" class="summary-sig-name"><code>wm_iconwindow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set widget PATHNAME to be displayed instead of icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_maxsize" class="summary-sig-name"><code>wm_maxsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set max WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_minsize" class="summary-sig-name"><code>wm_minsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set min WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_overrideredirect" class="summary-sig-name"><code>wm_overrideredirect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boolean</span>)</span></code>
+<br/>
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_positionfrom" class="summary-sig-name"><code>wm_positionfrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_protocol" class="summary-sig-name"><code>wm_protocol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">func</span>)</span></code>
+<br/>
+Bind function FUNC to command NAME for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_resizable" class="summary-sig-name"><code>wm_resizable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_sizefrom" class="summary-sig-name"><code>wm_sizefrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_state" class="summary-sig-name"><code>wm_state</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newstate</span>)</span></code>
+<br/>
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_title" class="summary-sig-name"><code>wm_title</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">string</span>)</span></code>
+<br/>
+Set the title of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_transient" class="summary-sig-name"><code>wm_transient</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">master</span>)</span></code>
+<br/>
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_withdraw" class="summary-sig-name"><code>wm_withdraw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="wm_aspect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">aspect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">minNumer</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">minDenom</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">maxNumer</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">maxDenom</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM. Return a tuple
+of the actual values if no argument is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_attributes"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">attributes</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values. The second form returns the value for the specific
+option. The third form sets one or more of the values. The values
+are as follows:
+On Windows, -disabled gets or sets whether the window is in a
+disabled state. -toolwindow gets or sets the style of the window
+to toolwindow (as defined in the MSDN). -topmost gets or sets
+whether this is a topmost window (displays above all other
+windows).
+On Macintosh, XXXXX
+On Unix, there are currently no special attribute values.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_client"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">client</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store NAME in WM_CLIENT_MACHINE property of this widget. Return
+current value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_colormapwindows"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">colormapwindows</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*wlist</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget. This list contains windows whose colormaps differ from their
+parents. Return current list of widgets if WLIST is empty.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_command"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">command</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store VALUE in WM_COMMAND property. It is the command
+which shall be used to invoke the application. Return current
+command if VALUE is None.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_deiconify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">deiconify</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Deiconify this widget. If it was never mapped it will not be mapped.
+On Windows it will raise this widget and give it the focus.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_focusmodel"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">focusmodel</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">model</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set focus model to MODEL. &quot;active&quot; means that this widget will claim
+the focus itself, &quot;passive&quot; means that the window manager shall give
+the focus. Return current focus model if MODEL is None.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_frame"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">frame</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return identifier for decorative frame of this widget if present.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_geometry"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">geometry</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newGeometry</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y. Return
+current value if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_grid"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">grid</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">baseWidth</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">baseHeight</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">widthInc</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">heightInc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that this widget shall only be
+resized on grid boundaries. WIDTHINC and HEIGHTINC are the width and
+height of a grid unit in pixels. BASEWIDTH and BASEHEIGHT are the
+number of grid units requested in Tk_GeometryRequest.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_group"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">group</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pathName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the group leader widgets for related widgets to PATHNAME. Return
+the group leader of this widget if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconbitmap"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconbitmap</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">bitmap</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set bitmap for the iconified widget to BITMAP. Return
+the bitmap if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconify</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Display widget as icon.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconmask"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconmask</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">bitmap</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set mask for the icon bitmap of this widget. Return the
+mask if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconname"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconname</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the name of the icon for this widget. Return the name if
+None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconposition"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconposition</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">x</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">y</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the position of the icon of this widget to X and Y. Return
+a tuple of the current values of X and X if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconwindow"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">iconwindow</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pathName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set widget PATHNAME to be displayed instead of icon. Return the current
+value if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_maxsize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">maxsize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set max WIDTH and HEIGHT for this widget. If the window is gridded
+the values are given in grid units. Return the current values if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_minsize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">minsize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set min WIDTH and HEIGHT for this widget. If the window is gridded
+the values are given in grid units. Return the current values if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_overrideredirect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">overrideredirect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">boolean</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1. Return the current value if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_positionfrom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">positionfrom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">who</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_protocol"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">protocol</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">func</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Bind function FUNC to command NAME for this widget.
+Return the function bound to NAME if None is given. NAME could be
+e.g. &quot;WM_SAVE_YOURSELF&quot; or &quot;WM_DELETE_WINDOW&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_resizable"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resizable</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT. Both values are boolean values.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_sizefrom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">sizefrom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">who</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_state"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">state</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newstate</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_title"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">title</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">string</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the title of this widget.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_transient"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">transient</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">master</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_withdraw"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">withdraw</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager. Re-draw it with wm_deiconify.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_aspect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_aspect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">minNumer</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">minDenom</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">maxNumer</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">maxDenom</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM. Return a tuple
+of the actual values if no argument is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_attributes"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_attributes</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values. The second form returns the value for the specific
+option. The third form sets one or more of the values. The values
+are as follows:
+On Windows, -disabled gets or sets whether the window is in a
+disabled state. -toolwindow gets or sets the style of the window
+to toolwindow (as defined in the MSDN). -topmost gets or sets
+whether this is a topmost window (displays above all other
+windows).
+On Macintosh, XXXXX
+On Unix, there are currently no special attribute values.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_client"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_client</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store NAME in WM_CLIENT_MACHINE property of this widget. Return
+current value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_colormapwindows"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_colormapwindows</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*wlist</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget. This list contains windows whose colormaps differ from their
+parents. Return current list of widgets if WLIST is empty.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_command"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_command</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Store VALUE in WM_COMMAND property. It is the command
+which shall be used to invoke the application. Return current
+command if VALUE is None.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_deiconify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_deiconify</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Deiconify this widget. If it was never mapped it will not be mapped.
+On Windows it will raise this widget and give it the focus.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_focusmodel"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_focusmodel</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">model</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set focus model to MODEL. &quot;active&quot; means that this widget will claim
+the focus itself, &quot;passive&quot; means that the window manager shall give
+the focus. Return current focus model if MODEL is None.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_frame"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_frame</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return identifier for decorative frame of this widget if present.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_geometry"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_geometry</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newGeometry</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y. Return
+current value if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_grid"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_grid</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">baseWidth</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">baseHeight</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">widthInc</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">heightInc</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that this widget shall only be
+resized on grid boundaries. WIDTHINC and HEIGHTINC are the width and
+height of a grid unit in pixels. BASEWIDTH and BASEHEIGHT are the
+number of grid units requested in Tk_GeometryRequest.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_group"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_group</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pathName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the group leader widgets for related widgets to PATHNAME. Return
+the group leader of this widget if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconbitmap"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconbitmap</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">bitmap</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set bitmap for the iconified widget to BITMAP. Return
+the bitmap if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconify</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Display widget as icon.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconmask"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconmask</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">bitmap</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set mask for the icon bitmap of this widget. Return the
+mask if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconname"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconname</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the name of the icon for this widget. Return the name if
+None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconposition"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconposition</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">x</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">y</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the position of the icon of this widget to X and Y. Return
+a tuple of the current values of X and X if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_iconwindow"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_iconwindow</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pathName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set widget PATHNAME to be displayed instead of icon. Return the current
+value if None is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_maxsize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_maxsize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set max WIDTH and HEIGHT for this widget. If the window is gridded
+the values are given in grid units. Return the current values if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_minsize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_minsize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set min WIDTH and HEIGHT for this widget. If the window is gridded
+the values are given in grid units. Return the current values if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_overrideredirect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_overrideredirect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">boolean</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1. Return the current value if None
+is given.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_positionfrom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_positionfrom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">who</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_protocol"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_protocol</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">func</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Bind function FUNC to command NAME for this widget.
+Return the function bound to NAME if None is given. NAME could be
+e.g. &quot;WM_SAVE_YOURSELF&quot; or &quot;WM_DELETE_WINDOW&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_resizable"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_resizable</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">height</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT. Both values are boolean values.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_sizefrom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_sizefrom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">who</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_state"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_state</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newstate</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_title"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_title</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">string</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the title of this widget.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_transient"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_transient</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">master</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="wm_withdraw"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">wm_withdraw</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager. Re-draw it with wm_deiconify.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

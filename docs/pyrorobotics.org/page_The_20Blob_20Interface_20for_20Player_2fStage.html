@@ -1,0 +1,63 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219103714", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Blob_20Interface_20for_20Player_2fStage</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> The Blob Interface</h1>
+<p>
+Related functions:
+<p>
+<pre class="code">
+robot.startDevice('blobfinder')
+robot.blobfinder[0].data
+</pre>
+<p>
+Loading a blob camera will automatically start the service if it is not already running, and will place the camera device on the current robot:
+<p>
+<pre class="code">
+robot.startDevice(&quot;BlobCamera&quot;)
+</pre>
+<p>
+See pyrobot/camera/blob/ for further details.
+<p>
+<p>
+<h2 width="804"> The Blob Camera Interface</h2>
+<p>
+Below you will find the details of the Framegrabber interface, along with a fake camera that takes a directory of PPM images and displays them as if they were coming from a camera.
+<p>
+In addition, there is an interface that takes the blob interface and turns it back into a frame-based image representation. Why would we want to do this bizarre thing? Two reasons:
+<p>
+First, blobs are a good way of abstracting out relevant information from a complex image. However, a <i>list</i> of blobs may not be a good representation of the blobs. This interface turns a list of blob data into a width x height pixel-based representation. This might be a more appropriate representation for a neural network, for example.
+<p>
+Another reason to have such an interface is when the blobs don't come from a real image. This is true in the Player/Stage simulator. The simulator skips the framegrabber level and jumps directly to the list of blobs. The Blob<b></b>Camera interface allows the Stage simulator to have a simulated camera.
+<p>
+Next: <a href="../page_Simulated_20Vision_20using_20FakeCamera/">Simulated Vision using FakeCamera</a>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Blob_20Interface_20for_20Player_2fStage?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Blob_20Interface_20for_20Player_2fStage?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

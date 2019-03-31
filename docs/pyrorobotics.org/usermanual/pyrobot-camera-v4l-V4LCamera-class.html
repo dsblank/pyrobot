@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129021339", "pyrorobotics.org");
+</script>
+  <title>pyrobot.camera.v4l.V4LCamera</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-camera-module/">Package&nbsp;camera</a> ::
+        <a href="../../usermanual/pyrobot-camera-v4l-module/">Package&nbsp;v4l</a> ::
+        Class&nbsp;V4LCamera
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-camera-v4l-V4LCamera-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class V4LCamera</h2>
+<pre class="base-tree">
+      <a href="../../usermanual/pyrobot-robot-device-Device-class/"><code>Device</code></a> --+    
+               |    
+<a href="../../usermanual/pyrobot-vision-PyrobotImage-class/"><code>PyrobotImage</code></a> --+    
+               |    
+          <a href="../../usermanual/pyrobot-camera-Camera-class/"><code>Camera</code></a> --+
+                   |
+                  <b>V4LCamera</b>
+</pre><br/>
+<hr/>
+<pre class="literalblock">
+A Wrapper class for the C fuctions that capture data from the Camera.
+It uses the Video4linux API, and the image is kept in memory through
+an mmap.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-v4l-V4LCamera-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>,
+          <span class="summary-sig-arg">depth</span>,
+          <span class="summary-sig-arg">device</span>,
+          <span class="summary-sig-arg">channel</span>,
+          <span class="summary-sig-arg">title</span>,
+          <span class="summary-sig-arg">visionSystem</span>,
+          <span class="summary-sig-arg">visible</span>)</span></code>
+<br/>
+Device should be the name of the capture device in the /dev directory.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-v4l-V4LCamera-class/#update" class="summary-sig-name"><code>update</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Since data is mmaped to the capture card, all we have to do is call
+refresh.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Camera</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#addFilter" class="summary-sig-name"><code>addFilter</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Add a filter to the filter list.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#apply" class="summary-sig-name"><code>apply</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">command</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#clearCallbackList" class="summary-sig-name"><code>clearCallbackList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#clearFilters" class="summary-sig-name"><code>clearFilters</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#delFilter" class="summary-sig-name"><code>delFilter</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getCanvasHeight" class="summary-sig-name"><code>getCanvasHeight</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getCanvasWidth" class="summary-sig-name"><code>getCanvasWidth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getData" class="summary-sig-name"><code>getData</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getDeviceData" class="summary-sig-name"><code>getDeviceData</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the device data, whatever it might be.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getDeviceState" class="summary-sig-name"><code>getDeviceState</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the .state.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getFilterList" class="summary-sig-name"><code>getFilterList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#getImage" class="summary-sig-name"><code>getImage</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#hideWindow" class="summary-sig-name"><code>hideWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#listCallbackList" class="summary-sig-name"><code>listCallbackList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#loadFilters" class="summary-sig-name"><code>loadFilters</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#makeFilterMenu" class="summary-sig-name"><code>makeFilterMenu</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">data</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#makeMenu" class="summary-sig-name"><code>makeMenu</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bar</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">commands</span>)</span></code>
+<br/>
+Assumes self.menuButtons exists...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#makeWindow" class="summary-sig-name"><code>makeWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to make and show the device window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#pauseButton" class="summary-sig-name"><code>pauseButton</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#playButton" class="summary-sig-name"><code>playButton</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#popCallbackList" class="summary-sig-name"><code>popCallbackList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#popFilterList" class="summary-sig-name"><code>popFilterList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#printit" class="summary-sig-name"><code>printit</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#processAll" class="summary-sig-name"><code>processAll</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#processLeftClickDown" class="summary-sig-name"><code>processLeftClickDown</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#processLeftClickUp" class="summary-sig-name"><code>processLeftClickUp</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#processMiddleClick" class="summary-sig-name"><code>processMiddleClick</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#processRightClick" class="summary-sig-name"><code>processRightClick</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#saveAsTGA" class="summary-sig-name"><code>saveAsTGA</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">path</span>)</span></code>
+<br/>
+Save a copy of the image to disk, in TGA format (Gimp and display
+can read it).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#saveFilters" class="summary-sig-name"><code>saveFilters</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#saveImage" class="summary-sig-name"><code>saveImage</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#setFilterList" class="summary-sig-name"><code>setFilterList</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filterList</span>)</span></code>
+<br/>
+Filters take the form: (&quot;name&quot;, (args))...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#setTitle" class="summary-sig-name"><code>setTitle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">title</span>)</span></code>
+<br/>
+Sets the title of the device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#setUpdateInterval" class="summary-sig-name"><code>setUpdateInterval</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#startDevice" class="summary-sig-name"><code>startDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Starts the device (sets the .state).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#stopDevice" class="summary-sig-name"><code>stopDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Stops the device (sets the .state).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#toggleFilterMode" class="summary-sig-name"><code>toggleFilterMode</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#togglePlay" class="summary-sig-name"><code>togglePlay</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#updateButton" class="summary-sig-name"><code>updateButton</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#updateDevice" class="summary-sig-name"><code>updateDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method called to update the device properties.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#updateOnce" class="summary-sig-name"><code>updateOnce</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-camera-Camera-class/#updateWindow" class="summary-sig-name"><code>updateWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to update the device window.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from PyrobotImage</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#convolve" class="summary-sig-name"><code>convolve</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">convmask</span>,
+          <span class="summary-sig-arg">bit</span>,
+          <span class="summary-sig-arg">threshold</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#cropPixels" class="summary-sig-name"><code>cropPixels</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">l</span>,
+          <span class="summary-sig-arg">t</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+cropPixels()
+------------
+crops pixels in the amount specified from left, top, right, and bottom
+if unspecified, right is assumed to be the same as left and bottom the
+same as top.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#display" class="summary-sig-name"><code>display</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display PyrobotImage in ASCII Art.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#get" class="summary-sig-name"><code>get</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Get a pixel value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getBitmap" class="summary-sig-name"><code>getBitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cutoff</span>,
+          <span class="summary-sig-arg">cutoff2</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+getBitmap()...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getCol" class="summary-sig-name"><code>getCol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+Get the entire col, in tuples...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getColorFilter" class="summary-sig-name"><code>getColorFilter</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">g</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+returns a filtered image
+r,g,b values indicate percentage of each color to keep
+eg.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getDim" class="summary-sig-name"><code>getDim</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getGrayScale" class="summary-sig-name"><code>getGrayScale</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to convert depth 3 color into depth 1 grayscale...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getPlane" class="summary-sig-name"><code>getPlane</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">colorPlane</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getRow" class="summary-sig-name"><code>getRow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Get the entire row, in tuples...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getScaledImage" class="summary-sig-name"><code>getScaledImage</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">xscale</span>,
+          <span class="summary-sig-arg">yscale</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+return a scaled version of the current image...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getVal" class="summary-sig-name"><code>getVal</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Get the entire color value of the pixel in quetion, returned as a tuple.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#histogram" class="summary-sig-name"><code>histogram</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">rows</span>,
+          <span class="summary-sig-arg">initvals</span>)</span></code>
+<br/>
+Creates a histogram.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#incr" class="summary-sig-name"><code>incr</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Method to increment a pixel value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#loadFromFile" class="summary-sig-name"><code>loadFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Method to load image from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#reset" class="summary-sig-name"><code>reset</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Reset an image to a vector.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#resetToColor" class="summary-sig-name"><code>resetToColor</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">g</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+reset the image to a specified color...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#saveToFile" class="summary-sig-name"><code>saveToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Method to save image to a file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#setVal" class="summary-sig-name"><code>setVal</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+<br/>
+Method to set the entire RGB value of a pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#swapPlanes" class="summary-sig-name"><code>swapPlanes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">plane1</span>,
+          <span class="summary-sig-arg">plane2</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Device</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#__getitem__" class="summary-sig-name"><code>__getitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+<br/>
+Get a SensorValue, a range, or a set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#__iter__" class="summary-sig-name"><code>__iter__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used to iterate through SensorValues of device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#addWidgets" class="summary-sig-name"><code>addWidgets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">window</span>)</span></code>
+<br/>
+Method to addWidgets to the device window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#angle" class="summary-sig-name"><code>angle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Device-level method to get all of the angles.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#destroy" class="summary-sig-name"><code>destroy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Hides the window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#distance" class="summary-sig-name"><code>distance</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Device-level method to get all of the distances.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getActive" class="summary-sig-name"><code>getActive</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the value of .active.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getGroupNames" class="summary-sig-name"><code>getGroupNames</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Return all of the groups a pos is in.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getMaxvalue" class="summary-sig-name"><code>getMaxvalue</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the maxvalue of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getSensorValue" class="summary-sig-name"><code>getSensorValue</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Returns a specific SensorValue from the range device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getVisible" class="summary-sig-name"><code>getVisible</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the .visible of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#rawToUnits" class="summary-sig-name"><code>rawToUnits</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">raw</span>,
+          <span class="summary-sig-arg">noise</span>,
+          <span class="summary-sig-arg">units</span>)</span></code>
+<br/>
+Convert the sensor units into default units.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setActive" class="summary-sig-name"><code>setActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the .active property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setMaxvalue" class="summary-sig-name"><code>setMaxvalue</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Set the maxvalue of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setup" class="summary-sig-name"><code>setup</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Use this to put setup code in (instead of in __init__).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setVisible" class="summary-sig-name"><code>setVisible</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the .visible attribute, and hides/shows window.</td></tr>
+</table><br/>
+<!-- =========== START OF PROPERTY SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Property Summary</th></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Device</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-robot-device-Device-class/#geometry"><code>geometry</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-robot-device-Device-class/#noise"><code>noise</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-robot-device-Device-class/#pos"><code>pos</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-robot-device-Device-class/#rawValue"><code>rawValue</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-robot-device-Device-class/#value"><code>value</code></a></b></td></tr></table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">width</span>,
+          <span class="sig-arg">height</span>,
+          <span class="sig-arg">depth</span>=<span class="sig-default">3</span>,
+          <span class="sig-arg">device</span>=<span class="sig-default">'/dev/video0'</span>,
+          <span class="sig-arg">channel</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">title</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">visionSystem</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">visible</span>=<span class="sig-default">1</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Device should be the name of the capture device in the /dev directory.
+This is highly machine- and configuration-dependent, so make sure you
+know what works on your system
+Channel -  0: television; 1: composite; 2: S-Video
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-camera-Camera-class/#__init__"><code>pyrobot.camera.Camera.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="update"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">update</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Since data is mmaped to the capture card, all we have to do is call
+refresh.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-camera-Camera-class/#update"><code>pyrobot.camera.Camera.update</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:28 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

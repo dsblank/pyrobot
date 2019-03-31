@@ -1,0 +1,96 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102538", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Implementing_20your_20own_20Vision_20System</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Implementing your own Vision System</h1>
+<p>
+If you would like to explore vision from the lower-level, and you would like to keep it tighty integrated with Python, then this section will show you how. You might want to read the section <a href="../page_PythonAndC/">PythonAndC</a> at some point.
+<p>
+If you don't need it to be tightly integrated with Python, then you just need to make your code callable from Python. The Phission vision system (see <a href="../page_Pyro_20Vision_20Functions_20using_20Phission/">Pyro Vision Functions using Phission</a>) is an example of this style, although it is tied to the Video4<b></b>Linux subsystem. All you need do for this method is wrap your C or C++ code using SWIG. See <a href="../page_PythonAndC/">PythonAndC</a> for more details.
+<p>
+The rest of this section describes an example template for the integrated Python vision system. It is designed to work with any camera type in Pyro, including: Video4<b></b>Linux, Fake<b></b>Camera (simulated camera from image files), Blob<b></b>Camera (simulated camera in the Stage simulator), Gazebo<b></b>Camera (Open<b></b>GL camera in the Gazebo simulator), and Robocup<b></b>Camera (simulated camera for the Robocup simulator).
+<p>
+<p>
+<h2 width="804"> Example Vision System</h2>
+<p>
+There is a simple C++ based vision system (image processing) template that comes with Pyro. To build it:
+<p>
+<pre class="code">
+export PYROBOT=/usr/local/pyrobot
+cp -r &#36;PYROBOT/vision/example myexample
+cd myexample
+make
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> In Pyro versions prior to 3.2.1, you may need to remove the unneeded PYTHON_INCLUDE line in the Makefile in that subdirectory. It is not necessary. There is another in the &#36;PYROBOT/Makefile. You may also want to get the latest version of <tt class="wiki">myVision.cpp</tt>. You can get it <a href="http://bubo.brynmawr.edu/cgi-bin/viewcvs.cgi/*checkout*/pyrobot/vision/example/myVision.cpp?rev=HEAD&amp;content-type=text/plain"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>.
+<p>
+To make changes, edit <tt class="wiki">myVision.cpp</tt> and then rerun <tt class="wiki">make</tt> to rebuild. You can add any kind of image processing code here. 
+<p>
+To use from inside Pyro, start a robot (the <b>Test</b> robot is useful for this---you can also start it up on the command line <tt class="wiki">pyro -r Test</tt>), and simply select this device from the <b>Load</b> menu under <b>Devices...</b>. You'll need to change directories (select <b>Home</b> in the upper right-hand corner of the load window, then select <b>myexample</b>).
+<p>
+You'll see a window popup, and the <b>Filters</b> menu is filled-in with the functions from your <tt class="wiki">myexample/myVision.cpp</tt>.
+<p>
+You'll see the functions <tt class="wiki">getMenu()</tt> and <tt class="wiki">applyFilter()</tt> in <tt class="wiki">myVision.cpp</tt>. They are the functions that add items to the menu, and execute their selection, respectively.
+ <img width="11" src="../wiki/img/idea.png"> TODO: We'll try to add more detail here. Please add comments or questions.
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Implementing_20your_20own_20Vision_20System?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Implementing_20your_20own_20Vision_20System?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

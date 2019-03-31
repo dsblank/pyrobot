@@ -1,0 +1,50 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160322", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Effectors</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Effectors</h2>
+<p>
+An effector is a part of a robot that can change the state of the world.  For example, motors attached to wheels can cause a robot to move to a different location.  A gripper can pick things up and move them.  A communication signal sent by a robot can provide information to other robots within listening range.
+<p>
+Robots can come equipped with several effectors.  These include motors (in varying numbers and types), manipulators (e.g. gripper), and beacons (laser, IR, or light).  The basic effectors assumed in most Pyro experiments are motors.  Further, we will assume that functionally, each robot is capable of only two kinds of motion:
+<p>
+<ul><li>Translation: Going forward or backward</li>
+<li>Rotation: Spinning clockwise or counter-clockwise.</li>
+</ul><p>
+Pyro also provides capabilities for blending these movements so that it would be possible for a robot to move forward or backward while turning.
+<p>
+These movement abstractions in Pyro will allow you to write code for many different types of robots by specifying only translation and rotation amounts.  Pyro will then interface with the actual robot (either real or simulated) to send the correct commands to the motors on that particular platform.
+<p>
+In the next section, we will show you how to run Pyro and introduce you to the commands for moving a robot in its environment.
+<p>
+Next: <a href="../page_The_20Pyro_20Interface/">The Pyro Interface</a>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Effectors?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Effectors?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

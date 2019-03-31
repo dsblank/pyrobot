@@ -1,0 +1,79 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219122906", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: SparkoFilePage</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<pre class="code">
+#Make sure you call this file sparko.inc and put it in the same directory as your world
+#Desc: device definition for Sparko ( a Pioneer robot with sonars,bumpers,gripper and camera)
+#Author : Ioana Butoi
+#Date: 28 May 2003
+#define 16 sonars
+define sparko_sonar sonar
+(
+  scount 16
+  spose[0] [ 0.115 0.130 90]
+  spose[1] [ 0.155 0.115 50 ]
+  spose[2] [ 0.190 0.080 30 ]
+  spose[3] [ 0.210 0.025 10 ]
+  spose[4] [ 0.210 -0.025 -10 ]
+  spose[5] [ 0.190 -0.080 -30 ]
+  spose[6] [ 0.155 -0.115 -50 ]
+  spose[7] [ 0.115 -0.130 -90 ]
+  spose[8] [ -0.115 -0.130 -90 ]
+  spose[9] [ -0.155 -0.115 -130 ]
+  spose[10] [ -0.190 -0.080 -150 ]
+  spose[11] [ -0.210 -0.025 -170 ]
+  spose[12] [ -0.210 0.025 170 ]
+  spose[13] [ -0.190 0.080 150 ]
+  spose[14] [ -0.155 0.115 130 ]
+  spose[15] [ -0.115 0.130 90 ]
+)
+#define 5 straight bumpers on the rear edge of the robot
+define sparko_bumpers bumper
+(
+  bcount 5
+  bpose[0] [ -0.25  0.22  128  0.105 0.0 ]
+  bpose[1] [ -0.32  0.12  161  0.105 0.0 ]
+  bpose[2] [ -0.34  0.00  180  0.105 0.0 ]
+  bpose[3] [ -0.32 -0.12  199  0.105 0.0 ]
+  bpose[4] [ -0.25 -0.22  232  0.105 0.0 ]
+)
+# the pioneer's center of rotation is offset from its
+# center of area
+define sparko position
+(       
+  size [.440 .330]
+  offset [-0.04 0.0]
+  sparko_sonar()
+  sparko_bumpers()
+  gripper( pose [0.2 0 0] consume &quot;false&quot;)
+  ptz( pose [0.1 0 0 ] blobfinder() )
+  power()
+)
+</pre>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/SparkoFilePage?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/SparkoFilePage?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129004300", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.fuzzy.FuzzyClassifier</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        <a href="../../usermanual/pyrobot-brain-fuzzy-module/">Module&nbsp;fuzzy</a> ::
+        Class&nbsp;FuzzyClassifier
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class FuzzyClassifier</h2>
+<hr/>
+<pre class="literalblock">
+Fuzzy classifier class with a membership function and parameters.
+Membership function can be set on initialization or with
+setMembershipFunction(function). The membership function should
+return a value between 0 and 1 (values outside that range will be
+automatically set to either 0 or 1).
+All relevant parameters used by the membership function can be set
+on initialization or by setParams()
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-arg">fName</span>,
+          <span class="summary-sig-arg">ops</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Initialize the FuzzyClassifier...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#__call__" class="summary-sig-name"><code>__call__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Apply the fuzzy classifier to a set of values...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#__lshift__" class="summary-sig-name"><code>__lshift__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+<br/>
+Return a FuzzyValue classified under a linear falling...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__nonzero__"></a><span class="summary-sig"><span class="summary-sig-name">__nonzero__</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#__rshift__" class="summary-sig-name"><code>__rshift__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+<br/>
+Return a FuzzyValue classified under a linear rising...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__str__"></a><span class="summary-sig"><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#getParam" class="summary-sig-name"><code>getParam</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*names</span>)</span></code>
+<br/>
+Return one or more of the classifier's parameters...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#resetParams" class="summary-sig-name"><code>resetParams</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Set all the classifier's parameters at once and...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#safesetParams" class="summary-sig-name"><code>safesetParams</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Set one or more of the classifier's parameters
+without overwriting any predefined parameters.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#setFunction" class="summary-sig-name"><code>setFunction</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-arg">fName</span>)</span></code>
+<br/>
+Set the classifier's membership function
+First (required) parameter is the membership function itself.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/#setParams" class="summary-sig-name"><code>setParams</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Set one or more of the classifier's parameters
+without deleting predefined parameters; but will
+overwrite parameters.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">func</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">fName</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">ops</span>=<span class="sig-default">&lt;pyrobot.brain.fuzzy.StandardFuzzyOperators&nbsp;instance&nbsp;at&nbsp;0...</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Initialize the FuzzyClassifier
+First argument is a reference to the membership function
+Second argument is the name of the membership function
+Remaining arguments are parameter names and values
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__call__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__call__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+    <br/><i>(Call operator)</i>
+  </h3>
+<pre class="literalblock">
+Apply the fuzzy classifier to a set of values
+Return a FuzzyValue with value Function(args)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__lshift__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__lshift__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">val</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return a FuzzyValue classified under a linear falling
+membership function whose parameters are decided by the
+current FuzzyClassifier's parameters
+Implemented for backwards compatibility
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__rshift__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__rshift__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">val</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return a FuzzyValue classified under a linear rising
+membership function whose parameters are decided by the
+current FuzzyClassifier's parameters
+Implemented for backwards compatibility
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getParam"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getParam</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*names</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return one or more of the classifier's parameters
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetParams"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetParams</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set all the classifier's parameters at once and
+delete all parameters that might already exist
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="safesetParams"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">safesetParams</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set one or more of the classifier's parameters
+without overwriting any predefined parameters.
+If a parameter is already defined safesetParams
+will not overwrite it.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setFunction"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setFunction</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">func</span>,
+          <span class="sig-arg">fName</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the classifier's membership function
+First (required) parameter is the membership function itself.
+Second (optional) parameter is a name for the function, recommended,
+e.g., for lambda functions; if this is not set then the function's
+actual name will be used
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setParams"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setParams</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set one or more of the classifier's parameters
+without deleting predefined parameters; but will
+overwrite parameters.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102641", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PythonGraphicsIntro</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Python Graphics Introduction</h1>
+<p>
+This page describes using Tkinter (a graphics interface) in Python.
+<p>
+<p>
+<h2 width="804">1.1.  Starting Tkinter</h2>
+<p>
+You start Tkinter by importing it in python:
+<p>
+<pre class="code">
+&gt;&gt;&gt; import Tkinter
+</pre>
+<p>
+<p>
+<h2 width="804">1.2.  Create a Window</h2>
+<p>
+You can create a basic window with:
+<p>
+<pre class="code">
+&gt;&gt;&gt; win = Tkinter.Tk()
+</pre>
+<p>
+<img src="../_dblank/images/tkwin.png">
+<p>
+<p>
+<h2 width="804">1.3.  Add a Canvas</h2>
+<p>
+A canvas is a place to draw. This adds a canvas to the window.
+<p>
+<pre class="code">
+&gt;&gt;&gt; can = Tkinter.Canvas(win, width=500, height=500, background='white')
+&gt;&gt;&gt; can.pack()
+</pre>
+<p>
+You must always &quot;pack&quot; an object before you can see it.
+<p>
+<p>
+<h2 width="804">1.4.  Putting things on the Canvas</h2>
+<p>
+In Tkinter, you don't actually &quot;draw&quot; on the canvas, but you put objects onto the canvas. That means that you can move the things once they are there, and each object has properties that it can take care of (such as handling mouse events, moving itself, etc).
+<p>
+<pre class="code">
+&gt;&gt;&gt; can.create_rectangle(10, 10, 30, 40, width = 0, tag = &quot;label&quot;, fill = &quot;red&quot;)
+&gt;&gt;&gt; can.create_line(5, 10, 60, 90, fill = &quot;blue&quot;)
+&gt;&gt;&gt; can.create_text(10, 70, text='Hello World!', fill='black')
+&gt;&gt;&gt; can.create_oval(10, 10, 70, 70)
+</pre>
+<p>
+Each of those commands return an object ID (we just ignored the return value, though). X and Y start at 0,0 in the upper left-hand corner and increase on the canvas as you go right and down, respectively.
+<p>
+<img src="../_dblank/images/tksquare.png">
+<p>
+Each object can have an associated &quot;tag&quot; which can be used to get a handle on the graphic object, so that you can move or delete it:
+<p>
+<pre class="code">
+&gt;&gt;&gt; can.create_rectangle(10, 10, 30, 40, width = 0, tag = &quot;label&quot;, fill = &quot;red&quot;)
+&gt;&gt;&gt; id = can.create_line(5, 10, 60, 90, fill = &quot;blue&quot;)
+&gt;&gt;&gt; can.delete( &quot;label&quot; )                # deletes all with same tag
+&gt;&gt;&gt; can.delete(id)                       # deletes by ID
+&gt;&gt;&gt; canvas.delete(&quot;all&quot;)                 # deletes everything
+</pre>
+<p>
+Programmatically, you can display the window, and allow mouse events by:
+<p>
+<pre class="code">
+&gt;&gt;&gt; win.mainloop()
+</pre>
+<p>
+<p>
+<h2 width="804">1.5.  Some miscellaneous things</h2>
+<p>
+You can put a title on the window with:
+<p>
+<pre class="code">
+win.wm_title(&quot;Title of my Window&quot;)
+</pre>
+<p>
+Some simple code for adding a button that draws on a canvas. <tt class="wiki">randomLine.py</tt>:
+<p>
+<pre class="code">
+import Tkinter, random
+def redraw():
+    r1 = random.random() * 200
+    r2 = random.random() * 200
+    r3 = random.random() * 200
+    r4 = random.random() * 200
+    canvas.create_line(r1, r2, r3, r4)
+win = Tkinter.Tk()
+canvas = Tkinter.Canvas(win, 100, 200) ## 100 x 200 width x height
+canvas.pack()
+button = Tkinter.Button(win, text = &quot;Push me!&quot;, command = redraw)
+button.pack()
+</pre>
+<p>
+Either add a call to <tt class="wiki">win.mainloop()</tt> or call with <tt class="wiki">python -i randomLine.py</tt>.
+<p>
+A better design might involve packaging up the above code as a class, <tt class="wiki">randomLineClass.py</tt>.
+<p>
+<pre class="code">
+import Tkinter, random
+class Lines:
+    def __init__(self):
+        self.win = Tkinter.Tk()
+        self.canvas = Tkinter.Canvas(self.win, 100, 200)
+        self.canvas.pack()
+        self.button = Tkinter.Button(self.win, text = &quot;Push me!&quot;, command = self.redraw)
+        self.button.pack()
+     def redraw(self):
+        r1 = random.random() * 200
+        r2 = random.random() * 200
+        r3 = random.random() * 200
+        r4 = random.random() * 200
+        self.canvas.create_line(r1, r2, r3, r4, fill = &quot;red&quot;, outline = &quot;yellow&quot;)
+lineObject = Lines()
+</pre>
+<p>
+But what if you want to be drawing, and be able to handle mouse clicks on buttons at the same time? That will require a little bit more complication...
+<p>
+<p>
+<h1 width="804">2.  An Extended Example</h1>
+<p>
+This example takes in an image, looks for Black, Red, and White regions, and makes a matrix with the values 0, .5, and 1 for those colors, respectively.
+<p>
+Here is a sample image:
+<p>
+<img src="../_dblank/images/butterfly.gif">
+<p>
+Here is the code.
+<p>
+<pre class="code">
+# An extended example to get an image,
+# convert to a matrix form, and change
+# via clicking
+# D.S. Blank
+import Tkinter, sys
+class Display(Tkinter.Toplevel):
+    def __init__(self, root, filename):
+        Tkinter.Toplevel.__init__(self, root)
+        self.image = Tkinter.PhotoImage(file=filename)
+        self.protocol('WM_DELETE_WINDOW',self.destroy)
+        self.frame = Tkinter.Frame(self)
+        self.canvas = Tkinter.Canvas(self.frame, width = 100, height = 100)
+        self.canvas.create_image(0, 0, image = self.image, anchor=Tkinter.NW,
+                                 tag=&quot;image&quot;)
+        self.canvas.bind(&quot;&lt;Button-1&gt;&quot;, self.click)
+        self.frame.pack()
+        self.canvas.pack()
+        self.makeMatrix()
+    def destroy(self):
+        sys.exit(1)
+    def makeMatrix(self):
+        # make a 2D matrix:
+        self.cell = [[0 for x in range(100)] for y in range(100)]
+        # fill it with pixel values:
+        for x in range(100):
+            for y in range(100):
+                r, g, b = map(int, self.image.get(x, y).split(&quot; &quot;))
+                if (r, g, b) == (255, 0, 0): # red:
+                    self.cell[x][y] = .5
+                elif (r, g, b) == (255, 255, 255): # white
+                    self.cell[x][y] = 1
+                elif (r, g, b) == (0, 0, 0): # black
+                    self.cell[x][y] = 0
+    def click(self, event):
+        # Get the click location:
+        x, y = event.x, event.y
+        # get Red, Green, Blue:
+        r, g, b = map(int, self.image.get(x, y).split(&quot; &quot;))
+        print &quot;Click at (%d, %d) = (%d, %d, %d)&quot; % (x, y, r, g, b)
+        print &quot;Cell[%d][%d] = %.1f&quot; % (x, y, self.cell[x][y])
+        # white is 255, 255, 255
+        # red is 255, 0, 0
+        # black is 0, 0, 0
+if __name__ == &quot;__main__&quot;:
+    root = Tkinter.Tk()
+    root.withdraw()
+    display = Display(root, &quot;butterfly.gif&quot;)
+    display.mainloop()
+</pre>
+<p>
+<p>
+<h1 width="804">3.  Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804">3.1.  Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804">3.2.  Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PythonGraphicsIntro?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PythonGraphicsIntro?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

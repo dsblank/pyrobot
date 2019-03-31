@@ -1,0 +1,194 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160742", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Autoassociative_20and_20Recurrent_20Networks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Auto-association Networks</h1>
+<p>
+Sometimes it is useful to build a network that is trained to reproduce
+its input as its output.  Typically this type of network will be given
+a hidden layer size that is smaller than the input size.  This forces
+the network to represent the input patterns in fewer dimensions,
+creating a compressed representation.  These compressed
+representations often reveal interesting generalizations about the
+data.  Below is an example of an auto-associative network that tries
+to reproduce all three-bit binary patterns.  Here we use the method
+<tt class="wiki">addLayers()</tt> to create input, hidden, and output layers of the
+given sizes and connect them up, rather than creating and connecting
+each layer separately as we did in the previous example.  Since the
+inputs and outputs are identical in this kind of network, we can
+specify this by calling the method <tt class="wiki">associate</tt> on the appropriate
+layers.
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+n = Network()
+n.addLayers(3,2,3)
+n.setInputs([[1,0,0],[0,1,0],[0,0,1],[1,1,0],[1,0,1],[0,1,1],[1,1,1]])
+n.associate('input','output')
+n.setReportRate(25)
+n.setEpsilon(0.5)
+n.setMomentum(0.7)
+n.setTolerance(0.2)
+n.setResetEpoch(500)
+n.setResetLimit(2)
+n.train()
+n.setLearning(0)
+n.setInteractive(1)
+n.sweep()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNAutoAssocProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNAutoAssocProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Above we specified the maximum number of epochs to run in one learning
+trial, using the method <tt class="wiki">setResetEpoch</tt>.  If the network has not
+been able to find a solution within 500 epochs, in this case, it will
+re-initialize the weights and begin again.  You can specify the number
+of restarts allowed using the method <tt class="wiki">setResetLimit</tt>.
+<p>
+<p>
+<h1 width="804"> Recurrent Networks</h1>
+<p>
+Certain problems require a memory of the recent past to be solved, but
+feed-forward networks are purely reactive and cannot succeed at such
+problems.  Unlike feed-forward networks, recurrent networks allow
+backward connections that can be used to build up memory.  One popular
+style of recurrent networks was developed by Elman and is called an
+Elman network or an SRN (which stands for Simple Recurrent Network).
+In an SRN, after forward propagating through the network, the hidden
+layer activations are copied to a context layer.  The context layer,
+which is always the same size as the hidden layer, has weighted
+connections back to the hidden layer.  Next we will demonstrate how to
+create an Elman-style recurrent network for dealing with a time
+dependent problem.
+<p>
+Suppose we have two sequences of symbols that we would like the
+network to remember, such as A, B, C and A, C, B.  We will randomly
+choose a sequence, then show the network the sequence, one item at a
+time, and ask it to <b>predict</b> the next item.  We will do this
+repeatedly without any breaks as shown here:
+<p>
+<pre class="code">
+Input:  A, B, C, A, C, B, A, B, C, A, B, C ...
+Output: B, C, A, C, B, A, B, C, A, B, C, A ...
+</pre>
+<p>
+Notice that certain positions in the stream of inputs are
+predicatable, but other positions are not.  For example, after an A
+and a B, a C must follow.  Similarly, after an A and C, a B must
+follow.  Also at the end of either sequence an A must follow.  But it
+is impossible to predict what will come after an A; it could either be
+a B or a C with equal probability.  We'll need a way to encode the letters for the neural network.  An &quot;A&quot; will be represented as the bit string 1 0 0, a &quot;B&quot; as 0 1 0, and a &quot;C&quot; as 0 0 1.  
+<p>
+In the code below, we create a simple recurrent network.  Next we add three layers.  Both the input and output layers will be of length 3 in order to store our bit string encoding.  Then we define the patterns we will be using. Next we define the two different sequences we will use.  The network will automatically randomize the order in which these two sequences are presented to the network.
+Since the output of the network should be equal to the next input, we can specify this by calling the method <tt class="wiki">predict</tt> on the approriate layers. Because we want the patterns to be treated as one continuous sequence, we should not initialize the context layer between sub-sequences.
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+n = SRN()
+n.addSRNLayers(3,2,3)         # input of 3, hidden/context of 2, output of 3
+n.setPatterns({&quot;A&quot;:[1, 0, 0], # symbols we will use during training
+               &quot;B&quot;:[0, 1, 0],
+               &quot;C&quot;:[0, 0, 1]})
+n.setInputs([['A','B','C'],   # sequences will be presented in random order
+             ['A','C','B']])
+n.predict('input','output')   # task is to predict next input
+n.setReportRate(100)
+n.setEpsilon(0.1)
+n.setMomentum(0)
+n.setTolerance(0.2)
+n.setStopPercent(0.75)        # not all inputs are predictable
+n.setResetEpoch(8000)
+n.setResetLimit(0)
+n.setSequenceType(&quot;random-segmented&quot;)
+n.train()
+n.setLearning(0)
+n.setInteractive(1)
+n.sweep()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SRNProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SRNProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+After training is complete, look carefully at the interactive results. Notice that the network has learned to correctly predict the first and last position of every sub-sequence.  For the unpredictable middle position in each sub-sequence, the network has learned that either a B or C will appear, but not an A.  This is evident because the activations of the second and third position of the output are around 0.5 while the activation on the first position of the output is close to 0.0. 
+<p>
+The above program will run until the network has a performance of the two sequences greater than 75%. Because the weights are changing during the epoch, the program can actually break out of the loop and, if tested on the sequence again, it might not perform the same. To make sure that the network really does get 75% of the outputs correct, we can use the <i>cross validation</i> mechanism to verify it. Usually, cross validation is used to measure the performance of a system on a subset held out for testing. We will, however, use the same set for testing and training in this example. You need only specify the inputs and targets for the input and output layers, respectively, as in the following example:
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+n = SRN()
+n.addSRNLayers(3,2,3)         # input of 3, hidden/context of 2, output of 3
+n.setPatterns({&quot;A&quot;:[1, 0, 0], # symbols we will use during training
+               &quot;B&quot;:[0, 1, 0],
+               &quot;C&quot;:[0, 0, 1]})
+n.setInputs([['A','B','C'],   # sequences will be presented in random order
+             ['A','C','B']])
+n.crossValidationCorpus = ({&quot;input&quot; : ['A','B','C','A','C','B']},
+                           {&quot;input&quot; : ['A','C','B','A','B','C']} )
+n.predict('input','output')   # task is to predict next input
+n.setReportRate(100)
+n.setEpsilon(0.1)
+n.setMomentum(0)
+n.setTolerance(0.2)
+n.setStopPercent(0.75)        # not all inputs are predictable
+n.setResetEpoch(8000)
+n.setResetLimit(0)
+n.setSequenceType(&quot;random-segmented&quot;)
+n.train()
+n.setLearning(0)
+n.setInteractive(1)
+n.sweep()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SRNCVProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SRNCVProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+If you run the above program, you will likely notice that the final percent cross of the cross validation set (CV) is less than 75%. However, if you add this:
+<p>
+<pre class="code">
+n.setUseCrossValidationToStop(1)
+</pre>
+<p>
+then the program will use the cross validation percentage (but only check every <tt class="wiki">reportRate</tt> epochs). See <a href="../page_Conx_20Implementation_20Details/">Conx Implementation Details</a> for more information.
+<p>
+<p>
+<h2 width="804"> Combining a Recurrent Network with an Autoassociative Network</h2>
+<p>
+The Recursive Auto Associative Memory (or RAAM) was developed by Jordan Pollack. See if you can figure out what this network does: <a href="../page_PyroRAAMExample/">PyroRAAMExample</a>.
+<p>
+<p>
+<h2 width="804"> Further Reading</h2>
+<p>
+<ol type="1"><li>Elman, J. (1990) Finding Structure in Time. <i>Cognitive Science</i>.14:179--211.</li>
+<li>Pollack, J. (1990) Recursive distributed representations. <i>Artificial Intelligence</i>. 46, 77-105.</li>
+</ol><p>
+More: <a href="../page_SRNModuleExperiments/">SRNModuleExperiments</a>
+Next: <a href="../page_Robot_20Learning_20using_20Neural_20Networks/">Robot Learning using Neural Networks</a>
+Up: <a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Autoassociative_20and_20Recurrent_20Networks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Autoassociative_20and_20Recurrent_20Networks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

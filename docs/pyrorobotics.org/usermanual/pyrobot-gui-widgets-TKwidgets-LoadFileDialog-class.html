@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129012725", "pyrorobotics.org");
+</script>
+  <title>pyrobot.gui.widgets.TKwidgets.LoadFileDialog</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-gui-module/">Package&nbsp;gui</a> ::
+        <a href="../../usermanual/pyrobot-gui-widgets-module/">Package&nbsp;widgets</a> ::
+        <a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-module/">Package&nbsp;TKwidgets</a> ::
+        Class&nbsp;LoadFileDialog
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-LoadFileDialog-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class LoadFileDialog</h2>
+<pre class="base-tree">
+ <a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-Dialog-class/"><code>Dialog</code></a> --+        
+          |        
+<a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-ModalDialog-class/"><code>ModalDialog</code></a> --+    
+              |    
+     <a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/"><code>FileDialog</code></a> --+
+                  |
+                 <b>LoadFileDialog</b>
+</pre><br/>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__init__"></a><span class="summary-sig"><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">master</span>,
+          <span class="summary-sig-arg">title</span>,
+          <span class="summary-sig-arg">filter</span>,
+          <span class="summary-sig-arg">pyro_dir</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="OkPressed"></a><span class="summary-sig"><span class="summary-sig-name">OkPressed</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from FileDialog</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#CancelPressed" class="summary-sig-name"><code>CancelPressed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#CopyPressed" class="summary-sig-name"><code>CopyPressed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#CreateDirListBox" class="summary-sig-name"><code>CreateDirListBox</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#CreateFileListBox" class="summary-sig-name"><code>CreateFileListBox</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#cwd_print" class="summary-sig-name"><code>cwd_print</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#DoDoubleClickDir" class="summary-sig-name"><code>DoDoubleClickDir</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#DoDoubleClickFile" class="summary-sig-name"><code>DoDoubleClickFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#DoSelection" class="summary-sig-name"><code>DoSelection</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#EditPressed" class="summary-sig-name"><code>EditPressed</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">selectIt</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#FileNameReturnKey" class="summary-sig-name"><code>FileNameReturnKey</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#FilterPressed" class="summary-sig-name"><code>FilterPressed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#FilterReturnKey" class="summary-sig-name"><code>FilterReturnKey</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#GetFileName" class="summary-sig-name"><code>GetFileName</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#HomePressed" class="summary-sig-name"><code>HomePressed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#SetupDialog" class="summary-sig-name"><code>SetupDialog</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-FileDialog-class/#UpdateListBoxes" class="summary-sig-name"><code>UpdateListBoxes</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from ModalDialog</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-ModalDialog-class/#Show" class="summary-sig-name"><code>Show</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Dialog</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-Dialog-class/#CenterDialog" class="summary-sig-name"><code>CenterDialog</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-Dialog-class/#DialogCleanup" class="summary-sig-name"><code>DialogCleanup</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-TKwidgets-Dialog-class/#TerminateDialog" class="summary-sig-name"><code>TerminateDialog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">withValue</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

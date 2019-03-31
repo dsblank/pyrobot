@@ -1,0 +1,282 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160806", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Building_20Neural_20Networks_20using_20Conx</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Building Neural Networks Using Conx</h1>
+<p>
+To create neural networks in Pyro we will use the Conx module, which
+is a Python based package that provides an API for neural network
+scripting. Conx was designed to be used by connectionist researchers,
+as well as a teaching tool for AI and robotics courses. The idea
+behind this system is to allow experimenters to quickly and easily
+create, train, and test basic architectures such as feedforward and
+simple recurrent neural networks. Conx can be used independent of Pyro
+for any kind of neural network modeling. It can be used in Pyro to
+write neural network controlled brains for robots and thus becomes an
+excellent choice for doing robot learning experiments.
+<p>
+<p>
+<h2 width="804"> A First Network</h2>
+<p>
+Let us first jump right into Conx to create a neural network that will
+learn the AND function from the previous section. Later, we will
+return and introduce the API more formally. The training data set for
+the AND network is reproduced below.
+<p>
+<table border="1"><tr><td> <b>Input A</b> </td><td> <b>Input B</b></td><td> Output</td></tr>
+<tr><td> 0 </td><td> 0 </td><td> 0</td></tr>
+<tr><td> 0 </td><td> 1 </td><td> 0 </td></tr>
+<tr><td> 1 </td><td> 0 </td><td> 0 </td></tr>
+<tr><td> 1 </td><td> 1 </td><td> 1 </td></tr>
+</table><p>
+<p>
+<h2 width="804"> Example: A First Network</h2>
+<p>
+It only takes a few commands to create a network in Conx.  The program
+below implements the network containing an input layer with two input
+nodes and and output layer with one output node to solve the AND
+problem.  The AND network should return an output close to 1.0 when
+both of its inputs are 1.0.  Otherwise it should return an output
+close to 0.0. Given the values in the data set, we do not need to do
+any scaling. We will set EPSILON to 0.5, report progress
+after every epoch, and accept values as correct with a tolerance of 20
+% (i.e., 0.2).
+<p>
+<pre class="code">
+# import all the conx API
+from pyrobot.brain.conx import *
+# create the network
+n = Network()
+# add layers in the order they will be connected
+n.addLayer('input',2)      # The input layer has two nodes
+n.addLayer('output',1)     # The output layer has one node
+n.connect('input','output')  # The input layer is connected to the output layer
+# provide training patterns (inputs and outputs)
+n.setInputs([[0.0,0.0],[0.0,1.0],[1.0,0.0],[1.0,1.0]])
+n.setOutputs([[0.0],[0.0],[0.0],[1.0]])
+# set learning parameters
+n.setEpsilon(0.5)
+n.setTolerance(0.2)
+n.setReportRate(1)
+# learn
+n.train()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNLogicalAndProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNLogicalAndProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+As demonstrated in the program above, the main steps to creating a network in Conx are:
+<p>
+<ol type="1"><li>Create an instance of the Network class.</li>
+<li>Add the appropriate number of layers to the network.  The Layer constructor expects a name given as a string and the number of nodes.</li>
+<li>Connect the appropriate layers together by giving the &quot;from&quot; name and then the &quot;to&quot; name.</li>
+<li>Set the patterns to be learned.  Both the methods <tt class="wiki">setInputs</tt> and <tt class="wiki">setOutputs</tt> expect a list of lists.  A teacher pattern should be in the same list position as its corresponding input pattern.</li>
+<li>Set the parameters for learning including the learning rate (epsilon), tolerance, and report rate.  The report rate will cause progress messages to be printed every <tt class="wiki">n</tt> epochs.  In this example, messages will be printed every 1 time step.</li>
+<li>Lastly, train the network.</li>
+</ol><p>
+Go ahead and copy the above program and save it in a file called <tt class="wiki">NNand.py</tt>. Then, as shown below, run it in python. You may see something similar to what is shown below:
+<p>
+<pre class="code">
+&#36; python AND.py
+Epoch #     1 | TSS Error: 1.02 | Correct = 0.0  | RMS Error: 0.48
+Epoch #     2 | TSS Error: 1.03 | Correct = 0.0  | RMS Error: 0.78
+Epoch #     3 | TSS Error: 0.79 | Correct = 0.0  | RMS Error: 0.26
+Epoch #     4 | TSS Error: 0.72 | Correct = 0.25 | RMS Error: 0.34
+Epoch #     5 | TSS Error: 0.46 | Correct = 0.25 | RMS Error: 0.36
+Epoch #     6 | TSS Error: 0.41 | Correct = 0.25 | RMS Error: 0.45
+Epoch #     7 | TSS Error: 0.32 | Correct = 0.25 | RMS Error: 0.24
+Epoch #     8 | TSS Error: 0.23 | Correct = 0.25 | RMS Error: 0.32
+Epoch #     9 | TSS Error: 0.21 | Correct = 0.25 | RMS Error: 0.24
+Epoch #    10 | TSS Error: 0.18 | Correct = 0.25 | RMS Error: 0.24
+Epoch #    11 | TSS Error: 0.15 | Correct = 0.25 | RMS Error: 0.22
+Epoch #    12 | TSS Error: 0.13 | Correct = 0.5  | RMS Error: 0.21
+Epoch #    13 | TSS Error: 0.12 | Correct = 0.75 | RMS Error: 0.18
+Epoch #    14 | TSS Error: 0.12 | Correct = 0.75 | RMS Error: 0.27
+Epoch #    15 | TSS Error: 0.11 | Correct = 0.75 | RMS Error: 0.26
+Epoch #    16 | TSS Error: 0.09 | Correct = 0.75 | RMS Error: 0.16
+Epoch #    17 | TSS Error: 0.09 | Correct = 1.0  | RMS Error: 0.18
+----------------------------------------------------
+Final #    18 | TSS Error: 0.09 | Correct = 1.0
+----------------------------------------------------
+</pre>
+<p>
+The above output shows that this particular network learned the AND data set after 18 epochs of training. Each line of the output is reported after every epoch (the report rate was set to 1 epoch) and contains the epoch number, the TSS error for that epoch, the percent of patterns correctly identified by the network, and the RMS error. Notice that the TSS error decreased from 1.02 to 0.09 and, more importantly, it decreased after every epoch.
+<p>
+<p>
+<h2 width="804"> Exercise  1</h2>
+Run the above program with different values of EPSILON (say, 0.8, 0.7, 0.6, 0.4, 0.3, 0.2) and record the number of epochs it takes to train. Fill in the table below:
+<p>
+<table border="1"><tr><td> EPSILON </td><td> # Epochs </td></tr>
+<tr><td> 0.8 </td><td> ____ </td></tr>
+<tr><td> 0.7 </td><td> ____ </td></tr>
+<tr><td> 0.6 </td><td> ____ </td></tr>
+<tr><td> 0.5 </td><td> _18_  </td></tr>
+<tr><td> 0.4 </td><td> ____ </td></tr>
+<tr><td> 0.3 </td><td> ____ </td></tr>
+<tr><td> 0.2 </td><td> ____ </td></tr>
+</table><p>
+<p>
+<h2 width="804"> Exercise 2</h2>
+Repeat the above and run the experiment several times for the same values of EPSILON. You will notice that it takes a different number of epochs each time. Record at least five runs for each value of EPSILON in the table below.
+<p>
+<table border="1"><tr><td> EPSILON </td><td> Epochs: Trial #1 </td><td> Trial #2 </td><td> Trial #3 </td><td> Trial #4 </td><td> Trial #5 </td><td> Average # Epochs </td></tr>
+<tr><td> 0.8 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+<tr><td> 0.7 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+<tr><td> 0.6 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+<tr><td> 0.5 </td><td> _18_ </td><td> _16_ </td><td> _15_ </td><td> _18_  </td><td> _18_ </td><td> _17_ </td></tr>
+<tr><td> 0.4 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+<tr><td> 0.3 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+<tr><td> 0.2 </td><td> ____ </td><td> ____ </td><td> ____  </td><td> ____ </td><td> ____ </td><td> ____ </td></tr>
+</table><p>
+<p>
+<p>
+<h2 width="804"> Testing the trained network</h2>
+<p>
+In order to see exactly how the network is responding to each input pattern once it is trained, add the following lines to the end of your <tt class="wiki">NNand.py</tt> program.  Here we turn the learning off, so that we can test the network without changing the weights.  Then we turn interactive on, so that the activations of the network will be displayed.  Finally, we propagate the set of patterns through the network to see the results.
+<p>
+<pre class="code">
+# verify learning
+n.setLearning(0)
+n.setInteractive(1)
+n.sweep()
+</pre>
+<p>
+Run the program with the above modifications. After training is complete, the program starts presenting input patterns to the network and gives you the output generated by the network. After each pattern, you will be prompted to quit or continue. Hitting the RETURN key will continue with another pattern and hitting 'q' will quit. This way you can test and ensure that the network has actually learned. A session is shown below:
+<p>
+<pre class="code">
+Final #    16 | TSS Error: 0.10 | Correct = 1.0
+----------------------------------------------------
+-----------------------------------Pattern # 3
+Display network 'Backprop Network':
+=============================
+Display Layer 'output' (kind Output):
+Target    :  0.00
+Activation:  0.17
+=============================
+Display Layer 'input' (kind Input):
+Activation:  1.00 0.00
+--More-- [quit, go]
+ -----------------------------------Pattern # 4
+Display network 'Backprop Network':
+=============================
+Display Layer 'output' (kind Output):
+Target    :  1.00
+Activation:  0.81
+=============================
+Display Layer 'input' (kind Input):
+Activation:  1.00 1.00
+--More-- [quit, go]
+ -----------------------------------Pattern # 2
+Display network 'Backprop Network':
+=============================
+Display Layer 'output' (kind Output):
+Target    :  0.00
+Activation:  0.16
+=============================
+Display Layer 'input' (kind Input):
+Activation:  0.00 1.00
+--More-- [quit, go]
+ -----------------------------------Pattern # 1
+Display network 'Backprop Network':
+=============================
+Display Layer 'output' (kind Output):
+Target    :  0.00
+Activation:  0.01
+=============================
+Display Layer 'input' (kind Input):
+Activation:  0.00 0.00
+</pre>
+<p>
+Notice that all patterns are correct within the specified tolerance (0.2). Also notice that the patterns are presented in random order. In the API you can control how patterns are presented during testing and during training. By default, patterns are presented in random order.
+<p>
+<p>
+<h2 width="804"> Saving Weights</h2>
+<p>
+If you would like to see how the weights have changed from their initial values to the final values, you can save the weights to a file as shown below.  For the AND network there are only three parameters: a bias for the output node, and two weights from the input nodes to the output node.
+<p>
+<pre class="code">
+n.saveWeightsToFile(&quot;before.wts&quot;)
+n.train()
+n.saveWeightsToFile(&quot;after.wts&quot;)
+</pre>
+<p>
+Run the program with the above changes. After training is complete (you may also go through a testing phase here if the testing code is still there), you will see the two weight files in your working directory. For the example above, the weight file has the following contents:
+<pre class="code">
+-4.9495515489301756
+3.4171966132860616
+3.3065517183219439
+</pre>
+<p>
+The first weight is the bias and the second two are the weights on the two inputs. Thus, for example, when you apply pattern#4 (1.0, 1.0) to expect an output of 1.0 you can apply the transfer function yourself as follows:
+<p>
+First, compute net input: -4.9495515489301756 + 1.0*3.4171966132860616 + 1.0*3.3065517183219439 = 1.78 (approx)
+<p>
+Next, apply the activation function to compute the output: f(1.78) = 1/(1+e(-1.78)) = 0.855
+<p>
+0.855 is within the tolerance (i.e. close enough to 1.0) so the output is as expected. You can also review this in the interactive output above. Since this was a very simple network, it was easy to demonstrate the above calculation and therefore makes for an understandable example. In general, you will have a very large input layer connected to an hidden layer and then the hidden layer to the output layer and so the above calculation may become formidable to do by hand.
+<p>
+Saved weights can be reloaded into a network at a later date as long as you first create a network with the same architecture.
+<p>
+To reload a set of saved weights from a file, use the method <tt class="wiki">loadWeightsFromFile(filename)</tt>.  However, before reading in the weights, you must already have the appropriate network architecture defined.
+<p>
+To interactively examine a weight between two units:
+<p>
+<pre class="code">
+n.getWeights(&quot;fromLayerName&quot;, &quot;toLayerName&quot;)[fromPos][toPos]
+# or this new, shorter syntax:
+n[&quot;fromLayerName&quot;, &quot;toLayerName&quot;][fromPos][toPos]
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> Notice that when passing arguments into functions in Conx, always use the order &quot;from&quot; first, then &quot;to&quot;.
+<p>
+To examine a unit's bias weight:
+<p>
+<pre class="code">
+n.getLayer(&quot;layerName&quot;).weight[pos]
+# or this new, shorter syntax in which bias is an array:
+n[&quot;layerName&quot;].weight[pos]
+# or, yet another perspective in which you access a Node object:
+n[&quot;layerName&quot;][pos].weight
+</pre>
+<p>
+<p>
+<h2 width="804"> Exercise 3: Modify the AND network to create an OR network</h2>
+<p>
+Copy your <tt class="wiki">NNand.py</tt> program to one called <tt class="wiki">NNor.py</tt>.  Modify the outputs appropriately in your new file to solve the OR problem.  The OR network should output a 1.0 when any of its inputs are 1.0, otherwise it should output a 0.0.  Check the weights after training is completed and verify that they produce the correct output.
+<p>
+<p>
+<h2 width="804"> Exercise 4: Modify the AND network to create an XOR network</h2>
+<p>
+Copy your <tt class="wiki">NNand.py</tt> program to one called <tt class="wiki">NNxor.py</tt>.  Modify the outputs appropriately in your new file to solve the XOR problem.  The XOR network should output a 1.0 when exclusively one of its inputs are 1.0, otherwise is should output a 0.0.  The XOR problem is a well known example of a task that a simple two layer network cannot solve.  Before adding a hidden layer, try training the simple two layer network on the XOR problem.  What happens? In order to learn XOR, you will need to add a hidden layer of at least size two.
+ <img width="11" src="../wiki/img/alert.png"> Con-x is sensitive to the order in which the layers are added.  It is important to add the layers in the order they will be connected to one another, i.e. input first, then hidden, and finally output. Be sure to connect the input to the hidden and the hidden to the output.  Con-x provides a shortcut for building a standard three-layer network, since it is done so frequently.  You can use the method <tt class="wiki">addLayers()</tt> as shown in the next section.
+<p>
+Next: <a href="../page_Generalization_20in_20a_20Neural_20Network/">Generalization in a Neural Network</a>
+Up: <a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Building_20Neural_20Networks_20using_20Conx?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Building_20Neural_20Networks_20using_20Conx?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

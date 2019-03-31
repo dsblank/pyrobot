@@ -1,0 +1,82 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160404", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: ExampleMultipleBrains</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+Here is an all-Python solution for starting two robots in one
+simulator, letting it run for 20 seconds, and then stopping both of
+them:
+<p>
+<pre class="code">
+# Multiple brains in a single program.
+from pyrobot.engine import Engine
+import time
+# Parameters for starting an engine:
+robotfile1 = &quot;Player6665&quot;
+brainfile1 = &quot;ChaseRedProgram&quot;
+simulator1 = &quot;StageSimulator&quot;
+brainargs1 = []
+worldfile1 = &quot;chase.cfg&quot;
+devices1 = []
+robotfile2 = &quot;Player6666&quot;
+brainfile2 = &quot;ChaseGreenProgram&quot;
+simulator2 = None
+brainargs2 = []
+worldfile2 = &quot;&quot;
+devices2 = []
+# Create the engines:
+eng1 = Engine(robotfile1, brainfile1, simulator1, brainargs1, {}, worldfile1, devices1)
+eng2 = Engine(robotfile2, brainfile2, simulator2, brainargs2, {}, worldfile2, devices2)
+# Wait for them to get initialized:
+# (this may not be needed with Pyro4)
+time.sleep(3)
+# Start them up:
+eng1.pleaseRun()
+eng2.pleaseRun()
+# Let them run for awhile:
+time.sleep(20)
+# stop them , and quit:
+eng1.pleaseStop()
+eng2.pleaseStop()
+eng1.shutdown()
+eng2.shutdown()
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/MultipleBrainsProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/MultipleBrainsProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Save this example as <tt class="wiki">MultipleBrainsProgram.py</tt>.
+Notice that this example uses the <tt class="wiki">ChaseRedProgram.py</tt> and
+<tt class="wiki">ChaseGreenProgram.py</tt> brains from before. To execute it do:
+<p>
+<tt class="wiki">python MultipleBrainsProgram.py</tt>
+<p>
+Make sure that you have the PYROBOT environment variable set, for example:
+<p>
+<tt class="wiki">export PYROBOT=/usr/local/lib/python24/site-packages/pyrobot</tt>
+<p>
+Return to <a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a>.
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/ExampleMultipleBrains?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/ExampleMultipleBrains?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

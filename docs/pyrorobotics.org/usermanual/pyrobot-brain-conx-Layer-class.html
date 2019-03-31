@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129010856", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.conx.Layer</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        <a href="../../usermanual/pyrobot-brain-conx-module/">Module&nbsp;conx</a> ::
+        Class&nbsp;Layer
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-conx-Layer-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Layer</h2>
+<hr/>
+<pre class="literalblock">
+Class which contains arrays of node elements (ie, activation,
+error, bias, etc).
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">size</span>)</span></code>
+<br/>
+Constructor for Layer class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__getstate__"></a><span class="summary-sig"><span class="summary-sig-name">__getstate__</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#__len__" class="summary-sig-name"><code>__len__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the number of nodes in the layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__setstate__"></a><span class="summary-sig"><span class="summary-sig-name">__setstate__</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">dict</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__str__"></a><span class="summary-sig"><span class="summary-sig-name">__str__</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#changeSize" class="summary-sig-name"><code>changeSize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newsize</span>)</span></code>
+<br/>
+Changes the size of the layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#closeLog" class="summary-sig-name"><code>closeLog</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Closes the log file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#copyActivations" class="summary-sig-name"><code>copyActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">arr</span>)</span></code>
+<br/>
+Copies activations from the argument array into
+layer activations.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#copyTargets" class="summary-sig-name"><code>copyTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">arr</span>)</span></code>
+<br/>
+Copies the targets of the argument array into the self.target attribute.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#display" class="summary-sig-name"><code>display</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Displays the Layer instance to the screen.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getActivations" class="summary-sig-name"><code>getActivations</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns node activations in (Numeric) array (pointer) form.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getActivationsList" class="summary-sig-name"><code>getActivationsList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns node activations in list (copy) form.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getActive" class="summary-sig-name"><code>getActive</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used to determine if a layer is active or inactive.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getCorrect" class="summary-sig-name"><code>getCorrect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">tolerance</span>)</span></code>
+<br/>
+Returns the number of nodes within tolerance of the target.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getEpsilonAt"></a><span class="summary-sig"><span class="summary-sig-name">getEpsilonAt</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getEpsilons"></a><span class="summary-sig"><span class="summary-sig-name">getEpsilons</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getTargets" class="summary-sig-name"><code>getTargets</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return targets in (Numeric) array form.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getTargetsList" class="summary-sig-name"><code>getTargetsList</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns targets in list form.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#getWinner" class="summary-sig-name"><code>getWinner</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">type</span>)</span></code>
+<br/>
+Returns the winner of the type specified {'activation' or
+'target'}.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#initialize" class="summary-sig-name"><code>initialize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">epsilon</span>)</span></code>
+<br/>
+Initializes important node values to zero for each node in the
+layer (target, error, activation, dbias, delta, netinput, bed).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#logMsg" class="summary-sig-name"><code>logMsg</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">msg</span>)</span></code>
+<br/>
+Logs a message.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#randomize" class="summary-sig-name"><code>randomize</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initialize node biases to random values in the range [-max, max].</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#resetActivationFlag" class="summary-sig-name"><code>resetActivationFlag</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets self.activationSet flag.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#resetFlags" class="summary-sig-name"><code>resetFlags</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets self.targetSet and self.activationSet flags.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#resetTargetFlag" class="summary-sig-name"><code>resetTargetFlag</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets self.targetSet flag.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#RMSError" class="summary-sig-name"><code>RMSError</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns Root Mean Squared Error for this layer's pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#setActivations" class="summary-sig-name"><code>setActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets all activations to the value of the argument.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#setActive" class="summary-sig-name"><code>setActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets layer to active or inactive.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#setDisplayWidth" class="summary-sig-name"><code>setDisplayWidth</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+<br/>
+Sets self.displayWidth the the argument value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setEpsilon"></a><span class="summary-sig"><span class="summary-sig-name">setEpsilon</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setEpsilonAt"></a><span class="summary-sig"><span class="summary-sig-name">setEpsilonAt</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setEpsilons"></a><span class="summary-sig"><span class="summary-sig-name">setEpsilons</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">values</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#setLog" class="summary-sig-name"><code>setLog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fileName</span>)</span></code>
+<br/>
+Opens a log file with name fileName.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#setTargets" class="summary-sig-name"><code>setTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets all targets the the value of the argument.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#toString" class="summary-sig-name"><code>toString</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns a string representation of Layer instance.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#TSSError" class="summary-sig-name"><code>TSSError</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns Total Sum Squared Error for this layer's pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Layer-class/#writeLog" class="summary-sig-name"><code>writeLog</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Writes to the log file.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">size</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for Layer class. A name and the number of nodes
+for the instance are passed as arguments.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__len__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__len__</span>(<span class="sig-arg">self</span>)</span>
+    <br/><i>(Length operator)</i>
+  </h3>
+<pre class="literalblock">
+Returns the number of nodes in the layer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="changeSize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">changeSize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">newsize</span>)</span>
+  </h3>
+<pre class="literalblock">
+Changes the size of the layer. Should only be called through
+Network.changeLayerSize().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="closeLog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">closeLog</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Closes the log file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="copyActivations"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyActivations</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">arr</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies activations from the argument array into
+layer activations.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="copyTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyTargets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">arr</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies the targets of the argument array into the self.target attribute.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="display"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">display</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Displays the Layer instance to the screen.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActivations"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActivations</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns node activations in (Numeric) array (pointer) form.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActivationsList"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActivationsList</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns node activations in list (copy) form.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActive</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used to determine if a layer is active or inactive.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getCorrect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getCorrect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">tolerance</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the number of nodes within tolerance of the target.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getTargets</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return targets in (Numeric) array form.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getTargetsList"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getTargetsList</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns targets in list form.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getWinner"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getWinner</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">type</span>=<span class="sig-default">'activation'</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the winner of the type specified {'activation' or
+'target'}.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="initialize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">initialize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">epsilon</span>)</span>
+  </h3>
+<pre class="literalblock">
+Initializes important node values to zero for each node in the
+layer (target, error, activation, dbias, delta, netinput, bed).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="logMsg"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">logMsg</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">msg</span>)</span>
+  </h3>
+<pre class="literalblock">
+Logs a message.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="randomize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">randomize</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Initialize node biases to random values in the range [-max, max].
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetActivationFlag"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetActivationFlag</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resets self.activationSet flag.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetFlags"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetFlags</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resets self.targetSet and self.activationSet flags.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetTargetFlag"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetTargetFlag</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resets self.targetSet flag.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="RMSError"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">RMSError</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns Root Mean Squared Error for this layer's pattern.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setActivations"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setActivations</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets all activations to the value of the argument. Value should be in the range [0,1].
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setActive</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets layer to active or inactive. Layers must be active to propagate activations.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setDisplayWidth"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setDisplayWidth</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">val</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.displayWidth the the argument value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setLog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setLog</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">fileName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Opens a log file with name fileName.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setTargets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets all targets the the value of the argument. This value must be in the range [0,1].
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="toString"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns a string representation of Layer instance.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="TSSError"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">TSSError</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns Total Sum Squared Error for this layer's pattern.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="writeLog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">writeLog</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Writes to the log file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

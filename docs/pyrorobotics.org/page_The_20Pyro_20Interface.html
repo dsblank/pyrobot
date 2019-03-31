@@ -1,0 +1,248 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160350", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Pyro_20Interface</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> The Pyro Interface</h2>
+<p>
+As mentioned in the introduction, Pyro can be used to experiment with simulated as well as real robots. Currently, the following simulator and robot platforms are supported:
+<p>
+<b>Simulators</b>
+<ol type="1"><li><b>Pyrobot</b><b>Simulator</b> A generic robot simulator provided with Pyro. This simulator can serve as a nice simulated environment for beginners for creating worlds and simulating different kinds of robots.</li>
+<li><b>Player/Stage:</b> An open source robot driver toolkit (Player) and a multiple robot simulator (Stage) developed at University of Southern California and HRL Labs. Stage is capable of simulating the features of many types of robots.</li>
+<li><b>Gazebo:</b> A multi-robot 3-D simulator for outdoor environments. Gazebo is developed by the same group who developed Player/Stage. Like Stage, it is capable of simulating a population of robots, sensors and objects, but does so in a three-dimensional world. Controllers written for the Stage simulator can generally be used with Gazebo without modification (and vise-versa).</li>
+<li><b>Robocup:</b> A multi-robot simulator for playing soccer. These robots are less &quot;perceptual&quot; than other kinds of robots, but we have extended the simulation to add simulated range sensors and cameras that approximate a visual view.</li>
+</ol><p>
+<b>Robots</b>
+<ol type="1"><li><b>Pioneer Robots:</b> By Activ<b></b>Media Robotics. (see section on Robot Morphology)</li>
+<li><b>Khepera and Hemisson Robots:</b> By K-Team, SA. (see section on Robot Morphology)</li>
+<li><b>Aibo Robots:</b> By Sony Corp. (Japan)</li>
+<li><b>Intelli</b><b>Brain-Bot:</b> By Ridge<b></b>Soft</li>
+<li><b>Roomba:</b> By <a href="../page_IRobot/">IRobot</a></li>
+</ol><p>
+In this section, we will outline how to run Pyro specifically to use all of the above platforms. Regardless of the platform one uses one typically follows the steps outlined below:
+<p>
+<ol type="1"><li>Start pyrobot.</li>
+<li><b>[Optional]</b> Choose a simulator/server and a simulated robot world.</li>
+<li>Specify a robot platform.</li>
+<li>Interact with the robot.</li>
+</ol><p>
+If the simulator is not chosen, Pyro assumes that you will be using a real robot. Interacting with the robot  (real or simulated) includes the ability to give specific commands to the robot in an interactive mode, or controlling the robot using a robot brain program.
+<p>
+<p>
+<h3 width="804"> Starting Pyro</h3>
+If your installation is set up properly, all you have to do is enter the command in a terminal window:
+<pre class="code">
+ &#36; pyrobot
+</pre>
+<p>
+If all goes well, you will see the following window on your desktop:
+<p>
+<img src="../BeyondLegos/Images/Pyro4Splash.png">
+<p>
+Once in Pyro, you can specify a simulator, by pressing the <b>Server:</b> button, followed by the kind of robot you will be using. If you do not specify a simulator, Pyro assumes that you will be using a real robot. Notice that even when you choose to use a simulator, you still have to specify a robot. This is because, in some simulators (like Stage), you can simulate different robot platforms. Notice also that several menu and button options are disabled in the Pyro window. These become enabled as you specify more and more details about your session. For example, you can load a robot brain (using the <b>Brain</b> button) once you have specified a robot. The buttons: <b>Step</b>, <b>Run</b>, <b>Stop</b>, etc. are brain specific operations and will be explained when we talk about brains. For the time being, review the Pyro window above to get familiarized with the interface.
+<p>
+<p>
+<h3 width="804"> Specifying a Simulator</h3>
+To load a simulator, just press the <b>Server:</b> button in the Pyro window.
+<p>
+You will get a pop-up file dialog as shown below:
+<p>
+<img src="../BeyondLegos/Images/LoadSim.png">
+<p>
+As you can see, there are currently five simulators, and a server available:
+<p>
+<ol type="1"><li><b>Gazebo Simulator</b></li>
+<li><b>Khepera Simulator</b></li>
+<li><b>Player Server</b></li>
+<li><b>Pyrobot Simulator</b></li>
+<li><b>Robotcup Simulator</b></li>
+<li><b>Stage Simulator</b></li>
+</ol><p>
+<p>
+<h3 width="804"> Loading the Pyrobot Simulator</h3>
+<p>
+Select the <b>Pyrobot Simulator</b>, and press the OK button. After you have selected the simulator, you will be asked to specify a simulated world for the simulator. The simulators allow you to specify any world in which you would like to run your simulated robot. A simulated world is specified in a <b>world file</b> which varies from simulator to simulator.  It is recommended that when doing robot experiments you should first test all your programs in a simulated environment, before running on the real robot. This helps you debug your programs and is less time consuming. You can replicate your robot's environment in a simulated world by writing your own world file. Later, we will show you how to create your own world files. When you specify a simulator, another window will pop up asking you to specify a world file. This is shown below:
+<p>
+<img src="../BeyondLegos/Images/LoadWorld.png">
+<p>
+Some world files are already provided. For now, you can choose <b>Braitenberg.py</b> world and press the <b>OK</b> button. The simulator will start, load the specified world file and you will get the following display:
+<p>
+<img src="../BeyondLegos/Images/BraitenbergWorld.png">
+<p>
+The red object you see on the screen is a visual representation of the simulated robot. You can move the robot within the environment by clicking the left mouse button on the robot and dragging it to the desired location.  You can zoom the view in or out using the right moust button.  
+<p>
+If you look at the terminal window in which you launched Pyro, you'll see a message like the following:
+<p>
+<pre class="code">
+Simulator starting listener on port 60000 ...
+</pre>
+<p>
+This indicates that the simulator is ready to accept a connection to the robot.
+<p>
+<p>
+<h3 width="804"> Specify a robot platform to Pyro</h3>
+To be able to control the robot through Pyro, you have to request Pyro to do so. This is also similar to asking Pyro to connect to a physical robot. Whether using a simulated or a real robot, the procedure is the same.
+<p>
+Here is what you have to do to establish a connection with the robot to be controlled. If you are continuing from the previous section, you already have the Pyrobot simulator running. If not, start Pyro and load the Pyrobot simulator (with the world file: <b>Braitenberg.py</b>). First, select the Pyro window to make it active. Press the <b>Robot</b> button in the Pyro window. You will get the following dialog window:
+<p>
+<img src="../BeyondLegos/Images/LoadRobot.png">
+<p>
+Of the choices shown, select <b>Pyrobot</b><b>Robot</b><b>60000.py</b> because this was the port that the simulator was expecting a connection from. Pyro will then attempt to connect with the robot in the Pyrobot world. You will see some diagnostic messages printed in the Pyro console, and you will see the robot in an activated state in the simulator window. This is shown below:
+<p>
+<img src="../BeyondLegos/Images/PyrobotWorld.png">
+<p>
+Count the number of rays emanating form the robot. You should be able to identify 8 of them. Each corresponds to a sonar on the robot. The length of the ray depicts the current range readings of the sonars.
+<p>
+Now that you have made a successful connection with the robot, you are ready to interact with it.
+<p>
+In the Pyro window, pull down the <b>Robot</b> menu and then click on the first item (the dashed lines). The menu will reconstitute itself into a separate window that you can move somewhere near the Stage window. It has several commands for driving/communicating/controlling the robot: 
+<p>
+<p>
+<img src="../BeyondLegos/Images/RobotMenu.png">
+<p>
+Go ahead and select the <b>Joystick</b> option to get a mouse-based joystick control window. You can click and drag in this window to drive the robot around. Try it. It takes a little getting used to.
+<p>
+<p>
+<img src="../BeyondLegos/Images/Joystick.png">
+<p>
+You can also use the other commands on the menu to move the robot. Go ahead and drive the robot around using the commands for moving. Try all the commands and get a good feel for the robot's movements especially when you mix left/right rotation with the translation commands for going forward/back. You can stop the rotation or the translation or completely stop the robot from moving. 
+<p>
+<p>
+<h3 width="804"> The Command Line Interface</h3>
+Next, we will try interacting with the robot through the <b>Command Line</b>  area at the bottom of the Pyro window. In the text area you can enter any Python or robot command. Depending on the command you type, you will either see the robot respond by moving in its world, or if the command was a query for some kind of information, you will see the results printed in the Python Console.
+<p>
+First, let's query the robot for some information. The Python variable <b>robot</b> is the handle that enables us to issue commands to the robot. The simplest command you can enter is 
+<pre class="code">
+robot
+</pre>
+<p>
+This is equivalent to evaluating the value of the variable <b>robot</b> in Python. When you enter the above command, the response will be printed in the terminal window:
+<p>
+<pre class="code">
+&gt;&gt;&gt;  robot
+&lt;pyrobot.robot.symbolic.TCPRobot instance at 0xb7f0a04c&gt;
+</pre>
+<p>
+You can also ask the robot to start moving forward by giving it the <b>translate</b> command.
+<p>
+<pre class="code">
+robot.translate(0.1)
+</pre>
+<p>
+You will see the robot moving forward in the simulator window.  
+<p>
+Now, issue a command for the robot to stop:
+<p>
+<pre class="code">
+robot.stop()
+</pre>
+<p>
+You should see that the sonar values now correspond to the robot's location in the simulated world.
+<p>
+The <b>translate()</b> and <b>stop()</b> commands will be used in your brain programs. They work as follows:
+<p>
+<ol><p><b>translate(X)</b>: A method.  Moves the robot forward or backward. The values of <b>X</b> range from -1.0 to 1.0. Negative values imply a negative translation (i.e. going backward), and positive values imply forward translation. Notice that if you have issued a rotate() command also (see below), then the robot will move while turning at the same time.
+</ol><p>
+<ol><p><pre class="code">
+   robot.translate(-0.2)
+  </pre>
+</ol><p>
+<ol><p><b>stop()</b>: Stops the robot's translation and rotation motors.
+</ol><p>
+<ol><p><pre class="code">
+   robot.stop()
+  </pre>
+</ol><p>
+Similarly, you can ask the robot to rotate. Here are the details of the <b>rotate</b> command:
+<p>
+<ol><p><b>rotate(X)</b>: Rotates the robot in its current position at the speed <b>X</b>. As in <b>translate</b>, above, the values range from -1.0 to 1.0 with negative values implying clockwise rotation and positive implying counterclockwise rotation.
+</ol><p>
+<ol><p><pre class="code">
+   robot.rotate(-0.5)
+  </pre>
+</ol><p>
+You can combine the translation and rotation (i.e. moving forward/backward while rotating) using the <b>move</b> command which is defined as follows:
+<p>
+<ol><p><b>move(T, R)</b>: Combines the specification of translation and rotation into one command. The robot will translate at speed <b>T</b> (in the range [-1.0..1.0]) while at the same time rotating at speed <b>R</b> (in range [-1.0..1.0]).
+</ol><p>
+<ol><p><pre class="code">
+  robot.move(0.3, -0.1)
+  </pre>
+<p> <img width="11" src="../wiki/img/alert.png"> Notice that negative values rotate to the <i>right</i>. This may seem unintuitive, but think of angles drawn in the first quadrant on a graph. Angles such as 45 degrees are shown increasing counter-clockwise.
+</ol><p>
+You can also control the power to each wheel of a robot with the <b>motors()</b> command:
+<p>
+<ol><p><pre class="code">
+  robot.motors(1, 0)
+  </pre>
+</ol><p>
+Here we have sent 1 (full power) to the right wheel, and no power to the left. To get the robot to &quot;turn on a dime&quot; we can:
+<p>
+<ol><p><pre class="code">
+  robot.motors(1, -1)
+  </pre>
+</ol><p>
+Try this and all other commands to get comfortable with the various robot motions. The command text area has some convenient command history and command line editing functionality which is summarized in the table below:
+<p>
+<pre class="code">
+--------------------------------------------------
+  GUI Command line editing:
+--------------------------------------------------
+  Control+p or UpArrow        previous line
+  Control+n or DownArrow      next line
+  Control+a or Home           beginning of line
+  Control+e or End            end of line
+  Control+f or RightArrow     forward one character
+  Control+b or LeftArrow      back one character
+  Control+RightArrow          forward one word
+  Control+LeftArrow           back one word
+  TAB                         command line completion
+</pre>
+<p>
+<p>
+<h2 width="804"> Cleaning up</h2>
+<p>
+Note that when you are done, you should quit from Pyro. You can press control+c in the Terminal window, or select the <b>File</b> menu and then choose <b>Exit</b>. 
+<p>
+If you quit the simulator before quitting from Pyro, Pyro may not close down properly. This is because the Pyro connection to the robot still remains active. 
+<p>
+<p>
+<h3 width="804"> Exercise</h3>
+<p>
+Execute <tt class="wiki">pyrobot</tt> in a the terminal window. For the server, select <b>Stage</b><b>Simulator</b>, and then <b>simple.cfg</b>. Use the <b>Player6665.py</b> robot file and try out the following:
+<ol type="1"><li>All the robot movements from the <b>Move</b> menu.</li>
+<li>All the robot commands introduced above.</li>
+</ol><p>
+The way Pyro is designed, it doesn't matter whether you are using a real robot, or a simulated robot, or even a different simulator, the way you interact with the robot remains the same. Next, we will learn about robot attributes.
+<p>
+Next: <a href="../page_Robot_20Attributes/">Robot Attributes</a>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Pyro_20Interface?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Pyro_20Interface?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

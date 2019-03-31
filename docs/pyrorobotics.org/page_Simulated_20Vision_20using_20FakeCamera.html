@@ -1,0 +1,49 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160853", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Simulated_20Vision_20using_20FakeCamera</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Simulated Vision using FakeCamera</h1>
+<p>
+Don't have a camera? 
+<p>
+You can try out some of this functionality by using:
+<p>
+<pre class="code">
+robot.startDevice(&quot;FakeCamera&quot;)
+</pre>
+<p>
+This interface is useful for testing or developing code when you don't happen to have a real camera handy. Fake<b></b>Camera is a class that gets data (by default) from pyrobot/vision/snaps and displays it as if it were coming in over a video camera. You can use your own images, too.
+<p>
+Fake<b></b>Camera takes three optional parameters: a file template name, a starting number, and an increment value. The first example would match a file named &quot;Testing-1.pnm&quot; in the current directory, and then look for the file &quot;Testing-2.pnm&quot; when camera.update() was issued. This would continue until it stopped finding matching files, at which point it would start over with &quot;Testing-1.pnm&quot;. The second example would look for a PNM or PPM file named &quot;/usr/share/data.100&quot; and then look for &quot;/usr/share/data.105&quot; when camera.update() was called.
+ <img width="11" src="../wiki/img/alert.png"> Currently, these files must be in PPM/PNM file format (<a href="../page_PortableBitmapFormat/">PortableBitmapFormat</a> #P6) with no comments.
+<p>
+Next: <a href="../page_Using_20Khepera_20with_20a_20Camera/">Using Khepera with a Camera</a>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Simulated_20Vision_20using_20FakeCamera?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Simulated_20Vision_20using_20FakeCamera?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

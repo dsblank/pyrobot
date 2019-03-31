@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101128201744", "pyrorobotics.org");
+</script>
+  <title>pyrobot.vision</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        Package&nbsp;vision
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-vision-module/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF PACKAGE DESCRIPTION =========== -->
+<h2 class="package">Package pyrobot.vision</h2>
+<!-- =========== START OF SUBMODULES =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Submodules</th></tr>
+  <tr><td><ul>
+<li> <b><a href="../../usermanual/pyrobot-vision-cvision-module/"><code>cvision</code></a></b>
+  <ul>
+    <li> <b><a href="../../usermanual/pyrobot-vision-cvision-vision-module/"><code>vision</code></a></b>
+  </ul>
+<li> <b><a href="../../usermanual/pyrobot-vision-example-module/"><code>example</code></a></b>
+  </ul></td></tr>
+</table><br/>
+<!-- =========== START OF CLASSES =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Classes</th></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-Bitmap-class/"><code>Bitmap</code></a></b></td>
+  <td>Bitmap class.</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-Blob-class/"><code>Blob</code></a></b></td>
+  <td>&nbsp;</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-Blobdata-class/"><code>Blobdata</code></a></b></td>
+  <td>&nbsp;</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-Histogram-class/"><code>Histogram</code></a></b></td>
+  <td>Histogram class.</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-Point-class/"><code>Point</code></a></b></td>
+  <td>&nbsp;</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/"><code>PyrobotImage</code></a></b></td>
+  <td>A Basic Image class.</td></tr>
+</table><br/>
+<!-- =========== START OF VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#blur"><code>blur</code></a></b> = <span title="([3, 3, 3, 3, 8, 3, 3, 3, 3], 32)"><code>([3,&nbsp;3,&nbsp;3,&nbsp;3,&nbsp;8,&nbsp;3,&nbsp;3,&nbsp;3,&nbsp;3],&nbsp;32)                 </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#bw"><code>bw</code></a></b> = <span title="([0, 0, 0, 0, 1, 0, 0, 0, 0], 1)"><code>([0,&nbsp;0,&nbsp;0,&nbsp;0,&nbsp;1,&nbsp;0,&nbsp;0,&nbsp;0,&nbsp;0],&nbsp;1)                    </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#edge"><code>edge</code></a></b> = <span title="([0, -1, 0, -1, 5, -1, 0, -1, 0], 1)"><code>([0,&nbsp;-1,&nbsp;0,&nbsp;-1,&nbsp;5,&nbsp;-1,&nbsp;0,&nbsp;-1,&nbsp;0],&nbsp;1)              </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#emboss"><code>emboss</code></a></b> = <span title="([1, 0, 1, 0, 0, 0, 1, 0, -2], 1)"><code>([1,&nbsp;0,&nbsp;1,&nbsp;0,&nbsp;0,&nbsp;0,&nbsp;1,&nbsp;0,&nbsp;-2],&nbsp;1)               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#fill"><code>fill</code></a></b> = <span title="([1, 1, 1, 1, 1, 1, 1, 1, 1], 5)"><code>([1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;1],&nbsp;5)                  </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#hipass"><code>hipass</code></a></b> = <span title="([-1, -1, -1, -1, 9, -1, -1, -1, -1], 1)"><code>([-1,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;9,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;-1],&nbsp;1)        </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#laplace"><code>laplace</code></a></b> = <span title="([-1, -1, -1, -1, 8, -1, -1, -1, -1], 1)"><code>([-1,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;8,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;-1],&nbsp;1)       </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#sharpen"><code>sharpen</code></a></b> = <span title="([-1, -1, -1, -1, 16, -1, -1, -1, -1], 8)"><code>([-1,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;16,&nbsp;-1,&nbsp;-1,&nbsp;-1,&nbsp;-1],&nbsp;8)      </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#sharpen2"><code>sharpen2</code></a></b> = <span title="([-1, -2, -1, -1, 19, -2, -1, -2, -1], 7)"><code>([-1,&nbsp;-2,&nbsp;-1,&nbsp;-1,&nbsp;19,&nbsp;-2,&nbsp;-1,&nbsp;-2,&nbsp;-1],&nbsp;7)     </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#smooth"><code>smooth</code></a></b> = <span title="([1, 2, 1, 2, 4, 2, 1, 2, 1], 16)"><code>([1,&nbsp;2,&nbsp;1,&nbsp;2,&nbsp;4,&nbsp;2,&nbsp;1,&nbsp;2,&nbsp;1],&nbsp;16)               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#soften"><code>soften</code></a></b> = <span title="([2, 2, 2, 2, 0, 2, 2, 2, 2], 16)"><code>([2,&nbsp;2,&nbsp;2,&nbsp;2,&nbsp;0,&nbsp;2,&nbsp;2,&nbsp;2,&nbsp;2],&nbsp;16)               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#softest"><code>softest</code></a></b> = <span title="([0, 1, 0, 1, 2, 1, 0, 1, 0], 6)"><code>([0,&nbsp;1,&nbsp;0,&nbsp;1,&nbsp;2,&nbsp;1,&nbsp;0,&nbsp;1,&nbsp;0],&nbsp;6)               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-vision-module/#topedge"><code>topedge</code></a></b> = <span title="([1, 1, 1, 1, -2, 1, -1, -1, -1], 1)"><code>([1,&nbsp;1,&nbsp;1,&nbsp;1,&nbsp;-2,&nbsp;1,&nbsp;-1,&nbsp;-1,&nbsp;-1],&nbsp;1)           </code>
+</span></td></tr>
+</table><br/>
+<!-- =========== START OF VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="blur"></a>
+<h3>blur</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([3, 3, 3, 3, 8, 3, 3, 3, 3], 32)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([3, 3, 3, 3, 8, 3, 3, 3, 3], 32)                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="bw"></a>
+<h3>bw</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([0, 0, 0, 0, 1, 0, 0, 0, 0], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([0, 0, 0, 0, 1, 0, 0, 0, 0], 1)                                       </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="edge"></a>
+<h3>edge</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([0, -1, 0, -1, 5, -1, 0, -1, 0], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([0, -1, 0, -1, 5, -1, 0, -1, 0], 1)                                   </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="emboss"></a>
+<h3>emboss</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([1, 0, 1, 0, 0, 0, 1, 0, -2], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([1, 0, 1, 0, 0, 0, 1, 0, -2], 1)                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="fill"></a>
+<h3>fill</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([1, 1, 1, 1, 1, 1, 1, 1, 1], 5)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([1, 1, 1, 1, 1, 1, 1, 1, 1], 5)                                       </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="hipass"></a>
+<h3>hipass</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([-1, -1, -1, -1, 9, -1, -1, -1, -1], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([-1, -1, -1, -1, 9, -1, -1, -1, -1], 1)                               </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="laplace"></a>
+<h3>laplace</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([-1, -1, -1, -1, 8, -1, -1, -1, -1], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([-1, -1, -1, -1, 8, -1, -1, -1, -1], 1)                               </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="sharpen"></a>
+<h3>sharpen</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([-1, -1, -1, -1, 16, -1, -1, -1, -1], 8)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([-1, -1, -1, -1, 16, -1, -1, -1, -1], 8)                              </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="sharpen2"></a>
+<h3>sharpen2</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([-1, -2, -1, -1, 19, -2, -1, -2, -1], 7)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([-1, -2, -1, -1, 19, -2, -1, -2, -1], 7)                              </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="smooth"></a>
+<h3>smooth</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([1, 2, 1, 2, 4, 2, 1, 2, 1], 16)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([1, 2, 1, 2, 4, 2, 1, 2, 1], 16)                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="soften"></a>
+<h3>soften</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([2, 2, 2, 2, 0, 2, 2, 2, 2], 16)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([2, 2, 2, 2, 0, 2, 2, 2, 2], 16)                                      </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="softest"></a>
+<h3>softest</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([0, 1, 0, 1, 2, 1, 0, 1, 0], 6)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([0, 1, 0, 1, 2, 1, 0, 1, 0], 6)                                       </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="topedge"></a>
+<h3>topedge</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>tuple</code>
+      </dd>
+<span title="([1, 1, 1, 1, -2, 1, -1, -1, -1], 1)">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+([1, 1, 1, 1, -2, 1, -1, -1, -1], 1)                                   </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

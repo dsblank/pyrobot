@@ -1,0 +1,100 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095112", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroUpgradingTo1.0</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro Upgrading To 1.0</h1>
+<p>
+If you have a version of Pyro intstalled, and want to upgrade to pyro-1.x.x this page is for you.
+<p>
+<ol type="1"><li>First, you may need to upgrade SWIG. How can you tell?</li>
+</ol><p>
+<pre class="code">
+swig -version
+</pre>
+<p>
+If version is less than 1.3.17, then you need to upgrade. If you have swig installed as an RPM, you may first want to remove the old version:
+<p>
+<pre class="code">
+rpm -e swig
+</pre>
+<p>
+Then, install the new swig like:
+<p>
+<pre class="code">
+tar xfz swig-1.3.17.tgz
+cd SWIG-1.3.17
+./configure
+make
+make install
+</pre>
+<p>
+<ol type="2" start="2"><li>Next, you will need the latest version of Aria. How can you tell what version you have?</li>
+</ol><p>
+<pre class="code">
+cat /usr/local/Aria/version.txt
+</pre>
+<p>
+If the file doesn't exist, or gives a number less that 1.2.0, then you need a new version. 
+ <img width="11" src="../wiki/img/alert.png"> Even if you have version 1.2, you need to download a special version of Aria from our <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download area</a>.
+<p>
+<pre class="code">
+rpm -e aria
+</pre>
+<p>
+To install from RPM:
+<p>
+<pre class="code">
+rpm -ihv aria-1.2.0.rpm
+</pre>
+<p>
+In order to use the Python part of Aria, you'll need to make sure that it has been built: (as root)
+<p>
+<pre class="code">
+cd /usr/local/Aria
+make python
+</pre>
+<p>
+You will need to make /usr/local/Aria/python available to Python. The 
+easiest way to do that is to:
+<p>
+<pre class="code">
+export PYTHONPATH=&#36;PYTHONPATH:/usr/local/Aria/python
+</pre>
+<p>
+<ol type="3" start="3"><li>Next, if you want to use the multi-robots and simulator through Player/Stage, then see <a href="../page_PlayerStageInstallation/">PlayerStageInstallation</a>.</li>
+</ol><p>
+<ol type="4" start="4"><li>Finally, get the latest version of Pyro. It is probably a good idea to delete the previous version, and replace it completely with the new version. Build it as before:</li>
+</ol><p>
+<pre class="code">
+tar xfz pyro-1.0.0.tgz
+cd pyro
+make
+</pre>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroUpgradingTo1_2e0?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroUpgradingTo1_2e0?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219100846", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: SwarthmoreRobotDetails</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Using the Pioneer Robot at Swarthmore</h2>
+<p>
+<ol type="1"><li>To connect to the Pioneer robot, you will first need to login into the private network (where <tt class="wiki">USERNAME</tt> is replace with your userid):</li>
+</ol><p>
+<ol><p><tt class="wiki">ssh USERNAME@saffron</tt>
+</ol><p>
+<ol type="1" start="2"><li>Be sure the Pioneer robot and its computer are turned on (there are two switches). When the robot is ready, it will beep loudly. Then from saffron login to the robot itself:</li>
+</ol><p>
+<ol><p><tt class="wiki">ssh pioneer@robot</tt>
+</ol><p>
+<ol><p>Use <tt class="wiki">RedRover</tt> as the password.
+</ol><p>
+<ol type="1" start="3"><li>Place the robot out in an open area before you begin.</li>
+<li>Once you're logged on to the robot, test that you can connect to it by starting up <tt class="wiki">pyrobot</tt> and doing the following:</li>
+<ul><li>Select server <tt class="wiki">PlayerServer</tt> and configuration <tt class="wiki">pioneer.cfg</tt></li>
+<li>Select robot <tt class="wiki">Player6665.py</tt>, once the connection is established you should hear the sonars engage</li>
+<li>Select a brain, such as <tt class="wiki">BBWander.py</tt></li>
+<li>Press the white button on the robot to enable the motors</li>
+<li>Select <tt class="wiki">Run</tt> to start the brain</li>
+<li>Select <tt class="wiki">Stop</tt> to stop the brain</li>
+</ul><li>To test your own program, from the terminal window that is connected to the robot, copy your program using:</li>
+</ol><p>
+<ol><p><tt class="wiki">scp USERNAME@allspice:FILENAME XXXFILENAME</tt> 
+</ol><p>
+<ol><p>where <tt class="wiki">XXX</tt> is replaced with your initials. Since we will all be sharing the same account we don't want to overwrite anyone else's program.
+</ol><p>
+<ol type="1" start="6"><li>Then execute <tt class="wiki">pyrobot</tt> and redo the steps above, but this time when choosing a brain, press the &quot;Home&quot; button and then select the appropriate filename.</li>
+</ol><p>
+<ol type="1" start="7"><li>When you are done, from the <tt class="wiki">Robot</tt> menu select <tt class="wiki">Unload robot</tt> and then exit from <tt class="wiki">pyrobot</tt>.</li>
+</ol><p>
+Up: <a href="../page_Using_20the_20Pioneer_20Robot/">Using the Pioneer Robot</a>
+<p>
+<p>
+<h2 width="804"> Using the AIBO Robots at Swarthmore</h2>
+<p>
+<ol type="1"><li>To connect to the AIBO robots, you will first need to login into the private network (where <tt class="wiki">USERNAME</tt> is replaced by your userid):</li>
+</ol><p>
+<ol><p><tt class="wiki">ssh USERNAME@saffron</tt>
+</ol><p>
+<ol type="1" start="2"><li>From saffron, execute <tt class="wiki">pyrobot</tt> and do the following:</li>
+<ul><li>Select robot <tt class="wiki">Aibo.py</tt> and then choose the appropriate name (honey or splenda).  You should hear the dog bark when the connection is established.</li>
+<li>From the <tt class="wiki">Load</tt> menu choose <tt class="wiki">Devices</tt> and then <tt class="wiki">AiboCamera.py</tt>.  Make sure that in the devices section of the window that <tt class="wiki">camera[0]</tt> is selected, then choose <tt class="wiki">View</tt> to see the camera image.</li>
+</ul></ol><p>
+<ol type="1" start="3"><li>Testing the AIBO camera:</li>
+<ul><li>Put one of the pink AIBO balls on the floor in front of the robot and then select the <tt class="wiki">TrackBall.py</tt> brain. You should see a bounding box show up on at least a portion of the ball.  If there is no bounding box, then the lighting conditions (or the filters) will need to be changed.</li>
+<li>Once you have a bounding box, choose <tt class="wiki">Run</tt> and the AIBO's head should adjust to try to center the ball in its view.</li>
+</ul></ol><p>
+<ol type="1" start="4"><li>Testing AIBO movement:</li>
+<ul><li>Select the <tt class="wiki">Joysitck.py</tt> brain.</li>
+<li>Press <tt class="wiki">Run</tt>, and then you can control the robot's movement by moving the virtual joystick with the mouse.</li>
+</ul><li>When you are done, from the <tt class="wiki">Robot</tt> menu select <tt class="wiki">Unload robot</tt> and then exit from <tt class="wiki">pyrobot</tt>.</li>
+</ol><p>
+Up: <a href="../page_Using_20the_20Sony_20AIBO_20Robot/">Using the Sony AIBO Robot</a>
+<ol><p>
+</ol><p>
+<h2 width="804"> Using the Khepera Robots at Swarthmore</h2>
+<p>
+<ol type="1"><li>To use the Khepera without a camera, log into tarragon. To use the Khepera with a camera, log into wasabi.</li>
+</ol><p>
+<ol type="1" start="2"><li>Then startup <tt class="wiki">pyrobot</tt> and do the following:</li>
+<ul><li>Press the <tt class="wiki">Robot</tt> button and select <tt class="wiki">Khepera.py</tt></li>
+<li>If you are using the robot with a camera, from the <tt class="wiki">Load</tt> menu choose <tt class="wiki">Devices</tt>, and then select <tt class="wiki">V4LCamera.py</tt></li>
+<li>Press the <tt class="wiki">Brain</tt> button and select <tt class="wiki">Avoid.py</tt>.</li>
+<li>Press the <tt class="wiki">Run</tt> button to make the robot move.</li>
+</ul></ol><p>
+<ol type="1" start="3"><li>When you are done, from the <tt class="wiki">Robot</tt> menu select <tt class="wiki">Unload robot</tt> and then exit from <tt class="wiki">pyrobot</tt>.</li>
+</ol><p>
+Up: <a href="../page_Using_20the_20Khepera_20Robot/">Using the Khepera Robot</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/SwarthmoreRobotDetails?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/SwarthmoreRobotDetails?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

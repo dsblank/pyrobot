@@ -1,0 +1,352 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102730", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleNeuralNetworksAdvanced</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Associating Images with Labels</h1>
+<p>
+Kim Plunkett, Chris Sinha, Martin F. Moller, and Ole Strandsby wrote a paper called <i>Symbol grounding or the emergence of symbols? Vocabulary growth in children and a connectionist net</i> which was published in the journal <i>Connection Science</i>, volume 4, number 3 and 4, in 1992.  In this paper, they describe a neural network model which associates distorted prototype images with  labels.  Their network is divided into two main pathways, an image pathway and a label pathway.  Each pathway has a separate hidden layer, but then the pathways meet in a shared hidden layer before connecting to the output layers.  Implementing this model demonstrates the flexibility of Con-x.  Below is a much simplified version of the model. 
+<p>
+<pre class="code">
+from pyrobot.brain.conx import * 
+# create a network to do the image labeling task 
+# imageOutput labelOutput 
+#       ^         ^ 
+#        \       / 
+#      sharedHidden 
+#        ^       ^ 
+#       /         \ 
+# imageHidden labelHidden 
+#      ^           ^ 
+#      |           | 
+#  imageInput  labelInput 
+n = Network() 
+# add layers
+n.add(Layer('imageInput', 9))  
+n.add(Layer('labelInput', 3))  
+n.add(Layer('imageHidden', 3))
+n.add(Layer('labelHidden', 3))
+n.add(Layer('sharedHidden', 5))
+n.add(Layer('imageOutput', 9)) 
+n.add(Layer('labelOutput', 3)) 
+# add connections
+n.connect('imageInput', 'imageHidden') 
+n.connect('labelInput', 'labelHidden') 
+n.connect('imageHidden', 'sharedHidden') 
+n.connect('labelHidden', 'sharedHidden') 
+n.connect('sharedHidden', 'imageOutput') 
+n.connect('sharedHidden', 'labelOutput') 
+# associate layers
+n.associate('imageInput','imageOutput')
+n.associate('labelInput','labelOutput')
+# provide training patterns 
+# Below are some crude prototype images 
+# modeled after the letters X, T, and L 
+# called ximg, timg, and limg.  In addition, 
+# there are three simple distortions for 
+# each of these images (named a, b, and c). 
+ximg = [1.0, 0.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        1.0, 0.0, 1.0] 
+ximga= [0.0, 0.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        1.0, 0.0, 1.0] 
+ximgb= [1.0, 0.0, 1.0, 
+        0.0, 0.0, 0.0, 
+        1.0, 0.0, 1.0] 
+ximgc= [1.0, 0.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        0.0, 0.0, 1.0] 
+timg = [1.0, 1.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        0.0, 1.0, 0.0] 
+timga= [0.0, 1.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        0.0, 1.0, 0.0] 
+timgb= [1.0, 1.0, 1.0, 
+        0.0, 1.0, 0.0, 
+        0.0, 0.0, 0.0] 
+timgc= [1.0, 1.0, 0.0, 
+        0.0, 1.0, 0.0, 
+        0.0, 1.0, 0.0] 
+limg = [1.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        1.0, 1.0, 1.0] 
+limga= [0.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        1.0, 1.0, 1.0] 
+limgb= [1.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        1.0, 0.0, 1.0] 
+limgc= [1.0, 0.0, 0.0, 
+        1.0, 0.0, 0.0, 
+        0.0, 1.0, 1.0] 
+# These are the arbitrary, orthogonal labels 
+# for the three types of images. 
+xlab = [1.0, 0.0, 0.0] 
+tlab = [0.0, 1.0, 0.0] 
+llab = [0.0, 0.0, 1.0] 
+# This is the training set.  An epoch of 
+# training consists of auto-associating 
+# each of the images and their appropriate 
+# labels.  Recall that the Plunkett et. al. 
+# paper discussed two styles of training: 
+# one stage and phased.  Currently this only 
+# does the one stage variety.  
+# extend images with labels and then use the mapInputs method
+ximga.extend(xlab)
+ximgb.extend(xlab)
+ximgc.extend(xlab)
+timga.extend(tlab)
+timgb.extend(tlab)
+timgc.extend(tlab)
+limga.extend(llab)
+limgb.extend(llab)
+limgc.extend(llab)
+# set learning parameters 
+n.setEpsilon(0.3) 
+n.setMomentum(0.1) 
+n.setTolerance(0.1) 
+n.setStopPercent(.98)
+# set inputs, targets are associated (automatic)
+patterns = [ximga, ximgb, ximgc,
+            timga, timgb, timgc,
+            limga, limgb, limgc]
+n.setInputs(patterns)
+# determine layer index and the vector offset
+n.mapInput('imageInput',0)
+n.mapInput('labelInput',9)
+n.mapTarget('imageOutput',0)
+n.mapTarget('labelOutput',9)
+# learn 
+n.setLearning(1)
+n.train()
+# This is a blank image and label used in testing. 
+bimg = [0.0, 0.0, 0.0, 
+        0.0, 0.0, 0.0, 
+        0.0, 0.0, 0.0] 
+blab = [0.0, 0.0, 0.0] 
+# Try presenting an image alone, then a label alone, 
+# and then both together for each prototype image. 
+testImages = [ximg, bimg, ximg, 
+              timg, bimg, timg, 
+              limg, bimg, limg] 
+testLabels = [blab, xlab, xlab, 
+              blab, tlab, tlab, 
+              blab, llab, llab] 
+targImages = [ximg, ximg, ximg, 
+              timg, timg, timg, 
+              limg, limg, limg] 
+targLabels = [xlab, xlab, xlab, 
+              tlab, tlab, tlab, 
+              llab, llab, llab] 
+print &quot;Training ended&quot; 
+# examine results 
+n.setLearning(0)   
+n.setInteractive(1)   
+for pat in range(len(testImages)): 
+    print &quot;testing pattern&quot;, pat 
+    n.step(imageInput = testImages[pat], \
+           imageOutput = targImages[pat], \
+           labelInput = testLabels[pat], \
+           labelOutput = targLabels[pat]) 
+</pre>
+<p>
+<p>
+<h2 width="804"> Adapting this program for the use of real camera images</h2>
+<p>
+When adapting this model for real camera images, the amount of processing that must be done increases dramatically.  Real camera images typically consist of hundreds or thousands of pixels.  When using such images a single epoch may take 15 or 20 minutes to be completed.  As a result, there are several changes you should make to the program.
+<p>
+<ul><li>Reduce the total number of training epochs</li>
+<li>Reduce the percent correct needed to terminate training</li>
+<li>Increase the tolerance for considering an output correct</li>
+<li>Periodically save the weights during training</li>
+<li>Save the test results to a file</li>
+</ul><p>
+<p>
+<h3 width="804"> Saving the weights</h3>
+<p>
+When running long experiments of this kind, it is important to save the weights of the network periodically during training.  Then if the experiment gets interrupted for some reason, it can be restarted with the most recently saved weights rather than having to restart from scratch.
+<p>
+We can replace <tt class="wiki">n.train()</tt> in the example above with the following loop:
+<p>
+<pre class="code">
+# the sweep loop
+epoch = 1
+tssErr = 1.0
+totalCorrect = 0
+totalCount = 1
+while epoch &lt; 1000 and totalCorrect * 1.0 / totalCount &lt; n.stopPercent:
+    (tssErr, totalCorrect, totalCount, totalPCorrect) = n.sweep()
+    print &quot;Epoch #%6d&quot; % epoch, &quot;| TSS Error: %.2f&quot; % tssErr, \
+          &quot;| Correct =&quot;, totalCorrect * 1.0 / totalCount, \
+          &quot;| RMS Error: %.2f&quot; % n.RMSError()
+    if epoch % 10 == 0:
+        n.saveWeightsToFile(&quot;epoch&quot; + str(epoch) + &quot;.wts&quot;)
+    epoch += 1
+# save final weights
+n.saveWeightsToFile(&quot;final.wts&quot;)
+</pre>
+<p>
+By adding the following lines to the training while loop, the weights will be saved every 10 epochs.
+<p>
+<pre class="code">
+if epoch % 10 == 0:
+    n.saveWeightsToFile(&quot;epoch&quot; + str(epoch) + &quot;.wts&quot;)
+</pre>
+<p>
+Also, after the training while loop ends, the final weights should be saved: <tt class="wiki">n.saveWeightsToFile(&quot;final.wts&quot;)</tt>.
+<p>
+<p>
+<h3 width="804"> Saving the test results</h3>
+<p>
+When adapting this model for more realistic images, doing the testing interactively (as shown previously) may not be practical.    Rather than seeing the activations of the entire network, it would be more useful to simply see the total error for each output layer.  Below is a testing program, which can be run after training has been completed, that saves these error results to a file.
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+# Recreate the network architecture
+n = Network()
+# add layers
+n.add(Layer('imageInput', 9))  
+n.add(Layer('labelInput', 3))  
+n.add(Layer('imageHidden', 3))
+n.add(Layer('labelHidden', 3))
+n.add(Layer('sharedHidden', 5))
+n.add(Layer('imageOutput', 9)) 
+n.add(Layer('labelOutput', 3)) 
+# add connections
+n.connect('imageInput', 'imageHidden') 
+n.connect('labelInput', 'labelHidden') 
+n.connect('imageHidden', 'sharedHidden') 
+n.connect('labelHidden', 'sharedHidden') 
+n.connect('sharedHidden', 'imageOutput') 
+n.connect('sharedHidden', 'labelOutput')
+print &quot;Loading saved weights&quot;
+n.loadWeightsFromFile(&quot;final.wts&quot;)
+print &quot;Done&quot;
+# provide testing patterns
+ximg = [1.0, 0.0, 1.0,
+        0.0, 1.0, 0.0,
+        1.0, 0.0, 1.0]
+ximgd= [1.0, 0.0, 1.0,
+        0.0, 1.0, 0.0,
+        1.0, 0.0, 0.0]
+timg = [1.0, 1.0, 1.0,
+        0.0, 1.0, 0.0,
+        0.0, 1.0, 0.0]
+timgd= [1.0, 1.0, 1.0,
+        0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0]
+limg = [1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 1.0, 1.0]
+limgd= [1.0, 0.0, 0.0,
+        1.0, 0.0, 0.0,
+        1.0, 1.0, 0.0]
+# These are the arbitrary, orthogonal labels
+# for the three types of images.
+xlab = [1.0, 0.0, 0.0]
+tlab = [0.0, 1.0, 0.0]
+llab = [0.0, 0.0, 1.0]
+# This is a blank image and label used in testing.
+bimg = [0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0,
+        0.0, 0.0, 0.0]
+blab = [0.0, 0.0, 0.0]
+testImages = [ximgd, bimg, ximgd,
+              timgd, bimg, timgd,
+              limgd, limg, limgd]
+testLabels = [blab, xlab, xlab,
+              blab, tlab, tlab,
+              blab, llab, llab]
+targImages = [ximg, ximg, ximg,
+              timg, timg, timg,
+              limg, limg, limg]
+targLabels = [xlab, xlab, xlab,
+              tlab, tlab, tlab,
+              llab, llab, llab]
+# save error results to a file
+n.setLearning(0)  
+out = open(&quot;shared.err&quot;, &quot;w&quot;) 
+for pat in range(len(testImages)):
+    print &quot;testing pattern&quot;, pat
+    n.step(imageInput = testImages[pat], \
+           imageOutput = targImages[pat], \
+           labelInput = testLabels[pat], \
+           labelOutput = targLabels[pat])
+    imgErr = n.getLayer('imageOutput').TSSError()
+    labErr = n.getLayer('labelOutput').TSSError()
+    out.write(&quot;Pattern &quot; + str(pat) + &quot;\n&quot;)
+    out.write(&quot;imageOutput error: &quot; + str(imgErr) + &quot;\n&quot;)
+    out.write(&quot;labelOutput error: &quot; + str(labErr) + &quot;\n&quot;)
+    out.write(&quot;----------------------------------------------\n&quot;)
+# close the file
+out.close()
+</pre>
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+Plunkett, K., Sinha, C., Moller, M. F., & Strandsby, O. (1992). Symbol grounding or the emergence of symbols? Vocabulary growth in children and a connectionist net. <i>Connection Science</i>. Volume 4, Number 3 and 4.
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleNeuralNetworksAdvanced?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleNeuralNetworksAdvanced?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

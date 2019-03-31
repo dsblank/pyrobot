@@ -1,0 +1,118 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219163426", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: BringingUpRobot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Bringing up robot: Fundamental mechanisms for creating a self-motivated, self-organizing architecture</h1>
+<p>
+Doug Blank, Deepak Kumar, Lisa Meeden, and Jim Marshall. <i>Cybernetics and Systems</i>, 2005, 36(2)
+<p>
+Here is a <a href="../_dblank/papers/sab02.pdf"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;PDF</a> of the full paper.
+<p>
+<p>
+<h2 width="804">1.1.  Introduction</h2>
+<p>
+<ul><li>Most AI researchers imagine the task that they want a robot to accomplish in terms of their own actions, concepts, desires, and motivations</li>
+<li>Task-oriented design</li>
+<ul><li>Top-down (armchair introspection)</li>
+<li>Bottom-up (evolutionary computation)</li>
+</ul><li>The task itself is the problem - <i>inherent anthropomorphic bias</i></li>
+</ul><p>
+<p>
+<h2 width="804">1.2.  Overview of a Developmental Robotics Paradigm</h2>
+<p>
+Goals:
+<p>
+<ul><li>Turn on the robot, and let it begin experiencing the world</li>
+<li>What type of learning system?</li>
+<ul><li>Creates a representation that allows for generalization</li>
+<li>Not necessarily &quot;one-shot learning&quot;; not overly considered with speed of learning</li>
+<li>Not necessarily limited to <i>biological plausibility</i>, but <i>developmental efficacy</i></li>
+</ul><li>Self-organizing, self-ratcheting intrinsic mechanism</li>
+<li>No particular task, <i>per se</i></li>
+<li>Develop an intertwined, emergent system of abstractions, anticipations, and self-motivations</li>
+<li>Not sure how useful such a system will be to us</li>
+<ul><li>May be unable to make it do things that it doesn't <i>want</i> to do</li>
+<li>May never develop the symbolic level</li>
+</ul></ul><p>
+Issues:
+<p>
+<ul><li>May take a long time</li>
+<li>If there is no task, what will be our measures of success?</li>
+<li>May not end up with a system that is useful (to us)</li>
+<li>Could end up with a system that is just as complicated as the one that we are attempting to &quot;model&quot;</li>
+<li>May help to shed light on consciousness and emergent intelligence</li>
+</ul><p>
+<p>
+<h2 width="804">1.3.  The Intrinsic Developmental Algorithm</h2>
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig1.gif">
+<p>
+<p>
+<h3 width="804">1.3.1.  Discovering Abstractions</h3>
+<p>
+Self-organizing Map (see <a href="/">SOMExampleProgram</a> for example)
+<p>
+<p>
+<h3 width="804">1.3.2.  Anticipating the Future</h3>
+<p>
+Simple Recurrent Network
+<p>
+<p>
+<h3 width="804">1.3.3.  Motivation</h3>
+<p>
+Like a so-called co-evolutionary arms-race
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig2.gif">
+<p>
+<p>
+<h2 width="804">1.4.  Experiment #1: Using abstractions to govern neural network learning</h2>
+<p>
+<b>Problem</b>: a neural network on a robot does not get symbols spoon-fed to it. Rather, the world is coming in through its sensors all the time. There may be long periods in which the input doesn't change. If the network indiscriminately attempts to learn on every time step, then this can lead to <i>catastrophic forgetting</i>. In such a situation, the network doesn't learn to generalize at all.
+<p>
+<b>Solution</b>: balance the input/target training evenly over all types of patterns.
+<p>
+The Neural Network Governor: rather than constantly learning on the current input/target pair, create a SOM-like filter that creates abstractions, categorizes them, and trains in a balanced way.
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig3.gif">
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/table1.gif">
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig4.gif">
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig5.gif">
+<p>
+<p>
+<h2 width="804">1.5.  Experiment #2: Using abstractions to create purposeful behaviors</h2>
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig6.gif">
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig7.gif">
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/fig8.gif">
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/BringingUpRobot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/BringingUpRobot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

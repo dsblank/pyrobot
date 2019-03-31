@@ -1,0 +1,256 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094004", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleReinforcementLearning</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This module provides an overview of reinforcement learning (RL), particularly temporal differencing, using Pyro's RL code in the Pyrobot<b></b>Simulator, a grid world.   When completed, the reader should understand how reinforcement learning can be used in robotics.</i>
+<p>
+In <b>reinforcement learning</b>, an agent or robot is given a reward or punishment related to the actions that it performs.  In supervised learning, a learning agent is given mappings of inputs to desired outputs.  In reinforcement learning, no such mapping is given.  Instead, the agent must learn how to behave by using the reward or punishment values received.
+<p>
+In this module, we will explore reinforcement learning in a grid world.  The world contains pits, where the agent receives punishment, and a goal, where the agent will receive a reward.  Through exploration of the world, the agent will come upon these squares that provide reinforcements.  The program uses <b>temporal differencing</b> to compute <b>utility values</b> for grid locations.  Utility values, computed for each grid location, measure the usefulness of being in a particular state or location; the agent tries to maximize its expected utility by moving from squares with lower utility values to squares with higher utility values (except during exploration, explained below).  Utility values are updated after each path attempt, whether a pit or a goal was reached.  Because of the punishment received for going into a pit, squares around the pit will develop lower utility values than squares around goals.  Over time, utility values will be determined for the entire grid, at which point the agent should have learned how to get to the goal without hitting a pit.  (In the exercises below, we'll explore how to provide reward in a way that encourages the agent to find the shortest path, not just any path to the goal.)
+<p>
+Utility values are updated using the following equation:
+<p>
+<pre class="code">
+     U(i) &lt;- U(i) + a(R(i) + U(j) - U(i))
+</pre>
+<p>
+where U(i) is the utility for a given state i, a (alpha) is the learning rate, R(i) is the reward received in state i (in our case, this will be 0 for states that aren't pits or goals), and U(j) is the utility of the next state j.
+<p>
+In the screenshot below, the pits are shown as circles with Xs in them and the goal is the G with a circle around it.
+The path starts from the upper left corner and is shown in green.  The darker green square is the current head of the path.  
+Utility values are shown on the grid using color.  Blue squares have negative utility; you'll see them around the pits.  Positive utility values will be shown from red (highest) through yellow.  The path is updated as the program is searching; the utilities are updated after each path is completed.
+<p>
+<img src="../robots/images/RLScreenshot.png">
+<p>
+When learning, we must consider exploration and exploitation.  <b>Exploration</b> is when an agent makes some random moves in an attempt to find a better solution to the problem.  <b>Exploitation</b> is when an agent follows the path with increasing utilities, even if it may not be the optimal solution.  In the exercises below, you'll explore how to change the learning from primarily exploration to primarily exploitation.
+<p>
+<p>
+<h1 width="804"> Running the Code</h1>
+<p>
+There is one world file, <tt class="wiki">RLWorld.py</tt>, and one brain file,
+<tt class="wiki">RLBrain.py</tt>, necessary to use this module. This module uses the
+Pyrobot<b></b>Simulator.
+<p>
+To run the RL code:
+<p>
+<ol type="1"><li>start <tt class="wiki">pyrobot</tt></li>
+<li>select Pyrobot<b></b>Simulator as the simulator</li>
+<li>select <tt class="wiki">RLWorld.py</tt></li>
+<li>use <tt class="wiki">PyrobotRobot60000.py</tt></li>
+<li>use brain <tt class="wiki">RLBrain.py</tt></li>
+</ol><p>
+To begin learning in the world, click &quot;Run&quot;. To randomize the goal and
+pit locations, type <tt class="wiki">self.robot.tell('reset')</tt> and <tt class="wiki">self.reset = 1</tt>. The first command will reset the world, and the second sets a flag in the brain class that signals the Temporal Difference code to reset the frequencies, rewards, and utils.
+<p>
+In this world, the following are the commands that you can give the robot or world:
+<p>
+<ul><li>self.robot.ask(&quot;location&quot;):  Returns current position within the grid                      See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.tell(&quot;reset&quot;):	  Restart the world (gets new pits/goal and reset utilities)    See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.tell(&quot;start&quot;):    Move back to start point                                      See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;path&quot;):      Path taken thus far (this run only)                           See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;visited&quot;):   List of tuples indicating all states visited in this run      See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;obstacles&quot;): List of tuples indicating areas that cannot be entered        See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;goal&quot;):      Final location we're looking for                              See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;pits&quot;):      List of tuples indicating all pits                            See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;home&quot;):      Initial grid location                                         See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;final&quot;):     All final states (goal and pits)                              See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+<li>self.robot.ask(&quot;complete&quot;):  Have we reached a final state yet?                            See: pyrobot/plugins/worlds/Pyrobot/RLWorld.py</li>
+</ul><p>
+These are the commands you can use with the Temporal Difference engine:
+<p>
+<ul><li>self.td.get_utility(x,y):    Utility value of grid location (x,y)                          See: pyrobot/brain/td.py</li>
+<li>self.alpha=X                 Set the learning rate to X (where X is a float)               See: pyrobot/plugins/brains/RLBrain.py</li>
+</ul><p>
+<p>
+These are the commands used to change the current position:
+<ul><li>self.robot.move(&quot;up&quot;):	Move the robot up</li>
+<li>self.robot.move(&quot;right&quot;):	Move the robot right</li>
+<li>self.robot.move(&quot;down&quot;):	Move the robot down</li>
+<li>self.robot.move(&quot;left&quot;):	Move the robot left</li>
+</ul><p>
+<p>
+<h1 width="804"> Exercises</h1>
+<p>
+<ol type="1"><li>To start, load the simulator, RL world and RL brain.  Run the program to watch how the system learns paths.</li>
+<li>You may notice that once the robot reaches the goal the first time, that path is more likely to be followed in later trials, even if there is a shorter path.  You’ll see in the code that a random move is made 20% of the time.  Change this percentage to several different numbers, noting the changes in the learning behavior as the random move percentage increases.  Is there a range that seems to be better for finding multiple paths?</li>
+<li>Learning consists of exploration and exploitation.  In the exercise above, increasing the percentage of random moves is one way to increase exploration.  Another is to keep track of how many times locations have been visited so that the agent will explore grid locations that have not be visited often before.  In this exercise, modify the code to favor this type of exploration.  For this, you’ll need to create an array keep track of the number of times that you’ve visited each grid location.  Once you’ve done this, when a random move is selected, move to the adjacent grid location that’s been visited the least.  Does this help to find shorter paths?  You might want to change the random move percentage as well during your experimentation.</li>
+<li>Now that you have the ability to explore states that have not been selected often, let’s allow the program to have a exploration and exploitation rate that changes over time.  Initially, you will have a high exploration rate and a low exploitation rate.  After some number of learned paths (say, 10-20), reduce the exploration rate and increase the exploitation rate.  Explore the best way to change the percentages in by adding code to the brain.</li>
+<li>The reinforcement value is always the same when the goal is reached.  Modify the code to change the reinforcement value based upon the length of the path taken to reach the goal.  Does this help to find the shortest path?</li>
+</ol><p>
+<pre class="code">
+from pyrobot.brain import Brain
+from time import sleep
+from random import *
+from pyrobot.brain.td import *
+class SimpleBrain(Brain):
+   random_percent = 20
+   reset = 0
+   # reinforcement value for temporal differencing
+   REINFORCEMENT_VALUE = .2
+   # just calls find_successor
+   def find_path( self ):
+      loc = self.robot.ask('location')
+      # make sure we got a tuple
+      if type(loc) != type( () ):
+         return &quot;&quot;;         
+      direction = self.find_successor(loc)
+      return direction
+   # finds the next step, by random, utility-based, or direct moves
+   def find_successor( self, loc ):
+      valid_state = 0
+      moves = self.get_valid_moves( loc )      
+      if not moves:
+         path = self.robot.ask('path')
+         cx, cy = loc
+         px, py = path[len(path) - 2]
+         if px==cx:
+            if py &lt; cy:
+               return &quot;up&quot;
+            else:
+               return &quot;down&quot;
+         else:
+            if px &lt; cx:
+               return &quot;left&quot;
+            else:
+               return &quot;right&quot;
+      else:
+         move_type = randrange(0, 100, 1)
+         if move_type &lt; self.random_percent:  # chance of random movement
+            return moves[ randrange(0,len(moves)) ]
+         else:
+            return self.util_successor( loc, moves )
+   # returns the next location, based on utility values
+   def util_successor( self, loc, valid_moves ):
+      # best move will be the move with the highest utility value
+      best_move = &quot;none&quot;
+      zero_count = 0
+      max_util = -999
+      for m in valid_moves:
+         # get the state
+         new_state = self.valid_move( m, loc )
+         # if we get a valid state, check to see if its the best one yet
+         if new_state != 0:
+            util = self.get_util( new_state )
+            if util == 0.0:
+               zero_count += 1
+            if util &gt; max_util:
+               max_util = util
+               best_move = m
+      # make sure we aren't all zero
+      if max_util == 0 and zero_count == len(valid_moves):
+         return valid_moves[ randrange(0,len(valid_moves)) ]                     
+      # make the move
+      elif best_move != &quot;none&quot;:
+         return best_move
+      else:
+         # should NEVER get here, but just in case!
+         print &quot;NO GOOD SUCCESSOR FOUND&quot;
+         return valid_moves[ randrange(0,len(valid_moves)) ]            
+   def get_valid_moves( self, loc ):
+      valid = []
+      states = (&quot;up&quot;, &quot;down&quot;, &quot;left&quot;, &quot;right&quot;) 
+      for s in states:
+         if self.valid_move( s, loc ):
+            valid.append( s )
+      return valid
+   #checks to make sure that a move is valid
+   def valid_move ( self, move, loc ):
+      (locX, locY) = loc
+      visited = self.robot.ask('visited')
+      if move == &quot;up&quot;:
+         new_state = (locX  , locY - 1)
+      elif move == &quot;right&quot;:
+         new_state = (locX+1, locY)
+      elif move == &quot;down&quot;:
+         new_state  = (locX  , locY + 1)
+      elif move == &quot;left&quot;:
+         new_state = (locX-1, locY)
+      # if the new state is onto an obstacle, return 0
+      if new_state in self.obstacles:
+         return 0
+      # if the new state is off the map, return 0
+      elif min(new_state) &lt; 0 or max(new_state) &gt; 14:
+         return 0
+      elif new_state in visited:
+         return 0
+      else:
+         return new_state
+   # returns the utility value for a given location
+   def get_util( self, loc ):
+      #utils = self.robot.ask('util')
+      (locX,locY) = loc
+      if locX &lt; 0 or locX &gt; 14 or locY &lt; 0 or locY &gt; 14:
+         return -99
+      else:
+         return self.td.get_utility(locX, locY)
+   # gets called before first run
+   def setup(self, **args):
+      # set reinforcement value
+      alpha = self.REINFORCEMENT_VALUE
+      # get td instance
+      self.td = Temporal_Difference( 15, 15, self.robot.ask('goal'), self.robot.ask('pits'), alpha )
+      self.obstacles = self.robot.ask(&quot;obstacles&quot;)
+      # initialize the number of iterations to zero
+      self.count = 0
+   # run once every iteration
+   def step(self):
+      if self.reset == 1:
+         self.robot.tell(&quot;reset&quot;)
+         self.robot.tell(&quot;start&quot;)
+         self.setup()
+         self.reset = 0
+      # if the goal has not been reached, continue to find a path
+      if self.robot.ask('complete') == 0:
+         direction = self.find_path()
+         self.robot.move( direction )
+      # if the goal has been reached, display the current path
+      else:
+         path = self.robot.ask('path')
+         self.count += 1
+         # show the path
+         print &quot;PATH: &quot;, path
+         # adjust the utility values of the map
+         print &quot;Computing TDs: #&quot;, self.count, &quot; length: &quot;, len(path)
+         self.td.do_td( path )
+         # start a new run
+         self.robot.tell('start')
+         for e in path:
+            # sends the robot a formatted string including the x,y coordinates, and a color
+            self.robot.tell( self.td.get_utility_color(e[0], e[1]));
+         alpha = self.td.get_alpha()
+         if( (self.count % 15) == 0 and alpha &gt; 0 ):
+             self.td.set_alpha( alpha - 0.01 )
+             self.random_percent -= 5
+def INIT(engine):
+   return SimpleBrain('SimpleBrain', engine)
+</pre>
+<p>
+<p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleReinforcementLearning?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleReinforcementLearning?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

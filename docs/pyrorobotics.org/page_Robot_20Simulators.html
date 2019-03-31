@@ -1,0 +1,96 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093009", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Robot_20Simulators</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Robot Simulators</h1>
+<p>
+Pyro is designed to operate in a client/server fashion. This means
+that a simulator will act as a server, and Pyro will connect onto
+it. Because of this relationship, it is important to always shutdown
+Pyro first. The simulator will stop automatically when you exit Pyro.
+<p>
+There are a number of simulators that can be used in conjunction with Pyro.
+Each simulator has different strengths and weaknesses, so it is
+important to understand these issues before selecting one to use.
+<p>
+<p>
+<h2 width="804"> Pyrobot Simulator</h2>
+<p>
+The Pyrobot simulator is the newest addition, and therefore is not as
+well tested as the others.  It is written in python and includes the
+ability to add lights and light sensors, which is not currently
+possible in the other simulators described below.  Because it is
+written in python it is the most portable of the simulation options.
+However, the downside of this is that it can be slow if a complex
+world with many objects and robots is desired.  It can also be run
+without the GUI window to speed up experiments.
+<p>
+<p>
+<h2 width="804"> Stage Simulator</h2>
+<p>
+The Stage simulator is designed to work well with multiple robots and
+can easily handle a complex world with many robots.  It is currently
+undergoing a major upgrade and some aspects are unfinished.  For
+instance, grippers, bumpers, and pan-tilt-zoom cameras are still
+incomplete.  Lights and light sensors are a new addition that will
+probably be included in the near future.  There are also plans to
+allow it to run without the GUI window.
+<p>
+<p>
+<h2 width="804"> Gazebo Simulator</h2>
+<p>
+The Gazebo simulator, like the Stage simulator, is designed to work
+efficiently for a population of robots.  It offers three-dimensional
+graphics and generates both realistic sensor feedback and physically
+plausible interactions between objects.  It can model sophisticated
+robot devices such as arms and vision.  However, it is very resource
+hungry, and can be tricky to build.  It is still early in its
+development (version 0.5) and is currenly missing bumpers as well as
+pan-tilt-zoom cameras.
+<p>
+<p>
+<h2 width="804"> Robocup Simulator</h2>
+<p>
+This has become a popular platform as a result of the many
+competitions that are based on it.  Includes many soccer-related tools
+and provides communication channels that no other simulations use.
+The Pyro interface to this simulator is not yet polished, and the
+simulated vision is still just a sketch of what it should be.
+<p>
+To learn more about these simulators, see the following links:
+<p>
+<ol type="1"><li><a href="../page_The_20Pyrobot_20Simulator/">The Pyrobot Simulator</a></li>
+<li><a href="../page_The_20Stage_20Simulator/">The Stage Simulator</a></li>
+<li><a href="../page_The_20Gazebo_20Simulator/">The Gazebo Simulator</a></li>
+<li><a href="../page_The_20Robocup_20Simulator/">The Robocup Simulator</a></li>
+</ol><p>
+Next: <a href="../page_PyroHardware/">PyroHardware</a>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Simulators?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Simulators?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

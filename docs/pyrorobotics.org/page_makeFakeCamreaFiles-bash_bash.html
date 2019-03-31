@@ -1,0 +1,73 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219111951", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: makeFakeCamreaFiles.bash</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<pre class="code">
+#!/bin/bash
+# makeFakeCameraFiles.bash
+# Convert all of the files in the SIVAL collection to
+# ppm files that can be used as FakeCamera images in
+# Pyro.
+# Each set of ppm images appears within its own sub-directory.
+# The characters before the first _ are used to define the
+# sub-directory name. For example, for the CokeCan images all
+# images starting with fluor1 appear in the CokeCan/fluor1/
+# directory in the FakeCameras Directory.
+# ===========
+SIZE=256
+rm -rf FakeCameras
+DIRS=&#36;(ls)
+mkdir FakeCameras
+for DIR in &#36;DIRS
+do
+  SUFFIX=&#36;(echo &#36;DIR | cut -f2 -d'.')
+  if [ &#36;SUFFIX != &quot;bash&quot; ]
+  then
+    mkdir FakeCameras/&#36;DIR
+    cd &#36;DIR
+    FILES=&#36;(ls)
+    for FILE in &#36;FILES
+    do
+      if [ &#36;FILE != &quot;Thumbs.db&quot; ]
+      then
+	PREFIX=&#36;(echo &#36;FILE | cut -f1 -d'_')
+	SUBDIR=&quot;../FakeCameras/&quot;&#36;DIR&quot;/&quot;&#36;PREFIX
+	if [ ! -d &#36;SUBDIR ]
+        then
+          mkdir &#36;SUBDIR
+	fi
+	FILENAME=&#36;(echo &#36;FILE | cut -f1 -d'.')
+        convert -scale &#36;SIZEx&#36;SIZE &#36;FILE &#36;SUBDIR&quot;/&quot;&#36;FILENAME&quot;.ppm&quot;
+      fi
+    done
+    cd ..
+  fi
+done
+</pre>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/makeFakeCamreaFiles_2ebash?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/makeFakeCamreaFiles_2ebash?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

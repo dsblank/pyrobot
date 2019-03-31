@@ -1,0 +1,144 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104330", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroMac</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h2 width="804">1.1.  Pyro on Mac OSX Systems</h2>
+<p>
+<p>
+<h3 width="804">1.1.1.  Pyrobot</h3>
+Pyrobot should work &quot;out of the box&quot; on OSX.  Here is my setup of Apple software:
+<ul><li>Mac OSX 10.3 &quot;Panther&quot;</li>
+<li>Apple X11 SDK</li>
+<li><a href="../page_XCode/">XCode</a> Tools 1.5</li>
+</ul><p>
+Tiger Update -- my new setup:
+<ul><li>Mac OSX 10.4 &quot;Tiger&quot;</li>
+<li>Apple X11 SDK</li>
+<li><a href="../page_XCode/">XCode</a> Tools 2.0</li>
+</ul><p>
+Additionally, you should install the following (in this order):
+<ul><li><a href="http://tcltkaqua.sourceforge.net/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Tcl/Tk for Aqua</a></li>
+<li><a href="http://undefined.org/python/#python"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;MacPython 2.4.1</a></li>
+<li>for Tiger, don't forget about the &quot;Tiger fix&quot; you'll see on the Mac Python page</li>
+</ul><p>
+Now, you should be able to follow the usual install instructions for Pyrobot.  You can run the &quot;pyrobot&quot; executable at the Mac command prompt.
+<p>
+<p>
+<h3 width="804">1.1.2.  Fink</h3>
+Download and install <a href="http://fink.sourceforge.net/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Fink</a>. This provides you with an ncurses based installer for many common Unix applications on your Mac.
+Note: this is somewhat broken in Tiger as I'm sure many of the packages are still being ported.
+Run the <b>dselect</b> command and choose to install the following applications:
+<p>
+<h4 width="804">1.1.2.1.  &quot;Optional Packages&quot;</h4>
+<ul><li>devel/pkgconfig</li>
+<li>devel/gdk-pixbuf</li>
+<li>devel/orbit</li>
+</ul><p>
+<h4 width="804">1.1.2.2.  &quot;Unclassified Packages&quot;</h4>
+<ul><li>devel/autoconf2.5</li>
+<li>devel/automake1.7</li>
+<li>gnome/atk1</li>
+<li>gnome/glib2-dev</li>
+<li>gnome/gtk+2-dev</li>
+<li>gnome/libgnomecanvas2-dev</li>
+<li>pango1-xft2-dev</li>
+<li>languages/gcc4 (unnecessary for Tiger)</li>
+<li>languages/swig (can be installed with the full &quot;batteries included&quot; edition of Tcl/Tk)</li>
+<li>libs/gdal-dev</li>
+<li>libs/libxml2-bin</li>
+<li>x11/glut</li>
+</ul><p>
+<p>
+<h3 width="804">1.1.3.  wxPython</h3>
+This is required for Gazebo's GUI.  A Mac-native version can be downloaded <a href="http://www.wxpython.org/download.php#binaries"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>.
+<p>
+<p>
+<h3 width="804">1.1.4.  Gazebo</h3>
+Follow the instructions <a href="http://playerstage.sourceforge.net/doc/Gazebo-manual-0.5-html/install_osx.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a> to install Gazebo on Mac.  If it gets to the end of the build and throws an error that the linker (ld) doesn't recognize the --export-dynamic option, use this <a href="http://jweir.com/Makefile"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Makefile</a> as a replacement for server/Makefile.
+<p>
+<p>
+<h3 width="804">1.1.5.  Player</h3>
+You should be able to install Player following the instructions given with the standard Pyro installation (if not the CVS source, use the latest released source).  Player will use many of the dependencies installed by Fink.
+<p>
+<p>
+<h3 width="804">1.1.6.  Stage</h3>
+As with Player, Stage also compiles fine with the provided instructions (if not the CVS source, use the latest released source).  However, there is a particular library (libplayerstage.so) with the distributed RPM that does not seem to get built with the Stage source code.  This missing library prevents the stage simulator from working properly.
+<p>
+<p>
+<h3 width="804">1.1.7.  Future Endeavors</h3>
+Things I am/will be trying:
+<ul><li>compiling Gazebo as a native OSX application (no X11 support layer)</li>
+</ul><p>
+I welcome all feedback.
+<p>
+-Jim Weir
+<p>
+<a href="mailto:james.weir@marist.edu">james.weir@marist.edu</a>
+<p>
+<a href="mailto:jweir77@gmail.com">jweir77@gmail.com</a>
+<p>
+<p>
+<h3 width="804">1.1.8.  More Detailed Install Instructions</h3>
+<p>
+I had trouble with the above instructions at the &quot;Now, you should be able to follow the usual install instructions for Pyrobot&quot; stage.
+Some email w/Doug Blank helped. I detail what I did at <a href="http://emergent.brynmawr.edu/pipermail/pyro-users/2006-November/000447.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;emergent.brynmawr.edu/pipermail/pyro-users/2006-November/000447.html</a>.
+This install provides only the basics (pyrobot simulator, various machine learning modules). 
+If you've been able to install modules that rely on SWIG, I'd love to hear how you modified the install procedure
+so that it doesn't crash.
+<p>
+<a href="mailto:bthom@cs.hmc.edu">bthom@cs.hmc.edu</a>
+<p>
+<p>
+<p>
+<h3 width="804">1.1.9.  Another Problems After Install</h3>
+<p>
+If you have error message looks like: 
+<p>
+Traceback (most recent call last):
+<ol><p>File &quot;pyrobot&quot;, line 1, in &lt;module&gt;
+<ol><p>-e #!/System/Library/Frameworks/Python.framework/Versions/2.5/bin/python2.5
+<a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a> name 'e' is not defined
+</ol></ol><p>
+To fix this problem, you must open file: &quot;bin/pyrobot&quot; with text editor and delete first line:
+&quot; -e #!/System/Library/Frameworks/Python.framework/Versions/2.5/bin/python2.5&quot;
+Then you must open file: &quot;System/version.py&quot; and also delete first line whitch begins with &quot;-e&quot;.
+Thats all. I hope it will help you.
+<p>
+<a href="mailto:t.andrijauskas@gmail.com">t.andrijauskas@gmail.com</a>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroMac?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroMac?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

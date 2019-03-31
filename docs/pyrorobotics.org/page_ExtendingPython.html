@@ -1,0 +1,106 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219112104", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: ExtendingPython</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Extending Python</h1>
+<p>
+There are two main methods of extending Python: the first is to take existing code (say C or C++) and create wrappers around it using SWIG. The second is to write code (C or C++) that take existing Python objects and manipulate them. We'll explore the second method here.
+<p>
+<p>
+<h2 width="804">1.1.  Manipulation of Python Objects in C</h2>
+<p>
+Imagine that you have some computation that you would rather do in C than in Python. Let's say we want to multiply two numbers together. Here's how we want it to work in Python:
+<p>
+<pre class="code">
+&gt;&gt;&gt; import somelib
+&gt;&gt;&gt; somelib.processIt(&quot;test string&quot;, 23, 56)
+The string is 'test string'
+1288
+</pre>
+<p>
+Let's make our somelib be &quot;_cconx&quot; (the initial underscore is a hint that this module is coming from a foreign language).
+<p>
+First, we create the C file that contains the special Python-C function API for creating, parsing, and manipulating Python objects in C:
+<p>
+<pre class="code">
+#include &lt;Python.h&gt;
+static PyObject *processIt(PyObject *self, PyObject *args){
+  int width, height, size;
+  char *name;
+  PyObject *buffer, *tuple;
+  if(!PyArg_ParseTuple(args, &quot;sii&quot;, &name;, &width;, &height;)){
+    PyErr_SetString(PyExc_TypeError, &quot;Invalid arguments to processIt&quot;);
+    return NULL;
+  }
+  printf(&quot;The name is '%s'\n&quot;, name);
+  size = width * height;
+  return Py_BuildValue(&quot;i&quot;, size);
+}
+static PyMethodDef cconxMethods[] = {
+  {&quot;processIt&quot;, processIt, METH_VARARGS, &quot;Given a str, i, i return i * i&quot;},
+  {NULL, NULL, 0, NULL}
+};
+void init_cconx(void){
+  (void) Py_InitModule(&quot;_cconx&quot;, cconxMethods);
+}
+</pre>
+<p>
+We then compile it using a Makefile:
+<p>
+<pre class="code">
+% make
+</pre>
+<p>
+where the Makefile has:
+<p>
+<pre class="code">
+PYTHON_INCLUDE=-I/usr/include/python2.2/
+SO = .so # on windows it might be .dll
+_cconx&#36;(SO): cconx.o
+	&#36;(LD)  -shared cconx.o -o _cconx&#36;(SO)
+cconx.o: cconx.c
+	&#36;(CC) &#36;(PYTHON_INCLUDE) &#36;(CCSHARED) &#36;(CFLAGS) -c cconx.c
+clean:
+	&#36;(RM) *.o *.so
+</pre>
+<p>
+You'll need to find your version of Python.h (try <tt class="wiki">locate Python.h</tt>).
+<p>
+That's it. You just need to import it:
+<p>
+<pre class="code">
+&gt;&gt;&gt; import _cconx
+&gt;&gt;&gt; _cconx.processIt(&quot;test string&quot;, 23, 56)
+The string is 'test string'
+1288
+</pre>
+<p>
+processIt can be used like any other Python function.
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/ExtendingPython?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/ExtendingPython?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

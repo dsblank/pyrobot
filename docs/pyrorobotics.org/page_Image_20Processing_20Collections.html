@@ -1,0 +1,115 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102244", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Image_20Processing_20Collections</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Image Processing Collections</h1>
+<p>
+This page documents how to make and use image collections in Pyro.
+<p>
+<p>
+<h2 width="804">1.1.  SIVAL</h2>
+<p>
+<i>This information provided by Grant Braught (braught AT dickinson.edu)</i>.
+<p>
+1. Download and unpack the unprocessed SIVAL images from <a href="http://www.cs.wustl.edu/~sg/accio/SIVAL.html">www.cs.wustl.edu/~sg/accio/SIVAL.html</a>
+<p>
+2. Copy into the SIVAL directory the two scripts:
+<ul><li><a href="../page_makeFakeCamreaFiles-bash_bash/">makeFakeCamreaFiles.bash</a></li>
+<li><a href="../page_makePyroDevices-bash_bash/">makePyroDevices.bash</a></li>
+</ul><p>
+3. Edit the makeFakeCameraFiles.bash script to set the desired image size.
+<ul><li>Change the SIZE variable to the desired size.</li>
+<li>The ppm files are much larger than the .jpg images provided in SIVAL so the script scales them using the Image<b></b>Magic convert program.</li>
+<li>At 256x256 the resulting collection is just over 216MB.</li>
+</ul><p>
+4. Run the makeFakeCameraFiles.bash script.
+<ul><li>This produces a directory named Fake<b></b>Cameras.</li>
+<li>The Fake<b></b>Cameras directory will have one sub-directory for each of the SIVAL image directories (i.e. for each item photographed, e.g. cokecan).</li>
+<li>Inside each sub-directory will be 10 sub-sub-directories, one for each scene in which the item was photographed.</li>
+<li>The converted ppm images appear within the sub-sub-directories.</li>
+</ul><p>
+5. Edit the makePyroDevices.bash file to set the path to the Fake<b></b>Cameras directory.
+<ul><li>Change the BASEPATH variable to hold the path to Fake<b></b>Cameras on the machine where the Fake<b></b>Camreas will be being used.</li>
+<li>The default value works with the <a href="../page_PyroLiveCD/">PyroLiveCD</a> and Fake<b></b>Cameras stored on the first USB drive.</li>
+</ul><p>
+6. Run the makePyroDevices.bash script.
+<ul><li>This will generate a .py file in each of the sub-sub-directories that defines the Fake<b></b>Camera device for the set of images in that directory.</li>
+</ul><p>
+7. Fire up Pyrobot and have fun!
+<p>
+<p>
+<h2 width="804">1.2.  Stereo Images</h2>
+<p>
+Pyro now comes with a Stereo<b></b>Camera device that can do depth perception based on a pixel-to-pixel algorithm. It asks for the index of two other cameras that have already been started in Pyro.
+<p>
+<img src="../_dblank/images/stereo-ask.gif">
+<p>
+If you have real cameras, simply load them, and start the Stereo<b></b>Camera like so (this assumes two Video for Linux cameras):
+<p>
+<pre class="code">
+self.robot.startDevice(&quot;V4LCamera0&quot;)
+self.robot.startDevice(&quot;V4LCamera1&quot;)
+self.robot.startDevice(&quot;Stereo&quot;)
+</pre>
+<p>
+or from the command line:
+<p>
+<pre class="code">
+pyrobot -r Test -d V4LCamera0,V4LCamera1,Stereo
+</pre>
+<p>
+Select indexes 0 and 1 (the defaults).
+<p>
+If you would like to test this feature using Fake<b></b>Cameras, then you will need to construct a special set of images, and then split them using yet another camera device. The reason that you cannot just use two Fake Camera objects is that the pairs of stereo need to be synced.
+<p>
+To sync the pairs of images, create a set of PPM files with the left and right images side by side, as show in this image:
+<p>
+<img src="../_dblank/images/stereo-camera0.gif">
+<p>
+A sample set of images is provided in the <tt class="wiki">TutorialCameraStereo</tt> device.
+<p>
+Next, we need to split the images from camera0 into the left and right components. Load the Twoway<b></b>Camera device, and select index 0 (the first camera) to split. There is also a Fourway<b></b>Camera if you have a quad video input feed.
+<p>
+Finally, load the Stereo device and select the last two cameras to combine into a stereo image.
+<p>
+You can load it all up at the command line:
+<p>
+<pre class="code">
+pyrobot -r Test -d TutorialCameraStereo,TwowayCamera,Stereo
+</pre>
+<p>
+and use index 1 and 2 (the split views of 0). Here is a sample of the above running. Depth is shown as grayscale---the whiter the pixel the closer to the camera it is perceived:
+<p>
+<img src="../_dblank/images/pyrobot-depth.gif">
+<p>
+The algorithm, base code, and test images are provided at <a href="http://vision.stanford.edu/~birch/p2p/">vision.stanford.edu/~birch/p2p/</a>
+<p>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Image_20Processing_20Collections?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Image_20Processing_20Collections?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

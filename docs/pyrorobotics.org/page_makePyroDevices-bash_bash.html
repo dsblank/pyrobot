@@ -1,0 +1,74 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219111929", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: makePyroDevices.bash</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<pre class="code">
+#!/bin/bash
+# makePyroDevices.bash
+# Create a Pyro device file for each fake camera.
+BASEPATH=&quot;/mnt/uba1/FakeCameras&quot;
+cd FakeCameras
+DIRS=&#36;(ls)
+for DIR in &#36;DIRS
+do
+  cd &#36;DIR
+  SUBDIRS=&#36;(ls)
+  for SUBDIR in &#36;SUBDIRS
+  do
+    cd &#36;SUBDIR
+    DEVFILE=&#36;DIR&quot;_&quot;&#36;SUBDIR&quot;.py&quot;
+    if [ -e &#36;DEVFILE ]
+    then
+      rm &#36;DEVFILE
+    fi
+    FILES=&#36;(ls)
+    FIRST=&#36;(echo &#36;FILES | cut -f1 -d' ')
+    STARTNUM=&#36;(expr 0 + &#36;(echo &#36;FIRST | cut -f3 -d'_' | cut -f1 -d'.'))
+    LAST=&#36;(echo &#36;FILES | cut -f6 -d' ')
+    STOPNUM=&#36;(expr 0 + &#36;(echo &#36;LAST | cut -f3 -d'_' | cut -f1 -d'.'))
+    echo &quot;# FakeCamrea device for &quot; &#36;DIR/&#36;SUBDIR &gt; &#36;DEVFILE
+    echo &quot;from pyrobot.camera.fake import ../_3Fpage_3DmakePyroDevices-bash/FakeCamera_quot.css; &gt;&gt; &#36;DEVFILE
+    echo &quot;from pyrobot.vision.cvision import ../_3Fpage_3DmakePyroDevices-bash/VisionSystem_quot.css; &gt;&gt; &#36;DEVFILE
+    echo &quot;&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;def INIT(robot):&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    return {'camera': FakeCamera(&quot; &gt;&gt; &#36;DEVFILE
+    IMGNAME=&#36;(echo &#36;FIRST | cut -f2 -d'_')
+    PATTERN=&#36;BASEPATH&quot;/&quot;&#36;DIR&quot;/&quot;&#36;SUBDIR&quot;/&quot;&#36;SUBDIR&quot;_&quot;&#36;IMGNAME&quot;_???.ppm&quot;
+    echo &quot;    pattern='&quot;&#36;PATTERN&quot;',&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    start=&quot;&#36;STARTNUM&quot;,&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    stop=&quot;&#36;STOPNUM&quot;,&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    interval=1,&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    visionSystem = VisionSystem())&quot; &gt;&gt; &#36;DEVFILE
+    echo &quot;    }&quot; &gt;&gt; &#36;DEVFILE
+    cd ..
+  done
+  cd ..
+done
+</pre>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/makePyroDevices_2ebash?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/makePyroDevices_2ebash?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

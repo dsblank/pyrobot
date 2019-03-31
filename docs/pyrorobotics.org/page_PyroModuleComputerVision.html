@@ -1,0 +1,78 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093720", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleComputerVision</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to computer vision. This module provides an overview of the issues in machine visual perception. When completed, the reader should be ready to write robotics controllers that use a camera and image processing.</i>
+<p>
+<p>
+<h1 width="804"> Computer Vision</h1>
+<p>
+<b>Computer vision</b> is the name given to the processing of images by
+a computer.  While it seems incredibly easy for you to interpret what
+you see, such as identifying all of the cars in a scene, it is quite
+difficult for a computer.  Why?  Consider a chair.  How do you know
+that something is a chair?  Is it something that you can sit on?  Yes,
+but you could also sit on the floor or a table top.  Does a chair have
+a flat surface mounted to four legs?  Some do, but what about a bean
+bag chair?  From an early age, a child can tell you if something is a
+chair or not; however, even the most sophisticated computer vision
+system would not be able to match a child's ability.
+<p>
+Fortunately, we will not need our robots to consider what makes a
+chair a chair.  We'd like to be able to recognize a chair as an
+obstacle or as something that we're navigating toward, but it doesn't
+matter what it is called.
+<p>
+In this module, we'll learn how to process camera images using Pyro,
+then use the results to guide the robot.
+<p>
+Pyro has 7 types of cameras, but they all come through the same interface. 
+Therefore, all of the camera types can be treated exactly the same. The 
+camera types are:
+<p>
+<ul><li>Aibo Camera: used with the Sony Aibo (jpeg over wireless)</li>
+<li>Blob Camera: used with Stage Simulator (created from blob data)</li>
+<li>Fake Camera: created from a list of PPM files in a directory</li>
+<li>Player Camera: used with Gazebo (creates images from Open GL data)</li>
+<li>V4L Camera: Video For Linux (most real cameras under Linux)</li>
+<li>Robocup Camera: simulated vision (created from locations in world)</li>
+<li>BT848 Camera: older camera, before V4L (old Pioneers)</li>
+</ul><p>
+<p>
+<h2 width="804"> Computer Vision Table of Contents</h2>
+<p>
+<ol type="1"><li><a href="../page_Introduction_20to_20Computer_20Vision/">Introduction to Computer Vision</a></li>
+<li><a href="../page_PyroModuleVisionSystem/">PyroModuleVisionSystem</a></li>
+<li><a href="../page_PyroVisionSystemFunctions/">PyroVisionSystemFunctions</a></li>
+<li><a href="../page_Simulated_20Vision_20using_20FakeCamera/">Simulated Vision using FakeCamera</a></li>
+<li><a href="../page_Using_20Khepera_20with_20a_20Camera/">Using Khepera with a Camera</a></li>
+<li><a href="../page_Image_20Processing_20Collections/">Image Processing Collections</a></li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleComputerVision?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleComputerVision?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

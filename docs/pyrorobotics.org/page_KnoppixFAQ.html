@@ -1,0 +1,218 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104530", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: KnoppixFAQ</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<pre class="code">
+          FREQUENTLY ASKED QUESTIONS AND ANSWERS ABOUT KNOPPIX
+==========================================================================
+                 (sorted by frequency of questions)
+Q: How do I get the CD/current beta?
+A: Several possibilities: (Note: listed websites are in German)
+	a) Download form one of the mirrors listed at
+	http://www.knopper.net/knoppix/. 
+	b) You can order the newest CD from http://www.liniso.de/ or
+	any other CD ordering service listed at http://www.knoppix.de/,
+	and have it sent to you.
+---
+Q: How do I burn a bootable CD in Windows?
+A: This question does not really belong into a KNOPPIX-FAQ. Of course the
+answer depends on the individual program you are using to burn CDs, but
+all common CD-Writing programs should support the option of burning
+bootable ISO-Images, you probably just have to find the right menu option.
+At the address http://www.knopper.net/knoppix/docs/ and on some of the
+KNOPPIX-Mirrors in a directory with the same name, you may find some
+examples written as short step-by-step documentations from users who
+successfully completed the procedure.
+---
+Q: Why is my favourite software xyz not present on the CD? Can't you
+add it in future versions of the download version? It doesn't cost
+anything!
+A: Apart from the fact that, even on a 700MB medium, available space
+is limited, and DVD burners for bigger images are not very common yet,
+there are certain criteria for software licenses in order to be
+acceptable for KNOPPIX, totally independent from price or fees.
+All licenses must guarantee that the CD can still be downloaded,
+modified and copied, free of charge. Licenses that don't allow
+incorporation into such a CD can't be accepted by us, at least not
+for the freely available/downloadable versions of KNOPPIX. That also
+applies to licenses that would force the recipients to sign another
+agreement before download, or even pay royalty fees, and licenses that
+do not allow the CD to be distributed commercially (for example,
+customization, copying and mailing of the CD for an appropriate fee
+for the work done, is commercial distribution). Almost all programs
+on the CD fall under the GPL or similar Open Source licenses, which
+provide a lot of freedom for the recipients of the software (see also
+http://www.gnu.org/licenses/gpl.html). Exceptions regarding software
+that may, due to the wish of the vendor, only be distributed in binary
+form, are still tolerable if they fall under a liberal license that
+allows non-commercial as well as commercial distribution of the CD
+without essential restrictions. Please check the license of your
+software carefully before writing a recommendation for inclusion in
+future versions of KNOPPIX to the developer team.
+---
+Q: My computer won't boot from CD. What should I do?
+A: Look in your computer's BIOS to see whether it's set to boot from CD
+(on most computers you need to push the &quot;delete&quot; key during the RAM test).
+If this is already set, your computer may not be able to read the CD (some
+notebooks have problems with black-coated CD's, for example). Some
+computers will only use the new BIOS settings after a hard reset. If your
+computer doesn't support booting from CD, you can create a boot floppy
+using the &quot;mkbootfloppy&quot; program.
+---
+Q: I downloaded KNOPPIX via WWW/FTP or got a downloaded version from a
+friend. My PC will boot off of it, but the bootup stalls after a bit or I
+only see the background picture, and nothing else happens. What's going
+on?
+A: You possibly only got a partial download, or the download was
+(silently) interrupted. If this is the case the ISO image is defective,
+and the data in the missing parts cannot be accessed (sometimes one can
+even &quot;hear&quot; this because of the sound the CD-ROM drive makes due to
+repeated read attempts). This is fatal because the directory tree is
+written at the beginning of the CD, so it is usually complete. Thus,
+you can correctly read the directory tree of the CD. However, reading the
+actual contents of the missing parts is impossible (in other words,
+accessing the contents fails). Some possible solutions can be found in the
+section &quot;What are MD5 files?&quot; and &quot;How can I get the CD?&quot;.
+---
+Q: What are these strange MD5 files that accompany the ISO CD images?
+A: The files with the .md5 extension contain checksums for the actual CD
+images. A checksum is a &quot;matching number&quot; for checking files. One can
+verify that the file matches its original down to the smallest detail.
+When you download both the ISO image for the CD and its corresponding .md5
+file, you can verify that your download was complete and that the contents
+are unchanged by typing &quot;md5sum -c filename.md5&quot; under Linux/Unix. Further
+information about MD5 and programs for various OS's can be found at
+http://www.fourmilab.ch/md5/. You can download a Windows(TM) version at
+http://www.toast442.org/md5gui.shtml.
+---
+Q: How can I set up my printer?
+A: Click on &quot;printer configuration&quot; in the &quot;Knoppix&quot; menu, and use the
+wizard.
+---
+Q: What is the root password?
+A: There is none; all passwords are locked by default. There are several
+sections you can read dealing with this subject in
+KNOPPIX/README_Security.txt.
+---
+Q: I see the partitions from my hard disk on the desktop and can access
+their contents when I click on them, but if I try to write to them I
+always get the error message &quot;access denied&quot;. How can I write to my
+existing partitions?
+A: The general philosophy of KNOPPIX is to allow as little write access
+as possible. For this reason, existing partitions are either not mounted
+or only mounted &quot;read only&quot;. If you click with your right mouse button on
+an icon, the &quot;read-only&quot; attribute under item &quot;device&quot; can be un-checked.
+After this, the partition can be mounted &quot;read-write&quot; (for already
+mounted partitions, first click on &quot;unmount&quot;!). CAUTION: writing to NTFS
+partitions can lead to data loss, since Linux does not really support this
+file system! However, DOS and FAT32 file systems are safe for write access.
+Tip:
+In the shell the command &quot;mount -o remount,rw /mnt/&lt;partitionname&gt;&quot; can
+allow already-mounted file systems to be &quot;made writeable&quot;.
+---
+Q: After I've used KNOPPIX, my &quot;other&quot; OS suddenly shows a blue screen
+with the message &quot;File kernel.exe not found or defective&quot; and
+&quot;reinstall...&quot; shortly after boot.
+A: Simply take the KNOPPIX CD out of the CD-Rom drive and restart the
+computer.
+---
+Q: Auto configuration doesn't work on my computer, or the computer hangs
+at boot. What should I do?
+A: It might work if portions of the auto configuration are skipped. This
+can be specified with &quot;knoppix noscsi&quot; or &quot;knoppix nopcmcia&quot;. If the
+problem can be identified -&gt; please send the exact error message and when
+possible a proposed solution using the web form at
+http://www.knopper.net/kontakt/! Sometimes the output of
+&quot;lspci ; lspci -n&quot; is very helpful, especially if the problem involves
+incorrectly identified graphics cards.
+---
+Q: My graphics card doesn't work!
+A: It may be that very new (or exotic) graphics cards are not in the
+hardware database yet. These will still usually work under Linux! You can
+type
+	knoppix xmodule=vesa
+or
+	knoppix xmodule=fbdev
+at the first boot screen, and the initial un-accelerated XFree86 modes
+will produce a usable screen. Version 31-01-2002 and later have a frame
+buffer boot option (especially for older notebooks)
+	fb800x600
+(instead of typing in knoppix), which uses a resolution of 800x600 pixels
+in frame buffer mode. Regardless of whether these workarounds are
+successful or not, support can be built into the next version of KNOPPIX
+more quickly if (as in the previous question) the PCI numbers of the
+graphics card along with a description can be sent to us via mail
+(&quot;lspci ; lspci -n&quot;).
+---
+Q: My PS/2 mouse doesn't work!
+A: If the mouse pointer in the graphical user window is erratically moving
+around everywhere, the attached mouse is using an exotic protocol. Only
+booting into &quot;expert&quot; mode and setting the correct protocol for the XFree
+system will help in this case. However, if the pointer appears in the
+middle of the screen and doesn't respond to mouse movements at all, you
+probably have a board with a known BIOS bug (lately this problem has been
+appearing frequently with notebooks). Try to type in
+	knoppix pci=irqmask=0x0e98
+at the boot screen and see if this helps. Alternatively, you can find a
+BIOS update for your computer (you may want to do this anyway?).
+---
+Q: How do I get support for my wheelmouse's mousewheel?
+A: Type
+  knoppix wheelmouse
+at the boot prompt. Unfortunately, wheelmice cannot be auto-detected, and
+the wheelmouse protocol is incompatible with the standard ps/2 protocol.
+Therefore, the &quot;normal&quot; ps/2 protocol (without mousewheel support) is the
+safe default.
+---
+Q: My system memory is not fully detected, or the computer hangs shortly
+after starting with the message &quot;Panic: cannot mount root file system&quot;!
+A: Some boards apparently report the usable memory size incorrectly to
+the Linux kernel. Solution: specify the system memory size as an
+additional &quot;knoppix&quot; boot option. For example, for 128 Megabytes use
+	knoppix mem=128M
+(Note: make certain an upper-case M is typed after the memory size!)
+---
+Q: Can one also install the distribution from the CD onto a hard drive?
+A: In principal, yes (after all, the &quot;master&quot; system also runs on a hard
+drive before it is burned to CD). However there is currently no
+installation GUI for this, so installation to a hard drive should probably
+only be attempted by more knowledgeable Linux users. Assuming the KNOPPIX
+system has already booted, installation approximately follows this
+procedure:
+1.) initialize a free partition with the ext2 file system and mount it on
+    /mnt/knoppix, for example.
+2.) cp -a /KNOPPIX/* /mnt/knoppix/
+3.) set up /mnt/knoppix/etc/fstab and /mnt/knoppix/etc/lilo.conf for the
+    new system (Caution: symlinks in /boot initially point to the Ram
+	disk!), run lilo.
+4.) mkdir /mnt/knoppix/home/knoppix && \
+	chown knoppix.knoppix /mnt/knoppix/home/knoppix
+5.) Reboot, try the system out, fix any broken settings.
+(No guarantees.)
+</pre>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/KnoppixFAQ?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/KnoppixFAQ?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

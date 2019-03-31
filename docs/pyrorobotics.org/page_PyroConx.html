@@ -1,0 +1,237 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121208", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroConx</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Conx Backprop Python Package</h1>
+<p>
+<img src="../cx/con-x.jpg">
+<p>
+NEW VERSION! 6.0 Updated Mar 10, 2003
+<p>
+<p>
+<h2 width="804">1.1.  Overview</h2>
+<p>
+This site describes Con-x, the Connectionist Backprop Language and Simulator. The idea behind this system is to allow experimenters to quickly and easily create, train, and test feedforward, backprop neural networks. Basically, Con-x (pronounced &quot;kun ex&quot;) is a neural network scripting language and environment.
+<p>
+Who's it for? It was designed to be used by serious backprop researchers, as well as a teaching tool for use in introductory AI courses. There are many simulators out there, and many concentrate on the novice student. Unfortunately, these systems usually sacrifice advanced functions (such as flexibility and ability to process large datasets) for their ease of use and nice graphical interface. Con-x attempts to create a tool which is easy to use, but one that the user will not outgrow easily.
+<p>
+Con-x works quite well with very large data sets, but has a simple scripting interface. We have used an earlier version inside a fuzzy logic/ artificial neural network robot controller (See papers <a href="http://dangermouse.brynmawr.edu/publications.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a> and also <a href="http://dangermouse.brynmawr.edu/xrcl/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;XRCL</a>). All sources and related files are distributed under an free, open-source license (GNU GPL).
+<p>
+<p>
+<h2 width="804">1.2.  What's new</h2>
+<p>
+Everything! This is a complete rewrite of Con-x in Python. The old version, written in C++, will no longer be maintained. You can find it <a href="http://dangermouse.brynmawr.edu/cx/old/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>.
+<p>
+Python is a scripting language that runs on most platforms, including Linux, Unix, and Windows. I have ported the old Con-x ideas to Python. Now, I'll let Python handle the language issues, and concentrate Con-x on the Neural Network issues.
+<p>
+Con-x is now part of a larger artificial intelligence and robotics project called <a href="../page_Pyro/">Pyro</a>.
+<p>
+What might this be worth learning Python? Well, you can now have multiple networks, each in their own thread (if you wished), graphics, and a host of other before unimaginable tricks. And it is very easy. For example, I took this version of Con-x, and created a way of evolving networks in an evening. See the 'ga' class of Pyro <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/brain/ga.py"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>.
+<p>
+At what cost? Yes, this version is a bit slower than the old C++ version. But it would not surprise me to find a Python-&gt;C compiler someday. And the advantages of the new version far outweight any speed decreases, I think.
+<p>
+You don't need to learn much of Python to get going with Con-x. Here are some samples. Pay attention to indenting. You can load these from a file, or enter them interactively and then save the resulting network to a file for later running.
+<p>
+<p>
+<h2 width="804">1.3.  Samples</h2>
+<p>
+The first sample is the standard XOR problem. This code creates a 2-2-1 three layer, feed-forward backprop network.
+<p>
+<pre class="code">
+    # Con-x: Sample XOR Network
+    # (c) 2001, D.S. Blank
+    # Bryn Mawr College
+    # http://dangermouse.brynmawr.edu/
+    from pyrobot.brain.conx import *
+    n = Network()
+    n.add( Layer('input', 2) )
+    n.add( Layer('hidden', 2) )
+    n.add( Layer('output', 1) )
+    n.connect('input', 'hidden')
+    n.connect('hidden', 'output')
+    n.setInputs([[0.0, 0.0],
+                 [0.0, 1.0],
+                 [1.0, 0.0],
+                 [1.0, 1.0]])
+    n.setOutputs([[0.0],
+                  [1.0],
+                  [1.0],
+                  [0.0]])
+    n.setReportRate(100)
+    n.reset()
+    n.setEpsilon(0.5)    
+    n.setMomentum(.975)
+    n.train()
+</pre>
+<p>
+The Layer() class constructor takes a name, and size. The network connect() method takes layer objects.
+<p>
+Here is a Simple Recurrent Network:
+<p>
+<pre class="code">
+    n = SRN()
+    # Sequence is automatically used when the input pattern is
+    # larger than the input layer: 1 input, but input pattern has
+    # more elements
+    n.add( Layer('input', 1) )
+    n.add( Layer('context', 5) )
+    n.add( Layer('hidden', 5) )
+    n.add( Layer('output', 1) )
+    n.connect('input', 'hidden')
+    n.connect('context', 'hidden')
+    n.connect('hidden', 'output')
+    n.setInputs([[0.0, 0.0],
+                 [0.0, 1.0],
+                 [1.0, 0.0],
+                 [1.0, 1.0]])
+    n.setOutputs([[0.0],
+                  [1.0],
+                  [1.0],
+                  [0.0]])
+    n.setSequenceType(&quot;random-segmented&quot;)
+    n.setReportRate(100)
+    n.setResetEpoch(10000)
+    n.setTolerance(.4)
+    n.reset()
+    n.setEpsilon(1.5)    
+    n.setMomentum(.9)
+    n.train()
+</pre>
+<p>
+To save your network, try this:
+<p>
+<pre class="code">
+    n.saveNetworkToFile(&quot;myfile&quot;)
+</pre>
+<p>
+Your network will be saved as a Python file in &quot;myfile.py&quot;.
+<p>
+To test a trained network:
+<p>
+<pre class="code">
+    n.setLearning(0)                   # turns learning off
+    n.setInteractive(1)		       # turns interactive on
+    n.sweep()                          # run through the data
+</pre>
+<p>
+Here is an example running:
+<p>
+<pre class="code">
+&#36; python2 pyrobot/brain/conx.py 
+Do you want to run a BACKPROP network? y
+ Backprop: .............................................
+Epoch #   100 | TSS Error: 0.98 | Correct = 0.0
+----------------------------------------------------
+Final #   126 | TSS Error: 0.45 | Correct = 1.0
+----------------------------------------------------
+Do you want to run a QUICKPROP network? y
+ Quickprop: ............................................
+----------------------------------------------------
+Final #    46 | TSS Error: 0.33 | Correct = 1.0
+----------------------------------------------------
+Do you want to train a sequential XOR SRN? n
+ Do you want to see (and save) the final network? y
+ Filename to save network (.py): test
+ Step # 1
+Display network 'Backprop Network':
+ Display Layer 'output' (type Output):
+  Target       :  -0.5 
+  Activation   :  -0.365042686462 
+  Error        :  -0.139404565096 
+ Display Layer 'hidden' (type Hidden):
+  Activation   :  -0.203501075506 -0.253453046083 
+  Error        :  -0.168179109693 -0.16878734529 
+ Display Layer 'input' (type Input):
+  Activation   :  -0.5 -0.5 
+--More-- [ENTER]
+</pre>
+<p>
+<p>
+<h2 width="804">1.4.  Download</h2>
+<p>
+You will need:
+<p>
+<ol type="1"><li>Python 2.0 or 2.1</li>
+<li>Numeric Python module (numpy)</li>
+<li><a href="http://emergent.brynmawr.edu/~dblank/pyrobot/brain/conx.py"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Con-x</a></li>
+</ol><p>
+Once you have Python and the Numeric Python module installed, create a directory named 'pyro', and another 'pyrobot/brain'. Put the Con-x source file (conx.py) into 'pyrobot/brain/'.
+<p>
+You now only need add the directory that pyro is in to the Python search path. Under Linux, that might look like:
+<p>
+<pre class="code">
+export PYTHONPATH=&#36;PYTHONPATH:/home/userid
+</pre>
+<p>
+You should now be able to run Con-x with:
+<p>
+<pre class="code">
+&#36; python2
+Python 2.1.1 (#1, Aug 28 2001, 19:51:39) 
+[GCC 2.96 20000731 (Red Hat Linux 7.1 2.96-85)] on linux2
+Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import pyro.brain.conx
+&gt;&gt;&gt;
+</pre>
+<p>
+Now, you can interactively enter commands, as above.
+<p>
+<p>
+<h2 width="804">1.5.  What's New</h2>
+<p>
+<p>
+<h3 width="804">1.5.1.  Version 6.0</h3>
+<ol><p>
+<li>Removed Quickprop extensions (got too complicated to maintain)</li>
+<li>Lisa Meeden and Doug Blank rewrote main Backprop stuff</li>
+<li>It appears to work correctly</li>
+</ol><p>
+<p>
+<h3 width="804">1.5.2.  Version 5.9</h3>
+<p>
+<ul><li>support for freezing weights</li>
+<li>support for setting layers active/inactive</li>
+</ul><p>
+<p>
+<h3 width="804">1.5.3.  Version 5.8</h3>
+<p>
+<ul><li>bug fix: when learning was off, wed and bed were still being updated. This caused problems when learning was turned back on.</li>
+<li>added default values for copyActivations() and copyTarget() if the incoming array is too small.</li>
+</ul><p>
+<p>
+<h3 width="804">1.5.4.  Version 5.7</h3>
+<p>
+<ul><li>loadWeights<b></b>From<b></b>File(), saveWeights<b></b>From<b></b>File()</li>
+</ul><p>
+<hr>
+<p>
+Related topics:
+<p>
+<a href="http://emergent.brynmawr.edu/index.cgi/FindPage">Go here for full search functions</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroConx?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroConx?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

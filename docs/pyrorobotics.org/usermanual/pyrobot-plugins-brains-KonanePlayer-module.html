@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101128200750", "pyrorobotics.org");
+</script>
+  <title>pyrobot.plugins.brains.KonanePlayer</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-plugins-module/">Package&nbsp;plugins</a> ::
+        <a href="../../usermanual/pyrobot-plugins-brains-module/">Package&nbsp;brains</a> ::
+        Module&nbsp;KonanePlayer
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF MODULE DESCRIPTION =========== -->
+<h2 class="module">Module pyrobot.plugins.brains.KonanePlayer</h2>
+<pre class="literalblock">
+This module contains a class of a random Konane Player.
+The brain KonanePlayer program plays a random game of Konane.
+</pre>
+<hr/>
+<!-- =========== START OF CLASSES =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Classes</th></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-KonanePlayer-class/"><code>KonanePlayer</code></a></b></td>
+  <td>A simple Random Konane Player.</td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Function Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#add" class="summary-sig-name"><code>add</code></a>(<span class="summary-sig-arg">pos</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Adds two board positions together...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#formatMove" class="summary-sig-name"><code>formatMove</code></a>(<span class="summary-sig-arg">move</span>)</span></code>
+<br/>
+Formats a list of positions into a jump() string.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#getEmpties" class="summary-sig-name"><code>getEmpties</code></a>(<span class="summary-sig-arg">board</span>)</span></code>
+<br/>
+Returns all of the empty positions on board.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="INIT"></a><span class="summary-sig"><span class="summary-sig-name">INIT</span>(<span class="summary-sig-arg">engine</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#moveGenerator" class="summary-sig-name"><code>moveGenerator</code></a>(<span class="summary-sig-arg">board</span>,
+          <span class="summary-sig-arg">myPiece</span>,
+          <span class="summary-sig-arg">firstMove</span>)</span></code>
+<br/>
+Generates legal board moves.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#otherPiece" class="summary-sig-name"><code>otherPiece</code></a>(<span class="summary-sig-arg">piece</span>)</span></code>
+<br/>
+What is the opponent's shape?...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-module/#validPos" class="summary-sig-name"><code>validPos</code></a>(<span class="summary-sig-arg">pos</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Is this position + offset a valid board position?...</td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Function Details</th></tr>
+</table>
+<a name="add"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">pos</span>,
+          <span class="sig-arg">offset</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds two board positions together
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="formatMove"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">formatMove</span>(<span class="sig-arg">move</span>)</span>
+  </h3>
+<pre class="literalblock">
+Formats a list of positions into a jump() string.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getEmpties"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getEmpties</span>(<span class="sig-arg">board</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns all of the empty positions on board.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="moveGenerator"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">moveGenerator</span>(<span class="sig-arg">board</span>,
+          <span class="sig-arg">myPiece</span>,
+          <span class="sig-arg">firstMove</span>)</span>
+  </h3>
+<pre class="literalblock">
+Generates legal board moves. Doesn't find multiple-jumps.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="otherPiece"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">otherPiece</span>(<span class="sig-arg">piece</span>)</span>
+  </h3>
+<pre class="literalblock">
+What is the opponent's shape?
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="validPos"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">validPos</span>(<span class="sig-arg">pos</span>,
+          <span class="sig-arg">offset</span>=<span class="sig-default">(0,&nbsp;0)</span>)</span>
+  </h3>
+<pre class="literalblock">
+Is this position + offset a valid board position?
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:28 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

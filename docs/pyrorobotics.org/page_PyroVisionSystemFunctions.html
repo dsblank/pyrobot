@@ -1,0 +1,424 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160901", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroVisionSystemFunctions</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Vision System Functions</h1>
+<p>
+If you wish to practice with these functions, use the <tt class="wiki">TutorialCamera</tt>. Either load the camera via the <b>Device...</b> option under 
+<b>Load</b> main Pyro menu, or from the command line:
+<p>
+<pre class="code">
+pyrobot -r Test -d TutorialCamera
+</pre>
+<p>
+You can use the <b>Pause/Play</b> options under the <b>View</b> menu of the <b>camera0</b> window. Simply wait for the image that you wish to practice on, and select <b>Pause</b>.
+<p>
+To do these commands interactively:
+<p>
+<pre class="code">
+camera = self.robot.camera[0]
+</pre>
+<p>
+Then you will have a camera object to work with interactively.
+<p>
+<p>
+<h2 width="804"> Methods</h2>
+<p>
+Pyro's camera inherits from pyrobot.camera and pyrobot.vision objects. pyrobot.vision has the following methods:
+<p>
+<pre class="code">
+   def loadFromFile(self, filename):
+   def saveToFile(self, filename):
+   def getScaledImage(self, xscale=0.5, yscale='unset', mode='sample'):
+   def getGrayScale(self):
+   def getColorFilter(self, r, g, b):
+   def display(self):
+   def get(self, x, y, offset = 0):
+   def getRow(self, y):
+   def getDim(self):
+   def getCol(self, x):
+   def getVal(self, x, y):
+   def setVal(self, x, y, val):
+   def reset(self, vector):
+   def resetToColor(self,r,g,b):
+   def incr(self, x, y, offset = 0):
+   def cropPixels(self, l, t='unset', r='unset', b='unset'):
+   def getBitmap(self, cutoff, cutoff2='unset', mode='brightness'):
+   def histogram(self, cols = 20, rows = 20, initvals = 0):
+   def convolve(self, convmask, bit = 0, threshold = 0):
+   def getPlane(self, colorPlane): # 0, 1, 2
+   def swapPlanes(self, plane1, plane2):
+</pre>
+<p>
+pyrobot.camera has the following methods:
+<p>
+<pre class="code">
+   def setFilterList(self, filterList):
+   def popFilterList(self):
+   def getFilterList(self):
+   def loadFilters(self):
+   def saveFilters(self):
+   def getData(self):
+   def stopMovie(self):
+   def continueMovie(self):
+   def startMovie(self, filename = None):
+   def saveImage(self, filename = None):
+   def saveAsTGA(self, path = &quot;~/V4LGrab.tga&quot;):
+   def update(self):
+   def updateOnce(self):
+   def makeFilterMenu(self, data):
+   def setTitle(self, title):
+   def printit(self, event):
+   def makeWindow(self):
+   def togglePausePlay(self, event = None):
+   def pauseButton(self):
+   def playButton(self):
+   def updateButton(self):
+   def setUpdateInterval(self, val):
+   def apply(self, command, *args):
+   def addFilter(self, func, *args):
+   def makeMenu(self, bar, name, commands, accel = None):
+   def listCallbackList(self):
+   def togglePlay(self, event):
+   def toggleFilterMode(self):
+   def getCanvasWidth(self):
+   def getCanvasHeight(self):
+   def processLeftClickDown(self, event):
+   def processLeftClickUp(self, event):
+   def processMiddleClick(self, event):
+   def processRightClick(self, event):
+   def hideWindow(self):
+   def getImage(self):
+   def updateWindow(self):
+   def startDevice(self):
+   def stopDevice(self):
+   def getDeviceData(self):
+   def getDeviceState(self):
+   def updateDevice(self):
+   def delFilter(self, pos):
+   def popCallbackList(self):
+   def clearCallbackList(self):
+   def clearFilters(self):
+   def processAll(self):
+</pre>
+<p>
+You can look at the code for those two classes: <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/camera/__init__.py?view=markup"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;pyrobot/camera/__init__.py</a> and <a href="http://svn.cs.brynmawr.edu/viewvc/pyrobot/trunk/vision/__init__.py?view=markup"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;pyrobot/vision/__init__.py</a>.
+<p>
+<p>
+<h2 width="804"> Filters</h2>
+<p>
+The following are avaliable to the <tt class="wiki">camera.apply()</tt> and <tt class="wiki">camera.addFilter()</tt> methods. Use the <tt class="wiki">addFilter()</tt> method for a one-time effect. Use the <tt class="wiki">apply()</tt> method inside of another function that itself is added to the filter list via the <tt class="wiki">addFilter()</tt> method.
+<p>
+<pre class="code">
+camera.apply(&quot;match&quot; red, green, blue, tolerance, outChannel) 
+camera.apply(&quot;matchRange&quot;, red1, green1, blue1, red2, green2, blue2, outChannel) 
+camera.apply(&quot;matchList&quot;, [(red1, green1, blue1, red2, green2, blue2, outChannel), ...]) 
+camera.apply(&quot;superColor&quot;, redWeight, greenWeight, blueWeight, outChannel) 
+camera.apply(&quot;threshold&quot;, channel, thresholdValue) 
+camera.apply(&quot;setPlane&quot;, colorChannel, value)
+camera.apply(&quot;set&quot;, x, y, r, g, b)
+camera.apply(&quot;blobify&quot;, inChannel, lowValue, highValue, sortmethod (0 = square area, 1 = mass), blobCountToReturn, drawBox) 
+camera.apply(&quot;histogram&quot;, x1, y1, x2, y2, bins) 
+camera.apply(&quot;meanBlur&quot;, kernelEdgeSize) 
+camera.apply(&quot;gaussianBlur&quot;) 
+camera.apply(&quot;medianBlur&quot;, kernel) 
+camera.apply(&quot;sobel&quot;, kernel) 
+camera.apply(&quot;motion&quot;) 
+camera.apply(&quot;backup&quot;) 
+camera.apply(&quot;restore&quot;) 
+camera.apply(&quot;inverse&quot;) 
+camera.apply(&quot;grayScale&quot;) 
+camera.apply(&quot;scale&quot;, redScale, greenScale, blueScale) 
+camera.apply(&quot;drawRect&quot;, x1, y1, x2, y2, fill, channel) 
+</pre>
+<p>
+All of the filters store their return values in self.robot.camera[0].filterResults which is a list.
+<p>
+<p>
+<h2 width="804"> &quot;match&quot;</h2>
+<p>
+This function filters the image for a specific color with one tolerance being used for all of the RGB values.
+<p>
+<i>Parameters:</i>
+<ul><li>red value (0-255)</li>
+<li>green value (0-255)</li>
+<li>blue value (0-255)</li>
+<li>tolerance value (0-255) (optional parameter, defaults to 30)</li>
+<li>channel (optional parameter, defaults to 0 for red; change to 1 for green or 2 for blue)</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;match&quot;, 215,215,70, 40,2)
+</pre>
+<p>
+<img src="../robots/PyroImages/OneTolBefore70.gif">  <img src="../robots/PyroImages/OneTolAfter70.gif">
+<p>
+<p>
+<h2 width="804"> &quot;matchRange&quot;</h2>
+<p>
+This function filters for color values within specified ranges.  Points that have values between the low and high ranges specified for red, green and blue will be marked in the buffer as containing the color.  
+<p>
+<i>Parameters:</i>
+<ul><li>low red value (0-255)</li>
+<li>low green value (0-255)</li>
+<li>low blue value (0-255)</li>
+<li>high red value (0-255)</li>
+<li>high green value (0-255)</li>
+<li>high blue value (0-255)</li>
+<li>channel (optional parameter, defaults to 0 for red; pass 1 for green or 2 for blue)</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;matchRange&quot;, 70,30,30, 117,60,60, 1)   # this you do just once
+  camera.apply(&quot;matchRange&quot;, 70,30,30, 117,60,60, 1)       # this you do inside a loop
+</pre>
+<p>
+<img src="../robots/PyroImages/foo3.gif">  <img src="../robots/PyroImages/foo.gif">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;matchRange&quot;, 0,30,30, 255,60,60, 1)
+</pre>
+<p>
+<img src="../robots/PyroImages/HiLowBefore0255.gif">  <img src="../robots/PyroImages/HiLowAfter0255.gif">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;matchRange&quot;, 225,225,0, 255,255,200, 0)
+</pre>
+<p>
+<img src="../robots/PyroImages/ThreeTolBefore200.gif">  <img src="../robots/PyroImages/ThreeTolAfter200.gif">
+<p>
+<p>
+<h2 width="804"> &quot;matchList&quot;</h2>
+<p>
+This function filters for a list of color values within specified ranges, like <tt class="wiki">matchRange</tt>.
+<p>
+<i>Parameters:</i>
+<ul><li>low red value (0-255)</li>
+<li>low green value (0-255)</li>
+<li>low blue value (0-255)</li>
+<li>high red value (0-255)</li>
+<li>high green value (0-255)</li>
+<li>high blue value (0-255)</li>
+<li>channel (optional parameter, defaults to 0 for red; pass 1 for green or 2 for blue)</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;matchList&quot;, [(70,30,30, 117,60,60, 1), (125,125,125, 135,135,135, 0)])   # this you do just once
+  camera.apply(&quot;matchList&quot;, [(70,30,30, 117,60,60, 1), (125,125,125, 135,135,135, 0)])       # this you do inside a loop
+</pre>
+<p>
+<p>
+<h2 width="804"> &quot;superColor&quot;</h2>
+<p>
+Lets say you wanted to filter for red.  If you just look at the red component and filter any pixel that has a red value over 180, for instance, then any white pixel will be filtered as a red pixel, because white has a red value of 255.  What <tt class="wiki">superColor</tt> does, is subtracts out the secondary colors from the main color.  So if you want to filter on red, the green and blue values get subtracted from the red value resulting in an overall value from 0-255.  
+<p>
+<p>
+<i>Parameters:</i>
+<ul><li>red weight: weight of the red portion</li>
+<li>green weight: weight of the green portion</li>
+<li>blue weight: weight of the blue portion</li>
+<li>channel: (0-2) channel to put the resulting values into.  puts zeros in the other two channels.</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;superColor&quot;, 1, -1, -1)
+</pre>
+<p>
+<img src="../robots/PyroImages/superRedBefore.jpg"> <img src="../robots/PyroImages/superRedNoLightAfter.jpg">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;superColor&quot;, 1, -1, -1, 1)
+</pre>
+<p>
+<img src="../robots/PyroImages/superRedBefore.jpg"> <img src="../robots/PyroImages/superRedLightAfter.jpg">
+<p>
+<p>
+<h2 width="804"> camera.meanBlur</h2>
+<p>
+This function blurs the image by changing the color of the pixel being looked at to the mean value of the pixels surrounding it.  The number of surrounding pixels being looked at is defined by the kernel parameter.  If kernel is 3, then the pixel being looked at is the center of a 3x3 box, shown in the diagram.
+<p>
+<img src="../robots/PyroImages/meandiagram.jpg">
+<p>
+<i>Parameter:</i>
+<ul><li>kernel (optional parameter, defaults to 3.  Only enter in odd numbers greater than 0)</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;meanBlur&quot;)
+</pre>
+<p>
+<img src="../robots/PyroImages/MeanBefore3.gif"> <img src="../robots/PyroImages/MeanAfter3.gif">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;meanBlur&quot;, 9)
+</pre>
+<p>
+<img src="../robots/PyroImages/MeanBefore3.gif"> <img src="../robots/PyroImages/MeanAfter9.gif">
+<p>
+<p>
+<h2 width="804"> camera.gaussianBlur</h2>
+<p>
+The gaussianBlur function blurs the image by changing the current pixel's values by weighting the values of the pixels around
+it.  The kernel size is 3, and cannot be changed.
+<p>
+<i>Parameters:</i>
+<ul><li>none</li>
+</ul><p>
+<i>Example call:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;gaussianBlur&quot;)
+</pre>
+<p>
+<img src="../robots/PyroImages/GaussBefore.gif">  <img src="../robots/PyroImages/GaussAfter.gif">
+<p>
+<p>
+<h2 width="804"> camera.medianBlur</h2>
+<p>
+This function blurs the image by changing the color of the pixel being looked at to the median value of the pixels surrounding it.  The number of surrounding pixels being looked at is defined by the kernel parameter.  If kernel is 3, then the pixel being looked at is the center of a 3x3 box, shown in the diagram.
+<p>
+<img src="../robots/PyroImages/mediandiagram.jpg">
+<p>
+<i>Parameter:</i>
+<ul><li>kernel (optional parameter, defaults to 3.  Only enter in odd numbers greater then 0 and less then 20)</li>
+ <img width="11" src="../wiki/img/alert.png"> Currently, <a href="../page_MedianBlur/">MedianBlur</a> runs very slowly and should only be used for learning about the differnt types of blurs available.  Also, the larger the kernel size, the slower it will run.
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;medianBlur&quot;, 5)
+</pre>
+<p>
+<img src="../robots/PyroImages/MedianBlurBefore.jpg"> <img src="../robots/PyroImages/MedianBlurAfter5.jpg">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;medianBlur&quot;, 9)                                    
+</pre>
+<p>
+<img src="../robots/PyroImages/MedianBlurBefore.jpg"> <img src="../robots/PyroImages/MedianBlurAfter9.jpg">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;medianBlur&quot;, 11)
+</pre>
+<p>
+<img src="../robots/PyroImages/MedianBlurBefore.jpg"> <img src="../robots/PyroImages/MedianBlurAfter11.jpg">
+<p>
+<p>
+<p>
+<h2 width="804"> blobify</h2>
+<p>
+This function finds up to the five largest blobs of an image by either mass or area.  The color channel and the high and low values are passed in.  &quot;blobify&quot; searches the image and keeps track of the all the blobs in the image.  It then sets the upper left and lower right coordinates, as well as the mass of these one to five blobs into a list named blob.  Optionally, white boxes are drawn around these blobs for identification.
+<p>
+<i>Parameter:</i>
+<ul><li>channel: color channel to look for blobs on</li>
+<li>low value(0-255): minimum value to look for as part of a blob</li>
+<li>high value(0-255): maximum value to look for as part of a blob</li>
+<li>sort type: 0 for &quot;mass&quot; or 1 for &quot;area&quot;, returns max blob according to this param</li>
+<li>number: (1-5): Number of blobs to be returned.</li>
+<li>drawBox (0-1): (optional parameter, defaults to 1), This option allows the user to stop drawing the box around the max blob, to save processesing time.</li>
+</ul><p>
+<i>Example calls:</i>
+<p>
+<pre class="code">
+  camera.addFilter(&quot;blobify&quot;, 1,1,255,0)
+</pre>
+<p>
+<img src="../robots/PyroImages/BeforeBlob1.gif">  <img src="../robots/PyroImages/AfterBlob1.gif">
+<p>
+<pre class="code">
+  camera.addFilter(&quot;blobify&quot;,2,1,255,0)
+</pre>
+<p>
+<img src="../robots/PyroImages/BeforeBlob2.gif">  <img src="../robots/PyroImages/AfterBlob2.gif">
+<p>
+<p>
+<h2 width="804"> Edge Detection</h2>
+<p>
+This function uses the sobel method to detect the edges of an image.
+<p>
+<pre class="code">
+  camera.addFilter(&quot;sobel&quot;)
+</pre>
+<p>
+<img src="../robots/PyroImages/MtDew_blur.jpeg">  <img src="../robots/PyroImages/MtDew_edges.jpeg">
+<p>
+<p>
+<h1 width="804"> Examples</h1>
+<p>
+1. This is a demonstration of the robot blurring an image, training on the color in the center of the image,
+filtering for that color, and then finding the max blob. This examples expects for you to have a robot with a camera and ptz already loaded.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain  
+def process(camera):
+        camera.apply(&quot;gaussianBlur&quot;)
+        camera.apply(&quot;match&quot;, 187, 50, 50)
+        camera.apply(&quot;blobify&quot;, 1, 1, 255, &quot;mass&quot;, 1)
+class CameraTest(Brain): 
+    def setup(self): 
+        print &quot;initializing camera ...&quot; 
+        self.camera[0].addFilter( process )
+        self.ptz[0].panTilt(0, -10)  #look down slightly
+    def step(self): 
+        print &quot;Robot stepping...&quot;
+def INIT(engine): 
+    return CameraTest('CameraTest', engine) 
+</pre>
+<p>
+<p>
+<h1 width="804"> Exercises</h1>
+<p>
+1. Comparing filters.
+<p>
+<ol><p>Experiment with the different blurring filters before filtering on a particular color.
+</ol><p>
+<ol><p>Experiment with writing your results out to different channels.
+</ol><p>
+2. Follow that Ball.
+<p>
+<ol><p>Write code for your robot that will search for a ball of a specified color.  Once the robot finds the ball, it should move towards it.  If you move the ball, the robot should relocate the ball and move towards it again.
+</ol><p>
+<ol><p>Extension to the exercise: Robot Soccer.  Have the robot push the ball towards a goal to play soccer. 
+</ol><p>
+4. Pick Up the Trash.
+<p>
+<ol><p>Develop a system that performs the task from the AAAI 1994 Pick Up the Trash Competition (find reference).  Your robot will need to find trash of a particular color (you can choose a can of soda, a cup, or some other object that your gripper can pick up).  Once it finds the trash, the robot should move towards it and pick it up with the gripper.  Then the robot should find the trash can and deliver the object. 
+</ol><p>
+<ol><p>Start with one color trash and one trash can.  As an extension, create an environmentally conscious robot that will deliver trash to the trash can and recyclables to the recycling bin.  (It will be easiest to complete this task using four distinct colors.)
+</ol><p>
+Next: <a href="../page_Simulated_20Vision_20using_20FakeCamera/">Simulated Vision using FakeCamera</a>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroVisionSystemFunctions?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroVisionSystemFunctions?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102522", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Gyro</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Gyro</h1>
+<p>
+<i>Guile + Pyro = Gyro</i>
+<p>
+Scheme Robotics
+<p>
+Gyro is a subproject of Pyro. The goal is to replicate what we have in Python in Scheme. 
+<p>
+Guile is an open source implementation of Scheme, and is preinstalled on many GNU/Linux systems.  Pyro is available at <a href="/">PyroRobotics.org/</a> .
+<p>
+<p>
+<h2 width="804">1.1.  Installation</h2>
+<p>
+In addition to the latest Player/Stage/Gazebo (see <a href="../page_Pyro4Installation/">Pyro4Installation</a> for installation instructions), you'll need the following:
+<p>
+<ol type="1"><li>guile</li>
+<li>guile-devel</li>
+<li>Paul Osmialowski's <a href="http://king.net.pl/playercontrib/guileplayer/">king.net.pl/playercontrib/guileplayer/</a></li>
+</ol><p>
+From Fedore Core 3, as root:
+<p>
+<pre class="code">
+yum install guile guile-devel
+</pre>
+<p>
+To build and install guileplayer:
+<p>
+<pre class="code">
+tar xfz guileplayer-20050422-2.tar.gz
+cd guileplayer
+make
+make install   # as root
+</pre>
+<p>
+To run:
+<p>
+<pre class="code">
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib
+export PLAYERPATH=/usr/local/lib
+player /home/pyrobot/plugins/worlds/Stage/everything.cfg &
+cd scheme_examples
+guile -s blobfinder.scm
+</pre>
+<p>
+Sample code:
+<p>
+<pre class="code">
+(load-from-path &quot;guileplayer.scm&quot;)
+(define display-blobs (lambda (blobs)
+    (cond
+	((not (null? blobs))
+	    (display (player-blobfinder-blob-id (car blobs)))
+	    (display &quot;:&quot;)
+	    (display (player-blobfinder-blob-color (car blobs)))
+	    (display &quot; &quot;)
+	    (display (player-blobfinder-blob-xy (car blobs)))
+	    (display &quot; &quot;)
+	    (display (player-blobfinder-blob-lefttop (car blobs)))
+	    (display &quot; &quot;)
+	    (display (player-blobfinder-blob-rightbottom (car blobs)))
+	    (display &quot; &quot;)
+	    (display (player-blobfinder-blob-area (car blobs)))
+	    (display &quot; &quot;)
+	    (display (player-blobfinder-blob-range (car blobs)))
+	    (newline)
+	    (display-blobs (cdr blobs))
+	)
+    )
+))
+(define main-loop (lambda (client blobfinder)
+    (cond
+	((not (player-client-signalled?))
+	    (player-client-read-for-sure client)
+	    (display (player-blobfinder-get-image-size blobfinder)) (newline)
+	    (display-blobs (player-blobfinder-get-blobs blobfinder))
+	    (display &quot;====&quot;) (newline)
+	    (main-loop client blobfinder)
+	)
+	(else
+	    (display &quot;going to quit...&quot;)
+	    (newline)
+	)
+    )
+))
+(define client (player-client-create player-null &quot;localhost&quot; 6665))
+(player-client-connect client)
+(define blobfinder (player-blobfinder-create client 0))
+(player-blobfinder-subscribe blobfinder player-read-access-mode)
+(player-client-trap-signal SIGINT)
+(player-client-trap-signal SIGTERM)
+(main-loop client blobfinder)
+(player-blobfinder-unsubscribe blobfinder)
+(player-blobfinder-destroy blobfinder)
+(player-client-disconnect client)
+(player-client-destroy client)
+(display &quot;player client disconnected&quot;) (newline)
+</pre>
+<p>
+<p>
+<h2 width="804">1.2.  Pyro Devices</h2>
+<p>
+We hope to develop the same kinds of abstractions that we have in Python for Scheme. The main ones we will need:
+<p>
+<ul><li>robot</li>
+<li>device</li>
+<li>brain</li>
+</ul><p>
+We will also need a gui+thread class with which to run brains, and maybe an engine container class. Donations welcomed!
+<p>
+<p>
+<h2 width="804">1.3.  Comments and Questions</h2>
+<p>
+Add your own here.
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Gyro?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Gyro?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

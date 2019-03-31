@@ -1,0 +1,93 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121052", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: SearchProgram</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<pre>
+import DataStructures
+#----------------------------------------------------------------------
+class Node:
+    """
+    This class is used to represent nodes of the search tree.  Each
+    node contains a state representation, a reference to the node's
+    parent node, a string that describes the action that generated
+    the node's state from the parent state, and the path cost g from
+    the start node to this node.
+    """
+    def __init__(self, state, parent, action):
+        self.state = state
+        self.parent = parent
+        self.action = action
+        self.g = 0
+    def expand(self):
+        successors = []
+        for (newState, action) in self.state.applyOperators():
+            newNode = Node(newState, self, action)
+            successors.append(newNode)
+        return successors
+#----------------------------------------------------------------------
+def UninformedSearch(initialState, goalState, fringe):
+    start = Node(initialState, None, None)
+    fringe.insert(start)
+    closedStates = []
+    while not fringe.isEmpty():
+        current = fringe.remove()
+        # states must have an __eq__ method defined to test equality
+        if current.state == goalState:
+            print 'Found a solution...'
+            showSolution(current)
+            return current
+        elif current.state not in closedStates:
+            closedStates.append(current.state)
+            for successor in current.expand():
+                # set path cost of successor
+                successor.g = current.g + 1
+                fringe.insert(successor)
+    print 'Search failed'
+def showSolution(node):
+    numSteps = node.g
+    path = []
+    while node != None:
+        path.insert(0, node)
+        node = node.parent
+    print path[0].state
+    for n in path[1:]:
+        print '%s\n%s' % (n.action, n.state)
+    print 'Solution took %d steps' % numSteps
+#----------------------------------------------------------------------
+# Test functions for uninformed search
+def BreadthFirst(initialState, goalState):
+    fringe = DataStructures.Queue()
+    return UninformedSearch(initialState, goalState, fringe)
+def DepthFirst(initialState, goalState):
+    fringe = DataStructures.Stack()
+    return UninformedSearch(initialState, goalState, fringe)
+def UniformCost(initialState, goalState):
+    fringe = DataStructures.PriorityQueue(lambda node: node.g)
+    return UninformedSearch(initialState, goalState, fringe)
+SolveIt = BreadthFirst # change this for PuzzleDisplayer.py to a different search function
+</pre>
+<hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/SearchProgram?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/SearchProgram?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

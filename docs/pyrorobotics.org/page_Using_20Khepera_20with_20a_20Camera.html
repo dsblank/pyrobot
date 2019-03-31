@@ -1,0 +1,59 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160849", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Using_20Khepera_20with_20a_20Camera</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Using a Khepera with a Camera</h2>
+<p>
+To use a Khepera robot with a camera you need a serial/video connection module.  This connection module provides a power supply for both the robot and the camera, it makes a standard serial link available, and it does the necessary signal processing to make a standard video signal available.  The connection module is a small white box with three colored lights.  The yellow light is a power indicator, the green light indicates activity on the serial link for data going from the robot to the computer, and the red light indicates activity on the serial link for data going from the computer to the robot.  
+<p>
+All of the following connections must be made to operate a Khepera with a camera:
+<ul><li>Power cable, from the wall socket to the connection module.</li>
+<li>Video cable, from the computer to the connection module.</li>
+<li>Serial cable, from the computer to the connection module.</li>
+<li>Khepera cable, from the robot to the connection module.</li>
+ <img width="11" src="../wiki/img/alert.png"> You should disconnect the power cable when you are done using the Khepera.  All of the other cables should remain in place.  If all of the connections are properly in place, only the yellow light on the connection module should be illuminated.  To check that the connection between the robot and the connection module is working, press the reset button on the back of the Khepera robot several times and watch for the for the green light on the connection module to flash. There is typically a several second delay between the button press and the flash.  
+</ul><p>
+After testing (below) you are ready to try connecting to the Khepera from Pyro.  From Pyro, load the robot <tt class="wiki">Khepera.py</tt>.  Then try moving the robot through the Pyro menu.  If you are able to do this successfully, then you are ready to load a brain.  
+<p>
+<p>
+<h2 width="804"> Testing the Camera</h2>
+<p>
+To be sure that the camera is working you can use the program <tt class="wiki">xawtv</tt>.  First create a file called <tt class="wiki">.xawtv</tt> in your home directory containing the following three lines.  
+<p>
+<pre class="code">
+[default]
+norm = ntsc
+input = Composite1
+</pre>
+<p>
+Then execute the <tt class="wiki">xawtv -device /dev/video0</tt> program.  A window should pop up showing you the live video stream from the khepera.  
+<p>
+Next: <a href="../page_Image_20Processing_20Collections/">Image Processing Collections</a> Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Using_20Khepera_20with_20a_20Camera?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Using_20Khepera_20with_20a_20Camera?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094532", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroFAQ</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  PyroFAQ</h1>
+<p>
+Post your questions and answers here.
+<p>
+<hr>
+<p>
+Q1:  Stage is a simulator -- it is purely passive, right? Or does
+it initiate action when, say, the robot hits a wall?  (If so, is
+this done through a Player call-back?)
+<p>
+A1: The simulators are purely passive in the sense that nothing that happens there
+causes any code to run in Pyro. Currently, Pyro doesn't have a mode that would
+allow it to operate through events connected to call-backs. However, you could
+extend pyro.brain by changing the update() method to do so. Right now, all 
+state information is gathered from the robot by polling the robot about 10
+times a second.
+<p>
+<hr>
+<p>
+Q2: Player is a server, right -- it initiates action.  It receives information
+from Stage simulated sensors.  It is &quot;extended&quot; through a brain
+assigned by the end-user through the Pyro interface.  Or is the
+brain &quot;inside&quot; Pyro, and the latter is sending commands to Player?
+<p>
+A2: I usually descibe the simulators as being the server. Player is a client in
+that it connects onto Stage, which must already be running. Pyro wraps the
+Player client into what we call a &quot;robot&quot; interface. So, the correct starting 
+order is:
+<p>
+<ol type="1"><li>Start a simulator or server on a real robot</li>
+<li>Start a robot client</li>
+<li>Load a brain</li>
+<li>Run the brain</li>
+</ol><p>
+Likewise, to shutdown Pyro, you should:
+<p>
+<ol type="1"><li>Stop the brain</li>
+<li>Close Pyro</li>
+<li>Which causes the simulator/server to close</li>
+ <img width="11" src="../wiki/img/alert.png"> Don't close the server/simulator first!
+</ol><p>
+<hr>
+<p>
+Q3: Pyro is a collection of classes.  Is it a wrapper around the
+Player component?  Does it communicate directly with Stage?  
+Or only through Player?  What happens when the Pyro user 
+gets robot attributes, e.g., sensor values, via the Pyro command line?  
+<p>
+A3: Pyro starts the server (whether it is a simulator or a server that runs on the
+real hardware). The server does not reside &quot;inside&quot; pyro, but pyro will close
+it down when Pyro stops.
+<p>
+Pyro wraps Player (and other robot clients) in Python code, and handles the
+communication between Python and whatever server is running (Stage, some other
+simulator, or hardware server).
+<p>
+When Pyro gets sensor values, it really is just accessing data that it has
+already queried from the robot. About 10 times a second, Pyro is asking the
+Stage server (through the client Player) about the robot's &quot;state&quot; (sensor
+readings). When you have in your brain:
+<p>
+<pre class="code">
+[s.value for s in self.robot.laser[0][&quot;all&quot;]]
+</pre>
+<p>
+you are really getting that data from the last update, which happens right
+before the step() method is called in the brain. When you issue that from the
+command line, you are getting it from the last update.
+<p>
+It does NOT send that query to the server. Movement commands, at least in the
+direct control methodology, do send the commands to the robot.
+<p>
+Also, see <a href="/">pyrorobotics.org/pyrobot/?page</a>=<a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a> for more 
+details on the overall Pyro design.
+<p>
+<hr>
+<p>
+Q4: Where do robot devices reside?  
+<p>
+A4: The idea of a Pyro &quot;device&quot; is an abstraction. The actual code may be Python
+code, or it might actually be inside Player, or some other client. The
+&quot;device&quot; is an abstraction that hides the details so you don't need to know.
+Each robot implements the communication with a device differently. Some
+devices have their own communication (like laser and cameras). Some devices
+have their data mixed in with the communication with the robot (like sonar and
+some pan-tilt-zoom units).
+<ol><p>
+<hr>
+</ol><p>
+Q5: What happens when you add a physical robot?  Does that replace Stage?
+<p>
+A5: Yes, exactly. A physical robot is a server. Some robots (like the Pioneer and
+Khepera) already have a server running on them, just waiting for a client.
+Some real robots need to have a little server started, like the Player-based
+real robots. In this case, Player also provides the server, which is why there
+is a <a href="../page_PlayerServer/">PlayerServer</a> in the Server directory and picklist.
+<p>
+<hr>
+<p>
+Q6: Perhaps calling Player a server in the context of Pyro might be confusing.
+<p>
+A6: Well, yes. It provides both the client and server programs. Maybe we should
+call <tt class="wiki">Player6666</tt> <tt class="wiki">PlayerClient6666</tt>?
+<p>
+<hr>
+<p>
+Q7: Sometimes when I press the &quot;Reload&quot; button, error messages are not reported that do appear when you use &quot;Load&quot;. What's happening?
+<p>
+A7: If you try to &quot;Load&quot; a file that has errors, it won't load. Pressing &quot;Reload&quot; doesn't do anything because no file was ever loaded to begin with. The solution is to open the troubled file, fix the errors, and then &quot;Load&quot; it again. Note that you won't be able to simply click on &quot;Edit&quot;, because it never loaded. Try clicking on &quot;Edit&quot;, then loading the file in the editor.
+<p>
+<hr>
+<p>
+Q8: How can i install and use Pyro on Windows, is there a distribution for windows?
+<p>
+A8: Pyro may in fact work with operating systems other than Unix and Linux, but we wouldn't know as we do all of our work in these environments. Of course, Python, TCL, and <a href="../page_OpenGL/">OpenGL</a> will run under a large number of operating systems, but there may be some assumptions that we have made that require Linux. Our suggestion is to make your system dual-bootable. For more information, see, for example, <a href="http://www.redhat.com/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Red Hat Linux</a>.
+<p>
+<b><font color="red">NEW!</font></b>: You can now make a <b>Pyro Live CD</b> from which you can boot a computer running Windows, and run a full version of Pyro, and all of its support software and simulators. See <a href="../page_PyroLiveCD/">PyroLiveCD</a> for more information and to download the 584 MB CD image.
+<p>
+<hr>
+<p>
+Q9: What versions of Linux does Pyro run under?
+<p>
+A9: We have tested extensively under Red<b></b>Hat 7.x, 8.x, and 9.x; Fedora Core 2; and Knoppix (which is based on Debian) but it should work fairly well under most Unixes. 
+<p>
+<hr>
+<p>
+Q10: Can I load all of the things I need at the command line?
+<p>
+A10: Yes. Try this:
+<p>
+<pre class="code">
+% pyro -s AriaSimulator -r Aria -b BBWander -d FakeCamera
+</pre>
+<p>
+Note, though, that if you have your own file called <tt class="wiki">BBWander.py</tt> and it isn't in the current directory (the one that you started Pyro in) then the system will look in its own directories and may find a <tt class="wiki">BBWander.py</tt> there. It's a good idea to work in the same directory that you have your programs.
+<p>
+<hr>
+<p>
+Q11:  The SOM initialization without a dataset sometimes creates values that are outside the range of rmin and rmax. Also, seeding with a dataset sometimes creates values that are way off. Are both of these behaviors normal, or is something wrong?
+<p>
+A11: No, nothing is wrong. The SOM works that way.
+<p>
+<hr>
+<p>
+Q12: Is there any way to control multiple AIBO robots with a single Python brain?
+<p>
+A12: Yes, but that requires a little bit more infrastraucture that you'll have to handle yourself. Almost all of Pyro is just Python code, so you can do most anything that you can think of. The main Pyro gui is designed to run one robot via one brain. But, you can do variations on that. For example, you don't even need a single brain.
+<p>
+One problem with running two robots with one brain is that the gui only automatically updates one robot. But you could add code like:
+<p>
+<pre class="code">
+class MultiBrain(Brain):
+   def setup(self):
+      self.otherRobot = AiboRobot(&quot;127.0.0.1&quot;)
+   def step(self):
+      self.otherRobot.update()
+      self.otherRobot.move(1, -1)
+</pre>
+<p>
+but that could get confusing. You might also try having one brain for each robot, but have them communicate through, say, sockets.
+<p>
+<hr>
+<p>
+Q13: Is it possible to control multiple robots (of any type) without using Player/Stage?
+<p>
+A13: Player/Stage is only needed for those robots that only have a Player interface. There are many robots that do not rely on P/S, including Aibo, Hemisson, Khepera, and the Pyrobot Simulated robots. A Player/Stage robot is just another type of robot.
+<p>
+<hr>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroFAQ?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroFAQ?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

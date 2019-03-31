@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129001414", "pyrorobotics.org");
+</script>
+  <title>pyrobot.engine.Engine</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-engine-module/">Package&nbsp;engine</a> ::
+        Class&nbsp;Engine
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-engine-Engine-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Engine</h2>
+<hr/>
+<pre class="literalblock">
+Finds, loads, and creates the needed simulators, robots, devices, etc.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">robotfile</span>,
+          <span class="summary-sig-arg">brainfile</span>,
+          <span class="summary-sig-arg">simfile</span>,
+          <span class="summary-sig-arg">pyroargs</span>,
+          <span class="summary-sig-arg">config</span>,
+          <span class="summary-sig-arg">worldfile</span>,
+          <span class="summary-sig-arg">devices</span>)</span></code>
+<br/>
+Constructor for the Engine class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#destroyBrain" class="summary-sig-name"><code>destroyBrain</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to destroy the brain, if one.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#freeBrain" class="summary-sig-name"><code>freeBrain</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Kills the brain.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#freeRobot" class="summary-sig-name"><code>freeRobot</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Kills the robot.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#getGUI" class="summary-sig-name"><code>getGUI</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the gui object.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#loadBrain" class="summary-sig-name"><code>loadBrain</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">file</span>)</span></code>
+<br/>
+Finds and loads the brain file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#loadRobot" class="summary-sig-name"><code>loadRobot</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">file</span>)</span></code>
+<br/>
+Finds and loads the robot.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#loadSimulator" class="summary-sig-name"><code>loadSimulator</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">file</span>,
+          <span class="summary-sig-arg">worldfile</span>)</span></code>
+<br/>
+Finds and loads the simulator.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#pleaseRun" class="summary-sig-name"><code>pleaseRun</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">callback</span>)</span></code>
+<br/>
+Request to run the brain, followed by a callback.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#pleaseStep" class="summary-sig-name"><code>pleaseStep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Attempt to step the brain.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#pleaseStop" class="summary-sig-name"><code>pleaseStop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Attempt to stop the brain.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#reset" class="summary-sig-name"><code>reset</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Shuts down the brain, and reloads it.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#resetFirstAttempts" class="summary-sig-name"><code>resetFirstAttempts</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Test method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#setBrain" class="summary-sig-name"><code>setBrain</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">brain</span>)</span></code>
+<br/>
+Sets the brain, after the creation of the engine.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#setRobot" class="summary-sig-name"><code>setRobot</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">robot</span>)</span></code>
+<br/>
+Sets the robot, after the creation of the engine.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#shutdown" class="summary-sig-name"><code>shutdown</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Shuts everything down.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-engine-Engine-class/#tryToConnect" class="summary-sig-name"><code>tryToConnect</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Tests to see if you have a brain and robot.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">robotfile</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">brainfile</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">simfile</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">pyroargs</span>=<span class="sig-default">[]</span>,
+          <span class="sig-arg">config</span>=<span class="sig-default">{}</span>,
+          <span class="sig-arg">worldfile</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">devices</span>=<span class="sig-default">['']</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for the Engine class.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="destroyBrain"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">destroyBrain</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method to destroy the brain, if one.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="freeBrain"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">freeBrain</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Kills the brain.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="freeRobot"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">freeRobot</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Kills the robot.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getGUI"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getGUI</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the gui object.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadBrain"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadBrain</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">file</span>)</span>
+  </h3>
+<pre class="literalblock">
+Finds and loads the brain file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadRobot"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadRobot</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">file</span>)</span>
+  </h3>
+<pre class="literalblock">
+Finds and loads the robot.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadSimulator"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadSimulator</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">file</span>,
+          <span class="sig-arg">worldfile</span>)</span>
+  </h3>
+<pre class="literalblock">
+Finds and loads the simulator.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseRun"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseRun</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">callback</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Request to run the brain, followed by a callback.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseStep"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseStep</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Attempt to step the brain.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseStop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseStop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Attempt to stop the brain.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="reset"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">reset</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Shuts down the brain, and reloads it.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetFirstAttempts"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetFirstAttempts</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Test method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setBrain"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setBrain</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">brain</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the brain, after the creation of the engine.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setRobot"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setRobot</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">robot</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the robot, after the creation of the engine.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="shutdown"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">shutdown</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Shuts everything down.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="tryToConnect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">tryToConnect</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Tests to see if you have a brain and robot.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

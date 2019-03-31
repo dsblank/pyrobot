@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129011426", "pyrorobotics.org");
+</script>
+  <title>pyrobot.robot.symbolic.TCPRobot</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-robot-module/">Package&nbsp;robot</a> ::
+        <a href="../../usermanual/pyrobot-robot-symbolic-module/">Module&nbsp;symbolic</a> ::
+        Class&nbsp;TCPRobot
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-robot-symbolic-TCPRobot-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class TCPRobot</h2>
+<pre class="base-tree">
+<a href="../../usermanual/pyrobot-robot-Robot-class/"><code>Robot</code></a> --+
+        |
+       <b>TCPRobot</b>
+</pre><br/>
+<hr/>
+<pre class="literalblock">
+A simple TCP-based socket robot for talking to PyrobotSimulator.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__init__"></a><span class="summary-sig"><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">host</span>,
+          <span class="summary-sig-arg">port</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="ask"></a><span class="summary-sig"><span class="summary-sig-name">ask</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-symbolic-TCPRobot-class/#disconnect" class="summary-sig-name"><code>disconnect</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Disconnects the robot object from the server or simulator.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="eat"></a><span class="summary-sig"><span class="summary-sig-name">eat</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">amt</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getItem"></a><span class="summary-sig"><span class="summary-sig-name">getItem</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-symbolic-TCPRobot-class/#localize" class="summary-sig-name"><code>localize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">thr</span>)</span></code>
+<br/>
+Set the x,y,thr pose of where the robot thinks it is.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="move"></a><span class="summary-sig"><span class="summary-sig-name">move</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">message</span>,
+          <span class="summary-sig-arg">other</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="play"></a><span class="summary-sig"><span class="summary-sig-name">play</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="rotate"></a><span class="summary-sig"><span class="summary-sig-name">rotate</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="startDeviceBuiltin"></a><span class="summary-sig"><span class="summary-sig-name">startDeviceBuiltin</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">index</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="tell"></a><span class="summary-sig"><span class="summary-sig-name">tell</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="translate"></a><span class="summary-sig"><span class="summary-sig-name">translate</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-symbolic-TCPRobot-class/#update" class="summary-sig-name"><code>update</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Updates the robot.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Robot</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#connect" class="summary-sig-name"><code>connect</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Connects the robot object to the server or simulator.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#destroy" class="summary-sig-name"><code>destroy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+This method removes all of the devices.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#getDevice" class="summary-sig-name"><code>getDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+<br/>
+Returns the first device of a type.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#getDevices" class="summary-sig-name"><code>getDevices</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the list of device types that have ben loaded.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#getSupportedDevices" class="summary-sig-name"><code>getSupportedDevices</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the list of builtin device types.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#hasA" class="summary-sig-name"><code>hasA</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">dtype</span>)</span></code>
+<br/>
+Returns 1 if robot has a device of type dtype, else 0.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#motors" class="summary-sig-name"><code>motors</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">leftValue</span>,
+          <span class="summary-sig-arg">rightValue</span>)</span></code>
+<br/>
+Move function that takes desired motor values
+and converts to trans and rotate.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#printView" class="summary-sig-name"><code>printView</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">thing</span>,
+          <span class="summary-sig-arg">toplevel</span>,
+          <span class="summary-sig-arg">indent</span>)</span></code>
+<br/>
+A printable representation of the robot's attribute tree.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#removeDevice" class="summary-sig-name"><code>removeDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>,
+          <span class="summary-sig-arg">number</span>)</span></code>
+<br/>
+Removes a device (or all of them) of a particular type.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#requires" class="summary-sig-name"><code>requires</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">feature</span>)</span></code>
+<br/>
+Takes a list/feature name and raises and exception if not supported.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#setRangeSensor" class="summary-sig-name"><code>setRangeSensor</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">index</span>)</span></code>
+<br/>
+Change the default range sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#setup" class="summary-sig-name"><code>setup</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Is called from __init__ so users don't have to call parent
+constructor and all the gory details.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#startDevice" class="summary-sig-name"><code>startDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Loads and starts a device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#startDevices" class="summary-sig-name"><code>startDevices</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>,
+          <span class="summary-sig-arg">override</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Load devices can take a dict, list, builtin name, or filename...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#stop" class="summary-sig-name"><code>stop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Short for robot.move(0,0).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#stopDevice" class="summary-sig-name"><code>stopDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+<br/>
+Stop a device from updating.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#supports" class="summary-sig-name"><code>supports</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">feature</span>)</span></code>
+<br/>
+See if this robot interface supports a particular feature.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-Robot-class/#updateDevices" class="summary-sig-name"><code>updateDevices</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Updates all of the robot's devices.</td></tr>
+</table><br/>
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>int</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-robot-symbolic-TCPRobot-class/#BUFSIZE"><code>BUFSIZE</code></a></b> = <span title="1024">1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="disconnect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">disconnect</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Disconnects the robot object from the server or simulator.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-robot-Robot-class/#disconnect"><code>pyrobot.robot.Robot.disconnect</code></a> <i>(inherited documentation)</i>
+</dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="localize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">localize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">x</span>=<span class="sig-default">0</span>,
+          <span class="sig-arg">y</span>=<span class="sig-default">0</span>,
+          <span class="sig-arg">thr</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the x,y,thr pose of where the robot thinks it is.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-robot-Robot-class/#localize"><code>pyrobot.robot.Robot.localize</code></a> <i>(inherited documentation)</i>
+</dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="update"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">update</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Updates the robot.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-robot-Robot-class/#update"><code>pyrobot.robot.Robot.update</code></a> <i>(inherited documentation)</i>
+</dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF CLASS VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Class Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="BUFSIZE"></a>
+<h3>BUFSIZE</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>int</code>
+      </dd>
+<span title="1024">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+1024&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

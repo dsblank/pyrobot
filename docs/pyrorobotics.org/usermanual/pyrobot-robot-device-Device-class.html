@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129020703", "pyrorobotics.org");
+</script>
+  <title>pyrobot.robot.device.Device</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-robot-module/">Package&nbsp;robot</a> ::
+        <a href="../../usermanual/pyrobot-robot-device-module/">Module&nbsp;device</a> ::
+        Class&nbsp;Device
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-robot-device-Device-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Device</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-robot-aibo-AiboHeadDevice-class/"><code>AiboHeadDevice</code></a>,
+    <a href="../../usermanual/pyrobot-camera-Camera-class/"><code>Camera</code></a>,
+    <a href="../../usermanual/pyrobot-robot-khepera-Gripper-class/"><code>Gripper</code></a>,
+    <a href="../../usermanual/pyrobot-robot-khepera-IRSensor-class/"><code>IRSensor</code></a>,
+    <a href="../../usermanual/pyrobot-robot-player-PlayerDevice-class/"><code>PlayerDevice</code></a>,
+    <a href="../../usermanual/pyrobot-robot-robocup-RobocupLaserDevice-class/"><code>RobocupLaserDevice</code></a>,
+    <a href="../../usermanual/pyrobot-robot-robocup-RobocupSimulationDevice-class/"><code>RobocupSimulationDevice</code></a>,
+    <a href="../../usermanual/pyrobot-robot-symbolic-SimDevice-class/"><code>SimDevice</code></a>,
+    <a href="../../usermanual/pyrobot-gui-plot-simple-SimplePlot-class/"><code>SimplePlot</code></a>,
+    <a href="../../usermanual/pyrobot-robot-symbolic-SimulationDevice-class/"><code>SimulationDevice</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-devices-Test-TestDevice-class/"><code>TestDevice</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+A basic device class. All device derive from this.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">deviceType</span>,
+          <span class="summary-sig-arg">visible</span>)</span></code>
+<br/>
+Constructor for the device class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#__getitem__" class="summary-sig-name"><code>__getitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">item</span>)</span></code>
+<br/>
+Get a SensorValue, a range, or a set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#__iter__" class="summary-sig-name"><code>__iter__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used to iterate through SensorValues of device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#addWidgets" class="summary-sig-name"><code>addWidgets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">window</span>)</span></code>
+<br/>
+Method to addWidgets to the device window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#angle" class="summary-sig-name"><code>angle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Device-level method to get all of the angles.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#destroy" class="summary-sig-name"><code>destroy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Hides the window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#distance" class="summary-sig-name"><code>distance</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Device-level method to get all of the distances.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getActive" class="summary-sig-name"><code>getActive</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the value of .active.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getDeviceData" class="summary-sig-name"><code>getDeviceData</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the device data, whatever it might be.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getDeviceState" class="summary-sig-name"><code>getDeviceState</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the .state.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getGroupNames" class="summary-sig-name"><code>getGroupNames</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Return all of the groups a pos is in.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getMaxvalue" class="summary-sig-name"><code>getMaxvalue</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the maxvalue of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getSensorValue" class="summary-sig-name"><code>getSensorValue</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Returns a specific SensorValue from the range device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#getVisible" class="summary-sig-name"><code>getVisible</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the .visible of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#makeWindow" class="summary-sig-name"><code>makeWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to make and show the device window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#rawToUnits" class="summary-sig-name"><code>rawToUnits</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">raw</span>,
+          <span class="summary-sig-arg">noise</span>,
+          <span class="summary-sig-arg">units</span>)</span></code>
+<br/>
+Convert the sensor units into default units.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setActive" class="summary-sig-name"><code>setActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the .active property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setMaxvalue" class="summary-sig-name"><code>setMaxvalue</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Set the maxvalue of the sensor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setTitle" class="summary-sig-name"><code>setTitle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">title</span>)</span></code>
+<br/>
+Sets the title of the device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setup" class="summary-sig-name"><code>setup</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Use this to put setup code in (instead of in __init__).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#setVisible" class="summary-sig-name"><code>setVisible</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the .visible attribute, and hides/shows window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#startDevice" class="summary-sig-name"><code>startDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Starts the device (sets the .state).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#stopDevice" class="summary-sig-name"><code>stopDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Stops the device (sets the .state).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#updateDevice" class="summary-sig-name"><code>updateDevice</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method called to update the device properties.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-Device-class/#updateWindow" class="summary-sig-name"><code>updateWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to update the device window.</td></tr>
+</table><br/>
+<!-- =========== START OF PROPERTY SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Property Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><a name="geometry"></a><b><code>geometry</code></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><a name="noise"></a><b><code>noise</code></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><a name="pos"></a><b><code>pos</code></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><a name="rawValue"></a><b><code>rawValue</code></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><a name="value"></a><b><code>value</code></b></td></tr></table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">deviceType</span>=<span class="sig-default">'unspecified'</span>,
+          <span class="sig-arg">visible</span>=<span class="sig-default">0</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for the device class.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__getitem__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__getitem__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">item</span>)</span>
+    <br/><i>(Indexing operator)</i>
+  </h3>
+<pre class="literalblock">
+Get a SensorValue, a range, or a set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__iter__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__iter__</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used to iterate through SensorValues of device.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addWidgets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addWidgets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">window</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method to addWidgets to the device window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="angle"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">angle</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Device-level method to get all of the angles. Can translate units.
+&gt;&gt;&gt; robot.sonar[0][3].angle(unit=&quot;radians&quot;)
+&gt;&gt;&gt; [s.angle(units=&quot;degrees&quot;) for s in robot.sonar[0][&quot;left&quot;]]
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="destroy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">destroy</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Hides the window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="distance"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">distance</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Device-level method to get all of the distances.
+&gt;&gt;&gt; robot.sonar[0].angle(unit=&quot;radians&quot;)
+[2.34, 1.34, .545]
+&gt;&gt;&gt; robot.sonar[0][&quot;left&quot;].angle(unit=&quot;degrees&quot;)
+[90, 45, 180]
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActive</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the value of .active.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getDeviceData"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getDeviceData</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the device data, whatever it might be.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getDeviceState"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getDeviceState</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the .state.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getGroupNames"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getGroupNames</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pos</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return all of the groups a pos is in.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getMaxvalue"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getMaxvalue</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Get the maxvalue of the sensor.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getSensorValue"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getSensorValue</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pos</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns a specific SensorValue from the range device.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getVisible"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getVisible</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the .visible of the sensor.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeWindow"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeWindow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method to make and show the device window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="rawToUnits"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">rawToUnits</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">raw</span>,
+          <span class="sig-arg">noise</span>=<span class="sig-default">0.0</span>,
+          <span class="sig-arg">units</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Convert the sensor units into default units.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setActive</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the .active property.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setMaxvalue"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setMaxvalue</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set the maxvalue of the sensor.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setTitle"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setTitle</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">title</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the title of the device.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setup"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setup</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Use this to put setup code in (instead of in __init__).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setVisible"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setVisible</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the .visible attribute, and hides/shows window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="startDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">startDevice</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Starts the device (sets the .state).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="stopDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">stopDevice</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Stops the device (sets the .state).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="updateDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">updateDevice</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method called to update the device properties.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="updateWindow"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">updateWindow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method to update the device window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

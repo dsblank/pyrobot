@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129012032", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.Brain</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        Class&nbsp;Brain
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-Brain-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Type Brain</h2>
+<pre class="base-tree">
+<a href="../../usermanual/__builtin__-object-class/"><code>object</code></a> --+        
+         |        
+  <code>_Verbose</code> --+    
+             |    
+        <a href="../../usermanual/threading-Thread-class/"><code>Thread</code></a> --+
+                 |
+                <b>Brain</b>
+</pre><br/>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-plugins-brains-Avoid-Avoid-class/"><code>Avoid</code></a>,
+    <a href="../../usermanual/pyrobot-brain-behaviors-BehaviorBasedBrain-class/"><code>BehaviorBasedBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-CleanUp-CleanUp-class/"><code>CleanUp</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Learning-collect-CollectDataBrain-class/"><code>CollectDataBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Slider-Controller-class/"><code>Controller</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Joystick-JoystickControl-class/"><code>JoystickControl</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-KonanePlayer-KonanePlayer-class/"><code>KonanePlayer</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-JoystickMap-Map-class/"><code>Map</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Learning-avoid-NNBrain-class/"><code>NNBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Learning-deploy-NNBrain-class/"><code>NNBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-NNCluster-NNBrain-class/"><code>NNBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-NNWander-NNBrain-class/"><code>NNBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-NNPredict-NNPredict-class/"><code>NNPredict</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-NNPredictWithPlots-NNPredict-class/"><code>NNPredict</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-NNRandom-Reinforce-class/"><code>Reinforce</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-CamMover-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-LPSWander-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-RAVQ-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-ReflexVacuumAgent-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-SimpleBrain-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-SimpleWander-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Test-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Wander-SimpleBrain-class/"><code>SimpleBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Subsumption-SubsumptionBrain-class/"><code>SubsumptionBrain</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-TrackBall-TrackBall-class/"><code>TrackBall</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Braitenberg-Vehicle-class/"><code>Vehicle</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-KLight-Vehicle-class/"><code>Vehicle</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Vehicle1-Vehicle-class/"><code>Vehicle</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Vehicle2a-Vehicle-class/"><code>Vehicle</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-Vehicle3-Vehicle-class/"><code>Vehicle</code></a>,
+    <a href="../../usermanual/pyrobot-plugins-brains-VisionTest-VisionBrain-class/"><code>VisionBrain</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+The Brain is the basis for all brains.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">engine</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+Constructor for Brain class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#destroy" class="summary-sig-name"><code>destroy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to override if you create objects (such as devices).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#getDevice" class="summary-sig-name"><code>getDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's getDevice method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#getEngine" class="summary-sig-name"><code>getEngine</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the engine property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#hasA" class="summary-sig-name"><code>hasA</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's hasA method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#makeWindow" class="summary-sig-name"><code>makeWindow</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method that creates a window; seen under Brain -&gt; Watch.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#motors" class="summary-sig-name"><code>motors</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's motors method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#move" class="summary-sig-name"><code>move</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's move method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#pleaseQuit" class="summary-sig-name"><code>pleaseQuit</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Signals the thread that we need to stop running.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#pleaseRun" class="summary-sig-name"><code>pleaseRun</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">callback</span>)</span></code>
+<br/>
+Signals the thread that we need to start stepping.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#pleaseStep" class="summary-sig-name"><code>pleaseStep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Signals the thread to make a step.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#pleaseStop" class="summary-sig-name"><code>pleaseStop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Signals the thread that we need to stop stepping the robot.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#quit" class="summary-sig-name"><code>quit</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Signals the thread that we need to stop running.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#redraw" class="summary-sig-name"><code>redraw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Redraws the brain watch window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#removeDevice" class="summary-sig-name"><code>removeDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**keywords</span>)</span></code>
+<br/>
+Short-cut to call the robot's removeDevice method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#requires" class="summary-sig-name"><code>requires</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's requires method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#rotate" class="summary-sig-name"><code>rotate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's rotate method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#run" class="summary-sig-name"><code>run</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Runs the brain/thread.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#setup" class="summary-sig-name"><code>setup</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kwargs</span>)</span></code>
+<br/>
+User init method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#startDevice" class="summary-sig-name"><code>startDevice</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**keywords</span>)</span></code>
+<br/>
+Short-cut to call the robot's startDevice method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#step" class="summary-sig-name"><code>step</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+This is the method that does all of the work.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#stop" class="summary-sig-name"><code>stop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Short-cut to call the robot's stop method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#translate" class="summary-sig-name"><code>translate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Short-cut to call the robot's translate method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-Brain-class/#update" class="summary-sig-name"><code>update</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Short-cut to call the robot's update method.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Thread</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#__repr__" class="summary-sig-name"><code>__repr__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#getName" class="summary-sig-name"><code>getName</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#isAlive" class="summary-sig-name"><code>isAlive</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#isDaemon" class="summary-sig-name"><code>isDaemon</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#join" class="summary-sig-name"><code>join</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">timeout</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#setDaemon" class="summary-sig-name"><code>setDaemon</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">daemonic</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#setName" class="summary-sig-name"><code>setName</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/threading-Thread-class/#start" class="summary-sig-name"><code>start</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from object</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__delattr__" class="summary-sig-name"><code>__delattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__delattr__('name') &lt;==&gt; del x.name...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__getattribute__" class="summary-sig-name"><code>__getattribute__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__getattribute__('name') &lt;==&gt; x.name...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__hash__" class="summary-sig-name"><code>__hash__</code></a>(<span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+x.__hash__() &lt;==&gt; hash(x)...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__new__" class="summary-sig-name"><code>__new__</code></a>(<span class="summary-sig-arg">T</span>,
+          <span class="summary-sig-arg">S</span>,
+          <span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+T.__new__(S, ...) -&gt; a new object with type S, a subtype of T...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__reduce__" class="summary-sig-name"><code>__reduce__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+helper for pickle...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__reduce_ex__" class="summary-sig-name"><code>__reduce_ex__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+helper for pickle...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__setattr__" class="summary-sig-name"><code>__setattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__setattr__('name', value) &lt;==&gt; x.name = value...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+x.__str__() &lt;==&gt; str(x)...</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">'brain'</span>,
+          <span class="sig-arg">engine</span>=<span class="sig-default">0</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for Brain class.
+You should set the engine, if nothing else.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/threading-Thread-class/#__init__"><code>threading.Thread.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="destroy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">destroy</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method to override if you create objects (such as devices).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getDevice</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's getDevice method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getEngine"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getEngine</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the engine property.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="hasA"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">hasA</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's hasA method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeWindow"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeWindow</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method that creates a window; seen under Brain -&gt; Watch.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="motors"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">motors</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's motors method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="move"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">move</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's move method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseQuit"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseQuit</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Signals the thread that we need to stop running.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseRun"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseRun</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">callback</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Signals the thread that we need to start stepping.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseStep"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseStep</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Signals the thread to make a step.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="pleaseStop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">pleaseStop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Signals the thread that we need to stop stepping the robot.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="quit"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">quit</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Signals the thread that we need to stop running.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="redraw"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">redraw</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Redraws the brain watch window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="removeDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">removeDevice</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**keywords</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's removeDevice method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="requires"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">requires</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's requires method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="rotate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">rotate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's rotate method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="run"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">run</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Runs the brain/thread.
+self.pauseTime determines how many times a second it is called.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/threading-Thread-class/#run"><code>threading.Thread.run</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="setup"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setup</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**kwargs</span>)</span>
+  </h3>
+<pre class="literalblock">
+User init method. Call this instead of overloading __init__.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="startDevice"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">startDevice</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>,
+          <span class="sig-kwarg">**keywords</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's startDevice method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="step"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">step</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+This is the method that does all of the work.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="stop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">stop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's stop method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="translate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">translate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-vararg">*args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's translate method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="update"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">update</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Short-cut to call the robot's update method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

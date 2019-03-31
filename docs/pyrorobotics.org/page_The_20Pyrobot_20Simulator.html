@@ -1,0 +1,532 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219092713", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Pyrobot_20Simulator</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> The Pyrobot Simulator</h1>
+<p>
+The Pyrobot Simulator is designed to allow the Pyro interface to be
+used to explore two kinds of worlds: symbolic (such as the Wumpus
+world) and continuous (such as using pioneer-style robots to do light
+and sonary sensing). All of the code for this simulator is written in
+Python with no other dependencies. This means that this simulator is
+usable from any platform (OS X, Windows, etc).
+<p>
+<p>
+<h2 width="804"> The Pyrobot User Interface</h2>
+<p>
+The window below shows an example of a Pyrobot simulated environment
+called <tt class="wiki">BraitenbergWorld.py</tt>:
+<p>
+<img src="../BeyondLegos/Images/BraitenbergWorld.png">
+<p>
+It is a simple enclosure with a light source at the center and a
+Pioneer-style robot with both light and sonar sensors.
+<p>
+In a Pyrobot window, you can pan and zoom the world as well as
+manipulate the robot by using your mouse.  You can click your mouse
+buttons on the background of the window or on the robot.  The
+following table summarizes various mouse click bindings and actions:
+<p>
+<b>Clicks on the background</b>
+<table border="1"><tr><td> Right-click and drag toward center </td><td> zooms in </td></tr>
+<tr><td> Right-click and drag toward edge </td><td> zooms out</td></tr>
+<tr><td> Middle-click </td><td> center window at that point</td></tr>
+<tr><td> Middle-clck and drag </td><td> move the world in the window</td></tr>
+</table><p>
+<b>Clicks on robot</b>
+<table border="1"><tr><td> Left-click and drag</td><td> moves the robot</td></tr>
+<tr><td> CTRL left-click </td><td> rotates the robot</td></tr>
+</table><p>
+<b>Menu items</b>
+<p>
+You can turn off and on the drawing of various lines, paths, boundaries, and rays via the &quot;View&quot; menu. As of Pyro Version 4.3.2, you can also set the ability of the lights to shine over walls or not via the &quot;Options&quot; menu.
+<p>
+<p>
+<h2 width="804"> Creating Continuous Worlds</h2>
+<p>
+The Pyrobot Simulator supports continuous worlds in Python, like all
+of the other simulators that Pyro works with. Within continuous
+worlds, it supports sonar, light, gripper, bulb, camera, pan-tilt-zoom (PTZ) 
+and position (movement and odometry)
+interfaces, as well as an interface called simulation that allows you
+to place the robot at a particular location and orientation.
+<p>
+<img src="../_meeden/BeyondLegos/Images/Pyrobot.jpg">
+<p>
+Worlds in the Pyrobot Simulator are actually Python code. 
+You can add boxes, walls, and robots. However, as this simulator is
+written in a straight-forward manner in Python with no optimizations,
+it is best not to add large numbers of objects. The Pyrobot simulator is
+designed to be used for basic worlds in cases where cross-platform
+compatibility is important. See also <a href="../page_PyroFromPython/">PyroFromPython</a> for additonal
+comments about these type of worlds.
+<p>
+Here is the code for the <tt class="wiki">Tutorial.py</tt> world shown above.
+<p>
+<pre class="code">
+from pyrobot.simulators.pysim import *
+def INIT():
+    # (width, height), (offset x, offset y), scale:
+    sim = TkSimulator((600, 600), (50, 550), 100)
+    # x1, y1, x2, y2 in meters:
+    sim.addBox(0, 0, 5, 5)
+    sim.addBox(0, 4, 1, 5, &quot;blue&quot;)
+    sim.addBox(2.5, 0, 2.6, 2.5, &quot;green&quot;)
+    sim.addBox(2.5, 2.5, 3.9, 2.6, &quot;green&quot;)
+    # port, name, x, y, th, bounding Xs, bounding Ys, color
+    # (optional TK color name):
+    sim.addRobot(60000, TkPioneer(&quot;RedPioneer&quot;,
+                                  .5, 2.5, 0.00,
+                                  ((.225, .225, -.225, -.225),
+                                   (.175, -.175, -.175, .175))))
+    # add some sensors:
+    sim.robots[0].addDevice(PioneerFrontSonars()) # for 8 front sonar
+    # or: sim.robots[0].addDevice(Pioneer16Sonars()) # for full 360 sonar
+    sim.robots[0].addDevice(PioneerFrontLightSensors())
+    # x, y relative to body center (beyond bounding box):
+    sim.robots[0].addDevice(BulbDevice(0.226, 0)) # pose x, pose y
+    # width, height, startAngle, stopAngle, pose x, pose y, pose thr:
+    sim.robots[0].addDevice(Camera(60, 40, 0, 120, 0, 0, 0))
+    return sim
+</pre>
+<p>
+Let's consider the line that creates the <tt class="wiki">sim</tt> instance.  First
+you must determine the width and height of the simulator window in
+pixels.  Here we have chosen 600 by 600. Next, you must designate the
+x and y offset of the view within this window.  In this case the view
+will start 50 pixels in on the bottom-left corner and will end 50
+pixels from the top-right corner.  Finally, you must set the scale of
+the environment in pixels per meter.  In this case we have chosen 100
+pixels per meter. Note that the origin is at the bottom-left corner of
+the window's view. 
+ <img width="11" src="../wiki/img/alert.png"> Usually, one would position the robots and the size and scale of the 
+using the GUI, and then record those values in the world. Each time you 
+redraw the world, it will print out the coordinates of each object in
+the console window.
+<p>
+Next we have created a series of four boxes.  Each box is described
+by two points designating the bottom-left corner and the top-right
+corner.  The first box sets the outer boundaries of the environment.
+The second box is an obstacle in the top-left corner of the
+environment.  The last two boxes create a smaller inner room at the
+bottom-right corner of the environment.
+<p>
+Once the environment has been determined, we can add a robot.  In this
+case, the robot is a Pioneer-style robot communicating on port 60000
+and it has a bank of sonar sensors, bulb, light sensors, and camera.
+<p>
+<p>
+<h3 width="804"> Continuous Worlds Simulators</h3>
+<p>
+There are actually three different classes for creating simulated continuous worlds, <tt class="wiki">Simulator</tt>, <tt class="wiki">TkSimulator</tt>, and <tt class="wiki">Tk3DSimulator</tt>, each extending the previous. The <tt class="wiki">Simulator</tt> is the base class, and does everything except actually display the world. The <tt class="wiki">TkSimulator</tt> wraps the base simulator in Tkinter graphics calls for a fairly effecient 2D view of the simulator. Finally, <tt class="wiki">Tk3DSimulator</tt> extends the 2D Tkinter view into 3D. This is new, and currently doesn't have real 3D objects; it simply displays the 2D world as a 3D projection. But, we can add real 3D objects in the future. This would allow objects to exist in the world at different heights.
+<p>
+<img src="../_dblank/images/pyrobot-3d.png">
+<p>
+The world view can be translated and rotate with:
+<p>
+<pre class="code">
+sim.translateWorld(x, y, z)
+sim.rotateWorld(x, y, z)
+</pre>
+<p>
+or from a robot:
+<p>
+<pre class="code">
+self.robot.simulation[0].eval(&quot;self.translateWorld(x, y, z)&quot;)
+self.robot.simulation[0].eval(&quot;self.rotateWorld(x, y, z)&quot;)
+</pre>
+<p>
+<tt class="wiki">rotateWorld</tt> will rotate first x, then y, then z. To rotate in a different order, do them one at a time:
+<p>
+<pre class="code">
+self.robot.simulation[0].eval(&quot;self.rotateWorld(0, 10, 0)&quot;)
+self.robot.simulation[0].eval(&quot;self.rotateWorld(0, 0, 20)&quot;)
+self.robot.simulation[0].eval(&quot;self.rotateWorld(-5, 0, 0)&quot;)
+</pre>
+<p>
+A mouse interface for translation and rotation is expected soon. The 2D mouse commands are currently still connected for the 3D view, but reflect the 2D view rather than the 3D view.
+<p>
+<p>
+<h3 width="804"> Continuous World Devices</h3>
+<p>
+The continuous world allows six devices: ptz, simulation, gripper, light sensors, bulbs, and camera. In addition, there is a seventh device, position, which is available on the client side.
+<p>
+<p>
+<h4 width="804"> Simulation Device</h4>
+<p>
+The simulation device has the same interface as does Stage and Gazebo, and allows
+the programmer to move the robots in the simulation (<tt class="wiki">robot.simulation[0].setPose(robotName, x, y, th)</tt>) or determine
+the actual position (<tt class="wiki">robot.simulation[0].getPose(robotName)</tt>). Notice that any robot has the interface to move
+and query any other robot (e.g., all robots have the simulation interface). th is in degrees.
+<p>
+The simulation device also support an eval method. See this page for examples.
+<p>
+<p>
+<h4 width="804"> Light Device</h4>
+<p>
+The light sensor device does two functions: it can detect light, and also can determine
+the color of the surround lights (much like a 1-pixel camera). You can use:
+<p>
+<pre class="code">
+robot.light[0].value[1]
+robot.light[0].rgb[1]
+</pre>
+<p>
+where 0 means the first bank of light sensors (there could be more, but usually there is just the one), and 1 represents the second sensor of the bank. .value will return a list of light readings between 0 and 1. .rgb will return a list of red, green, blue triplets representing the colors picked up by the sensor.
+ <img width="11" src="../wiki/img/alert.png"> The light sensor .value picks up light that falls off as 1 over the square of the distance. The light sensor .rgb values pick up light much more like a camera (intensity falls off linearly).
+<p>
+The light sensor will combine all surrounding light (both intensity and color) for its readings.
+<p>
+<p>
+<h4 width="804"> Bulb Device</h4>
+<p>
+The bulb device is a way for the robot to produce light. The value of the bulb is 1.0 by default. You can change the value (using Pyro version 4.3.1 or greater) with the command:
+<p>
+<pre class="code">
+robot.bulb[0].setBrightness(VAL)
+</pre>
+<p>
+where VAL is typically between 0.0 and 1.0. The bulb (currently) needs to be placed outside of the robot's bounding box. 
+ <img width="11" src="../wiki/img/alert.png"> The bulb doesn't initially shine through (or over) any bounding box or wall. This can be changed by the simulation menu.
+<p>
+<p>
+<h4 width="804"> Camera Device</h4>
+<p>
+Beginning with Pyro version 4.5.0, the Pyrobot simulator now supports a camera device. 
+This has some bits hardcoded for now (angle, x, y, th  of camera is set to
+0, 0, 0, 0 which puts it at the center of the robot looking
+out the front). Use the PTZ to change those settings
+dynamically. The camera device is CPU intensive, to give a good
+image. Set the width to be between 40 and 60 ray casts (less than 40 and you will not see objects; 
+more than 60 and it will run slowly).
+<p>
+<img src="../_dblank/images/pyrobot-camera.png">
+<p>
+The Camera class in the simulator takes the following parameters (as of Pyrobot version 4.8.0):
+<p>
+<pre class="code">
+    Camera(width, height, panCenter, totalAngle, x, y, thr)
+</pre>
+<p>
+Width is the number of rays to cast to create the image. height is the size of the image. <tt class="wiki">panCenter</tt> is the direction that the camera is facing (0 is front, positive degrees to the left, negative degrees to the right). <tt class="wiki">totalAngle</tt> is the angle the camera covers, in degrees. x, y, thr is the position of the camera on the robot (0, 0, 0) is center (the position is not currently changable). The <tt class="wiki">panCenter</tt> and <tt class="wiki">totalAngle</tt> can be changed through a PTZ device (see below).
+<p>
+Example:
+<p>
+<pre class="code">
+    sim.robots[0].addDevice(Camera(60, 40, 0, 120, 0, 0, 0))
+</pre>
+<p>
+This camera hss 60 rays, 40 pixels in height, faces forward (0), and has a 120 degree view. See also <tt class="wiki">CamWorld.py</tt> below.
+<p>
+<p>
+<h4 width="804"> PTZ Device</h4>
+<p>
+This interface allows you to pan, tilt, and zoom the camera. The constructor takes a camera object:
+<p>
+<pre class="code">
+    cam = Camera(60, 40, 0, 120, 0, 0, 0)
+    sim.robots[0].addDevice(cam)
+    sim.robots[0].addDevice(PTZ(cam))
+</pre>
+<p>
+<p>
+<h4 width="804"> Speech Device</h4>
+<p>
+The Pyrobot Speech device allows you to see messages &quot;spoken&quot; by the robot, in a little dialog box.
+<p>
+<pre class="code">
+   robot.speech[0].say(&quot;Hello world!&quot;)
+   robot.speech[0].say(&quot;&quot;) # clears the speech box
+</pre> 
+<p>
+<p>
+<h4 width="804"> Gripper Device</h4>
+<p>
+Pyrobot Simulator, version 4.6 supports a gripper device. Along with the new Puck-type robot, and the new camera device, you can do some serious experiments with the Pyrobot Simulator.
+<p>
+Here is <tt class="wiki">CamWorld.py</tt> (code below):
+<p>
+<img src="../_dblank/images/pyrobot-1.png">
+<p>
+The robot approaches a puck. Becareful not to bump it too hard as they will slide. You can tell that you have a puck in your gripper with <tt class="wiki">robot.gripper[0].getBreakBeam('inner')</tt> and <tt class="wiki">robot.gripper[0].getBreakBeam('outer')</tt>. In this position you can <tt class="wiki">robot.gripper[0].close()</tt> and/or <tt class="wiki">robot.gripper[0].store()</tt>.  
+<p>
+<img src="../_dblank/images/pyrobot-2.png">
+<p>
+<tt class="wiki">robot.gripper[0].store()</tt> will place the puck in a storage compartment in the robot:
+<p>
+<img src="../_dblank/images/pyrobot-3.png">
+<p>
+You can drop a puck somewhere with <tt class="wiki">robot.gripper[0].deploy()</tt>. Also, you can collect as many pucks as you want. Use the <tt class="wiki">robot.gripper[0].open()</tt> to open the gripper without dropping a puck.
+<p>
+If you select &quot;gripper[0]&quot; in the new Device selection list and click on &quot;View&quot; (or type robot.gripper[0].makeWindow()) you'll see:
+<p>
+<img src="../_dblank/images/pyrobot-gripper-controls.png">
+<p>
+This view shows the names of the properties and methods, and provides an easy-to-use interface for calling the methods.
+<p>
+Here is a world showing the creation of pucks, camera, and gripper:
+<p>
+<pre class="code">
+from pyrobot.simulators.pysim import *
+def INIT():
+    # (width, height), (offset x, offset y), scale:
+    sim = TkSimulator((445,496),(26,426),39.911318)
+    # x1, y1, x2, y2 in meters:
+    sim.addBox(0, 0, 10, 10)
+    # port, name, x, y, th, bounding Xs, bounding Ys, color
+    # (optional TK color name):
+    sim.addRobot(60000, TkPioneer(&quot;Pioneer1&quot;,
+                                  5.60, 5.59, 5.53,
+                                  ((.225, .225, -.225, -.225),
+                                   (.175, -.175, -.175, .175)),
+                                  &quot;green&quot;))
+    # add some sensors:
+    sim.robots[0].addDevice(PioneerFrontSonars())
+    sim.robots[0].addDevice(Camera(60, 40, 0, 120, 0, 0, 0))
+    sim.robots[0].addDevice(Gripper())
+    # Pucks don't have sockets to connect onto, but you can move them through the simulation device
+    sim.addRobot(None, TkPuck(&quot;Puck1&quot;, 6.28, 6.34, 0, ((.05, .05, -.05, -.05), (.05, -.05, -.05, .05)), &quot;purple&quot;))
+    sim.addRobot(None, TkPuck(&quot;Puck2&quot;, 6.47, 6.47, 0, ((.05, .05, -.05, -.05), (.05, -.05, -.05, .05)), &quot;blue&quot;))
+    sim.addRobot(None, TkPuck(&quot;Puck3&quot;, 7.0, 7.0, 0, ((.05, .05, -.05, -.05), (.05, -.05, -.05, .05)), &quot;red&quot;))
+    return sim
+</pre>
+<p>
+<p>
+<h3 width="804"> Geometry</h3>
+<p>
+The geometry, body, and bulb positions are given in this coordinate system, in meters:
+<p>
+<pre class="code">
+                   left of robot
+                        ^
+                        | +
+                y-axis  |
+                        |
+                   (0,0)|             +
+back of robot  &lt;--------+----------------&gt;  Front of robot
+                 -      |      x-axis
+                        |
+                        |
+                        | -
+                        V
+                  right of robot
+</pre>
+<p>
+0,0 is the center of the robot. Zero degrees faces to the right in the picture, which is the front of the robot. 
+<p>
+<p>
+<h3 width="804"> Special Features of Continuous Worlds</h3>
+<p>
+The following features allow Artificial Life-style experiments.
+<p>
+Robots in continuous worlds each have an energy level that is by
+default initally set to 10,000 and decreases on each time step by the
+amount in <tt class="wiki">maxEnergyCostPerStep</tt>.
+<p>
+If you are using a world with light sources, then when the robot is
+close enough to a light source it can actually use the light as a
+source of energy.  If you execute the command <tt class="wiki">robot.eat(amount)</tt>
+where <tt class="wiki">amount</tt> is an integer value and the light source is
+emitting at least that much energy, then the light's intensity will
+decrease by that amount and the robot's energy will increase by that
+amount.
+<p>
+If you'd like to review the source code for the continuous portion of
+the Pyrobot simulator go to
+<tt class="wiki">&#36;PYROBOT/simulators/pysim/__init.py__</tt>
+<p>
+As of Pyro Version 4.3.2, you can also send commands to the simulator via the simulator device. You can send a command or statement like so:
+<p>
+<pre class="code">
+&gt;&gt;&gt; robot.simulation[0].eval(&quot;self.lightAboveWalls&quot;)
+0
+&gt;&gt;&gt; robot.simulation[0].eval(&quot;self.lightAboveWalls = 1&quot;)
+ok
+</pre>
+<p>
+Notice that &quot;self&quot; is the simulator. Currently, there is not an easy interface for sending arbitrary expressions to particular robots. See the source code for appropriate syntax.
+<p>
+<p>
+<h2 width="804"> Symbolic Worlds</h2>
+<p>
+The other type of worlds take symbolic commands as actions, and
+receive symbolic feedback as senses.
+<p>
+This table shows which world, robot, and brain combinations work with the simulator:
+<p>
+<table border="1"><tr><td> <b>Simulator</b> </td><td> <b>World</b> </td><td> <b>Robot</b> </td><td> <b>Brain</b> </td></tr>
+<tr><td> Pyrobot<b></b>Simulator </td><td> Vacuum<b></b>Cleaner<b></b>World.py </td><td> Pyrobot<b></b>Robot60000.py </td><td> Clean<b></b>Up.py </td></tr>
+<tr><td> Pyrobot<b></b>Simulator </td><td> Wumpus<b></b>World.py </td><td> Pyrobot<b></b>Robot60000.py </td><td> none yet </td></tr>
+<tr><td> Pyrobot<b></b>Simulator </td><td> Konane<b></b>World.py </td><td> Pyrobot<b></b>Robot60000.py </td><td> Konane<b></b>Player.py </td></tr>
+</table><p>
+<p>
+<h3 width="804"> Vacuum Cleaner World</h3>
+<p>
+The Vacuum Cleaner World is a simulation of the vacuum cleaning agent,
+as described in Russell and Norvig's &quot;AI: A Modern Approach&quot;, Chapter
+2. This is a very simple agent, as show below.
+<p>
+<img src="../_dblank/images/vacworld.gif">
+<p>
+<i>Images in simulation based on those by Russell and Norvig.</i>
+<p>
+Although this is a simple domain, it is useful because you can enumerate and diagram all of the states and transition diagrams. See Russell and Norvig for more details.
+<p>
+One could also increase the number of rooms to make the problem more interesting. The world files are Python programs and fairly easy to create. See, for example, <tt class="wiki">pyrobot/plugins/worlds/Pyrobot/VacuumCleanerWorld.py</tt>.
+<p>
+<p>
+<h4 width="804"> Actions</h4>
+<p>
+<table border="1"><tr><td> move(&quot;right&quot;) </td><td> moves vacuum cleaner to right </td></tr>
+<tr><td> move(&quot;left&quot;)  </td><td> moves vacuum cleaner to left </td></tr>
+<tr><td> move(&quot;suck&quot;)  </td><td> cleans the room, removes dirt </td></tr>
+<tr><td> move(&quot;dump&quot;)  </td><td> dumps the bag in the room so it is now dirty </td></tr>
+<tr><td> move(&quot;end&quot;)   </td><td> ends connection with simulator </td></tr>
+<tr><td> move(&quot;quit&quot;)  </td><td> closes simulator GUI </td></tr>
+</table><p>
+All commands return &quot;ok&quot; if understood correctly.
+<p>
+<p>
+<h4 width="804"> Perceptions</h4>
+<p>
+<table border="1"><tr><td> location </td><td> returns location of vacuum cleaner as &quot;A&quot; or &quot;B&quot; </td></tr>
+<tr><td> status   </td><td> returns status of room as &quot;dirty&quot; or &quot;clean&quot; </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Brain</h4>
+<p>
+A sample brain, <tt class="wiki">CleanUp.py</tt> is provided:
+<p>
+<pre class="code">
+# A Pyro brain to clean up two rooms
+# After Russell and Norvig AIMA
+from pyrobot.brain import Brain
+class CleanUp(Brain):
+   def step(self):
+      if self.robot.status == &quot;dirty&quot;:
+         self.self.move(&quot;suck&quot;)
+      elif self.robot.location == &quot;A&quot;:
+         self.self.move(&quot;right&quot;)
+      elif self.robot.location == &quot;B&quot;:
+         self.self.move(&quot;left&quot;)
+def INIT(engine):
+   return CleanUp('AIMA', engine)
+</pre>
+<p>
+<p>
+<h4 width="804"> Exercise</h4>
+<p>
+Step through this brain in pyrobot.
+<p>
+<p>
+<h3 width="804"> Wumpus World</h3>
+<p>
+The Wumpus World is a simulation of the &quot;Hunt the Wumpus&quot; game, as
+described in Russell and Norvig's &quot;AI: A Modern Approach&quot;, Chapter 7.
+<p>
+<img src="../_dblank/images/wumpusworld.gif">
+<p>
+<i>Images in simulator based on those by Russell and Norvig.</i>
+<p>
+The agent always begins in the bottom, right-hand cell (1, 1) facing
+to the right. The goal is to get to the cell with the gold and grab
+it. If you end up in a cell with the Wumpus or a pit, you're dead. The
+Wumpus does not move about, but is fixed for the entire game.
+<p>
+In addition, there is a running score:
+<p>
+<pre class="code">
+one move     - minus 1
+shoot arrow  - minus 10
+die          - minus 1000
+get gold     - plus 1000
+</pre>
+<p>
+Can you get the gold, and maximize your score?
+<p>
+<p>
+<h4 width="804"> Actions</h4>
+<p>
+You may make the following actions in the Wumpus World:
+<p>
+<table border="1"><tr><td> move('left')    </td><td> turns 90 degrees left </td></tr>
+<tr><td> move('right')   </td><td> turns 90 degrees right </td></tr>
+<tr><td> move('forward') </td><td> move one cell forward </td></tr>
+<tr><td> move('grab')    </td><td> grab the gold, if you are in the same cell </td></tr>
+<tr><td> move('shoot')   </td><td> shoot an arrow forward </td></tr>
+<tr><td> move('reset')   </td><td> resets the world to a random new world </td></tr>
+<tr><td> move('end')     </td><td> ends connection </td></tr>
+<tr><td> move('quit')    </td><td> closes the GUI </td></tr>
+</table><p>
+All commands return &quot;ok&quot; if understood correctly.
+<p>
+<p>
+<h4 width="804"> Perceptions</h4>
+<p>
+You have access to the following senses in Wumpus World:
+<p>
+<table border="1"><tr><td> percept </td><td> ['stench' or None, 'breeze' or None, 'glitter' or None, 'bump' or None, 'scream' or None] </td></tr>
+</table><p>
+with each position indicating whether the agent senses the item, or
+<tt class="wiki">None</tt> if not. These senses only measure the horizontally and vertically
+close cells, not the diagonally related ones.
+<p>
+<tt class="wiki">stench</tt> is sensed when you are close to the (alive or dead)
+Wumpus. <tt class="wiki">breeze</tt> comes from nearby pits. <tt class="wiki">glitter</tt>, of course, is
+sensed from the gold. A <tt class="wiki">bump</tt> occurs after you head into a boundary
+wall. And the <tt class="wiki">scream</tt> is heard after an arrow shot hits the wumpus. See
+Russell and Norvig for more details.
+<p>
+You may also query the following state attributes:
+<p>
+<table border="1"><tr><td> location </td><td> returns (x,y) </td></tr>
+<tr><td> x   </td><td> returns x </td></tr>
+<tr><td> y   </td><td> returns y </td></tr>
+<tr><td> direction </td><td> returns &quot;left&quot;, &quot;right&quot;, &quot;up&quot;, or &quot;down&quot; </td></tr>
+<tr><td> arrow </td><td> returns 1 or 0 </td></tr>
+<tr><td> score </td><td> returns score </td></tr>
+<tr><td> alive </td><td> returns 1 or 0 </td></tr>
+</table><p>
+<p>
+<h4 width="804"> Exercise</h4>
+<p>
+Load the wumpus world and a robot into pyrobot.  At the command line
+test out all of the actions and perceptions.  Remember to precede all
+commands with a <b>robot.</b>, for example <b>robot.move('forward')</b>.
+<p>
+<p>
+<h3 width="804"> Konane World</h3>
+<p>
+See <a href="../page_PyroModuleAI_GamePlaying/">PyroModuleAI:GamePlaying</a> for details on this world.
+<p>
+<p>
+Next: <a href="../page_The_20Stage_20Simulator/">The Stage Simulator</a>
+Up: <a href="../page_Robot_20Simulators/">Robot Simulators</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Pyrobot_20Simulator?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Pyrobot_20Simulator?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

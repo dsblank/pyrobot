@@ -1,0 +1,215 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095748", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleVisionSystem</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module Vision System</h1>
+<p>
+Pyro comes with a number of predefined camera types. Each camera object is actually made up of two components: a camera device, and a vision system. The camera device is often an interface to a piece of hardware that digitizes images from a camera. As mentioned, this device is sometimes called a framegrabber. However, the camera device could also be a simulated camera.
+<p>
+The vision system is connected to the camera device to provide image processing functions. Usually these vision processes can be seen as filters over the lens of the camera; however, they can also be arbitrarily complex programs. Because image processing is an expensive operation, we have implemented most of these functions in C++. However, you can also write image processing functions in Python. This is slow, but can make a good way to learn, or make a prototype.
+<p>
+Pyro attempts to simplify the interface to the camera device and vision system, while at the same time making it easy for one to write their own vision systems. Thus, the programming interface is slightly different in this subsystem. By doing so, we can call the lower level C++ code directly from Python.
+<p>
+First, start up Pyro with a robot. Because a camera is a Pyro device, it requires some kind of robot. For this tutorial, we aren't interested in the robot, but in the vision system. Therefore, we can use a stub of a robot that actually doesn't do anything. This is the <tt class="wiki">Test</tt> robot. You can select the robot from the load robot button (i.e., &quot;Robot:&quot;). Next, select the <tt class="wiki">FakeCamera</tt> from the <b>Device...</b> menu item under the <b>Load</b> of the main menu. You can also start both the <tt class="wiki">Test</tt> robot and <tt class="wiki">FakeCamera</tt> from the command line:
+<p>
+<pre class="code">
+   pyrobot -r Test -d FakeCamera
+</pre>
+<p>
+The rest of this tutorial will be performed by interacting with the <i>Fake Camera View</i> window.
+<p>
+<img src="../_dblank/images/fake01.gif">
+<p>
+First, you might want to drag the window larger. You can also adjust the speed that the window updates. Under <b>View</b> select <b>Fast Updates (<a href="../page_10Hz/">10Hz</a>)</b>. This will instruct the camera to update 10 times a second. You will probably only want to do this when you are designing a set of filters. This can be a drag on system resources. Note that the window update interval is independent of the camera update interval. The device update interval is the same as the robot update interval and is set at 10 updates a second.
+<p>
+You can add filters to the image by selecting from the <b>Add</b> menu of the camera window. You can also create a filter by selecting pixels by clicking in the image (with the left, center, and right mouse buttons). Each mouse click will add a filter that looks for the type of pixel that you clicked on (plus or minus a tolerance). The left mouse button will map matching pixels to the red channel, the middle mouse button will map matching pixels to the green channel, and the right mouse button will map matching pixels to the blue channel.
+<p>
+The filters under the <b>Add</b> menu item are added to the filter list. You can also do this in the command window using the <tt class="wiki">.addFilter()</tt> method of the camera. We'll explore that option below.
+<p>
+First, let's create a filter that looks for pixels of the type found on the person's face in the <tt class="wiki">FakeCamera</tt> view.
+<p>
+First, you may want to &quot;pause&quot; the camera so that it is easier to click on particular pixels. This is done by selecting <b>Pause</b> from the <b>View</b> menu of the camera window. Now, click on a pixel in the face. You should see a view similar to the following:
+<p>
+<img src="../_dblank/images/fake02.gif">
+<p>
+If you make a mistake and click on a pixel that is also in much of the surrounding scene, or just click on the wrong pixel, simply select <b>Filter</b> -&gt; <b>Clear filters</b> -&gt; <b>Last</b>.
+<p>
+Next, you might want to select only those pixels that are very red (i.e., the ones that we have clicked on). You can do that by adding a <tt class="wiki">superColor</tt> filter. Select <b>Supercolor</b> -&gt;  <b>Red</b> from the <b>Filter</b> main camera menu. That will turn off the other color planes, too.
+<p>
+<img src="../_dblank/images/fake03.gif">
+<p>
+Finally, let's <i>blobify</i> the image. Select <b>Blobify</b> -&gt; <b>Red</b> from the <b>Filter</b> menu.
+<p>
+<img src="../_dblank/images/fake04.gif">
+<p>
+You can list out the current filters by selecting <b>List filters</b> from the <b>Filter</b> main menu. You can also add a function to the filter list by entering the appropriate command at the command line. We'll explore that in the next section.
+<p>
+<p>
+<h2 width="804"> Vision Functions</h2>
+<p>
+You have access to a few low-level functions for getting and setting particular pixel values:
+<p>
+<tt class="wiki">Camera.getVal(x, y)</tt> returns  <tt class="wiki">(r, g, b)</tt>
+<p>
+<tt class="wiki">Camera.setVal(x, y, (r, g, b))</tt> sets a pixel's value.
+<p>
+However, this would make image processing very slow. There are many more high-level functions.
+<p>
+<p>
+<h2 width="804"> Vision in brains</h2>
+<p>
+If you list the filters from the filter menu, you will see the active filters. You can cut and past that code into your brain directly. For example, consider that you left click on a pixel that is has red, green, and blue components of (160, 32, 240), and middle click on a pixel that has red, green, and blue components of (20, 55, 200) then you will see the following filters listed:
+<p>
+<pre class="code">
+self.robot.camera[0].addFilter(&quot;match&quot;,160,32,240,)
+self.robot.camera[0].addFilter(&quot;match&quot;,20,55,200,30,1,)
+</pre>
+<p>
+The first <tt class="wiki">addFilter()</tt> matches the r,g,b (160,32,240) color, with the default of plus or minus 30 units, and and output channel of 0 (the red channel). The function <b>match</b> might be implemented like this:
+<p>
+<pre class="code">
+def match(r, g, b, v=30, output=0):
+   outputColor = [0, 0, 0]
+   outputColor[output] = 255
+   for x in self.robot.camera[0].width:
+      for y in self.robot.camera[0].height:
+         rgb = self.robot.camera[0].getVal(x, y)
+         if ((r - v &lt;= rgb[0] &lt;= r + v) and
+             (g - v &lt;= rgb[1] &lt;= g + v) and
+             (b - v &lt;= rgb[2] &lt;= b + v)):
+            self.robot.camera[0].setVal(x, y, outputColor)
+</pre>
+<p>
+where v is for variance (or tolerance), and output is either 0, 1, or 2 for red, green, or blue. Following that application of match, it would then be called again with (20, 55, 200). Again, with a default of tolerance of 30, but this time an output channel of 1 (blue).
+<p>
+Let's now look at a sample brain that uses a camera.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class VisionBrain(Brain):
+   def setup(self):
+      # get a camera that is already running and
+      # add a function to the filter list:
+      self.robot.camera[0].addFilter('match', 158 , 71 , 48 , )
+      self.robot.camera[0].addFilter('match', 225 , 129 , 89 , )
+      self.robot.camera[0].addFilter('match', 188 , 109 , 68 , )
+      self.robot.camera[0].addFilter(&quot;superColor&quot;, 1, -1, -1, 0) # rgb weights, 0 = red channel
+      self.robot.camera[0].addFilter(&quot;threshold&quot;, 0, 50) # red channel, 50 &gt; 0
+      self.robot.camera[0].addFilter(&quot;blobify&quot;, 0) # red channel
+      # filters return values in robot.camera[0].filterResults
+   def step(self):
+      # do something with the camera processed data:
+      print self.robot.camera[0].filterResults
+def INIT(engine):
+   return VisionBrain('SimpleBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/VisionTest1Program?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/VisionTest1Program?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+In this example, we basically copy the code into the brain, right in the setup() method. This uses the addFilter() command to affix the filter to the camera. These filter matches will then get called automatically right after each time a new image is taken with the camera.
+<p>
+However, sometimes we might want to have more control over the filtering. For example, we might want to only apply a filter if a certain condition is true. Consider the following example:
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+def process(camera):
+   camera.apply('match', 158, 71, 48, )
+   match = camera.apply('match', 225 , 129 , 89 , )
+   if match &gt; 50:
+       camera.apply('match', 188, 109, 68, )
+   else:
+       camera.apply('match', 40, 200, 56, )
+   camera.apply(&quot;superColor&quot;, 1, -1, -1, 0) # rgb weights, 0 = red channel
+   camera.apply(&quot;threshold&quot;, 0, 50) # red channel, 50 &gt; 0
+   return camera.apply(&quot;blobify&quot;, 0) # red channel
+   # filters return values are stored in robot.camera[0].filterResults
+   # the process() filter only has one return value, that returned from the blobify
+class VisionBrain(Brain):
+   def setup(self):
+      # get a camera that is already running and
+      # add a function to the filter list:
+      self.robot.camera[0].addFilter( process ) # process is the name of a method that takes a camera
+   def step(self):
+      # do something with the camera processed data:
+      print self.robot.camera[0].filterResults
+def INIT(engine):
+   return VisionBrain('SimpleBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/VisionTestProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/VisionTestProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+In most ways, this brain is very similar to all those already seen. In the <tt class="wiki">setup()</tt> we have started the <tt class="wiki">FakeCamera</tt> service, which is a simulated camera madeup from images from a directory. It also has the default Pyro vision system. We attach a filter to the camera by way of the <tt class="wiki">camera.addFilter()</tt> method. Notice that here we are adding a function that we have defined. <tt class="wiki">process()</tt> is a function that takes one argument, the camera.
+<p>
+The import vision processing steps are in the <tt class="wiki">process()</tt> function. Here you can put any of the following commands:
+<p>
+<pre class="code">
+camera.apply(&quot;match&quot; red, green, blue, tolerance, outChannel)
+camera.apply(&quot;matchRange&quot;, red1, green1, blue1, red2, green2, blue2, outChannel)
+camera.apply(&quot;superColor&quot;, redWeight, greenWeight, blueWeight, outChannel)
+camera.apply(&quot;threshold&quot;, channel, thresholdValue)
+camera.apply(&quot;blobify&quot;, inChannel, lowValue, highValue, sortmethod (0 = square area, 1 = mass), blobCountToReturn, drawBox)
+camera.apply(&quot;meanBlur&quot;, kernelEdgeSize)
+camera.apply(&quot;gaussianBlur&quot;)
+camera.apply(&quot;medianBlur&quot;, kernel)
+camera.apply(&quot;sobel&quot;, kernel)
+camera.apply(&quot;motion&quot;)
+camera.apply(&quot;backup&quot;)
+camera.apply(&quot;restore&quot;)
+camera.apply(&quot;inverse&quot;)
+camera.apply(&quot;grayScale&quot;)
+camera.apply(&quot;drawRect&quot;, x1, y1, x2, y2, fill, channel)
+</pre>
+<p>
+These commands are arguments to the <tt class="wiki">camera.apply()</tt> method. The camera then applies the named function to the camera image.
+<p>
+<p>
+<h2 width="804"> Handling more than three outputs</h2>
+<p>
+All of these functions either set the red, green, or blue as output, or use that output. But what do you do if you need more than three outputs? For example, what if you want to track 5 different colored objects? No problem, you can use the backup and restore functions. First, before you add any filter, call the &quot;backup&quot; filter. That will make a copy of the image as it currently looks. Then apply your matching filters, blobifies, etc. When done with the filters for that object, call the &quot;restore&quot; filter. That will copy the original image back, and you can repeat the process as many times as you like. Remember that you will either need to save intermediate values; only the return value of process() (or any applyFilter() call) is saved in the Camera.filterResults list.
+<p>
+<p>
+<h2 width="804"> Starting up a camera</h2>
+<p>
+To start the any camera service:
+<pre class="code">
+        self.camera = self.startDevice(CAMERATYPE)
+</pre>
+<p>
+Valid camera types are: &quot;<a href="../page_V4LCamera/">V4LCamera</a>&quot;, &quot;<a href="../page_AiboCamera/">AiboCamera</a>&quot;, &quot;<a href="../page_PlayerCamera/">PlayerCamera</a>&quot;, &quot;camera&quot;, &quot;<a href="../page_FakeCamera/">FakeCamera</a>&quot;, &quot;<a href="../page_TutorialCamera/">TutorialCamera</a>&quot;, &quot;<a href="../page_RobocupCamera/">RobocupCamera</a>&quot;, and many more.
+ <img width="11" src="../wiki/img/idea.png"> The image that the camera captures is dumped to a shared memory buffer.  This buffer can be accessed by both Pyro and C++.  For speed reasons, the vision processing is done in C++.  All the changes to the image are done by manipulating this shared memory buffer, which is then read by pyro to display the newly modified image.
+<p>
+The camera device grabs images in a different thread than what the brain is running in, so it updates itself regardless of where the program is executing. Pyro takes care of making sure that these two processes don't conflict.
+<p>
+Recall from <a href="../page_Introduction_20to_20Computer_20Vision/">Introduction to Computer Vision</a> that the processing for the filter and blob functions requires you to specify a channel (0 for red, 1 for green, and 2 for blue) to which the results will be written.  All of the filtering functions <i>default</i> to the red channel. You can change that to another channel via programming. See descriptions of the individual filters in the next section.
+<p>
+Next: <a href="../page_PyroVisionSystemFunctions/">PyroVisionSystemFunctions</a>
+Up: <a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleVisionSystem?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleVisionSystem?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

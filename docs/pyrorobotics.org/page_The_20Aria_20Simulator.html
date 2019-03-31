@@ -1,0 +1,141 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219103654", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Aria_20Simulator</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> The Aria Simulator</h2>
+<p>
+The Aria simulator is the officially supplied simulator for Pioneer robots. It is also called <a href="../page_SRIsim/">SRIsim</a>. It is loaded with all kinds of functionality and features. However, since we will be using Aria through Pyro, there isn't much that needs to be learned about it. Pyro simplifies and generalizes the way you program any robot, including the Pioneers. You do need to familiarize yourself with a few attributes of the Aria user interface and learn how to define a simulated world of your own.
+<p>
+<p>
+<h3 width="804"> The Aria User Interface</h3>
+If you have Aria running, explore the menus available in the Aria/SRIsim window. You will need to learn how to adjust the window size and scale the world display so it fits in the window. You can use the <b>Shrink</b> and <b>Grow</b> buttons for scaling the world display. Additionally, there are several ways to position, relocate the robot in the world using your mouse buttons. Here is a summary of all the mouse operations:
+<p>
+<ol type="1"><li>Left clicking the mouse button in the <a href="../page_SRIsim/">SRIsim</a> window, moves the robot to the location of mouse click. Try it several times.</li>
+<li>Right clicking the mouse button orients the robot toward the direction of the mouse click. The line running in the center of the robot points out toward the front of the robot. Try clicking the mouse in different directions to see how the mouse orients in response.</li>
+<li>The middle button (it is a little tricky to operate) will position the spot on the floor plan, where the mouse is clicked, in the center of the window. In order to fully appreciate what this does, first use the <b>Shrink</b> button in the menu bar to shrink the floor plan (the <b>Grow</b> button will do the opposite). Shrink the floor plan so that the entire plan is visible in the window. You may need to shrink and use the middle mouse button clicks to position and center the floor plan. Play with it to get the hang of it.</li>
+</ol><p>
+Next, focus your attention on the bottom-left part of the <a href="../page_SRIsim/">SRIsim</a> window. Notice that the location and orientation of the robot in the office world are specified as <b>x</b>, <b>y</b>, and <b>th</b> (for theta, the angle). The origin (0.0, 0.0) lies in the bottom left corner of the floor plan. The robot's orientation is shown at 90 degrees (pointing north or up). 0 degrees is located in the east direction. The <b>x</b> and <b>y</b> coordinates are specified in meters. Thus, the location of the robot, as shown is 4.5 meters away from the bottom left corner in the <b>x</b> direction and 2.2 meters in the <b>y</b> direction. Try moving the robot to various places in the world and also try reorienting it to get familiarized with the coordinate system being used here. This will come in useful later.
+ <img width="11" src="../wiki/img/alert.png"> Note that the x, y, and theta measurement values represent the position and pose that the robot has in the simulated world. This information is not known to the robot, but only shown to us from our bird's eye, all-knowing view. Since robots don't have access to this information (unless they have a GPS and compass) they have to continually guess where they are!
+<p>
+<p>
+<p>
+<h3 width="804"> Creating Aria Worlds</h3>
+Aria provides facilities for users to define their own simulated worlds.
+You might want to  create a world looks like your environment so that you'll have it to use as a testing ground before setting a real robot off into your real environment.
+<p>
+A world file is a text file that contains the definition of various components in the simulated world. All Aria world files end in the extension <b>.world</b>. Basically, a world is made up of line segments specified in a coordinate system with (0,0) at the bottom left corner, <b>x</b> values incrementing as you go right and <b>y</b> values incrementing as you go up.
+<p>
+In the world file, you start by defining the width and the height of the world on the first two lines as shown below:
+<pre class="code">
+width 20000
+height 15000
+</pre>
+The units used are millimeters. Thus the world above is 20 meters <i>long</i> and 15 meters <i>across</i>. The <b>width</b> and  <b>height</b> above refer to the width and height of the rectangle on your display.
+<p>
+Any line starting with a semicolon is treated as a comment. You can also use a semicolon anywhere in a line and everything following the semicolon until the end of the line is treated as a comment.
+<p>
+Line segments are then specified, generally, one segment on each line, by giving the <b>(x1, y1)</b> and the <b>(x2, y2)</b> coordinates of the line (in the coordinate system and units mentioned above). For example, the following four lines specify the <i>edge</i> of the world.
+<pre class="code">
+; The world boundary
+0 0 0 15000                
+0 0 20000 0
+20000 0 20000 15000
+0 15000 20000 15000
+</pre>
+In a world, the starting position and orientation of the robot can be specified using a position command (the numbers are x, y, and theta):
+<pre class="code">
+; the starting location of the robot
+position 2000 5000 90
+</pre>
+<p>
+<p>
+<h3 width="804"> Exercise 1: A First World</h3>
+Create a file called, <b>first.world</b> in your home directory with the following contents. Start Pyro and then load the Aria simulator with this world.
+<pre class="code">
+; A first world file
+; The world dimensions. Units are in mm, thus 20000 mm is 20 meters
+width 20000
+height 15000
+; The world boundary.
+0 0 0 15000
+0 0 20000 0
+20000 0 20000 15000
+0 15000 20000 15000
+; the starting location of the robot
+position 2000 5000 90
+</pre>
+You should see the world as shown below:
+<p>
+<img src="../BeyondLegos/Images/FirstWld.png">
+<p>
+<p>
+<h3 width="804"> Exercise 2: A different world</h3>
+Create another world file that looks like the world shown below. Its dimensions are 5 meters X 5 meters.
+<p>
+<p>
+<img src="../BeyondLegos/Images/AriaWorld.png">
+<p>
+Next section: <a href="../page_The_20Stage_20Simulator/">The Stage Simulator</a> or <a href="../page_Using_20the_20Pioneer_20Robot/">Using the Pioneer Robot</a> or <a href="../page_Using_20the_20Khepera_20Robot/">Using the Khepera Robot</a>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Aria_20Simulator?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Aria_20Simulator?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

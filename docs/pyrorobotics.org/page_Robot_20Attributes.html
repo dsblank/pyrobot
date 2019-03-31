@@ -1,0 +1,180 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160340", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Robot_20Attributes</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Robot Attributes</h1>
+<p>
+As you saw in the previous section, once you load (or connect to) a robot, the variable <b>robot</b> provides a handle on the robot and its attributes. In Pyro, a robot's properties, sensors, and other devices are accessible through a common abstraction called <b>attributes</b>. Each robot instantiated in a Pyro session has its own set of attributes depending on the type of robot and the number and kind of devices available on the robot. You can view these attributes by clicking on the robot's &quot;View&quot; button in the Pyro console window.  For example, if we are connected to a simulated robot in the Pyrobot simulated world, clicking on View might display the following robot attributes:
+<p>
+<img src="../BeyondLegos/Images/PyrobotAttributes.png">
+<p>
+Reading from the top of the attribute list above, we can see that the robot has 2 built-in devices: <b>light</b> and <b>sonar</b>. Some of the other attributes have specific values associated with them. For example, <b>radius</b> (0.75), <b>stall</b> (0), etc. Thus, the radius of the robot is 0.75 and it is not stalled (a value of 0 or false as opposed to 1 or true). 
+Other attributes of the robot appear as a UNIX-like <i>directory</i> name (for example, <b>light</b> and <b>sonar</b> which are shown as folders). This means that these are aggregate attributes. Actually, the robot itself is an aggregate containing all of the <i>sub</i>attributes shown above. You can go ahead and explore the structure of each (sub)aggregate by clicking in the expand slot of the folders. The methods available on each of these aggregates are available in the <b>methods</b> folder. In Python terminology, what you are looking at is the dictionary of each object. This makes every object in the system self documenting. By simply having the view window open, you can examine the specific current values of these attributes, as well as learn their structure (subattributes) and their behaviors (methods). These attributes can then be used in your robot control programs in whatever way you may wish. For example, if you wanted to access the radius of the robot, you could enter the following in the command line:
+<pre class="code">
+&gt;&gt;&gt; self.robot.radius
+0.75
+</pre>
+<p>
+As it should be the case, several attributes (for example, those corresponding to sensory devices) are <i>read only</i> while others are <i>modifiable</i>. You can also create new attributes, if you wanted. For example, the robot above does not have a <b>name</b> attribute. You could create it by entering (or if were already defined and modifiable):
+<p>
+<pre class="code">
+&gt;&gt;&gt;  robot.name = 'C3PO'
+Ok
+&gt;&gt;&gt;  self.robot.name
+C3PO
+</pre>
+<p>
+<p>
+<p>
+<h2 width="804"> Aggregate Attributes</h2>
+<p>
+Aggregate attributes are attributes that contain more attributes themselves. Aggregates are generally associated with devices available on a robot. Depending on the kind of device (sonar, laser, infra-red, etc.) the attributes on each device will vary. The attribute <b>robot.builtinDevices</b> contains a list of all the devices available on robot. When you instantiate a robot in Pyro, some of these devices are <i>activated</i> by default while others will be activated by the programmer when needed. Thus, in the above example, the devices <b>light</b>, and <b>sonar</b> are already activated (notice that they are listed as subfolders in the attribute list).
+<p>
+Let us explore the <b>sonar</b> device on a simulated Pioneer robot in a Stage world.  Start <tt class="wiki">pyrobot</tt>, use the server <b>Stage</b><b>Simulator</b> with the world file <b>room.cfg</b>, and the robot <b>Player6665</b>. To get all the sub-attributes of <b>sonar</b>, we can try the following command:
+<p>
+<pre class="code">
+&gt;&gt;&gt;  dir(robot.sonar[0])
+['__doc__', '__getitem__'    ...    'updateDevice', 'updateWindow', 'value', 'visible', 'window']
+</pre>
+<p>
+A <b>sonar</b> device has lots of attributes! Some of these are methods, and some are properties. To get a better sense of 
+which of these properties are useful for us you can use the Python builtin program <b>help</b>. You can pass any object to help:
+<p>
+<pre class="code">
+&gt;&gt;&gt; help(robot.sonar[0])
+Help on instance of PlayerSonarDevice:
+&lt;pyrobot.robot.player.PlayerSonarDevice instance&gt;
+</pre>
+<p>
+This attempts to find help on this instance of the sonar device. We would really like help on the code behind the instance. You can do that by getting help on the class of the sonar. That can be accessed in Python using <tt class="wiki">robot.sonar[0].__class__</tt>:
+<p>
+<pre class="code">
+&gt;&gt;&gt; help(robot.sonar[0].__class__)
+Help on class PlayerSonarDevice in module pyrobot.robot.player:
+class PlayerSonarDevice(PlayerDevice)
+ |  Method resolution order:
+ |      PlayerSonarDevice
+ |      PlayerDevice
+ |      pyrobot.robot.device.Device
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, client)
+ |  
+ |  __len__(self)
+ |  
+    ...
+ |  
+ |  ----------------------------------------------------------------------
+ |  Properties inherited from pyrobot.robot.device.Device:
+ |  
+ |  geometry
+ |      &lt;get&gt; = getGeometry(self)
+    ...
+ |
+ |  value
+ |      &lt;get&gt; = getValue(self)
+ |          # Properties to make getting all values easy:
+</pre>
+<p>
+While you are typing in the command entry field in Pyro, you may also press the TAB key which will provide additional bits of information on what is possible to complete.
+<p>
+For example, if you were typing in the command field:
+<p>
+<pre class="code">
+robot.sonar[0].
+</pre>
+<p>
+and then pressed the TAB key (when your cursor is right after the period and before you hit enter), then you will see something like the following the the message window:
+<p>
+<pre class="code">
+Completion data: -----------------------------------------
+active                          addWidgets()                   
+angle()                         arc                            
+count                           data                           
+destroy()                       distance()                     
+geometry                        getActive()                    
+getDeviceData()                 getDeviceState()               
+getGroupNames()                 getMaxvalue()                  
+getPose()                       getSensorValue()               
+getVisible()                    groups                         
+index                           makeWindow()                   
+maxvalueraw                     noise                          
+pos                             radius                         
+rawToUnits()                    rawValue                       
+rawunits                        setActive()                    
+setMaxvalue()                   setPose()                      
+setTitle()                      setVisible()                   
+setup()                         startDevice()                  
+state                           stopDevice()                   
+title                           type                           
+units                           updateDevice()                 
+updateWindow()                  value                          
+visible                         window                         
+----------------------------------------------------------
+</pre>
+<p>
+These are all of the methods and attributes that you can refer to after the period. Let us explore some of these properties and methods.
+<p>
+<pre class="code">
+&gt;&gt;&gt;  robot.sonar[0].type
+sonar
+&gt;&gt;&gt;  robot.sonar[0].value
+[1.577893512115228, 1.9876466568573361, 2.9193383789120246, 2.6569077503698515, 2.5433940728758198,
+3.1246711481876299, 2.1186971638104173, 1.5358810231437758, 1.5203534828814835, 0.76560741984948599, 
+0.53682969476323295, 0.48285799199783824, 0.505026591691631, 0.58749707513599214, 0.77367888648663208, 
+1.5761551637612889]
+</pre>
+<p>
+The first is obvious, giving us the type of the <b>sonar</b> device. The second one gives us the current readings of all the sonars on the robot. The robot we are illustrating above is a Pioneer2 robot with 16 sonars.  Note that it is possible for a single robot to have multiple sonar devices.  In this case there is only one sonar device, which is <tt class="wiki">sonar[0]</tt>.  However, if there were additional sonar devices, they would be referred to by <tt class="wiki">sonar[1]</tt>, <tt class="wiki">sonar[2]</tt>, and so on.
+<p>
+<p>
+<h2 width="804"> Exercise</h2>
+<p>
+Start <tt class="wiki">pyrobot</tt>, load the <b>Stage</b><b>Simulator</b>, the world <b>room.cfg</b>, and then load the <b>Player6665.py</b> robot. Try out the commands above. Move the robot around so that some of its sonar sensors are close to a wall.  Observe the sonar values.  Then move the robot to a new location and see how the values have changed.  Sonar sensors report an estimated distance to an obstacle.  So smaller values indicate a closer obstacle.
+<p>
+<p>
+<h2 width="804"> Summary</h2>
+<p>
+The attribute abstraction enables a programmer to access all the features of a robot using a single, uniform interface. This makes short work of sensor intricacies and enables you to focus directly on the robot behavior or the robot task at hand. 
+<p>
+In later sections, we will see additional examples of other devices
+like cameras and other range sensors, such as IRs or lasers. Devices
+that are available, but not yet activated, can be activated explicitly
+enabling access to their attributes in a similar fashion. We will see
+examples of these in later sections as well. For now, it would be a
+good idea to review the material in this section and make sure that
+you have tried the features presented here. Since this way of
+accessing attributes is self-documenting, feel free to explore other
+attributes that are available.
+<p>
+Next: <a href="../page_Robot_20Simulators/">Robot Simulators</a>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Attributes?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Attributes?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

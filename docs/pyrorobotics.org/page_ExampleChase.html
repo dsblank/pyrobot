@@ -1,0 +1,145 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160408", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: ExampleChase</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+In this example, two robots are placed into the same circular world as
+used in the previous example. One robot is green and seeks out red,
+while the other robot is red and seeks out green. Both robots also
+avoid obstacles. Typically the robots will end up in the center of the
+environment in a tight circle after a few seconds. Try dragging one
+robot to a new location to see how they adjust.
+<p>
+Here is a Pyro brain to control the robot that seeks out red.
+<p>
+<pre class="code">
+# OUT_OF_DATE! THIS USES THE OLD PLAYER INTERNAL BLOB DATA STRUCTURES
+from pyrobot.brain import Brain
+# Seeks out red blobs
+class FindBlobs(Brain):
+    def setup(self):
+        self.startDevice('blobfinder')
+    def destroy(self):
+        self.removeDevice('blobfinder')
+    def step(self):
+        self.seekColor('red')
+    def seekColor(self, color):
+        minRange = 0.9
+        if self.collisionImminent('front-all', minRange):
+            translate, rotate = self.avoid(minRange)
+            self.move(translate, rotate)
+        else:
+            result = self.getLargestBlob(color)
+            if result == None:
+                leftSide = min([s.distance() for s in self.robot.range[&quot;front-left&quot;]])
+                rightSide = min([s.distance() for s in self.robot.range[&quot;front-right&quot;]])
+                if leftSide &lt; rightSide:
+                    self.move(0.1, -0.5)
+                else:
+                    self.move(0.1, 0.5)
+            else:
+                (turnDirection, distance) = result
+                if turnDirection &gt; 0:
+                    self.move(0.1, 0.15)
+                elif turnDirection &lt; 0:
+                    self.move(0.1, -0.15)
+                else:
+                    self.move(0.2, 0)
+    # Returns True when the minimum sonar value from the given location
+    # group is less than the minRange.
+    def collisionImminent(self, location, minRange):
+        return min([s.distance() for s in self.robot.range[location]]) &lt; minRange
+    # Returns translate and rotate values for avoiding obstacles.
+    def avoid(self, minRange):
+        if self.collisionImminent('front', minRange):
+            return 0, -0.3
+        elif self.collisionImminent('front-left', minRange):
+            return 0, -0.3
+        elif self.collisionImminent('front-right', minRange):
+            return 0, 0.3
+        else:
+            return 0.2, 0
+    # Returns a list of all blobs of the given color.
+    def getBlobs(self, color):
+        data = self.robot.blobfinder.data
+        (width, height) = data[0]
+        colorChannels = data[1]
+        if color == 'red':
+           index = 0
+        elif color == 'green':
+           index = 1
+        elif color == 'blue':
+           index = 2
+        else:
+           raise ValueError, 'unrecognized color channel: %s' % color
+        blobs = colorChannels[index]
+        return blobs
+    # Returns the direction (+1, -1, or 0) to the largest blob of the
+    # specified color along with the distance to the blob.  The blob
+    # information consists of a list of nine features:
+    #     (colorCode, area, xc, yc, x0, x1, y0, y1, distance)
+    # xc is an integer between 0 and 160 which represents the x position of
+    # the blob's center.  A value of 0 indicates that the blob is at the
+    # farthest left location, a value of 80 indicates that the blob is
+    # centered, and a value of 160 indicates that the blob is at the farthest
+    # right location.  Distance is an integer representing the distance to the
+    # blob.  When using a Pioneer robot with a gripper, if the blob is
+    # centered, then a range of 380 indicates that it is within the grasp of
+    # the gripper.
+    def getLargestBlob(self, color):
+        allBlobs = self.getBlobs(color)
+        if len(allBlobs) == 0:
+            return None
+        else:
+            largestBlob = allBlobs[0]
+            (colorCode, area, xc, yc, x0, x1, y0, y1, distance) = largestBlob
+            if xc &lt; 75:
+                turnDirection = +1
+            elif xc &gt; 85:
+                turnDirection = -1
+            else:
+                turnDirection = 0
+            return (turnDirection, distance)
+def INIT(engine):
+   return FindBlobs('FindBlobs', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/ChaseRedProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/ChaseRedProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Save the above code into a file called <tt class="wiki">ChaseRedProgram.py</tt>. Then copy this code to a file called <tt class="wiki">ChaseGreenProgram.py</tt> and change the argument in the call to <tt class="wiki">seekColor</tt> from red to green.
+<p>
+Now try out this example by executing the following commands:
+<p>
+<pre class="code">
+pyro -s StageSimulator -w chase.world -r Player6665 -b ChaseRedProgram.py & 
+pyro -r Player6666 -b ChaseGreenProgram.py 
+</pre>
+<p>
+Press the Run button in each Pyro window to get the robots started. 
+<p>
+Return to <a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a>.
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/ExampleChase?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/ExampleChase?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

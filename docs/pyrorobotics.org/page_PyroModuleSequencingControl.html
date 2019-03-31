@@ -1,0 +1,186 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093638", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleSequencingControl</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+''This is an introduction to more advanced controllers that have
+memory, or &quot;state&quot;. This module provides an overview of Finite State
+Machine controllers, and the general notion of sequencing
+control. When completed, the reader should be ready to apply this
+knowledge, and explore specific ideas in AI and robotics.''
+<p>
+<p>
+<h1 width="804"> Pyro Sequencing Control</h1>
+<p>
+In order to create more complex robot controllers, it is useful to be
+able to group low-level robot commands into logical units, often
+called <b>behaviors</b>.  Each behavior is triggered by a particular
+condition in the environment, and responds appropriately.  Once the
+initiating condition has been addressed, the current behavior can pass
+control off to another behavior.
+<p>
+<p>
+<h2 width="804"> Example: Traversing a Square</h2>
+<p>
+Consider the task of getting a robot to travel in a square. This task
+can be broken up into two simpler behaviors which we'll call
+<tt class="wiki">edge</tt> and <tt class="wiki">turn</tt>.  In the <tt class="wiki">edge</tt> behavior, we'll keep
+track of how far we've traveled aonlg a side of the square.  In the
+<tt class="wiki">turn</tt> behavior, we'll keep track of the angle of a turn and stop
+once we've gone 90 degrees.  We can simply switch back and forth
+between these two behaviors to traverse a square.
+<p>
+One straight-forward method of implementing this style of
+behavior-based control is through finite state machines (FSMs). Each
+state in the FSM represents a robot behavior. Using a FSM you can
+build up a graph of states to go in and out of, sequencing the order
+of states into a &quot;plan&quot;.  
+<p>
+In the program below, we will use the robot's dead reckoning to
+monitor its position and heading.  Recall that dead reckoning can
+quickly accumulate errors, so the square-like motion will gradually
+degrade over time.  You can try this program using the Stage simulator
+with the <tt class="wiki">room.cfg</tt> world.  
+<p>
+<pre class="code">
+from pyrobot.geometry import *   # import distance function
+from pyrobot.brain.behaviors import State, FSMBrain
+class edge (State):
+    def onActivate(self): # method called when activated or gotoed
+        self.startX = self.robot.x
+        self.startY = self.robot.y
+    def step(self):
+        x = self.robot.x
+        y = self.robot.y
+        dist = distance( self.startX, self.startY, x, y) 
+        print &quot;EDGE: actual = (%f, %f) start = (%f, %f); dist = %f&quot; \
+              % (x, y, self.startX, self.startY, dist)
+        if dist &gt; 1.0:
+            self.goto('turn')
+        else:
+            self.robot.move(.3, 0)
+class turn (State):
+    def onActivate(self):
+        self.th = self.robot.th
+    def step(self):
+        th = self.robot.th
+        print &quot;TURN: actual = %f start = %f&quot; % (th, self.th)
+        if angleAdd(th, - self.th) &gt; 90: 
+            self.goto('edge')
+        else:
+            self.robot.move(0, .2)
+def INIT(engine): 
+    brain = FSMBrain(engine=engine)
+    # add a few states:
+    brain.add(edge(1)) # 1 makes it active
+    brain.add(turn())
+    return brain
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/FSMProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/FSMProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Notice that each <tt class="wiki">State</tt> in a <tt class="wiki">FSMBrain</tt> is defined as its
+own class with its own methods. The next section describes these
+<tt class="wiki">State</tt> methods. Typically every <tt class="wiki">State</tt> will include the
+<tt class="wiki">step</tt> method to describe what computation to do on each time
+step that the state is active.
+<p>
+For a much more complex example that uses blob vision and the gripper
+see <a href="../page_ExamplePickingUpPucks/">ExamplePickingUpPucks</a>.
+<p>
+<p>
+<h2 width="804"> State Methods</h2>
+<p>
+Commonly used state methods:
+<p>
+<table border="1"><tr><td> setup() </td><td> called when state is created (like a constructor) </td></tr>
+<tr><td> goto(statename) </td><td> called to switch to another state </td></tr>
+<tr><td> onActivate() </td><td> called when this state becomes active </td></tr>
+<tr><td> onDeactivate() </td><td> called when this state becomes inactive </td></tr>
+<tr><td> step() </td><td> called each step </td></tr>
+<tr><td> pop()    </td><td> used to return to the last pushed state </td></tr>
+<tr><td> push(&lt;STATE&gt;) </td><td> used to set the state to return after a pop. &lt;STATE&gt; is optional, and defaults to the current state name </td></tr>
+</table><p>
+Also some less used state methods:
+<p>
+<table border="1"><tr><td> onGoto(argv) </td><td> called when a state is initiated with goto() </td></tr>
+<tr><td> getState(statename) </td><td> returns a pointer to a named state </td></tr>
+<tr><td> activate(statename) </td><td> like goto(), but doesn't deactivate self (causes a fork) </td></tr>
+<tr><td> deactivate(statename) </td><td> sets named state to inactive </td></tr>
+</table><p>
+<p>
+<h2 width="804"> Programmable Transitions</h2>
+<p>
+Consider the problem of adding a state to get the robot unstuck if it
+finds itself against a wall. You might need to go to the &quot;stuck&quot; state
+from every other state. However, you might want to return to the same
+state from which you came. Currently, the only way to return back to
+the same state would be to have a unique &quot;getting unstuck state&quot; for
+each and every state. This is due to the fact that the only way to
+have memory in an FSM is in the state. However, there is a simple
+mechanism in the Pyro FSM which allows you to keep track of a
+&quot;calling&quot; state, so that you can return to it, and thereby bypass this
+problem. To use this mechanism, you call the push and pop methods.
+<p>
+Consider the following step method from a state in an FSM:
+<p>
+<pre class="code">
+    def step(self):
+        x = self.robot.x
+        y = self.robot.y
+        dist = distance( self.startX, self.startY, x, y) 
+        print &quot;EDGE: actual = (%f, %f) start = (%f, %f); dist = %f&quot; \
+              % (x, y, self.startX, self.startY, dist)
+        if self.robot.stall:
+            self.push()
+            self.goto('stuck')
+        elif dist &gt; 1.0:
+            self.goto('turn')
+        else:
+            self.move(.3, 0)
+</pre>
+<p>
+Here we have added a call to <tt class="wiki">push()</tt> before we head off to the <b>stuck</b> state. In the stuck state, we only need call <tt class="wiki">pop()</tt> when we are finished getting unstuck, like so:
+<p>
+<pre class="code">
+class stuck(State):
+    def step(self):
+        if done:
+           self.pop()
+</pre>
+<p>
+The push method defaults to pushing the name of the current state on a stack of states. You can also pass in a different state for which you wish control to pass when the state being called is finished. To indicate that the state is done, simply call the pop method. This will retrieve the last state added to the stack, and then goto it.
+<p>
+If you attempt to pop when no push has been issued, an error will be raised. The stack is a part of the brain, and can be accessed via <tt class="wiki">brain.stack</tt>. You may recursively push states onto the stack, or may have a series of goto's before issuing a <tt class="wiki">pop()</tt>.
+ <img width="11" src="../wiki/img/alert.png"> Note that when you pop back, you will enter the return state at the begining of the step method: you will not continue from the line after a <tt class="wiki">goto()</tt>, but will start that state at the top again.
+<p>
+Advanced Python users might be interested in implementing a FSM with a true &quot;gosub&quot;. A discussion of these ideas are discussed in the section <a href="../page_PyroModuleFSM_UsingGenerators/">PyroModuleFSM:UsingGenerators</a>.
+<p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleSequencingControl?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleSequencingControl?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

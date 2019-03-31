@@ -1,0 +1,225 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219102328", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PythonAndC</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Python and C via SWIG</h1>
+<p>
+This module will give you some hints about writing code in C or C++, and calling from it from Python. This is just a glimpse of what is possible. For a complete reference, see the documentation available at <a href="http://www.swig.org/.">www.swig.org/.</a>
+<p>
+A simple example can also be found at <a href="../page_ExtendingPython/">ExtendingPython</a>.
+<p>
+<hr>
+<p>
+In the following, all of the lowercase filenames are created by you, and all of the Uppercase filenames are created by the system.
+<p>
+First, let's consider a simple C example:
+<p>
+<pre class="code">
+/* file: code.c */
+#include &lt;stdio.h&gt;
+#include &quot;code.h&quot;
+int process(double d) {
+  int retval = 0;
+  printf(&quot;You passed in a %f!\n&quot;, d);
+  retval = (int) (d * 2);
+  return retval;
+}
+</pre>
+<p>
+and its associated header file:
+<p>
+<pre class="code">
+/* code.h */
+#ifndef __CODE_H__
+#define __CODE_H__
+int process(double d);
+#endif
+</pre>
+<p>
+To wrap this code using SWIG, you need a .i file. Here is <tt class="wiki">code.i</tt>:
+<p>
+<pre class="code">
+%module code
+%{
+#include &quot;code.h&quot;
+%}
+%include code.h
+</pre>
+<p>
+That's it for code. Now, the most confusing part, the Makefile:
+<p>
+<pre class="code">
+CC = g++
+PYTHON_INCLUDE = -I /usr/include/python2.2/
+LIBS= -lstdc++ -ldl -lpthread -lswigpy
+CPPFLAGS = -Wall -Wno-unused -D_POSIX_THREADS \
+	-D_POSIX_THREAD_SAFE_FUNCTIONS \
+	-D_REENTRANT -DPOSIX \
+	-D__x86__ -D__linux__ \
+	-D__OSVERSION__=2 -frepo -DUSINGTHREADS -DLINUX -D_GNU_SOURCE \
+	-L /usr/X11R6/lib -L /usr/local/lib/
+_code.so: code.o Code.o 
+	&#36;(CC) &#36;(CPPFLAGS) &#36;(PYTHON_INCLUDE) -shared code.o Code.o -o &#36;@ &#36;(LIBS)
+Code.o: Code.cc 
+	&#36;(CC) -c &#36;(PYTHON_INCLUDE) Code.cc -o &#36;@
+Code.cc: code.i code.h
+	swig -python -c -o Code.cc code.i
+code.o:	code.h code.c
+	&#36;(CC) &#36;(CPPFLAGS) -c code.c -o code.o
+clean:
+	&#36;(RM) -f *.o *~ *.so *.cc *.pyc code.py
+</pre>
+<p>
+Running <tt class="wiki">make</tt> will produce <tt class="wiki">_code.so</tt> and <tt class="wiki">code.py</tt>. To use:
+<p>
+<pre class="code">
+% python 
+&gt;&gt;&gt; import code
+&gt;&gt;&gt; code.process(45)
+You passed in a 45.000000!
+90
+&gt;&gt;&gt;
+</pre>
+<p>
+C++ is very similar: you don't need the <tt class="wiki">-lswigpy</tt>, and change the <tt class="wiki">-c</tt> flag to swig to <tt class="wiki">-c++</tt>. 
+<p>
+<p>
+<h1 width="804"> Dealing with Python types in C</h1>
+<p>
+Next, we explore using (receiving and returning) Python data structures in C.
+<p>
+First, you will need to include the path to Python.h when you compile. In the above Makefile, you would just add &#36;(PYTHON_PATH) to the compile line of code.c. Also, add <tt class="wiki">#include &lt;Python.h&gt;</tt> to your c code.
+<p>
+<p>
+<h2 width="804"> Raising Exceptions</h2>
+<p>
+If in your c code you want to raise an exception (ie, something goes wrong, or is not what you expected), call the <a href="../page_PyErr_SetString/">PyErr_SetString</a>() function, and return NULL. 
+ <img width="11" src="../wiki/img/alert.png"> If you encounter an error when you are in a C++ constructor, don't return NULL though.
+<p>
+<pre class="code">
+   if (something_bad) {
+      PyErr_SetString(PyExc_IOError, &quot;Filename: some useful IO error message&quot;);
+      // put clean up code in here
+      return NULL;
+   }
+</pre>
+<p>
+You can use any of the <a href="../page_PyExc/">PyExc</a> errors: <a href="../page_PyExc_IOError/">PyExc_IOError</a>, <a href="../page_PyExc_TypeError/">PyExc_TypeError</a>, etc.
+<p>
+<p>
+<h2 width="804"> Receiving a Python Object</h2>
+<p>
+Strings (char arrays), integers, floats, and doubles are automatcally handled for you by SWIG, so you don't need to do anything special.
+<p>
+If you want to take a more complex Python object (a list for example), you will need to handle that yourself. 
+<p>
+Here is an example that takes 5 arguments. You could have done this without calling <a href="../page_PyArgParseTuple/">PyArgParseTuple</a> and just put the 5 args in the function call.
+<p>
+<pre class="code">
+static PyObject *function(PyObject *self, PyObject *args){
+  char *device;
+  int width, height, color, channel;
+  PyObject *buffer, *tuple;
+  //call with: function(device_name, width, height, color, channel)
+  if(!PyArg_ParseTuple(args, &quot;siiii&quot;, &device;, &width;, &height;, &color;, &channel;)){
+    PyErr_SetString(PyExc_TypeError, &quot;Invalid arguments to function&quot;);
+    return NULL;
+  }
+  ... // do stuff with the args
+}
+</pre>
+<p>
+Here is another function that takes a tuple of tuples:
+<p>
+<pre class="code">
+PyObject *function(PyObject *tuple) {
+  if (!PyTuple_Check(tuple)) {
+    PyErr_SetString(PyExc_TypeError, &quot;Invalid tuple to function()&quot;);
+    return NULL;
+  }
+  for (int i = 0; i &lt; PyTuple_Size(tuple); i++) {
+    PyObject *someTuple = PyTuple_GetItem(tuple, i);
+    // for each someTuple:
+    for (int count = 0; count &lt; PyTuple_Size(someTuple); count++) {
+      thing = PyTuple_GetItem(someTuple, count);
+      ... // do something with thing
+    }
+  }
+}
+</pre>
+<p>
+<p>
+<h2 width="804"> Returning a Python Object</h2>
+<p>
+<pre class="code">
+PyObject *makeList(int x) {
+  PyObject *myList = PyList_New(0);
+  for (int i = 0; i &lt; x; i++) {
+    PyList_Append(myList, Py_BuildValue(&quot;i&quot;, i));
+  }
+  return myList;
+}
+</pre>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PythonAndC?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PythonAndC?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093314", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleIntroduction</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to the Pyro Robotics system. This module provides an overview of robotics systems and introduces the core hardware and software. When completed, the reader should be ready to further explore Python and Pyro.</i>
+<p>
+<p>
+<h2 width="804"> Pyro Introduction</h2>
+<p>
+Welcome to Pyro! Pyro stands for <b>Py</b>thon <b>Ro</b>botics. The goal of the Pyro project is to provide a programming environment for easily exploring advanced topics in artificial intelligence and robotics without having to worry about the low-level details of the underlying hardware. That is not to say that Pyro is just a toy. In fact, Pyro is used for <i>real</i> robotics research as well as courseware. 
+<p>
+Pyro is written mostly in Python. Python is an interpreted language, which means that you can experiment interactively with your robot programs. In addition to being an environment, Pyro is also a collection of object classes in Python. Because Pyro abstracts all of the underlying hardware details, it can be used for experimenting with several different types of mobile robots and robot simulators.  Until now, it has been necessary to learn very different and specific control languages for different mobile robots, particularly those manufactured by different companies.  Now, a single language can be used to program many different robots, allowing code to be shared across platforms as well as allowing students to experiment with different robots while learning a single language and environment.
+<p>
+<ol><p><b>Robots:</b> Currently, the robots supported include the Pioneer family (Pioneer, Pioneer2, People<b></b>Bot robots) and the Khepera family (Khepera, Khepera 2, Hemisson robots), Sony's AIBO robot, the Intelli<b></b>Brain-Bot, and the Roomba.
+</ol><p>
+<ol><p><b>Simulators:</b> There are a few simulators available that simulate the Pioneer family of robots: Player/Stage, Gazebo, and Pyrobot. There is also a simulator available for Robocup soccer.
+</ol><p>
+Pyro has the ability to define different styles of controllers, which are called the robot's <b>brain</b>. For example, the control system could be a neural network, behavior based, or a symbolic planner. One unique characteristic of Pyro is the ability to write controllers using robot abstractions that enable the same controller to operate robots with vastly different morphologies. That is, a controller program written for a Khepera robot (hockey puck-sized, with infrared sensors) could work equally well for a Pioneer robot (medium suitcase-sized, with sonar sensors). 
+<p>
+This module will serve as an introduction to the Pyro environment. It introduces the abstractions provided by Pyro, then shows you how to get started with running Pyro. We also introduce effector and sensor abstractions, giving you the chance to try them out on the command line.  Finally, we introduce the structure of a robot brain, which is the robot controller. 
+<p>
+The remainder of the modules are devoted to a detailed study of various control paradigms as well as topics in artificial intelligence for robotics.  We will follow an interactive, hands-on style of presentation.  You are encouraged to work through the modules in a workbook style: read a little, think about it, try out the examples, and then complete the exercises provided. 
+<p>
+<p>
+<p>
+<h2 width="804"> Pyro Introduction Table of Contents</h2>
+<p>
+<ol type="1"><li><a href="../page_Pyro_20Robot_20Morphology/">Pyro Robot Morphology</a></li>
+<li><a href="../page_Pyro_20Effectors/">Pyro Effectors</a></li>
+<li><a href="../page_The_20Pyro_20Interface/">The Pyro Interface</a></li>
+<li><a href="../page_Robot_20Attributes/">Robot Attributes</a></li>
+<li><a href="../page_Robot_20Simulators/">Robot Simulators</a></li>
+<li><a href="../page_PyroHardware/">PyroHardware</a></li>
+<li><a href="../page_Pyro_20Sensors/">Pyro Sensors</a></li>
+<li><a href="../page_Pyro_20Devices/">Pyro Devices</a></li>
+<ol type="i"><li><a href="../page_Pyro_20Devices_20Advanced/">Pyro Devices Advanced</a></li>
+</ol><li><a href="../page_Pyro_20Brains/">Pyro Brains</a></li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleIntroduction?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleIntroduction?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

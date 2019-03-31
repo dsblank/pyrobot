@@ -1,0 +1,82 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121347", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: GovernorForNeuralNetworks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Memory, Representation and Abstraction</h1>
+<p>
+Recall Elman's <a href="http://web.cs.swarthmore.edu/~meeden/srn-talk/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Simple Recurrent Network</a>
+<p>
+<ul><li>Trained on sequences of symbols</li>
+<li>Training was simply prediction</li>
+<li>Symbols represented various aspects of language</li>
+<ol type="1"><li>phonemes</li>
+<li>letters</li>
+<li>words</li>
+</ol><li>Found evidence that the network was detecting underlying patterns</li>
+<ol type="1"><li>error levels indicated expectations of word boundaries</li>
+<li>cluster analysis found words that were used similarly had similar representations</li>
+</ol></ul><p>
+Could this same, simple methodology be used in a non-symbolic world?
+<p>
+Yes, but the real world has some issues:
+<p>
+<ol type="1"><li>Sometimes there are long stretches of very similar inputs</li>
+<li>Interesting events can be rare</li>
+<li>This creates a situation of &quot;catastrophic forgetting&quot;</li>
+</ol><p>
+<p>
+<h2 width="804">1.1.  The Human Network Experiments</h2>
+<p>
+<p>
+<h2 width="804">1.2.  What can be done about catastrophic forgetting?</h2>
+<p>
+Recall our goals <a href="../page_BringingUpRobot/">BringingUpRobot</a>
+<p>
+<p>
+<h1 width="804">2.  Governor For Neural Networks</h1>
+<p>
+Something like a Self-Organizing Map that sits between the environment and the network that automatically &quot;balances&quot; the categories of training data. 
+<p>
+<p>
+<h2 width="804">2.1.  A Governor for a Feedforward Network</h2>
+<p>
+Categories [input] + [output]
+<p>
+<p>
+<h2 width="804">2.2.  A Governor for a SRN</h2>
+<p>
+Categories [input] + [context] + [output]
+<p>
+<p>
+<h2 width="804">2.3.  It works!</h2>
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/2005.02.24-07.22.28.png">  
+<p>
+<img src="../_dblank/images/bringinguprobot-talk/2005.02.27-14.20.30.png">
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/GovernorForNeuralNetworks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/GovernorForNeuralNetworks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

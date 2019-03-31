@@ -1,0 +1,385 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219100137", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleAnalysis</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module Analysis</h1>
+<p>
+This module is designed to give you some hints about performing analysis and creating informational graphs under Linux.
+ <img width="11" src="../wiki/img/alert.png"> The dollar sign indicates commands that you enter at the terminal (shell) prompt.
+<p>
+<p>
+<h2 width="804"> Graphing</h2>
+<p>
+There are some graphical tool widgets in Pyro, but to do further analysis we will explore gnuplot. First we will explore using Gnuplot as a stand-alone tool, and then look at an interface to Gnuplot from Python.
+<p>
+<p>
+<h3 width="804"> Gnuplot</h3>
+<p>
+To start Gnuplot:
+<p>
+<pre class="code">
+&#36; gnuplot
+</pre>
+<p>
+Once inside gnuplot, you can enter commands like:
+<p>
+<pre class="code">
+set data style lines
+plot [0:1] [2:4] &quot;data1.txt&quot;, &quot;data2.txt&quot;
+</pre>
+<p>
+This will limit the x-coordinates to (0, 1) and y-coordinates between (2, 4) while plotting the two data files.
+<p>
+To create a Postscript file:
+<p>
+<pre class="code">
+set output &quot;file.ps&quot;
+set terminal postscript
+plot
+</pre>
+<p>
+Control+d will exit. How can you find out more about Gnuplot? Inside gnuplot, type &quot;help&quot; or &quot;help plot&quot;, &quot;help set label&quot;, etc.
+<p>
+<p>
+<h3 width="804"> Clustering and Principal Component Analysis</h3>
+<p>
+Pyro comes with a cluster and PCA program in pyrobot/tools/cluster. Suppose we have the following files: vectors and names like so:
+<p>
+vectors:
+<p>
+<pre class="code">
+1 0 1 0 1 0 1
+1 1 1 1 0 0 0
+0 0 0 1 1 1 0
+0 1 0 1 0 0 0
+0 0 0 0 0 0 0
+0 1 0 0 0 0 0
+</pre>
+<p>
+names:
+<p>
+<pre class="code">
+a
+b
+c
+d
+e
+f
+</pre>
+<p>
+Then we could create a hierarchical tree plot using:
+<p>
+<pre class="code">
+&#36; cluster vectors names
+</pre>
+<p>
+which produces:
+<p>
+<pre class="code">
+read 6 patterns:  size = 7
+minimum distance = 1.000000     ( f )   ( d )
+minimum distance = 1.118034     ( d f ) ( e )
+minimum distance = 1.598611     ( e d f )       ( b )
+minimum distance = 1.713914     ( b e d f )     ( c )
+minimum distance = 1.918333     ( c b e d f )   ( a )
+Resulting Tree =
+_|-----------------&gt; a
+ |_________________|---------------&gt; c
+                   |_______________|--------------&gt; b
+                                   |______________|----------&gt; e
+                                                  |__________|---------&gt; d
+                                                             |---------&gt; f
+</pre>
+<p>
+However, that is a text-only representation of closeness. It would be nice to have one in graphical form.
+<p>
+<pre class="code">
+&#36; cluster -g vectors names &gt; data.plot
+</pre>
+<p>
+After creating the &quot;data.plot&quot; file, you can interactively plot it using the Tree<b></b>Plot class in Python:
+<p>
+<pre class="code">
+from pyrobot.tools.cluster.treeplot import *
+tp = TreePlot(&quot;data.plot&quot;)
+tp.plot()
+tp.hardcopy(&quot;output.ps&quot;)
+</pre>
+<p>
+And that produces:
+<p>
+<img src="../_dblank/images/tree.gif">
+ <img width="11" src="../wiki/img/alert.png"> Remember to check <a href="../page_PyroSiteNotes/">PyroSiteNotes</a> to see if you need to do anything special at your Pyro site.
+<p>
+<p>
+<h3 width="804"> PCA</h3>
+<p>
+To transform a set of points to their Principal Component positions:
+<p>
+<pre class="code">
+&#36; pca vector names &gt; data.pca
+</pre>
+<p>
+where &quot;data.pca&quot; then contains:
+<p>
+<pre class="code">
+1.8264127979082 0.37831857645255 0.463675663039161 0.552746506107956 -0.0238228008154108 -6.16383953506716e-17 1.30580010880393e-16 a
+0.411878075426689 1.402210254595 1.34303124954713 0.178307556090468 0.169222726228872 1.57162575210046e-18 2.42607636492764e-17 b
+0.225230537176817 -0.811240419055704 1.44908669490453 0.411036828068069 0.149521450754665 -4.95445435265815e-18 3.3031089173917e-16 c
+-0.548645554704592 0.606620156078635 0.977704905302168 0.56760049750164 -0.230049635787567 2.93625689294866e-17 1.26208472304347e-19 d
+0 0 0 0 0 0 0 e
+-0.355465711371689 0.558022217077771 0.145766568772147 0.682192683282735 0.274991970047355 -1.33396527251454e-17 4.90637333377766e-17 f
+</pre>
+<p>
+If you want to save the Eigenvalues of this particular transformation, provide a -e filename:
+<p>
+<pre class="code">
+&#36; pca -e eigen.file vector names
+</pre>
+<p>
+If the file doesn't exist, it will store the Eigenvalues there. If the file does exist, it will use those values to define the transform to vectors.
+<p>
+To plot &quot;data.pca&quot; from Python:
+<p>
+<pre class="code">
+from pyrobot.tools.cluster.pcaplot import *
+pca = PCAPlot(&quot;data.pca&quot;)
+# or pca = PCAPlot(&quot;data.pca&quot;, &quot;names&quot;) if names aren't in the data.pca file
+pca.plot()
+pca.hardcopy(&quot;output.ps&quot;)
+</pre>
+<p>
+<img src="../_dblank/images/pca.gif">
+ <img width="11" src="../wiki/img/alert.png"> Note that if you run a script that produces a gnuplot graph and exits, you might want to call python with the &quot;-i&quot; flag so that it keeps the plot open, and doesn't try to delete the temporary files that it creates.
+<p>
+<p>
+<h3 width="804"> Other pcaplot Options</h3>
+<p>
+<table border="1"><tr><td> <b>Keyword</b> </td><td> <b>Default Value</b> </td><td> <b>Meaning</b> </td><td> <b>Example</b> </td></tr>
+<tr><td> dimensions </td><td> 2 </td><td> 2 or 3 dimensions to plot </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, dimensions = 3) </td></tr>
+<tr><td> title </td><td> None </td><td> title of graph </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, title = &quot;My Plot Title&quot;) </td></tr>
+<tr><td> datatitle </td><td> None </td><td> Name of data </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, datatitle = &quot;Experiment #3&quot;) </td></tr>
+<tr><td> showpoints </td><td> 1 </td><td> Show points? </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, showpoints = 0) </td></tr>
+<tr><td> showlabels </td><td> 1 </td><td> Show labels? </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, showlabels = 0) </td></tr>
+<tr><td> components </td><td> [0, 1, 2] </td><td> Which components to plot. First is x axis, second is y. If doing a 3D plot, then third is z. </td><td> p = <a href="../page_PCAPlot/">PCAPlot</a>(&quot;pca.dat&quot;, components = [2, 4]) # will plot 3rd and 5th (zero based) </td></tr>
+<ol><p>
+</table></ol><p>
+<h3 width="804"> How could you plot the 2nd and 3rd principal components?</h3>
+<p>
+Two answers. The first method uses the &quot;components&quot; keyword in <a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a>
+<p>
+<pre class="code">
+pca = PCAPlot(&quot;pca.dat&quot;, components = [1, 2])
+</pre>
+<p>
+The second method is a method of using the Unix tool &quot;cut&quot;. In creating the PCA file one would normally:
+<p>
+<pre class="code">
+/usr/local/pyrobot/tools/cluster/pca vectors names &gt; data.pca 
+</pre>
+<p>
+To strip the first column of numbers from that, do this instead:
+<p>
+<pre class="code">
+pca vectors names &gt; data.pca | cut -d&quot; &quot; -f2- &gt; data.pca
+</pre>
+<p>
+where:
+<p>
+<pre class="code">
+-d&quot; &quot;    means use the space as a delimeter
+-f2-     means use fields 2 through the end of the fields
+</pre>
+<p>
+If you want to rearrange the components, or pick different ones:
+<p>
+<pre class="code">
+-f2,4    the 2nd and the 4th
+-f5,2    the 5th and the 2nd
+-f2,3,1  the 2nd, the 3rd and the 1st (for 3D plots, see below)
+</pre>
+<p>
+<p>
+<h3 width="804"> 3D PCA Plots</h3>
+<p>
+When you create a <a href="../page_PCAPlot/">PCAPlot</a> you can also add the &quot;dimension&quot; keyword:
+<p>
+<pre class="code">
+pca = PCAPlot(&quot;data.pca&quot;, &quot;names&quot;, title = &quot;Sample PCA Plot&quot;, dimensions = 3)
+pca.plot()
+</pre>
+<p>
+and you will see the first 3 principal components, rather than just the first two. 
+<p>
+You can also rotate that plot interactively:
+<p>
+<pre class="code">
+for view in range(35,70,5):
+   pca.gp('set view 60, %d' % view)
+   pca.gp.replot()
+   time.sleep(1.0)
+</pre>
+<p>
+or directly:
+<pre class="code">
+pca.gp('set view 60,50')
+</pre>
+<p>
+<p>
+<h3 width="804"> Labels in Gnuplot</h3>
+<p>
+To put an artibtrary label on a gnuplot plot graph you use the syntax:
+<p>
+<pre class="code">
+set label &quot;My Label&quot; at 10,20
+</pre>
+<p>
+where 10,20 is the X,Y coordinate and &quot;My Label&quot; is any text. You can enter that directly in gnuplot, or if using gnuplot from inside Python, something like:
+<p>
+<pre class="code">
+pca = PCAPlot(&quot;data.pca&quot;, &quot;names&quot;, title = &quot;Sample PCA Plot&quot;)
+pca.gp('set label &quot;%s&quot; at %f,%f' % (&quot;My Label&quot;, 10, 20))
+pca.plot()
+</pre>
+<p>
+The PCA<b></b>Plot and Tree<b></b>Plot make calls to Gnuplot from Python. For more details on the interface see <a href="../page_PyroGnuplot/">PyroGnuplot</a>.
+<p>
+<p>
+<p>
+<h2 width="804"> OpenOffice.org</h2>
+<p>
+Open<b></b>Office also offers some nice charts and graphs.
+<p>
+<p>
+<h1 width="804"> Tracing Paths</h1>
+<p>
+If you are using the Stage simulator, there is a tool in Pyro to help in analyzing paths and other spatial data.
+<p>
+First, you will need an image file (gif, jpg, ppm, etc) of the Stage world. You can use the Linux command import like:
+<p>
+<pre class="code">
+&#36; import world.gif
+</pre>
+<p>
+and then click in a corner of the Stage window and drag to the opposite corner. Let the mouse button up, and the import program will capture the image of the screen in the box you have outlined. If you mess up, just enter the command and try again.
+<p>
+Another way to create an image file of a Stage world is to use the Linux command xv, and then select the capture option.
+<p>
+Once you have an image file of the world, next you will need a data file. You can plot either:
+<p>
+<pre class="code">
+x y theta
+</pre>
+<p>
+or 
+<p>
+<pre class="code">
+x y theta stateOrSymbol
+</pre>
+<p>
+Put the data in a file, such as path.dat, one data point per line. You can collect this data by attaching a truth device to the robot and then on every step you can use the getPose command to retrieve the robot's current position and heading. x and y are given in Stage coordinates: (0,0) is in the bottom of the left-hand corner, and going more positive as you go up and to the right, in meters. theta has 0 to the right, increasing counter clockwise, with 180 pointing to the left.
+<p>
+If you use -s 1, you can also use the additional 4th column which is a state number or a symbol string. The state number will be mapped to a symbol, a different one for each state. Or, if you use double quotes around it, it will appear as a literal label at that x,y position.
+<p>
+If you use -s 0, then you will not plot the labels (states or labels) but will place a dot and a line facing in the theta direction. If you adjust --length, you can get a good approximation of a line.
+<p>
+Note that when colorized (using the -c flag) the labels or lines will be colored as follows:
+<p>
+<table border="1"><tr><td> Flag </td><td> Meaning </td></tr>
+<tr><td> -c 0 </td><td> no color, lines or labels appear in black </td></tr>
+<tr><td> -c 1 </td><td> lines or labels appear in red </td></tr>
+<tr><td> -c A </td><td> same labels are automatically mapped to same colors, for lines or labels </td></tr>
+</table><p>
+Now, you are ready to plot some data. You need only run:
+<p>
+<pre class="code">
+&#36; python &#36;PYROBOT/tools/trace.py DATAFILE IMAGEFILE
+</pre>
+<p>
+The IMAGEFILE is that which you captured above from the Stage simulator (above). The DATAFILE is that described above. There are two sample files that come with Pyro, so you can practice:
+<p>
+<pre class="code">
+&#36; python &#36;PYROBOT/tools/trace.py &#36;PYROBOT/tools/sample-trace.dat &#36;PYROBOT/tools/sample-trace-background.gif -o output.gif -c A
+</pre>
+<p>
+This will create a new image file called ouput.gif which combines the path data and the world image into one image.  If you were to view this image using a program like xv, or if you add the -v flag, you would see the following:
+<p>
+<img src="../_dblank/images/sample-trace.gif">
+<p>
+Here is the help for this program:
+<p>
+<pre class="code">
+Help:
+-c --color      [0|1|A] B&W;, color, or Automatic
+-s --symbols    [0|1] Show lines or symbols
+-i --interval   &lt;INT&gt; Frequency data should be displayed
+-l --length     &lt;INT&gt; Line width (use with -s 0)
+-r --resolution &lt;REAL&gt; Value given in stage world file
+-o --outfile    &lt;FILENAME&gt; Output filename (.gif, .jpg, .ppm)
+-h --help       This help message
+-w --window     Show data interactively in Tkinter graphics window
+-v --view       Open xview after creating an output file
+</pre>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleAnalysis?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleAnalysis?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

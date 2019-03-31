@@ -1,0 +1,2027 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129021950", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.conx.Network</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        <a href="../../usermanual/pyrobot-brain-conx-module/">Module&nbsp;conx</a> ::
+        Class&nbsp;Network
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-conx-Network-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Network</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-brain-governor-GovernorNetwork-class/"><code>GovernorNetwork</code></a>,
+    <a href="../../usermanual/pyrobot-brain-conx-SRN-class/"><code>SRN</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+Class which contains all of the parameters and methods needed to
+run a neural network.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+<br/>
+Constructor for the Network class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__getitem__" class="summary-sig-name"><code>__getitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Returns the layer specified by name.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__len__" class="summary-sig-name"><code>__len__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the number of layers in the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns string representation of network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#activationFunction" class="summary-sig-name"><code>activationFunction</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+Determine the activation of a node based on that nodes net input.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#ACTPRIME" class="summary-sig-name"><code>ACTPRIME</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">act</span>)</span></code>
+<br/>
+Used in compute_error.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#add" class="summary-sig-name"><code>add</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+<br/>
+Adds a layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="addLayer"></a><span class="summary-sig"><span class="summary-sig-name">addLayer</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">size</span>,
+          <span class="summary-sig-arg">verbosity</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#addPattern" class="summary-sig-name"><code>addPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Adds a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#addThreeLayers" class="summary-sig-name"><code>addThreeLayers</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inc</span>,
+          <span class="summary-sig-arg">hidc</span>,
+          <span class="summary-sig-arg">outc</span>)</span></code>
+<br/>
+Creates a three layer network with 'input', 'hidden', and
+'output' layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#arrayify" class="summary-sig-name"><code>arrayify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns an array of node bias values and connection weights
+for use in a GA.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#associate" class="summary-sig-name"><code>associate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inName</span>,
+          <span class="summary-sig-arg">outName</span>)</span></code>
+<br/>
+inName layer and outName layer will be auto-associating.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#backprop" class="summary-sig-name"><code>backprop</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Computes error and wed for back propagation of error.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#ce_init" class="summary-sig-name"><code>ce_init</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initializes error computation.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#change_weights" class="summary-sig-name"><code>change_weights</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Changes the weights according to the error values calculated
+during backprop().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#changeLayerSize" class="summary-sig-name"><code>changeLayerSize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layername</span>,
+          <span class="summary-sig-arg">newsize</span>)</span></code>
+<br/>
+Changes layer size.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#closeLog" class="summary-sig-name"><code>closeLog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Close the layerName's log file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compare" class="summary-sig-name"><code>compare</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">v1</span>,
+          <span class="summary-sig-arg">v2</span>)</span></code>
+<br/>
+Compares two values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compute_error" class="summary-sig-name"><code>compute_error</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Computes error for all non-output layers backwards through all
+projections.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#compute_wed" class="summary-sig-name"><code>compute_wed</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Computes weight error derivative for all connections in
+self.connections starting with the last connection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#connect" class="summary-sig-name"><code>connect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">toName</span>)</span></code>
+<br/>
+Connects two layers by instantiating an instance of Connection
+class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyActivations" class="summary-sig-name"><code>copyActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">vec</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies activations in vec to the specified layer, replacing
+patterns if necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyTargets" class="summary-sig-name"><code>copyTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>,
+          <span class="summary-sig-arg">vec</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies targets in vec to specified layer, replacing patterns
+if necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#copyVector" class="summary-sig-name"><code>copyVector</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector1</span>,
+          <span class="summary-sig-arg">vec2</span>,
+          <span class="summary-sig-arg">start</span>)</span></code>
+<br/>
+Copies vec2 into vector1 being sure to replace patterns if
+necessary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#cycle" class="summary-sig-name"><code>cycle</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Alternate to sweep().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#delPattern" class="summary-sig-name"><code>delPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>)</span></code>
+<br/>
+Delete a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#diff" class="summary-sig-name"><code>diff</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Returns value to within 0.001.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#display" class="summary-sig-name"><code>display</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Displays the network to the screen.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getActivationsDict" class="summary-sig-name"><code>getActivationsDict</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameList</span>)</span></code>
+<br/>
+Returns a dictionary of layer names that map to a list of activations.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getActive" class="summary-sig-name"><code>getActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns the value of the active flag for the layer specified
+by layerName.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getConnection" class="summary-sig-name"><code>getConnection</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">lfrom</span>,
+          <span class="summary-sig-arg">lto</span>)</span></code>
+<br/>
+Returns the connection instance connecting the specified (string)
+layer names.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getCorrect" class="summary-sig-name"><code>getCorrect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns the number of correct activation within tolerance of a
+layer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getData" class="summary-sig-name"><code>getData</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+<br/>
+Returns dictionary with input and target given pos.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getDataCrossValidation"></a><span class="summary-sig"><span class="summary-sig-name">getDataCrossValidation</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pos</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getEpsilon" class="summary-sig-name"><code>getEpsilon</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the epsilon for the Network instance.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="getError"></a><span class="summary-sig"><span class="summary-sig-name">getError</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*layerNames</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getLayer" class="summary-sig-name"><code>getLayer</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Returns the layer with the argument (string) name.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getLayerIndex" class="summary-sig-name"><code>getLayerIndex</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layer</span>)</span></code>
+<br/>
+Given a reference to a layer, returns the index of that layer in
+self.layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getPattern" class="summary-sig-name"><code>getPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>)</span></code>
+<br/>
+Returns the pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getWeights" class="summary-sig-name"><code>getWeights</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">toName</span>)</span></code>
+<br/>
+Gets the weights of the connection between two layers (argument strings).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#getWord" class="summary-sig-name"><code>getWord</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pattern</span>)</span></code>
+<br/>
+Returns the word associated with pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#initialize" class="summary-sig-name"><code>initialize</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Initializes network by calling Connection.initialize() and
+Layer.initialize().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadCrossValidation"></a><span class="summary-sig"><span class="summary-sig-name">loadCrossValidation</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadDataFromFile" class="summary-sig-name"><code>loadDataFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">ocnt</span>)</span></code>
+<br/>
+Loads data (targets/inputs) from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadInputPatternsFromFile" class="summary-sig-name"><code>loadInputPatternsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads inputs as patterns from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadInputsFromFile" class="summary-sig-name"><code>loadInputsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads inputs from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadTargetPatternssFromFile" class="summary-sig-name"><code>loadTargetPatternssFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads targets as patterns from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadTargetsFromFile" class="summary-sig-name"><code>loadTargetsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>)</span></code>
+<br/>
+Loads targets from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadVectorsFromFile" class="summary-sig-name"><code>loadVectorsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">everyNrows</span>,
+          <span class="summary-sig-arg">delim</span>,
+          <span class="summary-sig-arg">checkEven</span>,
+          <span class="summary-sig-arg">patterned</span>)</span></code>
+<br/>
+Load a set of vectors from a file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#loadWeightsFromFile" class="summary-sig-name"><code>loadWeightsFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+Loads weights from a file in pickle, plain, or tlearn mode.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#logLayer" class="summary-sig-name"><code>logLayer</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">fileName</span>)</span></code>
+<br/>
+Sets the layerName's log feature.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#logMsg" class="summary-sig-name"><code>logMsg</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">message</span>)</span></code>
+<br/>
+Logs a message with layerName log.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapInput" class="summary-sig-name"><code>mapInput</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Adds layerName and offset to inputMap.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="mapInputs"></a><span class="summary-sig"><span class="summary-sig-name">mapInputs</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameOffsetPairs</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#mapTarget" class="summary-sig-name"><code>mapTarget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Adds layerName and offset to targetMap.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="mapTargets"></a><span class="summary-sig"><span class="summary-sig-name">mapTargets</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nameOffsetPairs</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#path" class="summary-sig-name"><code>path</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayer</span>,
+          <span class="summary-sig-arg">endLayer</span>)</span></code>
+<br/>
+Used in error checking with verifyArchitecture() and in prop_from().</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#patternVector" class="summary-sig-name"><code>patternVector</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Replaces vector with patterns.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="postStep"></a><span class="summary-sig"><span class="summary-sig-name">postStep</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="postSweep"></a><span class="summary-sig"><span class="summary-sig-name">postSweep</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="preStep"></a><span class="summary-sig"><span class="summary-sig-name">preStep</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="preSweep"></a><span class="summary-sig"><span class="summary-sig-name">preSweep</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="Print"></a><span class="summary-sig"><span class="summary-sig-name">Print</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">msg</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="prompt"></a><span class="summary-sig"><span class="summary-sig-name">prompt</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#prop_from" class="summary-sig-name"><code>prop_from</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayers</span>)</span></code>
+<br/>
+Start propagation from the layers in the list
+startLayers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#propagate" class="summary-sig-name"><code>propagate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Propagates activation through the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#propagateFrom" class="summary-sig-name"><code>propagateFrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">startLayer</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Propagates activation through the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#putActivations" class="summary-sig-name"><code>putActivations</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">dict</span>)</span></code>
+<br/>
+Puts a dict of name: activations into their respective layers.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#randomizeOrder" class="summary-sig-name"><code>randomizeOrder</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Randomizes self.loadOrder, the order in which inputs set with
+self.setInputs() are presented.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#replacePatterns" class="summary-sig-name"><code>replacePatterns</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Replaces patterned inputs or targets with activation vectors.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="reportEpoch"></a><span class="summary-sig"><span class="summary-sig-name">reportEpoch</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">epoch</span>,
+          <span class="summary-sig-arg">tssErr</span>,
+          <span class="summary-sig-arg">totalCorrect</span>,
+          <span class="summary-sig-arg">totalCount</span>,
+          <span class="summary-sig-arg">rmsErr</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="reportFinal"></a><span class="summary-sig"><span class="summary-sig-name">reportFinal</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">epoch</span>,
+          <span class="summary-sig-arg">tssErr</span>,
+          <span class="summary-sig-arg">totalCorrect</span>,
+          <span class="summary-sig-arg">totalCount</span>,
+          <span class="summary-sig-arg">rmsErr</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="reportPattern"></a><span class="summary-sig"><span class="summary-sig-name">reportPattern</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="reportStart"></a><span class="summary-sig"><span class="summary-sig-name">reportStart</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#reset" class="summary-sig-name"><code>reset</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets seed values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#resetFlags" class="summary-sig-name"><code>resetFlags</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resets layer flags for activation and target.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#RMSError" class="summary-sig-name"><code>RMSError</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns Root Mean Squared Error for all output layers in this network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveDataToFile" class="summary-sig-name"><code>saveDataToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves data (targets/inputs) to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveInputsToFile" class="summary-sig-name"><code>saveInputsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves inputs to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="saveNetworkForCrossValidation"></a><span class="summary-sig"><span class="summary-sig-name">saveNetworkForCrossValidation</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveNetworkToFile" class="summary-sig-name"><code>saveNetworkToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">makeWrapper</span>)</span></code>
+<br/>
+Saves network to file using pickle.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveTargetsToFile" class="summary-sig-name"><code>saveTargetsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Saves targets to file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#saveWeightsToFile" class="summary-sig-name"><code>saveWeightsToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+Saves weights to file in pickle, plain, or tlearn mode.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setActive" class="summary-sig-name"><code>setActive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets a layer to active.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setAutoCrossValidation"></a><span class="summary-sig"><span class="summary-sig-name">setAutoCrossValidation</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setAutoSaveWeightsFile"></a><span class="summary-sig"><span class="summary-sig-name">setAutoSaveWeightsFile</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setBatch" class="summary-sig-name"><code>setBatch</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.batch to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setEpsilon" class="summary-sig-name"><code>setEpsilon</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets epsilon value for the network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInputs" class="summary-sig-name"><code>setInputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">inputs</span>)</span></code>
+<br/>
+Sets self.input to inputs.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInputsAndTargets" class="summary-sig-name"><code>setInputsAndTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">data1</span>,
+          <span class="summary-sig-arg">data2</span>)</span></code>
+<br/>
+Network.setInputsAndTargets()
+Sets the corpus of data for training.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setInteractive" class="summary-sig-name"><code>setInteractive</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets interactive to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setLayerVerification"></a><span class="summary-sig"><span class="summary-sig-name">setLayerVerification</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setLearning" class="summary-sig-name"><code>setLearning</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets learning to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setMaxRandom" class="summary-sig-name"><code>setMaxRandom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the maxRandom Layer attribute for each layer to value.Specifies
+the global range for randomly initialized values, [-max, max].</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setMomentum" class="summary-sig-name"><code>setMomentum</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.momentum to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setOrderedInputs" class="summary-sig-name"><code>setOrderedInputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.orderedInputs to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setOutputs" class="summary-sig-name"><code>setOutputs</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">outputs</span>)</span></code>
+<br/>
+For compatiblity.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPattern" class="summary-sig-name"><code>setPattern</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">word</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Sets a pattern with key word.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPatterned" class="summary-sig-name"><code>setPatterned</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the network to use patterns for inputs and targets.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setPatterns" class="summary-sig-name"><code>setPatterns</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">patterns</span>)</span></code>
+<br/>
+Sets patterns to the dictionary argument.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setReportRate" class="summary-sig-name"><code>setReportRate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.reportRate to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setResetEpoch" class="summary-sig-name"><code>setResetEpoch</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.resetEpoch to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setResetLimit" class="summary-sig-name"><code>setResetLimit</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.resetLimit to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSeed" class="summary-sig-name"><code>setSeed</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the seed to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSigmoid_prime_offset" class="summary-sig-name"><code>setSigmoid_prime_offset</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.sigmoid_prime_offset to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setStopPercent" class="summary-sig-name"><code>setStopPercent</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.stopPercent to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setSweepReportRate" class="summary-sig-name"><code>setSweepReportRate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.sweepReportRate to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setTargets" class="summary-sig-name"><code>setTargets</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">targets</span>)</span></code>
+<br/>
+Sets the targets.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setTolerance" class="summary-sig-name"><code>setTolerance</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets tolerance to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setup"></a><span class="summary-sig"><span class="summary-sig-name">setup</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setUseCrossValidationToStop" class="summary-sig-name"><code>setUseCrossValidationToStop</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets flag so that self.stopPercent is compared to cross validation
+percent rather than the regular training data percentage correct.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setVerbosity" class="summary-sig-name"><code>setVerbosity</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets self.verbosity and each layer verbosity to value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#setWeight" class="summary-sig-name"><code>setWeight</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fromName</span>,
+          <span class="summary-sig-arg">fromPos</span>,
+          <span class="summary-sig-arg">toName</span>,
+          <span class="summary-sig-arg">toPos</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Sets the weight of the connection between two layers (argument strings).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#shareWeights" class="summary-sig-name"><code>shareWeights</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">network</span>,
+          <span class="summary-sig-arg">listOfLayerNamePairs</span>)</span></code>
+<br/>
+Share weights with another network.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#step" class="summary-sig-name"><code>step</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**args</span>)</span></code>
+<br/>
+Network.step()
+Does a single step.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#sweep" class="summary-sig-name"><code>sweep</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Runs through entire dataset.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#sweepCrossValidation" class="summary-sig-name"><code>sweepCrossValidation</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+sweepCrossValidation() will go through each of the crossvalidation input/targets.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#toString" class="summary-sig-name"><code>toString</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns the network layers as a string.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#train" class="summary-sig-name"><code>train</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cont</span>)</span></code>
+<br/>
+Trains the network on the dataset till a stopping condition is
+met.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#TSSError" class="summary-sig-name"><code>TSSError</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">layerName</span>)</span></code>
+<br/>
+Returns Total Sum Squared error for the specified layer's pattern.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#unArrayify" class="summary-sig-name"><code>unArrayify</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">gene</span>)</span></code>
+<br/>
+Copies gene bias values and weights to network bias values and
+weights.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyArchitecture" class="summary-sig-name"><code>verifyArchitecture</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Check for orphaned layers or connections.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyArguments" class="summary-sig-name"><code>verifyArguments</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">arg</span>)</span></code>
+<br/>
+Verifies that arguments to setInputs and setTargets are appropriately formatted.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyInputs" class="summary-sig-name"><code>verifyInputs</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used in propagate() to verify that the network input
+activations have been set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-conx-Network-class/#verifyTargets" class="summary-sig-name"><code>verifyTargets</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Used in backprop() to verify that the network targets have
+been set.</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">'Backprop&nbsp;Network'</span>,
+          <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for the Network class. Takes optional name and
+verbosity arguments.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__getitem__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__getitem__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>)</span>
+    <br/><i>(Indexing operator)</i>
+  </h3>
+<pre class="literalblock">
+Returns the layer specified by name.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__len__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__len__</span>(<span class="sig-arg">self</span>)</span>
+    <br/><i>(Length operator)</i>
+  </h3>
+<pre class="literalblock">
+Returns the number of layers in the network.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="__str__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__str__</span>(<span class="sig-arg">self</span>)</span>
+    <br/><i>(Informal representation operator)</i>
+  </h3>
+<pre class="literalblock">
+Returns string representation of network.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="activationFunction"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">activationFunction</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">x</span>)</span>
+  </h3>
+<pre class="literalblock">
+Determine the activation of a node based on that nodes net input.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="ACTPRIME"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">ACTPRIME</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">act</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used in compute_error.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="add"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layer</span>,
+          <span class="sig-arg">verbosity</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a layer. Layer verbosity is optional (default 0).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addPattern"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addPattern</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">word</span>,
+          <span class="sig-arg">vector</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a pattern with key word.
+Example: net.addPattern(&quot;tom&quot;, [0, 0, 0, 1])
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addThreeLayers"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addThreeLayers</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inc</span>,
+          <span class="sig-arg">hidc</span>,
+          <span class="sig-arg">outc</span>)</span>
+  </h3>
+<pre class="literalblock">
+Creates a three layer network with 'input', 'hidden', and
+'output' layers.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="arrayify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">arrayify</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns an array of node bias values and connection weights
+for use in a GA.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="associate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">associate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inName</span>,
+          <span class="sig-arg">outName</span>)</span>
+  </h3>
+<pre class="literalblock">
+inName layer and outName layer will be auto-associating.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="backprop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">backprop</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Computes error and wed for back propagation of error.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="ce_init"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">ce_init</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Initializes error computation. Calculates error for output
+layers and initializes hidden layer error to zero.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="change_weights"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">change_weights</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Changes the weights according to the error values calculated
+during backprop(). Learning must be set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="changeLayerSize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">changeLayerSize</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layername</span>,
+          <span class="sig-arg">newsize</span>)</span>
+  </h3>
+<pre class="literalblock">
+Changes layer size. Newsize must be greater than zero.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="closeLog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">closeLog</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Close the layerName's log file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="compare"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">compare</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">v1</span>,
+          <span class="sig-arg">v2</span>)</span>
+  </h3>
+<pre class="literalblock">
+Compares two values. Returns 1 if all values are withing
+self.tolerance of each other.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="compute_error"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">compute_error</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Computes error for all non-output layers backwards through all
+projections.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="compute_wed"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">compute_wed</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Computes weight error derivative for all connections in
+self.connections starting with the last connection.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="connect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">connect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">fromName</span>,
+          <span class="sig-arg">toName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Connects two layers by instantiating an instance of Connection
+class.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="copyActivations"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyActivations</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layer</span>,
+          <span class="sig-arg">vec</span>,
+          <span class="sig-arg">start</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies activations in vec to the specified layer, replacing
+patterns if necessary.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="copyTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyTargets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layer</span>,
+          <span class="sig-arg">vec</span>,
+          <span class="sig-arg">start</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies targets in vec to specified layer, replacing patterns
+if necessary.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="copyVector"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">copyVector</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">vector1</span>,
+          <span class="sig-arg">vec2</span>,
+          <span class="sig-arg">start</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies vec2 into vector1 being sure to replace patterns if
+necessary. Use self.copyActivations() or self.copyTargets()
+instead.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="cycle"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">cycle</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Alternate to sweep().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="delPattern"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">delPattern</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">word</span>)</span>
+  </h3>
+<pre class="literalblock">
+Delete a pattern with key word.
+Example: net.delPattern(&quot;tom&quot;)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="diff"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">diff</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns value to within 0.001. Then returns 0.0.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="display"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">display</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Displays the network to the screen.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActivationsDict"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActivationsDict</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">nameList</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns a dictionary of layer names that map to a list of activations.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getActive</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the value of the active flag for the layer specified
+by layerName.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getConnection"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getConnection</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">lfrom</span>,
+          <span class="sig-arg">lto</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the connection instance connecting the specified (string)
+layer names.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getCorrect"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getCorrect</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the number of correct activation within tolerance of a
+layer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getData"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getData</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pos</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns dictionary with input and target given pos.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getEpsilon"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getEpsilon</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the epsilon for the Network instance.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getLayer"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getLayer</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the layer with the argument (string) name.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getLayerIndex"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getLayerIndex</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layer</span>)</span>
+  </h3>
+<pre class="literalblock">
+Given a reference to a layer, returns the index of that layer in
+self.layers.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getPattern"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getPattern</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">word</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the pattern with key word.
+Example: net.getPattern(&quot;tom&quot;) =&gt; [0, 0, 0, 1]
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getWeights"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getWeights</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">fromName</span>,
+          <span class="sig-arg">toName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Gets the weights of the connection between two layers (argument strings).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getWord"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getWord</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">pattern</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the word associated with pattern.
+Example: net.getWord([0, 0, 0, 1]) =&gt; &quot;tom&quot;
+This method uses the net.compare() method to compute if the patterns
+are the same. Tolerance is adjusted using net.setTolerance().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="initialize"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">initialize</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Initializes network by calling Connection.initialize() and
+Layer.initialize(). self.count is set to zero.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadDataFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadDataFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">ocnt</span>=<span class="sig-default">-1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads data (targets/inputs) from file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadInputPatternsFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadInputPatternsFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">cols</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">everyNrows</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">delim</span>=<span class="sig-default">'&nbsp;'</span>,
+          <span class="sig-arg">checkEven</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads inputs as patterns from file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadInputsFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadInputsFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">cols</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">everyNrows</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">delim</span>=<span class="sig-default">'&nbsp;'</span>,
+          <span class="sig-arg">checkEven</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads inputs from file. Patterning is lost.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadTargetPatternssFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadTargetPatternssFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">cols</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">everyNrows</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">delim</span>=<span class="sig-default">'&nbsp;'</span>,
+          <span class="sig-arg">checkEven</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads targets as patterns from file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadTargetsFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadTargetsFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">cols</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">everyNrows</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">delim</span>=<span class="sig-default">'&nbsp;'</span>,
+          <span class="sig-arg">checkEven</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads targets from file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadVectorsFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadVectorsFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">cols</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">everyNrows</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">delim</span>=<span class="sig-default">'&nbsp;'</span>,
+          <span class="sig-arg">checkEven</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">patterned</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Load a set of vectors from a file. Takes a filename, list of cols
+you want (or None for all), get every everyNrows (or 1 for no
+skipping), and a delimeter.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="loadWeightsFromFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">loadWeightsFromFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">mode</span>=<span class="sig-default">'pickle'</span>)</span>
+  </h3>
+<pre class="literalblock">
+Loads weights from a file in pickle, plain, or tlearn mode.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="logLayer"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">logLayer</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>,
+          <span class="sig-arg">fileName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the layerName's log feature.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="logMsg"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">logMsg</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>,
+          <span class="sig-arg">message</span>)</span>
+  </h3>
+<pre class="literalblock">
+Logs a message with layerName log.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="mapInput"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">mapInput</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>,
+          <span class="sig-arg">offset</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds layerName and offset to inputMap.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="mapTarget"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">mapTarget</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>,
+          <span class="sig-arg">offset</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds layerName and offset to targetMap.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="path"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">path</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">startLayer</span>,
+          <span class="sig-arg">endLayer</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used in error checking with verifyArchitecture() and in prop_from().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="patternVector"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">patternVector</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">vector</span>)</span>
+  </h3>
+<pre class="literalblock">
+Replaces vector with patterns. Used for loading inputs or
+targets from a file and still preserving patterns.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="prop_from"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">prop_from</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">startLayers</span>)</span>
+  </h3>
+<pre class="literalblock">
+Start propagation from the layers in the list
+startLayers. Make sure startLayers are initialized with the
+desired activations. NO ERROR CHECKING.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="propagate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">propagate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Propagates activation through the network. Optionally, takes input layer names
+as keywords, and their associated activations. If input layer(s) are given, then
+propagate() will return the output layer's activation. If there is more than
+one output layer, then a dictionary is returned.
+Examples:
+&gt;&gt;&gt; net.propagate()
+&gt;&gt;&gt; net.propagate(input = [0, .5, 0], context = [.5, .5, .5])
+{&quot;output&quot;: [0.345]}
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="propagateFrom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">propagateFrom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">startLayer</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Propagates activation through the network. Optionally, takes input layer names
+as keywords, and their associated activations. If input layer(s) are given, then
+propagate() will return the output layer's activation. If there is more than
+one output layer, then a dictionary is returned.
+Examples:
+&gt;&gt;&gt; net.propagate()
+&gt;&gt;&gt; net.propagate(input = [0, .5, 0], context = [.5, .5, .5])
+{&quot;output&quot;: [0.345]}
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="putActivations"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">putActivations</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">dict</span>)</span>
+  </h3>
+<pre class="literalblock">
+Puts a dict of name: activations into their respective layers.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="randomizeOrder"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">randomizeOrder</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Randomizes self.loadOrder, the order in which inputs set with
+self.setInputs() are presented.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="replacePatterns"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">replacePatterns</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">vector</span>)</span>
+  </h3>
+<pre class="literalblock">
+Replaces patterned inputs or targets with activation vectors.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="reset"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">reset</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resets seed values.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="resetFlags"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">resetFlags</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resets layer flags for activation and target.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="RMSError"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">RMSError</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns Root Mean Squared Error for all output layers in this network.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="saveDataToFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">saveDataToFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>)</span>
+  </h3>
+<pre class="literalblock">
+Saves data (targets/inputs) to file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="saveInputsToFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">saveInputsToFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>)</span>
+  </h3>
+<pre class="literalblock">
+Saves inputs to file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="saveNetworkToFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">saveNetworkToFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">makeWrapper</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Saves network to file using pickle.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="saveTargetsToFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">saveTargetsToFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>)</span>
+  </h3>
+<pre class="literalblock">
+Saves targets to file.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="saveWeightsToFile"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">saveWeightsToFile</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">filename</span>,
+          <span class="sig-arg">mode</span>=<span class="sig-default">'pickle'</span>)</span>
+  </h3>
+<pre class="literalblock">
+Saves weights to file in pickle, plain, or tlearn mode.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setActive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setActive</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets a layer to active. Affects ce_init(), compute_error(),
+propagate(), change_weights(), display().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setBatch"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setBatch</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.batch to value. Accumulates error over the entire
+training set and only changes weights after each training
+batch is complete.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setEpsilon"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setEpsilon</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets epsilon value for the network.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setInputs"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setInputs</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">inputs</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.input to inputs. Load order is by default random. Use setOrderedInputs() to order inputs.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setInputsAndTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setInputsAndTargets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">data1</span>,
+          <span class="sig-arg">data2</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Network.setInputsAndTargets()
+Sets the corpus of data for training. Can be in one of two formats:
+Format 1: setInputsAndTargets([[input0, target0], [input1, target1]...])
+Network.setInputsAndTargets([[[i00, i01, ...], [t00, t01, ...]],
+                             [[i10, i11, ...], [t10, t11, ...]],
+                             ...])
+Format 2: setInputsAndTargets([input0, input1, ...], [target0, target1, ...])
+Network.setInputsAndTargets([[i00, i01, ...], [i10, i11, ...],...],
+                            [[t00, t01, ...], [t10, t11, ...],...] )
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setInteractive"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setInteractive</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets interactive to value. Specifies if an interactive prompt
+should accompany sweep() or step().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setLearning"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setLearning</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets learning to value. Determines if the network learns,
+ie. changes connection weights.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setMaxRandom"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setMaxRandom</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the maxRandom Layer attribute for each layer to value.Specifies
+the global range for randomly initialized values, [-max, max].
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setMomentum"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setMomentum</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.momentum to value. Used in change_weights().
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setOrderedInputs"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setOrderedInputs</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.orderedInputs to value. Specifies if inputs
+should be ordered and if so orders the inputs.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setOutputs"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setOutputs</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">outputs</span>)</span>
+  </h3>
+<pre class="literalblock">
+For compatiblity.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setPattern"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setPattern</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">word</span>,
+          <span class="sig-arg">vector</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets a pattern with key word. Better to use addPattern() and
+delPattern().
+Example: net.setPattern(&quot;tom&quot;, [1, 0, 0, 0])
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setPatterned"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setPatterned</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the network to use patterns for inputs and targets.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setPatterns"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setPatterns</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">patterns</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets patterns to the dictionary argument.
+Example: net.setPatterns( {&quot;tom&quot;: [0, 0, 0, 1], &quot;mary&quot;: [1, 0, 0, 0]} )
+Sets net.patterned to 1 as a side-effect.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setReportRate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setReportRate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.reportRate to value.  train() will report when
+epoch % reportRate == 0. Cross validation will only report if
+there is a cross validation data set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setResetEpoch"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setResetEpoch</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.resetEpoch to value. When the number of epochs
+reaches self.resetEpoch the network restarts.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setResetLimit"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setResetLimit</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.resetLimit to value. When the number of resets
+reaches the reset limit the network quits.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setSeed"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setSeed</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the seed to value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setSigmoid_prime_offset"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setSigmoid_prime_offset</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.sigmoid_prime_offset to value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setStopPercent"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setStopPercent</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.stopPercent to value. train() will stop if the percent
+correct surpasses the stop percent.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setSweepReportRate"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setSweepReportRate</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.sweepReportRate to value.  sweep() will report
+when epoch % sweepReportRate == 0.  there is a cross
+validation data set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setTargets</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">targets</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the targets.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setTolerance"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setTolerance</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets tolerance to value. This specifies how close acceptable
+outputs must be to targets.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setUseCrossValidationToStop"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setUseCrossValidationToStop</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets flag so that self.stopPercent is compared to cross validation
+percent rather than the regular training data percentage correct.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setVerbosity"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setVerbosity</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets self.verbosity and each layer verbosity to value.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setWeight"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setWeight</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">fromName</span>,
+          <span class="sig-arg">fromPos</span>,
+          <span class="sig-arg">toName</span>,
+          <span class="sig-arg">toPos</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Sets the weight of the connection between two layers (argument strings).
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="shareWeights"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">shareWeights</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">network</span>,
+          <span class="sig-arg">listOfLayerNamePairs</span>=<span class="sig-default">None</span>)</span>
+  </h3>
+<pre class="literalblock">
+Share weights with another network. Connection
+is broken after a randomize or change of size. Layers must have the same
+names and sizes for shared connections in both networks.
+Example: net.shareWeights(otherNet, [[&quot;hidden&quot;, &quot;output&quot;]])
+This example will take the weights between the hidden and output layers
+of otherNet and share them with net. Also, the bias values of
+otherNet[&quot;output&quot;] will be shared with net[&quot;output&quot;].
+If no list is given, will share all weights.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="step"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">step</span>(<span class="sig-arg">self</span>,
+          <span class="sig-kwarg">**args</span>)</span>
+  </h3>
+<pre class="literalblock">
+Network.step()
+Does a single step. Calls propagate(), backprop(), and
+change_weights() if learning is set.
+Format for parameters: &lt;layer name&gt; = &lt;activation/target list&gt;
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="sweep"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">sweep</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Runs through entire dataset. 
+Returns TSS error, total correct, and total count.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="sweepCrossValidation"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">sweepCrossValidation</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+sweepCrossValidation() will go through each of the crossvalidation input/targets.
+The crossValidationCorpus is a list of dictionaries of input/targets
+referenced by layername.
+Example: ({&quot;input&quot;: [0.0, 0.1], &quot;output&quot;: [1.0]}, {&quot;input&quot;: [0.5, 0.9], &quot;output&quot;: [0.0]})
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="toString"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">toString</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns the network layers as a string.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="train"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">train</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">cont</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Trains the network on the dataset till a stopping condition is
+met. This stopping condition can be a limiting epoch or a percentage correct requirement.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="TSSError"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">TSSError</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">layerName</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns Total Sum Squared error for the specified layer's pattern.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="unArrayify"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">unArrayify</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">gene</span>)</span>
+  </h3>
+<pre class="literalblock">
+Copies gene bias values and weights to network bias values and
+weights.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="verifyArchitecture"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">verifyArchitecture</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Check for orphaned layers or connections. Assure that network
+architecture is feed-forward (no-cycles). Check connectivity. Check naming.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="verifyArguments"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">verifyArguments</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">arg</span>)</span>
+  </h3>
+<pre class="literalblock">
+Verifies that arguments to setInputs and setTargets are appropriately formatted.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="verifyInputs"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">verifyInputs</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used in propagate() to verify that the network input
+activations have been set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="verifyTargets"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">verifyTargets</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used in backprop() to verify that the network targets have
+been set.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

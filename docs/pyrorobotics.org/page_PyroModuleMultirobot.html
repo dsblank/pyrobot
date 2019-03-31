@@ -1,0 +1,118 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094118", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleMultirobot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to multi-robots, their tasks, and related issues. This module demonstrates the simulators and protocols necessary to implement multi-robot strategies. When completed, the reader should be ready to further explore these ideas.</i>
+<p>
+<p>
+<h1 width="804"> Pyro Module Multirobot</h1>
+<p>
+This module was designed to explore issues in multirobot control.
+<p>
+This requires the Player/Stage software. If this hasn't been
+installed, see <a href="../page_PlayerStageInstallation/">PlayerStageInstallation</a>.
+<p>
+<p>
+<h2 width="804"> Demonstration</h2>
+<p>
+In the Player/Stage software, the Stage represents the simulated
+environment and the Players represent robots acting within that
+environment.  This software includes some examples to demonstrate its
+features.  Let's experiment with one of these examples.  We'd like to
+have several robots moving independently within an environment.  As a
+start, let's have each robot execute the simple avoid obstacles brain
+shown below.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class Avoid(Brain):
+    def wander(self, minSide):
+        # if approaching an obstacle to the left side, turn right
+        if min([s.distance() for s in self.robot.range[&quot;front-left&quot;]]) &lt; minSide:
+            self.move(0,-0.3)
+        # if approaching an obstacle to the right side, turn left
+        elif min([s.distance() for s in self.robot.range[&quot;front-right&quot;]]) &lt; minSide:
+            self.move(0,0.3)
+        else: # go forward
+            self.move(0.5, 0)
+    def step(self):
+        self.wander(1)
+def INIT(engine):
+   return Avoid('Avoid', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/AvoidProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/AvoidProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+First we will start up Pyro, using the Stage simulator, the robot
+called Player6665, and the avoid obstacles brain from above.  Then we
+will start up a new instance of Pyro, without specifying the
+simulator, using the robot called Player6666, and the same brain.
+<p>
+<pre class="code">
+pyro -s StageSimulator -w everything.world -r Player6665 -b AvoidProgram.py &
+pyro -r Player6666 -b AvoidProgram.py
+</pre>
+<p>
+After executing the commands above, you should see that two of the
+robots in the simulator window have active sensory displays.  Now
+press the Run button in each version of Pyro.  Both robots should
+begin moving around the environment.  The shapes with dark outlines
+are obstacles.  There are also movable pucks, represented as small
+circles, that will slide away from the robot if bumped.
+<p>
+<p>
+<h2 width="804"> Example: Two robots chasing one another</h2>
+<p>
+In <a href="../page_ExampleChase/">ExampleChase</a>, two robots are placed into the same circular world as
+before.  One robot is green and seeks out red, while the other robot
+is red and seeks out green.  Both robots also avoid obstacles.
+<p>
+<p>
+<h2 width="804"> Example: Many brains in a Single Python File</h2>
+<p>
+As shown above, one can use the Player/Stage simulator and robots to
+examine multi-robot strategies. However, requiring a different Pyro
+GUI for each robot could get out of hand if you were dealing with many
+robots (imagine 100 robots all controlled by Pyro!). Another problem
+that could result is attempting to orchestrate the starting and
+stopping of more than one robot. For example, imagine that you are
+evolving a predator/prey pair of populations of robots. For these
+reasons, you might want to find a better way of starting and stopping
+many robots. To do this, you can skip the Pyro interface entirely, and
+just use Pyro classes.  In <a href="../page_ExampleMultipleBrains/">ExampleMultipleBrains</a>, we demonstrate how
+to do this.
+<p>
+<p>
+<h2 width="804"> Further Reading</h2>
+<p>
+<ol type="1"><li>Lui, J., Wu, J. (2001). <i>Multi-Agent Robotic Systems</i>. New York : CRC Press.</li>
+<li>R.A. Watson, S.G. Ficici, and J.B. Pollack (2000). <i>Embodied evolution: Distributing an evolutionary algorithm in a population of robots</i>. Technical report CS-00-208.</li>
+</ol><p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleMultirobot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleMultirobot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

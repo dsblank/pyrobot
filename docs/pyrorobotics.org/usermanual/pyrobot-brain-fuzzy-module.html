@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101128203608", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.fuzzy</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        Module&nbsp;fuzzy
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-fuzzy-module/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF MODULE DESCRIPTION =========== -->
+<h2 class="module">Module pyrobot.brain.fuzzy</h2>
+<pre class="literalblock">
+Fuzzy Logic Base Class
+E. Jucovy, 2005
+based on fuzzy.py by D.S. Blank, 2001
+</pre>
+<hr/>
+<!-- =========== START OF CLASSES =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Classes</th></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyClassifier-class/"><code>FuzzyClassifier</code></a></b></td>
+  <td>Fuzzy classifier class with a membership function and parameters.</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyOperators-class/"><code>FuzzyOperators</code></a></b></td>
+  <td>&nbsp;</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyValue-class/"><code>FuzzyValue</code></a></b></td>
+  <td>Fuzzy value class...</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-fuzzy-StandardFuzzyOperators-class/"><code>StandardFuzzyOperators</code></a></b></td>
+  <td>&nbsp;</td></tr>
+</table><br/>
+<!-- =========== START OF EXCEPTIONS =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Exceptions</th></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-fuzzy-FuzzyError-class/"><code>FuzzyError</code></a></b></td>
+  <td>&nbsp;</td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Function Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#BellFuzzy" class="summary-sig-name"><code>BellFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>,
+          <span class="summary-sig-arg">c</span>)</span></code>
+<br/>
+All values will effectively be mapped to either 0, 0.5, or 1.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#FallingFuzzy" class="summary-sig-name"><code>FallingFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a linear falling membership...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#Fuzzy" class="summary-sig-name"><code>Fuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with two parameters and...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#GaussianFuzzy" class="summary-sig-name"><code>GaussianFuzzy</code></a>(<span class="summary-sig-arg">c</span>,
+          <span class="summary-sig-arg">s</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a gaussian membership function...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#LRFuzzy" class="summary-sig-name"><code>LRFuzzy</code></a>(<span class="summary-sig-arg">f</span>,
+          <span class="summary-sig-arg">g</span>,
+          <span class="summary-sig-arg">c</span>,
+          <span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a left-right membership...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#RisingFuzzy" class="summary-sig-name"><code>RisingFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a linear rising membership...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#SigmoidFuzzy" class="summary-sig-name"><code>SigmoidFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">c</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a sigmoid membership function
+and parameters a,c
+I wouldn't use this yet if I were you.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#TrapezoidFuzzy" class="summary-sig-name"><code>TrapezoidFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>,
+          <span class="summary-sig-arg">c</span>,
+          <span class="summary-sig-arg">d</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a linear trapezoidal membership...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-fuzzy-module/#TriangleFuzzy" class="summary-sig-name"><code>TriangleFuzzy</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">b</span>,
+          <span class="summary-sig-arg">c</span>)</span></code>
+<br/>
+Create a new FuzzyClassifier with a linear triangular membership...</td></tr>
+</table><br/>
+<!-- =========== START OF VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-brain-fuzzy-module/#__author__"><code>__author__</code></a></b> = <span title="'E. Jucovy, Douglas Blank <dblank@brynmawr.edu>'"><code><span class="variable-quote">'</span>E.&nbsp;Jucovy,&nbsp;Douglas&nbsp;Blank&nbsp;&lt;dblank&#64;brynmawr.<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-brain-fuzzy-module/#__version__"><code>__version__</code></a></b> = <span title="'$Revision: 1.8 $'"><code><span class="variable-quote">'</span>$Revision:&nbsp;1.8&nbsp;$<span class="variable-quote">'</span>                         </code>
+</span></td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Function Details</th></tr>
+</table>
+<a name="BellFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">BellFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>,
+          <span class="sig-arg">c</span>)</span>
+  </h3>
+<pre class="literalblock">
+All values will effectively be mapped to either 0, 0.5, or 1.
+(Not quite, since it's continuous, but close.)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="FallingFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">FallingFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a linear falling membership
+function and parameters a,b
+a: lower bound, mu(a) = 1.0
+b: upper bound, mu(b) = 0.0
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="Fuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">Fuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with two parameters and
+default membership function
+Implemented for backwards compatibility
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="GaussianFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">GaussianFuzzy</span>(<span class="sig-arg">c</span>,
+          <span class="sig-arg">s</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a gaussian membership function
+and parameters c,s
+c: center (mean), mu(c) = 1.0
+s: spread (standard deviation)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="LRFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">LRFuzzy</span>(<span class="sig-arg">f</span>,
+          <span class="sig-arg">g</span>,
+          <span class="sig-arg">c</span>,
+          <span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a left-right membership
+function and parameters f,g,c,a,b
+f: left-side function (or FuzzyClassifier)
+g: right-side function (or FuzzyClassifier)
+c: switching point
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="RisingFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">RisingFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a linear rising membership
+function and parameters a,b
+a: lower bound, mu(a) = 0.0
+b: upper bound, mu(b) = 1.0
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="SigmoidFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">SigmoidFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">c</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a sigmoid membership function
+and parameters a,c
+I wouldn't use this yet if I were you.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="TrapezoidFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">TrapezoidFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>,
+          <span class="sig-arg">c</span>,
+          <span class="sig-arg">d</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a linear trapezoidal membership
+function and parameters a,b,c,d
+a: lower bound, mu(a) = 0.0
+b: start of top, mu(b) = 1.0
+c: end of top, mu(c) = 1.0
+d: upper bound, mu(d) = 0.0
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="TriangleFuzzy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">TriangleFuzzy</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">b</span>,
+          <span class="sig-arg">c</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create a new FuzzyClassifier with a linear triangular membership
+function and parameters a,b,c
+a: lower bound, mu(a) = 0.0
+b: midpoint, mu(b) = 1.0
+c: upper bound, mu(c) = 0.0
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__author__"></a>
+<h3>__author__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+      </dd>
+<span title="'E. Jucovy, Douglas Blank <dblank@brynmawr.edu>'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>E. Jucovy, Douglas Blank &lt;dblank&#64;brynmawr.edu&gt;<span class="variable-quote">'</span>                       </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__version__"></a>
+<h3>__version__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+      </dd>
+<span title="'$Revision: 1.8 $'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>$Revision: 1.8 $<span class="variable-quote">'</span>                                                     </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

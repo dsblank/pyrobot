@@ -1,0 +1,412 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219103623", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Vision_20Functions_20using_20Phission</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Phission Control Functions</h1>
+<p>
+Phission is a new high-performance image processing system for Pyro. It is written in C++, but has methods in Python to access the underlying code. This system is very fast, but has a bit of a learning curve due to its sophisticated functions.
+<p>
+Control Functions are in charge of Phission utilities, such as starting and stopping Phission.  They are usually used in class constructors and destructors, as well as from the command line.
+<p>
+<pre class="code">
+setup(capturechannel, capturewidth = 320, captureheight = 240)
+</pre>
+<ol><p>This function starts up Phission, takes control of the capture device (framegrabber), and opens a display window.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>Channel number of your capture device:   In our lab, the desktop computers use channel 1 and the pioneer robots use channel 0.</li>
+<li>Width: the width of the image that is captured from the capture device (defaults to 320)</li>
+<li>Height the height of the image that is captured from the capture device (defaults to 240)</li>
+</ul></ol><p>
+<ol><p> <img width="11" src="../wiki/img/alert.png"> If you are running a heavy filter and the frame rate gets too slow, try setting the capture size to 160 by 120.  This can speed up the frame rate by as much as 4 times, since you're only processing 1/4 of the pixels.
+</ol><p>
+<pre class="code">
+destroy()
+</pre>
+<ol><p>This function shuts down Phission and releases the capture device.
+</ol><p>
+<ol><p> <img width="11" src="../wiki/img/alert.png"> If destroy() is not called before you press the reload button in pyro, you will get a phission error that says it could not open the capture device.  If you have this problem you must exit and restart pyro.
+</ol><p>
+<pre class="code">
+pause()
+</pre>
+<ol><p>This function can be used to pause phission.  This can be helpful if you want to freeze the output display so that you can take a better look at filtered frame.
+</ol><p>
+<pre class="code">
+play()
+</pre>
+<ol><p>This function will make phission resume running the filters after pause has been called.
+</ol><p>
+<p>
+<p>
+<h1 width="804"> Filter Functions</h1>
+<p>
+Filter Functions do the actual image manipulations.  These functions can be called to apply edge detection, blurring, histograming, and motion filtering to the video stream itself.  Calling any of these functions will remove all previous filters that have been applied.  Any of these filters will continue to run until a new filter (or no_Filter) is inserted.
+<p>
+<pre class="code">
+no_Filter()
+</pre>
+<ol><p>This function does no filtering.  It basically directly connects the capture device to the display window.
+</ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg">
+</ol><p>
+<pre class="code">
+canny_Filter()
+</pre>
+<ol><p>This function will run a Canny edge detection.
+</ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/canny.jpg">
+</ol><p>
+<pre class="code">
+sobel_Filter()
+</pre>
+<ol><p>This function will run a Sobel edge detection.
+</ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/sobel_Filter.jpg">
+</ol><p>
+<pre class="code">
+gaussianBlur_Filter()
+</pre>
+<ol><p>This function will run a Gaussian blur filter.
+</ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/gaussianBlur.jpg">
+</ol><p>
+<pre class="code">
+medianBlur_Filter()
+</pre>
+<ol><p>This function will run a median blur filter.
+</ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/medianBlur.jpg">
+</ol><p>
+<pre class="code">
+histogramRGB_Filter(x, y, size)
+</pre>
+<ol><p>This function will run a histogram filter on part of the image.  The color space used will be RGB.  Basically the histogram will be run on a cube with coordinates (x - size, y - size) to (x + size, y + size).  Use the function getHist<b></b>Data() to retrieve the results of the histogram.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>X location: location on X coordinate for histogram to begin</li>
+<li>Y location: location on Y coordinate for histogram to begin</li>
+<li>Size: Sets width and height of the area to histogram</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/histogramRGB.jpg">
+</ol><p>
+<pre class="code">
+histogramHSV_Filter(x, y, size)
+</pre>
+<ol><p>This function does the same thing as histogramRGB_Filter, however, the HSV color space is used and the function getHist<b></b>Data() will return its result in terms of HSV values.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>X location: location on X coordinate for histogram to begin</li>
+<li>Y location: location on Y coordinate for histogram to begin</li>
+<li>Size: Sets width and height of the area to histogram</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/histogramHSV.jpg">
+</ol><p>
+<pre class="code">
+motion_Filter()
+</pre>
+<ol><p>This filter will blob on motion in an image.  Use the Blob utilities, described below, to get useful information about the largest blob.
+</ol><p>
+<pre class="code">
+ColorTrackRGB_Filter(color, tol)
+</pre>
+<ol><p>This will blob on a color in the RGB color space. Use the Blob utilities to get useful information about the largest blob.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>Color: a 3 value tuple in the form of (R, G, B<b></b>) -- specifies the color to blob on</li>
+<li>Tolerance: a 3 value tuple in the form of (Rt, Gt, Bt<b></b>) -- specifies the tolerance of colors the blob will accept (+Rt,+-Gt,+-Bt)</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/ColorTrackRGB_Filter.jpg">
+</ol><p>
+<pre class="code">
+ColorTrackHSV_Filter(color, tol)
+</pre>
+<ol><p>This does the same thing as the last filter but in the HSV color space.  The parameters are 3 value tuples in the form of (H, S, V).
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>Color: a 3 value tuple in the form of (H, S, V) -- specifies the color to blob on</li>
+<li>Tolerance: a 3 value tuple in the form of (H, S, V) -- specifies the tolerance of colors the blob will accept (+Ht,+-St,+-Vt)</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/ColorTrackHSV.jpg">
+</ol><p>
+<pre class="code">
+SpotColorTrackRGB_Filter(x, y, size, tol)
+</pre>
+<ol><p>This is similar to the color track filters except that insted of specifying a color to track, you specify a location in the image and a histogram filter is run once to detirmine the color at that location. Then blobing is done on that color with the specified tolerance.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>X location: location on X coordinate for histogram to begin</li>
+<li>Y location: location on Y coordinate for histogram to begin</li>
+<li>Size: Sets width and height of the area to histogram</li>
+<li>Tolerance: a 3 value tuple in the form of (R, G, B<b></b>) -- specifies the tolerance of colors the blob will accept</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/SpotColorTrackHSV.jpg">
+</ol><p>
+<pre class="code">
+SpotColorTrackHSV_Filter(x, y, size, tol)
+</pre>
+<ol><p>This is the same as the last function except it is done in the HSV color space.
+</ol><p>
+<ol><p><i>Parameters</i>
+<ul><li>X location: location on X coordinate for histogram to begin</li>
+<li>Y location: location on Y coordinate for histogram to begin</li>
+<li>Size: Sets width and height of the area to histogram</li>
+<li>Tolerance: a 3 value tuple in the form of (H, S, V) -- specifies the tolerance of colors the blob will accept</li>
+</ul></ol><p>
+<ol><p><img src="../robots/PyroImages/no_Filter.jpg"> <img src="../robots/PyroImages/SpotColorTrackHSV.jpg">
+</ol><p>
+<p>
+<h1 width="804"> Data Collecting Functions</h1>
+<p>
+Data Collecting Functions are used to get information back from your video stream.  This information can be used in programming to allow your robot (or simulated robot) to act differently depending on what it &quot;sees.&quot;
+<p>
+<pre class="code">
+getHistData()
+</pre>
+<ol><p>This function will retrieve the results of the last histogram run in the form of a 3 value tuple.  if the color space the histogram ran in is RGB, then the tuples values will be (R, G, B<b></b>).  And if the color space used was HSV, then the tuple values will be (H, S, V).  This can also be used just after the Spot<b></b>Color<b></b>Track filters to find out the value of the color that is being blobbed.
+</ol><p>
+<pre class="code">
+getMaxBlob()
+</pre>
+<ol><p>This function will return a blob data object.  This is how to get all the different fields stored in the blob object:
+</ol><p>
+<ol><p>max_blob = camera.getMax<b></b>Blob()
+</ol><p>
+<ul><li>Get all the attributes of the blob</li>
+<ul><li>mass           = max_blob.mass</li>
+<li>center_x       = max_blob.cx</li>
+<li>center_y       = max_blob.cy</li>
+<li>top_left_x     = max_blob.x1</li>
+<li>top_left_y     = max_blob.y1</li>
+<li>bottom_right_x = max_blob.x2</li>
+<li>bottom_right_y = max_blob.y2</li>
+<li>blob_width     = max_blob.w</li>
+<li>blob_height    = max_blob.h</li>
+</ul></ul><p>
+<pre class="code">
+getMaxBlob_cx()
+</pre>
+<ol><p>This function will return the x coordinate of the center of the largest blob.
+</ol><p>
+<pre class="code">
+getMaxBlob_cy()
+</pre>
+<ol><p>This function will return the y coordinate of the center of the largest blob.
+</ol><p>
+<pre class="code">
+getMaxBlob_mass()
+</pre>
+<ol><p>This function will return the mass of the largest blob.
+</ol><p>
+<p>
+<h1 width="804"> Examples</h1>
+<p>
+<p>
+<h3 width="804"> Apply Random Filter</h3>
+<p>
+The following example will continuously loop, changing the current filter every 50 iterations.  The new filter will be randomly chosen from seven of the currently supported filters.  Each time the filter is changed, the name of the new filter (as well as its parameters) will be displayed.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+from time import *
+from random import *
+from phissioncamera import *
+class SimpleBrain(Brain):
+    def setup(self):
+        self.counter = 0            # initialize counter to 0
+    def step(self):
+        self.counter += 1           # increment counter
+        if ((self.counter % 50) == 0):   # run randomFilter() every 50 iterations
+            self.randomFilter()
+    def randomFilter(self):
+        x = randrange(0,7,1)        # get a random number
+        if(x == 0):
+            self.camera.canny_Filter()
+            print &quot;canny_Filter()&quot;
+        if(x == 1):
+            self.camera.sobel_Filter()
+            print &quot;sobel_Filter()&quot;
+        if(x == 2):
+            self.camera.gaussianBlur_Filter()
+            print &quot;gaussianBlur_Filter()&quot;
+        if(x == 3):
+            self.camera.medianBlur_Filter()
+            print &quot;medianBlur_Filter()&quot;
+        if(x == 4):
+            self.camera.motion_Filter()
+            print &quot;motion_Filter()&quot;
+        if(x == 5):
+            self.camera.SpotColorTrackHSV_Filter(160,120,12, (12,60,120) )
+            print &quot;SpotColorTrackHSV_Filter(160,120,12, (12,60,120) )&quot;
+        if(x == 6):
+            self.camera.SpotColorTrackRGB_Filter(160,120,12, (30,30,30)  )
+            print &quot;SpotColorTrackRGB_Filter(160,120,12, (30,30,30)  )&quot;
+def INIT(engine):
+    camera = phissioncamera()     # create a new phission camera
+    camera.setup(1,320,240)       # set up the phission camera -- change first param to 0 if not on robot
+    brain = SimpleBrain('SimpleBrain', engine)  # create the brain
+    brain.camera = camera         # set the brain's camera variable
+    return brain
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/PhissionRandomFilterProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/PhissionRandomFilterProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h3 width="804"> Intelligent Motion Track</h3>
+<p>
+The following example will begin by finding the largest moving object in the video stream, and capturing the color of that object.  The state will then be changed to Color<b></b>Track, where the largest object of the captured color will be tracked.  If at any point there is no object at or above a reasonable tolerance (1000 pixles) the state will return to Motion<b></b>Catch and the process will be repeated.
+<p>
+<pre class="code">
+from pyrobot.brain.behaviors import * 
+from pyrobot.brain.behaviors.core import * 
+from time import * 
+from phissioncamera import * 
+camera      = phissioncamera() 
+class MotionCatch(State): 
+    def onActivate(self): 
+        print &quot;Activating MotionCatch State&quot; 
+        self.motion_thresh   = 1000 
+        camera.motion_Filter() 
+        sleep(1)         
+    def update(self): 
+        max_blob = camera.getMaxBlob() 
+        if(max_blob.mass &gt; self.motion_thresh): 
+            camera.SpotColorTrackHSV_Filter(max_blob.cx, max_blob.cy, 15, (12, 60, 200) ) 
+            self.goto('ColorTrack') 
+class ColorTrack(State): 
+    def onActivate(self): 
+        print &quot;Activating ColorTrack State&quot; 
+        sleep(1) 
+        self.track_thresh   = 1000 
+    def update(self): 
+        max_blob = camera.getMaxBlob() 
+        print &quot;-------------------&quot; 
+        print &quot;mass =&quot;, max_blob.mass 
+        print &quot;(x,y) = &quot;, max_blob.cx, max_blob.cy 
+        if(max_blob.mass &lt; self.track_thresh): 
+            self.goto('MotionCatch') 
+class state1(State): 
+    def update(self): 
+        self.goto('MotionCatch') 
+def INIT(engine):  
+    brain = FSMBrain(engine) 
+    brain.add(state1(1)) 
+    brain.add(MotionCatch()) 
+    brain.add(ColorTrack()) 
+    brain.camera = camera 
+    camera.setup(1,320,240)     
+    return brain 
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/PhissionMotionTrackProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/PhissionMotionTrackProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<p>
+<h3 width="804"> Fuzzy Camera Example</h3>
+<p>
+The following example combines the use of Fuzzy logic and the Phission system to track an object using a Pan<b></b>Tilt<b></b>Zoom (PTZ) camera.  It does this by taking a color histogram of the center of the initial image.  This histogram will be used for the duration of the run.  The largest object matching the given color (within the provided tolerance) will be tracked by the camera.
+<p>
+ <img width="11" src="../wiki/img/alert.png"> This example requires the use of a PTZ camera
+<p>
+<pre class="code">
+from pyrobot.brain.fuzzy import *
+from pyrobot.brain.behaviors import *
+from phissioncamera import *
+from time import sleep
+class BBB(BehaviorBasedBrain):
+    def destroy(self):
+        self.removeDevice(&quot;ptz0&quot;)
+class Avoid (Behavior):
+    &quot;&quot;&quot;Avoid Class&quot;&quot;&quot;
+    def update(self):
+        if( camera.getMaxBlob_mass() &gt; 200 ):
+            self.IF(Fuzzy(0, 160 ) &lt;&lt; camera.getMaxBlob_cx(), 'pan',  5.0, &quot;pan left&quot;)
+            self.IF(Fuzzy(0, 160 ) &gt;&gt; camera.getMaxBlob_cx(), 'pan', -5.0, &quot;pan right&quot;)
+            self.IF(Fuzzy(0, 120 ) &lt;&lt; camera.getMaxBlob_cy(), 'tilt',-5.0, &quot;tilt down&quot;)
+            self.IF(Fuzzy(0, 120 ) &gt;&gt; camera.getMaxBlob_cy(), 'tilt', 5.0, &quot;tilt up&quot;)
+class state1 (State):
+    &quot;&quot;&quot; sample state &quot;&quot;&quot;
+    def setup(self):
+        print &quot;about to train color&quot;
+        sleep(10)
+        camera.SpotColorTrackHSV_Filter(80,60,8, (20, 80,110))
+        print &quot;color trained!&quot;
+        self.add(Avoid(1, {'pan': 1, 'tilt': 1}))
+def INIT(engine):
+    engine.robot.startDevice(&quot;ptz&quot;)
+    ptz = engine.robot.ptz[0]
+    brain = BBB({'pan' : ptz.panRel,
+                 'tilt' : ptz.tiltRel,
+                 'update' : engine.robot.update }, engine)
+    brain.camera = phissioncamera()
+    brain.camera.setup(0,160,120);
+    brain.add(state1())
+    brain.activate('state1')
+    return brain
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/PhissionFuzzyCameraProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/PhissionFuzzyCameraProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Vision_20Functions_20using_20Phission?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Vision_20Functions_20using_20Phission?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

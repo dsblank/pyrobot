@@ -1,0 +1,211 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121403", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroInstallationDebian</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro Installation: Debian</h1>
+<p>
+Instructions for installing Pyro under Debian. This assumes at least Pyro version 3.3.2.
+<p>
+Yannick Brosseau has created Debian packages (.deb) of Player, Stage, and librtk (and is planning Gazebo). You can find his packages at:
+<p>
+<a href="http://scientist.dyndns.org/debianrobot">scientist.dyndns.org/debianrobot</a>
+<p>
+These instructions do not incorporate those .deb packages yet. 
+<p>
+<p>
+<h2 width="804">1.1.  Numeric</h2>
+<pre class="code">
+sudo apt-get install python-numeric
+</pre>
+<p>
+<h2 width="804">1.2.  SWIG</h2>
+<pre class="code">
+sudo apt-get install swig
+</pre>
+<p>
+<h2 width="804">1.3.  PIL</h2>
+<pre class="code">
+sudo apt-get install python-imaging
+sudo apt-get install python-imaging-tk
+</pre>
+<p>
+<h2 width="804">1.4.  Tkinter</h2>
+<pre class="code">
+sudo apt-get install python2.3-tk
+sudo apt-get install tix8.1
+</pre>
+<p>
+<h2 width="804">1.5.  Pyro</h2>
+<p>
+<p>
+<h3 width="804">1.5.1.  Video for linux support</h3>
+<pre class="code">
+apt-get install libjpeg62 libjpeg62-dev
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> TODO: edited V4L.cpp and V4L.h, comment out competing V4L macros
+<p>
+<p>
+<h3 width="804">1.5.2.  Khepera simulator</h3>
+<p>
+There wasn't a proper libXm.so file, but libXm.so.2 was already present in
+/usr/lib, so we just added a link from libXm.so to libXm.so.2. Same problem for /usr/X11R6/lib/libXt*.
+<p>
+<pre class="code">
+cd /usr/lib
+ln -s libXm.so.2 libXm.so
+ln -s libXt.so.6 libXt.so
+</pre>
+<p>
+<p>
+<h3 width="804">1.5.3.  Pyro</h3>
+<p>
+If you have a CVS account:
+<p>
+First time:
+<p>
+<pre class="code">
+cd /usr/local/
+cvs -d anonymous@bubo.brynmawr.edu:/home/CVS co pyro 
+</pre>
+<p>
+Thereafter:
+<pre class="code">
+cd /usr/local/pyro
+cvs -d anonymous@bubo.brynmawr.edu:/home/CVS update -d
+</pre>
+<p>
+Otherwise, if you don't have a CVS account:
+<p>
+<pre class="code">
+wget http://dangermouse.brynmawr.edu/pyrobot/tars/pyro-latest.tgz
+tar xfz pyro-latest.tgz
+cd pyro
+</pre>
+<p>
+Then make it:
+<p>
+<pre class="code">
+sudo make
+accepted most defaults (n on BT848 option, y on rest)
+</pre>
+<p>
+You can get an updated Pyro tar ball, and drop it on top of an older Pyro version. Just remake it.
+<p>
+<p>
+<h2 width="804">1.6.  Gazebo</h2>
+ <img width="11" src="../wiki/img/idea.png"> UPDATE: Don't build them, use apt-get. Follow these directions: <a href="http://scientist.dyndns.org/debianrobot">scientist.dyndns.org/debianrobot</a>
+<p>
+<pre class="code">
+export PKG_CONFIG_PATH=/usr/lib/pkgconfig/:/usr/local/lib/pkgconfig/
+</pre>
+<p>
+GDAL:
+<ol type="1"><li>sudo apt-get install libgdal1-dev libgdal1</li>
+</ol><p>
+ODE:
+<ol type="1"><li>wget <a href="http://emergent.brynmawr.edu/pyrobot/tars/ode-0.039.tgz">emergent.brynmawr.edu/pyrobot/tars/ode-0.039.tgz</a></li>
+<li>tar xvzf ode-0.039.tgz</li>
+<li>cd ode-0.039</li>
+<li>edited the last line of the file ode-0.039/config/user-settings to be:</li>
+<ol><p>OPCODE_DIRECTORY=/home/marshall/pyro-install/ode-0.039/OPCODE/
+</ol><li>OPCODE:</li>
+<ol type="i"><li>cd OPCODE</li>
+<li>make</li>
+<li>sudo mkdir /usr/local/include/opcode</li>
+<li>sudo cp *.h /usr/local/include/opcode/</li>
+<li>sudo mkdir /usr/local/include/opcode/Ice</li>
+<li>sudo cp Ice/*.h /usr/local/include/opcode/Ice</li>
+<li>sudo cp libopcode.a /usr/local/lib/</li>
+<li>cd ..</li>
+</ol><li>make configure</li>
+<li>make ode-lib</li>
+<li>sudo cp -r include/ode /usr/local/include/</li>
+<li>sudo cp lib/libode.a /usr/local/lib/</li>
+</ol><p>
+Gazebo:
+<ol type="1"><li>sudo apt-get install libxml2-dev</li>
+<li>sudo ln -s libXmu.so.6 libXmu.so</li>
+<li>wget <a href="http://emergent.brynmawr.edu/pyrobot/tars/gazebo-src-0.4.0.tar.gz">emergent.brynmawr.edu/pyrobot/tars/gazebo-src-0.4.0.tar.gz</a></li>
+<li>tar xfz gazebo-src-0.4.0.tar.gz</li>
+<li>cd gazebo-src-0.4.0</li>
+<li>./configure</li>
+<li>make</li>
+<li>sudo make install</li>
+</ol><p>
+<p>
+<h2 width="804">1.7.  Player</h2>
+<p>
+<pre class="code">
+sudo apt-get install libgsl0 gsl-bin
+</pre>
+<p>
+libRTK:
+<p>
+<pre class="code">
+sudo apt-get install libgtk2.0-dev
+wget http://emergent.brynmawr.edu/pyrobot/tars/librtk-src-2.3.0.tar.gz
+cd librtk-src-2.3.0
+./configure
+make
+sudo make install
+</pre>
+<p>
+Player:
+<pre class="code">
+wget http://emergent.brynmawr.edu/pyrobot/tars/player-src-1.5.tar.gz
+tar xvfz player-src-1.5.tar.gz
+cd player-src-1.5/
+./configure               # make sure that PKG_CONFIG_PATH is set
+make
+sudo make install
+</pre>
+<p>
+Stage:
+<pre class="code">
+wget http://emergent.brynmawr.edu/pyrobot/tars/stage-src-1.3.4.tar.gz
+tar xvfz stage-src-1.3.4.tar.gz
+cd stage-src-1.3.4
+./configure
+make
+sudo make install
+</pre>
+<p>
+<p>
+<h2 width="804">1.8.  RobocupSoccer</h2>
+<pre class="code">
+sudo apt-get install libxaw7-dev
+wget http://dangermouse.brynmawr.edu/pyrobot/tars/rcsoccersim-9.3.7.tar.gz
+tar xvfz rcsoccersim-9.3.7.tar.gz
+cd rcsoccersim-9.3.7
+./configure
+make
+sudo make install
+</pre>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroInstallationDebian?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroInstallationDebian?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

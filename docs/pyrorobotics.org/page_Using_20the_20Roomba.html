@@ -1,0 +1,123 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219092759", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Using_20the_20Roomba</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h2 width="804">1.1.  Roomba</h2>
+The Roomba is intended to be a cleaning robot, however with little to no modification it can become a powerful educational/hobbyist robotics platform. The Roomba comes with these basic sensors.
+<p>
+<ol type="1"><li>Four IR based cliff sensors</li>
+<li>Two bump sensors</li>
+<li>One wall sensor</li>
+<li>A top mounted IR sensor. Used by Virtual Walls, Docking Station, and Remote Control</li>
+<li>One Dirt Detector (acoustic impact). Some Roombas have two.</li>
+</ol><p>
+The Roomba is sold commercially as a Vacuum Cleaner. Thus it also has...
+<p>
+<ol type="1"><li>One main brush motor</li>
+<li>A side brush motor</li>
+<li>and a Vacuum motor</li>
+</ol><p>
+This code also works with the Create, which does not have any vacuum or brushes.
+<p>
+<p>
+<h2 width="804">1.2.  Files</h2>
+<p>
+<ol><p><a href="http://cs.potsdam.edu/~snow91/Roomba/Roomba_Wall_Hugger.py"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Roomba_Wall_Hugger.py</a> goes in ../pyrobot/plugins/brains
+</ol><p>
+This is an example brain that attempts to use the bump sensor to follow a wall.
+<p>
+<p>
+<h2 width="804">1.3.  Connecting</h2>
+A Roomba has its own proprietary serial format.
+<p>
+You can make your own <a href="http://www.makezine.com/blog/archive/2006/02/how_to_make_a_roomba_serial_in.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;serial</a> cable, <a href="http://todbot.com/blog/2006/07/19/roombongle-a-roomba-usb-dongle/#more-119"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;usb</a> cable, or <a href="http://www.makezine.com/blog/archive/2006/02/how_to_roomba_bluetooth_interf.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Bluetooth</a> dongle. We chose to purchase a &quot;Roo<b></b>Tooth&quot; module from <a href="http://www.roombadevtools.com/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;RoombaDevTools.com</a> (although that seems to be out-of-stock). For the iRobot Create, we are trying <a href="http://www.elementdirect.com/product_info.php?products_id=44"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;ElementDirect's</a> BAM!. Other cables including Usb and Serial are also available from Roomba<b></b>Dev<b></b>Tools.
+<p>
+We used the methods described in <a href="../page_Using_20the_20IntelliBrain-Bot/">Using the IntelliBrain-Bot</a> and <a href="../page_Using_20the_20Hemisson_20Robot/">Using the Hemisson Robot</a> to connect with our bluetooth device.
+<p>
+The Roomba's default baud rate is 57600 but can be changed through the Serial Control Interface(SCI).
+<p>
+<p>
+<h2 width="804">1.4.  Documentation</h2>
+<p>
+<a href="http://www.irobot.com/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;IRobot</a>, the Roombas creator, was very generous and released a SCI for the roomba. That is available <a href="../images/consumer/hacker/Roomba_SCI_Spec_Manual.pdf"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>. This is not required for use of the Roomba under Pyro.
+<p>
+Roomba Hacking Forum : <a href="http://www.roombareview.com/chat/viewforum.php?f=4"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;RoombaReview</a>. If you can't seem to find the answer ask the nice community over there.
+<p>
+Besides the regular movement commands(move(), translate(), and rotate()) Roomba supports the following commands under Pyro...
+<p>
+<ol type="1"><li>getSensor(&quot;value&quot;)</li>
+<ol><p>Value can be any of these sensor names
+<ol type="a"><li>casterDrop</li>
+<li>leftWheelDrop</li>
+<li>rightWheelDrop</li>
+<li>leftBump</li>
+<li>rightBump</li>
+<li>wallSensor</li>
+<li>leftCliff</li>
+<li>frontLeftCliff</li>
+<li>frontRightCliff</li>
+<li>rightCliff</li>
+<li>virtualWall</li>
+<li>leftDirt</li>
+<li>rightDirt (Some Roombas don't have this sensor, they will always return 0)</li>
+<li>powerButton</li>
+<li>spotButton</li>
+<li>cleanButton</li>
+<li>maxButton</li>
+<li>distance</li>
+<li>rawAngle</li>
+<li>angleInRadians</li>
+<li>temperature</li>
+<li>charge</li>
+</ol></ol></ol><p>
+<ol type="1"><li>setMode(&quot;value&quot;)</li>
+<ol><p>In &quot;safe&quot; mode the Roomba's protection mechanisms are on.
+<p>While under &quot;full&quot; mode all protection is off.
+</ol></ol><p>
+<ol type="1"><li>setClean(&quot;value&quot;)</li>
+<ol><p>Value can be &quot;spot&quot;, &quot;clean&quot; or &quot;max&quot;
+</ol></ol><p>
+<ol type="1"><li>setMotor(&quot;value&quot;)</li>
+<ol><p>Value can be &quot;main&quot;, &quot;vac&quot;, &quot;side&quot;, or &quot;off&quot;
+</ol></ol><p>
+<ol type="1"><li>setStatus(&quot;value&quot;) Docking Station required for this to function properly</li>
+<ol><p>Value can be either &quot;sleep&quot;, or &quot;wakeup&quot;
+<p>Sleep sends the Roomba to its Docking station. Wakeup returns the Roomba to safe mode.
+</ol></ol><p>
+<ol type="1"><li>reset()</li>
+<ol><p>If your Roomba is in safe mode and one of the protection mechanisms are tripped then the Roomba must be reset() before you can control it again. This command only sends out codes required to return control to the user.
+</ol></ol><p>
+<ol type="1"><li>off()</li>
+<ol><p>Turns the Roomba off. status(&quot;wakeup&quot;) will not be able to return control to the user.
+</ol></ol><p>
+<p>
+Next: <a href="../page_Interfacing_20Your_20Own_20Robot/">Interfacing Your Own Robot</a> Up: <a href="../page_PyroHardware/">PyroHardware</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Roomba?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Roomba?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093224", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Interfacing_20Your_20Own_20Robot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Interfacing Your Own Robot</h1>
+<p>
+There are three example files to explore in making your own robot, device, or brain. They are all named &quot;Test.py&quot; and are found in the file selection dialog when selecting robot, device, or brain. The files are found in pyrobot/plugins/ITEM/Test.py where ITEM is robots, devices, or brains.
+<p>
+<p>
+<h2 width="804">1.1.  Robot</h2>
+<p>
+The robot &quot;Test.py&quot; (pyrobot/plugins/robots/Test.py) simply creates and loads a base Robot(). But you can overload that. Here is a stub for creating your own robot:
+<p>
+<pre class="code">
+from pyrobot.robot import Robot
+class TestRobot(Robot):
+    def setup(self):
+        self.builtinDevices = [] # list of built-in devices
+        self.supportedFeatures = [] # meta devices
+    def connect(self): pass
+    def disconnect(self): pass
+    def move(self, translate, rotate): pass
+    def translate(self, val): pass
+    def rotate(self, val): pass
+    def startDeviceBuiltin(self, item): pass
+    def update(self):
+        self.updateDevices()
+    def localize(self, x = 0, y = 0, th = 0):
+        print &quot;need to override LOCALIZE in robot&quot;
+def INIT():
+    return TestRobot()
+</pre>
+<p>
+To create your own robot, you will need to define how it moves (move(), translate(), rotate()) how it connects to a server (if it does, use connect() and disconnect()), and any intialization (setup()). If the robot needs to compute something before or after it updates it devices, then you can add that to the update() method. 
+<p>
+localize() is needed if you want to be able to tell the robot where it is in the world. Many commercial robots have the ability to keep track (through dead reckoning) where they are in the world, and you can reset them at any point to an arbitrary position.
+<p>
+If you have special devices, you can define them here. Simply add the name to builtinDevices and create them in startDeviceBuiltin(). If it is a general device that other robots can use, make it a stand-alone device described in the following section.
+<p>
+<p>
+<h2 width="804">1.2.  Device</h2>
+<p>
+What is a device? Anything can be seen as a device, but generally if you have the need for something to update with the robot, and maybe wish to have a graphical view, then you might want to make this functionality a device. Current devices are hardware such as lasers, sonars, grippers, cameras, but also visualization tools that plot some aspect of the robot or sensor. See for example the View devices in pyrobot/plugins/devices/ (loadable from the Load -&gt; Device... menu option.)
+<p>
+If you create a device as a loadable device, then it implies that it can be loaded by different kinds of robots (otherwise you would just put it in the robot defining class as above). Then again, this makes it easy to select it from a menu.
+Before you define a new type of device, you should consider adapting an existing type:
+<p>
+<ul><li>position: x, y, z and move() commands</li>
+<li>gripper: open(), close(), up(), down()</li>
+<li>range (laser, sonar, ir): distance(), angle()</li>
+<li>camera: pixel-based operations</li>
+<li>ptz: pan(), tilt(), zoom()</li>
+<li>bumper: tactile sensor</li>
+<li>light: raw light readings</li>
+</ul><p>
+The device &quot;Test.py&quot; (pyrobot/plugins/devices/Test.py) simply creates and loads a basic Device(). Here it is:
+<p>
+<pre class="code">
+from pyrobot.robot.device import Device
+class TestDevice(Device):
+    def setup(self):
+        self.type = &quot;test&quot;
+        self.visible = 1
+        self.specialvalue = 42
+    def makeWindow(self):
+        print &quot;[[[[ made window! ]]]]&quot;
+    def updateWindow(self):
+        print &quot;update window! -------------&quot; # when visible, few times a second
+    def updateDevice(self):
+        print &quot;------------- update device!&quot; # about 10 times a second!
+def INIT(robot):
+    return {&quot;test&quot;: TestDevice()}
+</pre>
+<p>
+<p>
+<h2 width="804">1.3.  Brain</h2>
+<p>
+The brain &quot;Test.py&quot; (pyrobot/plugins/brains/Test.py) simply creates and loads a simple Brain(). Here it is:
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class SimpleBrain(Brain):
+   # Only method you have to define is the step method:
+   def setup(self):
+      # create any vars you need here
+      pass
+def INIT(engine):
+   return SimpleBrain(&quot;SimpleBrain&quot;, engine)
+</pre>
+<p>
+<p>
+<h2 width="804">1.4.  Server</h2>
+<p>
+Your robot may need a service started so that you can connect onto it. For example, maybe you want to write a test simulator to connect onto. Use the programs in pyrobot/plugins/servers/ as an example. These programs are designed to run from inside Pyro; when Pyro stops, it will automatically stop the server.
+<p>
+If you wish to write a simulator in Python, check out the <a href="../page_The_20Pyrobot_20Simulator/">The Pyrobot Simulator</a>. 
+<p>
+Up: <a href="../page_PyroHardware/">PyroHardware</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Interfacing_20Your_20Own_20Robot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Interfacing_20Your_20Own_20Robot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

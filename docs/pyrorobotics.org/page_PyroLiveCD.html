@@ -1,0 +1,109 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094512", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroLiveCD</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>These materials are part of the <a href="../page_Pyro/">Pyro</a> Project.</i>
+<p>
+This page can be found at: <tt class="wiki">http://PyroRobotics.org/?page=PyroLiveCD</tt>
+<p>
+<p>
+<h1 width="804"> Pyro Live CD</h1>
+<p>
+This CD can be placed in any PC that can boot off of a CD, and you can be running Pyro and other robotics software immediately. No need to install anything! This works even on Windows PCs, laptops, and desktops. Great for students, labs, and presentations.
+<p>
+If you are running the CD and want to know what to do next, please go to <a href="../page_PyroLiveCDGettingStarted/">PyroLiveCDGettingStarted</a>.
+<p>
+<b>Hardware you will need:</b>
+<p>
+<ul><li>a fairly modern Intel-based PC that can boot off of CDs</li>
+<li>a CDROM drive</li>
+<li>at least 256 MB RAM, but the more that you have the better off you will be</li>
+</ul><p>
+<b>To buy a CD:</b>
+<p>
+<ol><p>You can purchase a <a href="http://www.osdisc.com/cgi-bin/view.cgi/products/livecd/pyro"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Live CD</a> from <a href="http://osdisc.com/">osdisc.com</a> for &#36;3.95 plus shipping.
+</ol><p>
+<ol><p> <img width="11" src="../wiki/img/alert.png"> We have no connection with this group, make no money them, and have never tried it. They also may not have the latest version, so please check before buying.
+</ol><p>
+<b>To get a Free CD:</b>
+<p>
+<ol><p>In 2005, Pyro won the National Engineering Educational Distribution System Premier Award. They are distributing 2500 copies of Pyro. Contact them at <a href="http://www.needs.org/needs/">www.needs.org/needs/</a>
+</ol><p>
+<b>To make a CD yourself:</b>
+<p>
+<ol type="1"><li>Download the <b>Pyro Live CD</b> ISO file from <a href="../knoppix/">pyrorobotics.org/knoppix/</a></li>
+<ol><p>An ISO is close to 700MB, so be nice to our server! If you want to distribute it to your class, please make your own local copy at your institution. Make sure you got all of the ISO before burning:
+<li>pyrobot-4.2.2.iso 648,910,848 bytes - version of Pyro4, used at the Pyro 2005 Workshop at Swarthmore College</li>
+<li>pyrobot-4.7.0.iso 665,147,392 bytes - includes &quot;firefly&quot; model, Pyrobot gripper, camera, and speed enhancements</li>
+<li>pyrobot-4.8.1.iso 667,348,992 bytes - includes all of the above, bug fixes, Pyrobot simulator enhancements, new device line in GUI, etc.</li>
+<li>pyrobot-4.8.5.iso 681,404,416 bytes - includes all of the above, stereo cameras, memory leak fix in Pyrobot simulator, etc.</li>
+<li>pyrobot-5.0.0.iso 645,212,160 bytes - latest versions of Player, Stage; lots of bug fixes; based on newest Knoppix 5.1.1</li>
+</ol></ol><p>
+<ol type="1"><li>Burn a CD with the <b>pyro-x.x.x.iso</b></li>
+<ol><p>There are many programs to do this. Under Linux try <b>xcdroast</b>, or right-click .iso name and select &quot;Write to Disc...&quot; under GNOME
+</ol></ol><p>
+<b>To use Pyro from the CD:</b>
+<p>
+<ol type="1"><li>Boot your computer from the CD</li>
+<li>Start a terminal by clicking on the terminal picture on the panel</li>
+<li>Run <b>pyrobot</b> as usual (from a terminal window)</li>
+</ol><p>
+The CD contains most of Pyro's support programs, including Player, Stage, Aibo controller, and the Pyrobot simulator. Player is also built with the drivers for the ER, so this CD on a laptop should be all that you need to control it. 
+<p>
+To start a &quot;terminal&quot; after booting, click on the computer screen on the panel at the bottom of your desktop. From there you can run <b>pyrobot</b>, <b>scp</b>, <b>emacs</b>, <b>java</b>, <b>javac</b>, or <b>appletviewer</b>.
+<p>
+To get files onto your computer, you can use scp:
+<p>
+<pre class="code">
+scp YOURID@bubo.brynmawr.edu:html/java/MyApplet.java .
+scp YOURID@bubo.brynmawr.edu:html/java/MyApplet.html .
+emacs MyApplet.java
+javac MyApplet.java
+appletviewer MyApplet.html
+</pre>
+<p>
+When you are done, you <i>must</i> copy the files that you changed back to a server:
+<p>
+<pre class="code">
+scp MyApplet.java YOURID@yourcomputer.edu:html/
+scp MyApplet.html YOURID@yourcomputer.edu:html/
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> You will need to <b>scp</b> or print out your work because all of the files will go away after you reboot. You can easily mount a floppy or USB ramdisk and copy your work there. 
+<p>
+If you have problems, please see the <a href="../page_KnoppixFAQ/">KnoppixFAQ</a> (which is also on the disk. See /KNOPPIX/KNOPPIX-FAQ-EN.txt).
+<p>
+<p>
+<h3 width="804"> Colophon</h3>
+<p>
+The Pyro Live CD project was made possible by the fine people behind Knoppix. See:
+<p>
+<ul><li><a href="http://www.knopper.net/knoppix/index-en.html">www.knopper.net/knoppix/index-en.html</a></li>
+<li><a href="http://knoppix.net/">knoppix.net</a></li>
+</ul><p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroLiveCD?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroLiveCD?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

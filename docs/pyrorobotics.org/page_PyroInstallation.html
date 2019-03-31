@@ -1,0 +1,758 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094315", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroInstallation</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro 5 Installation</h1>
+<p>
+<p>
+<h2 width="804">1.1.  Linux</h2>
+<p>
+<p>
+<h3 width="804">1.1.1.  Ubuntu 10.10</h3>
+<p>
+Does not work with Python 3. 
+<p>
+<ol type="1"><li><tt class="wiki">sudo apt-get install libjpeg62-dev swig</tt></li>
+<li><tt class="wiki">svn co http://svn.cs.brynmawr.edu/pyrobot/trunk pyrobot</tt></li>
+<li><tt class="wiki">cd pyrobot</tt></li>
+<li><tt class="wiki">make</tt> (answer 'y' only to those things you need/want; enter 2.6 for Python version number)</li>
+<li><tt class="wiki">bin/pyrobot</tt></li>
+</ol><p>
+Example &quot;make config&quot; session:
+<p>
+<pre class="code">
+&#36; make
+Makefile:7: Makefile.cfg: No such file or directory
+python configure.py
+Checking for versions of Python...
+---------------------------------------------------------------------
+This is the configure.py script for installing Pyro, Python Robotics.
+Pressing ENTER by itself will accept the default (shown in brackets).
+---------------------------------------------------------------------
+Please answer the following questions either by supplying a complete
+answer, or by pressing ENTER to accept the default. This uses the
+'locate' command on systems (where available) to search for the best
+possible answer. If there is no default, you should enter a valid
+answer or 'none'.
+-------------------------------------------------------------------
+1. Python version number?
+Default = [3.1]:  2.6
+-------------------------------------------------------------------
+2. Where are Python's include files?
+Looking for 'include/python2.6'...
+Default = [/usr/include/python2.6]:  
+-------------------------------------------------------------------
+3. What is Python's binary? (enter path and name)
+Looking for 'bin/python2.6'...
+Default = [/usr/bin/python2.6]:  
+-------------------------------------------------------------------
+4. Where is the X11 include directory (need rgb.txt)?
+Looking for '/usr/share/X11'...
+Default = [/usr/share/X11]:  
+-------------------------------------------------------------------
+ 5. Where is the player include directory (if one, or 'none')?
+Looking for 'include/player-2'...
+Default = [none]:  
+6. Options:
+-------------------------------------------------------------------
+Option:    Do you want to build Image Processing? (y/n)
+Default = [y]:  
+-------------------------------------------------------------------
+Option:    Do you want to build Video for Linux 
+(requires Image Processing)? (y/n)
+Default = [y]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build Video for Linux2 
+(requires Image Processing)? (y/n)
+Default = [y]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build BT848 Video for old Pioneers 
+(requires Image Processing)? (y/n)
+Default = [n]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build Simulated vision from files 
+(requires Image Processing)? (y/n)
+Default = [y]:  y
+-------------------------------------------------------------------
+Option:    Do you want to build Stage simulated vision 
+(requires Image Processing and Player)? (y/n)
+Default = [n]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build Gazebo simulated vision 
+(requires Image Processing and Player)? (y/n)
+Default = [n]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build Aibo vision 
+(requires Image Processing)? (y/n)
+Default = [y]:  y
+-------------------------------------------------------------------
+Option:    Do you want to build Robocup simulated vision 
+(requires Image Processing)? (y/n)
+Default = [y]:  n
+-------------------------------------------------------------------
+Option:    Do you want to build Splits a camera view in 2 or 4 
+(requires combined camera image)? (y/n)
+Default = [y]:  y
+-------------------------------------------------------------------
+Option:    Do you want to build Stereo Vision from two cameras 
+(requires 2 cameras)? (y/n)
+Default = [y]:  y
+-------------------------------------------------------------------
+Option:    Do you want to build Self-organizing Map (SOM)? (y/n)
+Default = [y]:  y
+-------------------------------------------------------------------
+Option:    Do you want to build Cluster Analysis Tool? (y/n)
+Default = [y]:  y
+Configuration is complete!
+You just created Makefile.cfg. You can run this again, or edit
+Makefile.cfg by hand if you need to.
+Now you are ready to run 'make' (if you aren't already)
+...
+</pre>
+<p>
+<p>
+<h2 width="804">1.2.  Mac OS X</h2>
+<p>
+<pre class="code">
+svn co http://svn.cs.brynmawr.edu/pyrobot/trunk pyrobot
+cd pyrobot
+./mac_makefiles
+make
+</pre>
+<p>
+<p>
+<h2 width="804">1.3.  Windows</h2>
+<p>
+<pre class="code">
+svn co http://svn.cs.brynmawr.edu/pyrobot/trunk pyrobot
+cd pyrobot
+python configWin.py
+</pre>
+<p>
+<p>
+<h1 width="804">2.  Pyro 4 Installation</h1>
+<p>
+This page describes the process of installing Pyro and associated programs. This process automatically will keep Fedora Core computers up-to-date. This page describes the automatic method, followed by the manual method if that doesn't work for you.
+<p>
+You should get the latest Pyrobot from the CVS repository: <a href="../page_PyroDeveloperCVS/">PyroDeveloperCVS</a>
+<p>
+If you find that you need any files, please check here:
+<p>
+<ul><li><a href="../tars/">pyrorobotics.org/tars/</a></li>
+<li><a href="../download/">pyrorobotics.org/download/</a></li>
+</ul><p>
+<p>
+<h2 width="804">2.1.  New: Pyro on Windows</h2>
+<p>
+To run Pyro on Windows:
+<p>
+<ol type="1"><li>Get Python (python2.4.1.msi), python-imaging (PIL-1.1.5.win32-py2.4.exe), and python-numeric (Numeric-23.8.win32-py2.4.exe) for Windows (available <a href="../download/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>)</li>
+<li>Install those (either for just you, or for all users)</li>
+<li>Get a pyro-windows-*.zip file (available <a href="../download/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>)</li>
+<li>Install in the Python\Libs\site-packages\ subdirectory.</li>
+</ol><p>
+You may also need the &quot;python for windows extensions&quot; package (available <a href="http://www.sourceforge.net/projects/pywin32"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a>)
+which corresponds to your version of Python. This adds the 'win32file' which is needed for serial communication with your robot.
+<p>
+You can then run the pyrobot.py file in the pyrobot/bin directory. Currently, only Pyrobot Simulator is supported. This does not include any vision code (or any C/C++ code) yet.
+<p>
+If you would like to run the latest Pyrobot from cvs under Windows:
+<p>
+<ol type="1"><li>Get Pyrobot from CVS: <a href="../page_PyroDeveloperCVS/">PyroDeveloperCVS</a></li>
+<li>Put the pyrobot directory in Python\Libs\site-packages\</li>
+<li>Copy the file pyrobot\build\pyrobot to pyrobot\bin\pyrobot.py</li>
+<li>You may also want to put the Python.exe in your PATH, as Pyrobot spawns a Python program to run the simulator</li>
+<li>Finally, create the file pyrobot\system\version.py with the following contents:</li>
+</ol><p>
+<pre class="code">
+def version():
+    return &quot;5.0.0&quot;
+</pre>
+<p>
+(or whatever the latest version is)
+<p>
+Not everything runs under Windows, so you may wish to remove the following files so they don't show up in the Server load list:
+<p>
+<ul><li><tt class="wiki">pyrobot\plugins\simulators\StageSimulator</tt></li>
+<li><tt class="wiki">pyrobot\plugins\simulators\RobocupSimulator</tt></li>
+<li><tt class="wiki">pyrobot\plugins\simulators\GazeboSimulator</tt></li>
+</ul><p>
+Also, any Pyrobot world that mentions a Camera you will want to remove as the C++ code doesn't currently run under Windows.
+<p>
+<p>
+<h2 width="804">2.2.  New: Pyro on Mac</h2>
+<p>
+See <a href="../page_PyroMac/">PyroMac</a> for details of running Pyro on OSX.
+<p>
+<p>
+<h2 width="804">2.3.  Pyro RPM Repository</h2>
+<p>
+First, as root create the file <tt class="wiki">/etc/yum.repos.d/pyrobot.repo</tt> with these contents:
+<p>
+<pre class="code">
+[pyrobot]
+name=Python Robotics
+baseurl=http://PyroRobotics.org/fedora/&#36;releasever/&#36;basearch
+enabled=1
+gpgcheck=1
+gpgkey=http://PyroRobotics.org/fedora/RPM-GPG-KEY-dblank
+</pre>
+<p>
+or simply, as root:
+<p>
+<pre class="code">
+cd /etc/yum.repos.d/
+wget http://pyrorobotics.org/pyrobot.repo
+</pre>
+<p>
+Then, all you need to do is issue an install command as root:
+<p>
+<pre class="code">
+yum install player stage gazebo pyrobot
+</pre>
+<p>
+That will find the RPMs and any other dependencies, and install them. That's it! 
+<p>
+You should then be able to run &quot;pyrobot&quot; and start Gazebo, Stage, and the Khepera simulators. If you have an Sony AIBO robot dog, you can also connect onto it.
+<p>
+<p>
+<h4 width="804">2.3.1.1.  FC5 Livna/Yum Changes</h4>
+<p>
+For graphics (see below):
+<p>
+<pre class="code">
+yum install xorg-x11-drv-nvidia kmod-nvidia-smp
+</pre>
+<p>
+<p>
+<h3 width="804">2.3.2.  Gazebo Graphics</h3>
+<p>
+If you use ATI or <a href="../page_NVidia/">NVidia</a> graphics boards, you may wish to use the Livna kernel modules. 
+<p>
+First, add their repositories as above, or right to /etc/yum.conf.
+<p>
+For Fedora Core 3:
+<p>
+<pre class="code">
+[livna-stable]
+name=Livna.org Fedora Compatible Packages (stable)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.stable
+gpgcheck=1
+[livna-unstable]
+name=Livna.org Fedora Compatible Packages (unstable)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.unstable
+gpgcheck=1
+[livna-testing]
+name=Livna.org Fedora Compatible Packages (testing)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.testing
+gpgcheck=1
+</pre>
+<p>
+For Fedora Core 4 and greater:
+<p>
+<pre class="code">
+[livna-stable]
+name=Livna.org Fedora Compatible Packages (stable)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.lvn
+gpgcheck=1
+</pre>
+<p>
+Next, add their public key to your rpm:
+<p>
+<pre class="code">
+rpm --import http://rpm.livna.org/RPM-LIVNA-GPG-KEY-i386
+</pre>
+<p>
+If you have ATI graphics card, do this:
+<p>
+<pre class="code">
+yum install kernel-module-fglrx
+</pre>
+<p>
+If you have an NVIDIA graphics card, do this:
+<p>
+<pre class="code">
+yum install kernel-module-nvidia
+</pre>
+<p>
+Then you only need restart X (control + alt + backspace).
+<p>
+If your kernel is updated, do one of these if you have a livna-based video rpm:
+<p>
+<pre class="code">
+yum install kernel-module-ntfs-&#36;(uname -r)
+yum install kernel-module-fglrx-&#36;(uname -r)
+yum install kernel-module-nvidia-&#36;(uname -r)
+</pre>
+<p>
+Testing: when you type &quot;glxinfo | less&quot; in an xterm under X, it should show &quot;Direct rendering: Yes&quot;.
+<p>
+<p>
+<h2 width="804">2.4.  Manual installation of RPM files</h2>
+<p>
+You can also download the RPMs manually, and install them. First, download the rpms from <a href="../fedora/3/i386/">pyrorobotics.org/fedora/3/i386/</a> . Next:
+<p>
+<pre class="code">
+rpm -ihv *.rpm
+</pre>
+<p>
+<pre class="code">This did not work for me.
+I downloaded all the RPM files in that directory. When I gave the command &quot;rpm -ihv *.rpm&quot;, I got these error messages:
+ warning: gazebo-0.5.2-fc3.i386.rpm: V3 DSA signature: NOKEY, key ID c17d8428
+ error: Failed dependencies:
+	freeglut-devel is needed by gazebo-0.5.2-fc3.i386
+	gsl is needed by gazebo-0.5.2-fc3.i386
+	gsl is needed by player-1.6.4-fc3.i386
+	libgsl.so.0 is needed by player-1.6.4-fc3.i386
+	libgslcblas.so.0 is needed by player-1.6.4-fc3.i386
+	python-imaging is needed by pyrobot-4.0.2-fc3.i386
+I interpreted &quot;You can also download the RPMs manually, and install them&quot; as meaning
+&quot;instead of using yum as in section 1.1&quot;. Apparently this does not give me
+all the files I need. I am currently on the road and have only dialup Internet access
+(and that only while running windows XP), so I cannot use yum right now.
+Any suggestions would be helpful. -- MJC </pre>
+ <img width="11" src="../wiki/img/idea.png"> You should do what rpm is telling you to do: add all of the missing dpendencies. You need freeglut-devel, gsl, and python-imaging.
+<p>
+In that subdirectory, you will also find the source RPMs and the SPEC files. If you make packages for another distribution or architecture, please let us know.
+<p>
+<p>
+<h2 width="804">2.5.  Pioneer</h2>
+<p>
+We now use Player to talk to the Pioneers. Onboard the Pioneer, you really just need the following:
+<p>
+<ol type="1"><li>Python 2.2.2 or greater</li>
+<li>PIL</li>
+<li>Numeric</li>
+<li>Player-1.6.4</li>
+<li>Tkinter</li>
+</ol><p>
+You can find Player on playerstage.sf.net or in <a href="../download/">pyrorobotics.org/download/</a>
+<p>
+To build player:
+<p>
+<pre class="code">
+tar xfz player-1.6.4.tgz
+cd player
+./configure --disable-alldriver --enable-p2os --enable-sonyevid30 --enable-canonvcc4
+make
+make install
+</pre>
+<p>
+You might have to build the Python scripts:
+<p>
+<pre class="code">
+cd client_libs/libplayerc/bindings/python
+make
+make install
+</pre>
+<p>
+Make sure that those python bits go into the correct site-packages directory. It will use the default &quot;python&quot; so if you want them to go elsewhere, you can temporarily rename python to your other python version.
+<p>
+If you have an older Pioneer with BT848 camera:
+<p>
+<pre class="code">
+cd pyrobot/camera/bt848
+make
+</pre>
+<p>
+You may need a cable from your PTZ to /dev/ttyS1 on top of the computer as Player does not support the camera's PTZ command in the same manner that <a href="../page_ActivMedia/">ActivMedia</a> does. Thus, you will connect onto the PTZ through the serial port (/dev/ttyS1). You can make these cables (Canon and Sony have different wiring schemes), but <a href="../page_ActivMedia/">ActivMedia</a> will sell you these cables for about &#36;15 each (you just need one for your camera).
+ <img width="11" src="../wiki/img/alert.png"> WARNING: Player requires that the host computer be able to look itself up though DNS. That means that you should have appropriate /etc/resolv.conf and /etc/hosts files. If you have a DNS server that Player can't connect onto, then Player will either abort or hang for 45 seconds on startup.
+<p>
+<hr>
+<p>
+The rest of this page goes through manually building the packages from source.
+<p>
+<p>
+<h1 width="804">3.  Player/Stage/Gazebo</h1>
+<p>
+Player, Stage, and Gazebo are three programs that Pyro can utilize. Player is an interface to robots, both real and simulated. Stage is a 2D simulator, and Gazebo is a 3D simulator. These programs are highly recommended for use with Pyro.
+<p>
+This section describes using the latest versions of their software.
+<p>
+<p>
+<h2 width="804">3.1.  Preliminaries for Player/Stage/Gazebo</h2>
+<p>
+You should have the following installed:
+<p>
+<ul><li>GL, GLU, GLUT, GLUT-devel</li>
+<li>libxml2</li>
+<li>zlib</li>
+<li>python (version 2.3 or higher)</li>
+<ul><li>tkinter</li>
+</ul></ul><p>
+If necessary, you should add /usr/local/lib to /etc/ld.so.conf and run ldconfig as root.
+<p>
+If your python packages are installed in /usr/lib/, then you could do this:
+<p>
+<pre class="code">
+mkdir -p /usr/local/lib/python2.3/
+cd /usr/local/lib/python2.3/
+ln -s /usr/lib/python2.3/site-packages
+</pre>
+<p>
+That will allow the packages that put items in the default Python location to do so, but they will still end up in the right place. 
+<p>
+You could also direct the locations with a parameter to the install command, like <tt class="wiki">python setup.py install --prefix=/usr/lib/python2.3/site-packages/</tt>. You would do that to every python setup command below.
+<p>
+To build Player/Stage/Gazeo you should have the PKG_CONFIG_PATH set so that you can find the .pc files. You may have to:
+<p>
+<pre class="code">
+export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig/:/usr/lib/pkgconfig/
+</pre>
+<p>
+before you begin (or put it in your .bashrc file)
+<p>
+The following will assume that you are logged in as root. If you are not, you will need to run some commands as root (for example, &quot;make install&quot;), Ok, let's begin the P/S/G installation.
+<p>
+<p>
+<h2 width="804">3.2.  Open Dynamics Engine</h2>
+<p>
+<ol type="1"><li>install ode-0.5</li>
+</ol><p>
+<ol type="i"><li>get it <a href="http://ode.org/">ode.org/</a></li>
+<pre class="code">
+tar xvzf ode-0.5.tgz
+cd ode-0.5
+</pre>
+</ol><p>
+We need to fix something here if you want OPCODE installed. OPCODE provides some models (e.g., terrains and roads) the collision detection library. Without OPCODE these models will run, but won't have the terrains and roads, for example. To add OPCODE:
+<p>
+<pre class="code">
+edit config/user-settings
+change the last line from:
+#OPCODE_DIRECTORY=OPCODE
+to:
+OPCODE_DIRECTORY=OPCODE
+</pre>
+<p>
+Continue with the installation of ODE:
+<p>
+<pre class="code">
+make configure
+make ode-lib
+cp -r include/ode /usr/local/include/
+cp lib/libode.a /usr/local/lib/
+</pre>
+<p>
+<p>
+<h2 width="804">3.3.  wxPython</h2>
+<p>
+<ol type="1"><li>install wxPython <a href="http://www.wxpython.org/download.php">www.wxpython.org/download.php</a></li>
+<li>We used wxPython-src-2.5.3.1</li>
+</ol><p>
+<pre class="code">
+tar xfz wxPython-src-2.5.3.1.tar.gz
+cd wxPython-src-2.5.3.1
+./configure
+make
+make install
+</pre>
+<p>
+That will install wxWidgets. Now to install wxPython:
+<p>
+<pre class="code">
+cd wxPython
+</pre>
+<p>
+Before I could get it to build on Redhat 9, Fedora Core 2, and Fedora Core 3, I had to edit config.py:
+<p>
+<pre class="code">
+BUILD_GLCANVAS = 0 # If true, build the contrib/glcanvas extension module
+BUILD_OGL = 0      # If true, build the contrib/ogl extension module
+BUILD_STC = 0      # If true, build the contrib/stc extension module
+BUILD_GIZMOS = 0   # Build a module for the gizmos contrib library
+</pre>
+<p>
+Then it would build:
+<p>
+<pre class="code">
+python setup.py build
+python setup.py install
+</pre>
+<p>
+<p>
+<h2 width="804">3.4.  Geospatial Data Abstraction Library</h2>
+<p>
+<ol type="1"><li>Install GDAL <a href="http://www.remotesensing.org/gdal/">www.remotesensing.org/gdal/</a></li>
+</ol><p>
+<pre class="code">
+tar xvzg gdal-1.2.5.tar.gz
+cd gdal-1.2.5
+./configure 
+make
+make install
+</pre>
+<p>
+<p>
+<h2 width="804">3.5.  GNU Scientific Library</h2>
+<p>
+<a href="http://www.gnu.org/software/gsl/">www.gnu.org/software/gsl/</a>
+<p>
+<pre class="code">
+tar xfz gsl-1.6.tar.gz
+cd gsl-1.6
+./configure
+make
+make install
+</pre>
+<p>
+<p>
+<h2 width="804">3.6.  lib3ds</h2>
+<p>
+This allows the &quot;skins&quot; to work in Gazebo.
+<p>
+<a href="http://lib3ds.sourceforge.net/">lib3ds.sourceforge.net/</a>
+<p>
+<pre class="code">
+tar xfz lib3ds-1.2.0.tgz
+cd lib3d-1.2.0
+./configure
+make
+make install
+</pre>
+<p>
+<p>
+<p>
+<h2 width="804">3.7.  OpenCV</h2>
+<p>
+The Open Computer Vision project is used in Player.
+<p>
+<a href="http://sourceforge.net/projects/opencvlibrary/">sourceforge.net/projects/opencvlibrary/</a>
+<p>
+<pre class="code">
+tar xfz opencv-0.9.6.tar.gz
+cd opencv-0.9.6
+./configure
+make
+make install
+</pre>
+<p>
+This could have used ffmpeg; do we need that?
+<p>
+<p>
+<h2 width="804">3.8.  Gazebo</h2>
+<p>
+Instructions: <a href="http://playerstage.sourceforge.net/doc/Gazebo-manual-0.5-html/install.html">playerstage.sourceforge.net/doc/Gazebo-manual-0.5-html/install.html</a>
+<p>
+For now, you should get a version compatible with player-1.6.4. You'll find a copy in our <a href="http://dangermouse.brynmawr.edu/pyrobot/download/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a> area.
+<p>
+Later, you will be able to build from CVS. Instructions follow.
+<p>
+To get from CVS, first login:
+<p>
+<pre class="code">
+cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/playerstage login
+</pre>
+<p>
+You only have to do that once.
+<p>
+<pre class="code">
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/playerstage co -P gazebo
+</pre>
+<p>
+<ol type="1"><li>install gazebo (currently, from CVS from playerstage.sourceforge.net)</li>
+</ol><p>
+<pre class="code">
+cd gazebo
+./bootstrap
+./configure
+make install
+</pre>
+<p>
+You can test this with:
+<p>
+<pre class="code">
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib
+wxgazebo /usr/local/share/gazebo/worlds/avatarheli.world
+</pre>
+<p>
+<p>
+<h3 width="804">3.8.1.  Troubleshooting</h3>
+<p>
+If that didn't work, you should make sure you have direct rendering and pbuffer support (by running glxinfo).
+<p>
+Some notes on Fedora Core 3 with ATI Graphics card:
+<p>
+You need to have &quot;direct rendering&quot; on to take effecient advantage of Gazebo. Otherwise, Gazebo will use software to render the scenes. Even with hardware acceleration, it may not run in real time.
+<p>
+To get my ATI graphics card under Fedora Core 3 to render Gazebo, I had to use the Livna kernel modules. Here are the steps:
+<p>
+<ol type="1"><li>Add the following to /etc/yum.conf:</li>
+</ol><p>
+<pre class="code">
+[livna-stable]
+name=Livna.org Fedora Compatible Packages (stable)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.stable
+gpgcheck=1
+[livna-unstable]
+name=Livna.org Fedora Compatible Packages (unstable)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.unstable
+gpgcheck=1
+[livna-testing]
+name=Livna.org Fedora Compatible Packages (testing)
+baseurl=http://rpm.livna.org/fedora/&#36;releasever/&#36;basearch/RPMS.testing
+gpgcheck=1
+</pre>
+<p>
+<ol type="2"><li>Install the proper kernel module:</li>
+</ol><p>
+<pre class="code">
+yum install kernel-module-fglrx-&#36;(uname -r)
+</pre>
+<p>
+<ol type="3"><li>Restart X</li>
+</ol><p>
+To test, you can &quot;glxinfo | less&quot;. You should see &quot;direct rendering: Yes&quot;.
+<p>
+<p>
+<h2 width="804">3.9.  Player</h2>
+<p>
+Get Player from CVS:
+<p>
+<pre class="code">
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/playerstage co -P player
+</pre>
+<p>
+Build and install it:
+<p>
+<pre class="code">
+cd player
+./bootstrap
+./configure
+make install
+</pre>
+<p>
+If you had a previous version of Player, you may have to delete playerc.so in your Python site-package directory. Try:
+<p>
+<pre class="code">
+locate playerc.so
+</pre>
+<p>
+and if one shows up in a place like /usr/local/lib/python2.2/site-package/playerc.so, you should delete it.
+<p>
+<p>
+<h2 width="804">3.10.  Stage</h2>
+<p>
+Get Stage from CVS:
+<p>
+<pre class="code">
+cvs -z3 -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/playerstage co -P stage
+</pre>
+<p>
+Build and install it:
+<p>
+<pre class="code">
+cd stage
+./bootstrap
+./configure
+make install
+</pre>
+<p>
+Stage is now a Player plugin. To run, you need to set PLAYERPATH to where libstage.so resides:
+<p>
+<pre class="code">
+export PLAYERPATH=/usr/local/lib
+player /usr/local/share/stage/worlds/everything.cfg
+</pre>
+<p>
+<p>
+<h2 width="804">3.11.  Testing</h2>
+<p>
+See <a href="../doc/ps_getting_started-1.6.txt">playerstage.sourceforge.net/doc/ps_getting_started-1.6.txt</a> for testing Player/Stage/Gazebo.
+<p>
+<p>
+<h1 width="804">4.  Pyro</h1>
+<p>
+You will need SWIG, Python Image Library, and Numeric.
+<p>
+<p>
+<h2 width="804">4.1.  Numeric</h2>
+<p>
+Also called numpy.
+<p>
+<pre class="code">
+tar xfz Numeric-24.0b2.tar.gz
+cd Numeric-24.0b2
+python setup.py build
+python setup.py install
+</pre>
+<p>
+<p>
+<h2 width="804">4.2.  Imaging</h2>
+<p>
+Also called PIL, Python Image Library
+<p>
+You will need tk-devel and tcl-devel for this.
+<p>
+<pre class="code">
+yum install tk-devel tcl-devel
+</pre>
+<p>
+<pre class="code">
+tar xfz Imaging-1.1.5.tar.gz
+cd Imaging-1.1.5
+python setup.py build
+python setup.py install
+</pre>
+<p>
+<p>
+<h2 width="804">4.3.  Other details</h2>
+<p>
+You might want to look at <a href="../page_Pyro3Installation/">Pyro3Installation</a>. See <a href="../page_PyroDeveloperCVS/">PyroDeveloperCVS</a> for details about getting CVS code.
+<p>
+<p>
+<h2 width="804">4.4.  Multiuser Robocup-Type Events</h2>
+<p>
+Here is an easy project: build a Gazebo or Stage world with as many robots as you have students. Start it on the server. Each student is assigned a port (or you could make robot.py files for each student with the port/hostname already defined). Then each would connect onto the server. You could:
+<p>
+<ol type="1"><li>Play soccer</li>
+<li>Race to see who grabs the most pucks</li>
+<li>Play tag (if your bumpers fire, your out)</li>
+<li>Indy 500 racing</li>
+</ol><p>
+One issue with this is that you will need to be able to access each machine. If you have a firewall up, here is how to poke some holes in it. You need to edit <tt class="wiki">/etc/sysconfig/iptables</tt> by adding the appropriate lines:
+<p>
+In Red<b></b>Hat 9.0, add:
+<p>
+<pre class="code">
+-A RH-Lokkit-0-50-INPUT -p tcp -m tcp --dport 6665:6765 --syn -j ACCEPT
+</pre>
+<p>
+In Fedora Core 2, add:
+<p>
+<pre class="code">
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 6665:6765 --syn -j ACCEPT
+</pre>
+<p>
+<hr>
+<p>
+Related topics: 
+<p>
+<a href="http://emergent.brynmawr.edu/index.cgi/FindPage">Go here for full search functions</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroInstallation?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroInstallation?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

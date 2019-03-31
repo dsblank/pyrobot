@@ -1,0 +1,251 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219100052", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Introduction_20to_20VisConx</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+ <img width="11" src="../wiki/img/alert.png"> This section was updated October 30, 2003 to conform to Pyro Version 2.2.1. These changes reflect new naming conventions for <tt class="wiki">VisConx</tt>. Previous versions of this document can be used for older versions of Pyro. See <a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20VisConx?action=recall&amp;date=1059757706"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;here</a> for example.
+<p>
+<p>
+<h1 width="804"> Introduction to VisConx</h1>
+<p>
+<tt class="wiki">VisConx</tt> provides a set of tools for visualizing Conx neural networks.  <tt class="wiki">VisConx</tt> can display a network's structure, its weights (using a Hinton diagram), the network's output error as a function of the time step, and the network's activations.
+<p>
+<p>
+<h2 width="804"> General Design</h2>
+<p>
+The <tt class="wiki">VisConx</tt> classes combine a Conx neural network and visualization tools in a single class. Two different visualization modes are available.  The <tt class="wiki">VNetwork</tt> and <tt class="wiki">VSRN</tt> classes are intended for training and analyzing stand-alone neural networks.  The <tt class="wiki">VINetwork</tt> and <tt class="wiki">VISRN</tt> classes are intended for visualizing interactive networks which are incorporated into some larger system (e.g. a robot brain).  
+<p>
+<p>
+<h2 width="804"> A Basic VSRN Example</h2>
+<p>
+An example of how to use the <tt class="wiki">VSRN</tt> class is shown below.
+<p>
+<hr>
+<p>
+<pre class="code">
+#VisSweepEx.py
+from pyrobot.brain.conx import *
+myNet = VSRN()
+myNet.addLayers(3,3,3)
+myNet.add(Layer('assocInput',3))
+myNet.connect('hidden', 'assocInput')
+myNet.associate('input', 'assocInput')
+myNet.predict('input', 'output')
+myNet.setInputs([[1,0,0, 0,1,0, 0,0,1, 0,0,1, 0,1,0, 1,0,0]])
+myNet.setSequenceType(&quot;random-continuous&quot;)
+myNet.setEpsilon(0.1)
+myNet.setMomentum(0.3)
+myNet.setBatch(1)
+myNet.setTolerance(0.1)
+myNet.setStopPercent(0.7)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/VisSweepEx_2epy?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/VisSweepEx_2epy?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<hr>
+<p>
+Let's examine this code and see what it does.  First, it imports the <tt class="wiki">vconx</tt> classes and creates the <tt class="wiki">VSRN</tt> object.  What follows should be familiar from basic Conx code: layers are added to the network, connections are created, and network parameters are set.  Nothing else is required!  The visualization will all be set up automatically.  The most important thing to note about the code above code is that the network's inputs and outputs are set using <tt class="wiki">setInputs</tt> and <tt class="wiki">setOutputs</tt>.  <tt class="wiki">VSRN</tt> uses the <tt class="wiki">sweep</tt> method of conx, which requires that inputs and outputs are set this way.  
+<p>
+Finally, note that this example uses a <tt class="wiki">VSRN</tt> network.  Using <tt class="wiki">VNetwork</tt> would be virtually identical.  Simply replace the <tt class="wiki">VSRN</tt> constructor with the <tt class="wiki">VNetwork</tt> constructor, and remove any commands available in <tt class="wiki">SRN</tt> but not in <tt class="wiki">Network</tt>.
+<p>
+Now paste this code into a file and run the file in interactive mode (i.e. call python with the -i flag).
+ <img width="11" src="../wiki/img/alert.png"> If you do not use the -i flag when executing python on your visualization network, the GUI will open and then immediately close.
+<p>
+After doing this, you should see a screen like the one below.
+<p>
+<img src="../_mfiedle1/images/VisSweep.gif">
+<p>
+<p>
+<h2 width="804"> A Basic VINetwork Example</h2>
+<p>
+As noted above, <tt class="wiki">VINetwork</tt> is intended to be used to visualize a network which is a part of a larger program.  An example which incorporates a network into a simple robot brain is shown below.   This brain is based on a similar brain which used <tt class="wiki">conx.Network</tt> object as its neural network.  The conversion requied only two modifications:
+<p>
+1. Importing the the <tt class="wiki">vconx</tt> classes.
+<p>
+2. Replacing the call to the <tt class="wiki">Network</tt> constructor with a call to the <tt class="wiki">VINetwork</tt> constructor.
+<p>
+<hr>
+<p>
+<pre class="code">
+#VisRobotBrain.py
+from pyrobot.brain import Brain
+from pyrobot.brain.vconx import *
+from pyrobot.gui.plot.scatter import *
+from pyrobot.gui.plot.hinton import *
+from os import system, unlink
+def a2s(a):
+   &quot;&quot;&quot; array to string &quot;&quot;&quot;
+   retval = ''
+   for i in range(len(a)):
+      retval += &quot;%.5f &quot; % a[i]
+   return retval
+class NNBrain(Brain):
+   &quot;&quot;&quot;
+   This is an example brain controlled by a neural network.
+   This simple example loads the range sensor data into the
+   input layer, and trains the network to stay away from
+   things.
+   &quot;&quot;&quot;
+   def setup(self):
+      &quot;&quot;&quot; Create the network. &quot;&quot;&quot;
+      self.net = VINetwork()
+      self.hiddenLayerSize = 10
+      self.net.addLayers(self.robot.range.count,
+                              self.hiddenLayerSize, 2)
+      self.net.setBatch(0)
+      self.net.initialize()
+      self.net.setEpsilon(0.5)
+      self.net.setMomentum(.1)
+      self.net.setLearning(1)
+      self.counter = 0
+      self.maxvalue = self.robot.range.getMaxvalue()
+   def destroy(self):
+      self.net.destroy()
+   def scale(self, val):
+      return (val / self.maxvalue)
+   def step(self):         
+      # First, set inputs and targets:
+      ins = [self.scale(s.value) for s in self.robot.range[&quot;all&quot;]]
+      # Compute targets:
+      target_rotate = 0.5
+      if min([s.value for s in self.robot.range[&quot;front&quot;]]) &lt; 1:
+         target_trans = 0.0
+         target_rotate = 0.0
+      elif min([s.value for s in self.robot.range[&quot;back&quot;]]) &lt; 1:
+         target_trans = 1.0
+      else:
+         target_trans = 1.0
+      if min([s.value for s in self.robot.range[&quot;left&quot;]])  &lt; 1:
+         target_rotate = 0.0
+      elif min([s.value for s in self.robot.range[&quot;right&quot;]])  &lt; 1:
+         target_rotate = 1.0
+      target = [target_trans, target_rotate]
+      # set inputs and targets with step
+      self.net.step( input = ins, output = target)
+      # get the output, and move:
+      trans = (self.net['output'].activation[0] - .5) / 2.0
+      rotate = (self.net['output'].activation[1] - .5) / 2.0
+      self.robot.move(trans, rotate)
+      self.counter += 1
+def INIT(engine):
+   return NNBrain('NNBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/VisRobotBrain_2epy?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/VisRobotBrain_2epy?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<hr>
+<p>
+Once again, the visualization is set up automatically.  When the brain is loaded, the network visualization will start on its own.  
+<p>
+<p>
+<h2 width="804"> Common Features in VNetwork and VINetwork</h2>
+<p>
+Many of the features of the two <tt class="wiki">VisConx</tt> interfaces are the same.  These shared GUI features are explained below.
+<p>
+<p>
+<h3 width="804"> Settings Dialog</h3>
+<p>
+The settings dialog can be brought up by clicking on the button labeled <tt class="wiki">Settings...</tt> at the top of the screen.  Many of the network parameters normally set through the <tt class="wiki">set</tt> methods Conx provides can be set in this dialog.  It is important to note that, while this dialog is open, <tt class="wiki">VisConx</tt> halts until the dialog is closed.  This is a particular problem in <tt class="wiki">VINetwork</tt> because when <tt class="wiki">VisConx</tt> halts, the brain stops sending signals to the robot.  Thus, it is a good idea to stop the robot controlled by the network before opening the settings dialog.
+<p>
+<p>
+<h3 width="804"> Error Plots</h3>
+<p>
+The error plots display network error.  The data displayed in the plot can be saved through the <tt class="wiki">File</tt> menu.  Lines connecting data points can be hidden or restored in the <tt class="wiki">View</tt> menu.  In the <tt class="wiki">VNetwork</tt> interface, the &quot;time step&quot; unit is the epoch and the plot is updated every epoch.  In the <tt class="wiki">VINetwork</tt> interface, the &quot;time step&quot; unit is a call to <tt class="wiki">propogate</tt>; however, the plot is only updated when <tt class="wiki">backprop</tt> is called. 
+<p>
+<p>
+<h3 width="804"> Connections and Weights</h3>
+<p>
+Next to the connections label, there is a list box containing an entry for every connection in the network.  Highlighting a connection in the list box and clicking on <tt class="wiki">Show weights</tt> creates a Hinton diagram illustrating those weights.  It is also possible to save or load all of the network's weights to or from a file using the <tt class="wiki">Save all weights</tt> and <tt class="wiki">Load all weights</tt> buttons.
+<p>
+<p>
+<h3 width="804"> Network Architecture Diagram</h3>
+<p>
+Checking the network architecture checkbox creates a diagram which shows the layers in the network and the relationships between them.  At the bottom of the screen is a legend indicating the type of connection realized by each color arrow.  Note that in the case of forward connections and contexts, the arrowhead points in the direction which activation flows.  In an autoassociation relationship, layer pointed to receives its targets from which the arrow originated.  In a prediction relationship, the layer pointed to predicts the next activations of the the layer from which the layer originated.
+<p>
+<p>
+<h3 width="804"> Conx Commands</h3>
+<p>
+Commands for the network (e.g. to add new layers or manually copy activations, etc.) can be entered in the command box at the bottom of the screen.  Any output from these commands appears in the text box above the command box.  Any commands entered are evaluated in a namespace where <tt class="wiki">self</tt> is bound to the <tt class="wiki">VisConx</tt> object.  Thus, ommands can be issued to the network using the syntax <tt class="wiki">self.</tt>&lt;command&gt;
+<p>
+<p>
+<h2 width="804"> Features Specific to VNetwork and VSRN</h2>
+<p>
+<p>
+<h3 width="804"> Training</h3>
+<p>
+<tt class="wiki">VNetwork</tt> allows graphical control over the training of networks.  Using the <tt class="wiki">Start</tt> button, the user can begin training.  Note that pressing the <tt class="wiki">Start</tt> button will produce an error.  While the network is training, training can be suspended using the <tt class="wiki">Pause</tt> button.  After the <tt class="wiki">Pause</tt> button is pressed, it becomes a <tt class="wiki">Resume</tt> button.  The <tt class="wiki">Resume</tt> button recommences training.  The <tt class="wiki">Stop</tt> button ends training entirely.  Note that pressing the <tt class="wiki">Start</tt> button after a training run has been completed or after pressing the <tt class="wiki">Stop</tt> button resets the network's weights and discards any data already collected.
+<p>
+<p>
+<h3 width="804"> Node Activations Diagram</h3>
+<p>
+The node activations diagram shows the activations resulting from each of the inputs designated in <tt class="wiki">setInputs</tt>.  Note that this display is only available after the network has completed a training run or while training is paused  The <tt class="wiki">Layers...</tt> dialog allows the user to choose which layers are displayed.
+ <img width="11" src="../wiki/img/alert.png"> Activations which are greater than 1 are displayed as if their values were 1.
+<p>
+<p>
+<h2 width="804"> Features Specific to VINetwork</h2>
+<p>
+<p>
+<h3 width="804"> Node Activations Diagram</h3>
+<p>
+The node activations diagram is slightly different in the <tt class="wiki">VINetwork</tt> interface.  The display is available at any time and is updated with the network's activations every time <tt class="wiki">propagate</tt> is called.
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20VisConx?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Introduction_20to_20VisConx?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

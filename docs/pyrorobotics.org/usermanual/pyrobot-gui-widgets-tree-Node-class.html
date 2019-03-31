@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129020843", "pyrorobotics.org");
+</script>
+  <title>pyrobot.gui.widgets.tree.Node</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-gui-module/">Package&nbsp;gui</a> ::
+        <a href="../../usermanual/pyrobot-gui-widgets-module/">Package&nbsp;widgets</a> ::
+        <a href="../../usermanual/pyrobot-gui-widgets-tree-module/">Module&nbsp;tree</a> ::
+        Class&nbsp;Node
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Node</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-gui-widgets-tree-ClickNode-class/"><code>ClickNode</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+Tree helper class that's instantiated for each element in the tree.  It
+has several useful attributes:
+parent_node     - immediate parent node
+id              - id assigned at creation
+expanded_icon   - image displayed when folder is expanded to display
+                  children
+collapsed_icon  - image displayed when node is not a folder or folder is
+                  collapsed.
+parent_widget   - reference to tree widget that contains node.
+expandable_flag - is true when node is a folder that may be expanded or
+                  collapsed.
+expanded_flag   - true to indicate node is currently expanded.
+h_line          - canvas line to left of node image.
+v_line          - canvas line below node image that connects children.
+indic           - expand/collapse canvas image.
+label           - canvas text label
+symbol          - current canvas image
+Please note that methods prefixed PVT_* are not meant to be used by
+client programs.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">parent_node</span>,
+          <span class="summary-sig-arg">id</span>,
+          <span class="summary-sig-arg">collapsed_icon</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">parent_widget</span>,
+          <span class="summary-sig-arg">expanded_icon</span>,
+          <span class="summary-sig-arg">label</span>,
+          <span class="summary-sig-arg">expandable_flag</span>)</span></code>
+<br/>
+Create node and initialize it.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#children" class="summary-sig-name"><code>children</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return list of node's children...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#collapse" class="summary-sig-name"><code>collapse</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Collapse node if possible...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#delete" class="summary-sig-name"><code>delete</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">me_too</span>)</span></code>
+<br/>
+Delete node from tree.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#dnd_end" class="summary-sig-name"><code>dnd_end</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">target</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+<br/>
+Notification that dnd processing has been ended.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#expand" class="summary-sig-name"><code>expand</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Expand node if possible...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#expandable" class="summary-sig-name"><code>expandable</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns true if node can be expanded (i.e.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#expanded" class="summary-sig-name"><code>expanded</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Returns true if node is currently expanded, false otherwise...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#full_id" class="summary-sig-name"><code>full_id</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return list of IDs of all parents and node ID...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#get_label" class="summary-sig-name"><code>get_label</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return string containing text of current label...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#insert_after" class="summary-sig-name"><code>insert_after</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nodes</span>)</span></code>
+<br/>
+Insert list of nodes as siblings after this node.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#insert_before" class="summary-sig-name"><code>insert_before</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nodes</span>)</span></code>
+<br/>
+Insert list of nodes as siblings before this node.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#insert_children" class="summary-sig-name"><code>insert_children</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nodes</span>)</span></code>
+<br/>
+Insert list of nodes as children of this node.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#next_sib" class="summary-sig-name"><code>next_sib</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return node's next sibling (the child immediately below it)...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#next_visible" class="summary-sig-name"><code>next_visible</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return next lower visible node...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#parent" class="summary-sig-name"><code>parent</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return node's parent node...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#prev_sib" class="summary-sig-name"><code>prev_sib</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return node's previous sibling (the child immediately above it)...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#prev_visible" class="summary-sig-name"><code>prev_visible</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return next higher visible node...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_cleanup_lines" class="summary-sig-name"><code>PVT_cleanup_lines</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Resize connecting lines...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_click" class="summary-sig-name"><code>PVT_click</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+<br/>
+Handle mouse clicks by kicking off possible drag'n'drop...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_delete_subtree" class="summary-sig-name"><code>PVT_delete_subtree</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Recursively delete subtree & clean up cyclic references to make...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_enter" class="summary-sig-name"><code>PVT_enter</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">event</span>)</span></code>
+<br/>
+detect mouse hover for drag'n'drop...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_find" class="summary-sig-name"><code>PVT_find</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">search</span>)</span></code>
+<br/>
+Used by searching functions...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_insert" class="summary-sig-name"><code>PVT_insert</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">nodes</span>,
+          <span class="summary-sig-arg">pos</span>,
+          <span class="summary-sig-arg">below</span>)</span></code>
+<br/>
+Create and insert new children.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_last" class="summary-sig-name"><code>PVT_last</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return bottom-most node in subtree...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_set_state" class="summary-sig-name"><code>PVT_set_state</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">state</span>)</span></code>
+<br/>
+Common code forexpanding/collapsing folders.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_tag_move" class="summary-sig-name"><code>PVT_tag_move</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">dist</span>)</span></code>
+<br/>
+Move everything below current icon, to make room for subtree using
+the Disney magic of item tags.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_unbind_all" class="summary-sig-name"><code>PVT_unbind_all</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Unbind callbacks so node gets garbage-collected.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#PVT_update_scrollregion" class="summary-sig-name"><code>PVT_update_scrollregion</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Update scroll region for new size...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#set_collapsed_icon" class="summary-sig-name"><code>set_collapsed_icon</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">icon</span>)</span></code>
+<br/>
+Set node's collapsed image...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#set_expanded_icon" class="summary-sig-name"><code>set_expanded_icon</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">icon</span>)</span></code>
+<br/>
+Set node's expanded image...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#set_label" class="summary-sig-name"><code>set_label</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">label</span>)</span></code>
+<br/>
+Set current text label...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-widgets-tree-Node-class/#toggle_state" class="summary-sig-name"><code>toggle_state</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Toggle node's state between expanded and collapsed, if possible...</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">parent_node</span>,
+          <span class="sig-arg">id</span>,
+          <span class="sig-arg">collapsed_icon</span>,
+          <span class="sig-arg">x</span>,
+          <span class="sig-arg">y</span>,
+          <span class="sig-arg">parent_widget</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">expanded_icon</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">label</span>=<span class="sig-default">None</span>,
+          <span class="sig-arg">expandable_flag</span>=<span class="sig-default">0</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Create node and initialize it.  This also displays the node at the
+given position on the canvas, and binds mouseclicks.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="children"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">children</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return list of node's children
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="collapse"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">collapse</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Collapse node if possible
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="delete"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">delete</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">me_too</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Delete node from tree. (&quot;me_too&quot; is a hack not to be used by
+external code, please!)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="dnd_end"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">dnd_end</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">target</span>,
+          <span class="sig-arg">event</span>)</span>
+  </h3>
+<pre class="literalblock">
+Notification that dnd processing has been ended. It DOES NOT imply
+that we've been dropped somewhere useful, we could have just been
+dropped into deep space and nothing happened to any data structures,
+or it could have been just a plain mouse-click w/o any dragging.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="expand"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">expand</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Expand node if possible
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="expandable"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">expandable</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns true if node can be expanded (i.e. if it's a folder)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="expanded"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">expanded</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns true if node is currently expanded, false otherwise
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="full_id"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">full_id</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return list of IDs of all parents and node ID
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="get_label"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">get_label</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return string containing text of current label
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="insert_after"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">insert_after</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">nodes</span>)</span>
+  </h3>
+<pre class="literalblock">
+Insert list of nodes as siblings after this node.  Call parent
+node's add_node() function to generate the list of nodes.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="insert_before"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">insert_before</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">nodes</span>)</span>
+  </h3>
+<pre class="literalblock">
+Insert list of nodes as siblings before this node.  Call parent
+node's add_node() function to generate the list of nodes.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="insert_children"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">insert_children</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">nodes</span>)</span>
+  </h3>
+<pre class="literalblock">
+Insert list of nodes as children of this node.  Call node's
+add_node() function to generate the list of nodes.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="next_sib"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">next_sib</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return node's next sibling (the child immediately below it)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="next_visible"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">next_visible</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return next lower visible node
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="parent"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">parent</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return node's parent node
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="prev_sib"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">prev_sib</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return node's previous sibling (the child immediately above it)
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="prev_visible"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">prev_visible</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return next higher visible node
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_cleanup_lines"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_cleanup_lines</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Resize connecting lines
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_click"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_click</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">event</span>)</span>
+  </h3>
+<pre class="literalblock">
+Handle mouse clicks by kicking off possible drag'n'drop
+processing
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_delete_subtree"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_delete_subtree</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Recursively delete subtree & clean up cyclic references to make
+garbage collection happy
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_enter"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_enter</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">event</span>)</span>
+  </h3>
+<pre class="literalblock">
+detect mouse hover for drag'n'drop
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_find"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_find</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">search</span>)</span>
+  </h3>
+<pre class="literalblock">
+Used by searching functions
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_insert"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_insert</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">nodes</span>,
+          <span class="sig-arg">pos</span>,
+          <span class="sig-arg">below</span>)</span>
+  </h3>
+<pre class="literalblock">
+Create and insert new children. &quot;nodes&quot; is list previously created
+via calls to add_list(). &quot;pos&quot; is index in the list of children where
+the new nodes are inserted. &quot;below&quot; is node which new children should
+appear immediately below.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_last"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_last</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return bottom-most node in subtree
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_set_state"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_set_state</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">state</span>)</span>
+  </h3>
+<pre class="literalblock">
+Common code forexpanding/collapsing folders. It's not re-entrant,
+and there are certain cases in which we can be called again before
+we're done, so we use a mutex.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_tag_move"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_tag_move</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">dist</span>)</span>
+  </h3>
+<pre class="literalblock">
+Move everything below current icon, to make room for subtree using
+the Disney magic of item tags.  This is the secret of making
+everything as fast as it is.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_unbind_all"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_unbind_all</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Unbind callbacks so node gets garbage-collected. This wasn't easy
+to figure out the proper way to do this.  See also tag_bind() for the
+Tree widget itself.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="PVT_update_scrollregion"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">PVT_update_scrollregion</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Update scroll region for new size
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="set_collapsed_icon"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">set_collapsed_icon</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">icon</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set node's collapsed image
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="set_expanded_icon"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">set_expanded_icon</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">icon</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set node's expanded image
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="set_label"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">set_label</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">label</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set current text label
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="toggle_state"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">toggle_state</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Toggle node's state between expanded and collapsed, if possible
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

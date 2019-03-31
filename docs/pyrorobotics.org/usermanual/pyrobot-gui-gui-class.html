@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129020453", "pyrorobotics.org");
+</script>
+  <title>pyrobot.gui.gui</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-gui-module/">Package&nbsp;gui</a> ::
+        Class&nbsp;gui
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-gui-gui-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class gui</h2>
+<dl><dt><b>Known Subclasses:</b></dt>
+<dd>
+    <a href="../../usermanual/pyrobot-gui-TK-TKgui-class/"><code>TKgui</code></a>,
+    <a href="../../usermanual/pyrobot-gui-tty-TTYGui-class/"><code>TTYGui</code></a></dd></dl>
+<hr/>
+<pre class="literalblock">
+This is the base class for a gui.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">options</span>,
+          <span class="summary-sig-arg">engine</span>)</span></code>
+<br/>
+Child classes should do initialization pertaining to the creation
+of the GUI in the constructor.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="addCommandHistory"></a><span class="summary-sig"><span class="summary-sig-name">addCommandHistory</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">command</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="cleanup"></a><span class="summary-sig"><span class="summary-sig-name">cleanup</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#fileloaddialog" class="summary-sig-name"><code>fileloaddialog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">type</span>,
+          <span class="summary-sig-arg">skel</span>,
+          <span class="summary-sig-arg">olddir</span>)</span></code>
+<br/>
+Read a line from user...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#filesavedialog" class="summary-sig-name"><code>filesavedialog</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">type</span>,
+          <span class="summary-sig-arg">skel</span>,
+          <span class="summary-sig-arg">startdir</span>)</span></code>
+<br/>
+Read a line from user...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="formatExceptionInfo"></a><span class="summary-sig"><span class="summary-sig-name">formatExceptionInfo</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">maxTBlevel</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="freeBrain"></a><span class="summary-sig"><span class="summary-sig-name">freeBrain</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="freeRobot"></a><span class="summary-sig"><span class="summary-sig-name">freeRobot</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="inform"></a><span class="summary-sig"><span class="summary-sig-name">inform</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">message</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="INThandler"></a><span class="summary-sig"><span class="summary-sig-name">INThandler</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">signum</span>,
+          <span class="summary-sig-arg">frame</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="listCommandHistory"></a><span class="summary-sig"><span class="summary-sig-name">listCommandHistory</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">search</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadBrain"></a><span class="summary-sig"><span class="summary-sig-name">loadBrain</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadDevice"></a><span class="summary-sig"><span class="summary-sig-name">loadDevice</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadRobot"></a><span class="summary-sig"><span class="summary-sig-name">loadRobot</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="loadSim"></a><span class="summary-sig"><span class="summary-sig-name">loadSim</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">worldfile</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#makeMenu" class="summary-sig-name"><code>makeMenu</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">commands</span>)</span></code>
+<br/>
+Could bind a key right here ^1, ^2, ^3...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#makeWatcher" class="summary-sig-name"><code>makeWatcher</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Text-based watcher...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#newBrain" class="summary-sig-name"><code>newBrain</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Tk gui overrides this method.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="printCommandLine"></a><span class="summary-sig"><span class="summary-sig-name">printCommandLine</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="processCommand"></a><span class="summary-sig"><span class="summary-sig-name">processCommand</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">retval</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="redraw"></a><span class="summary-sig"><span class="summary-sig-name">redraw</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="resetEngine"></a><span class="summary-sig"><span class="summary-sig-name">resetEngine</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-gui-gui-class/#run" class="summary-sig-name"><code>run</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">command</span>)</span></code>
+<br/>
+Child classes should do the beef of what they do right here.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="runEngine"></a><span class="summary-sig"><span class="summary-sig-name">runEngine</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="setCurrentConfig"></a><span class="summary-sig"><span class="summary-sig-name">setCurrentConfig</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">config</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stepBack"></a><span class="summary-sig"><span class="summary-sig-name">stepBack</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stepEngine"></a><span class="summary-sig"><span class="summary-sig-name">stepEngine</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stepForward"></a><span class="summary-sig"><span class="summary-sig-name">stepForward</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stepLeft"></a><span class="summary-sig"><span class="summary-sig-name">stepLeft</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stepRight"></a><span class="summary-sig"><span class="summary-sig-name">stepRight</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stopEngine"></a><span class="summary-sig"><span class="summary-sig-name">stopEngine</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stopRotate"></a><span class="summary-sig"><span class="summary-sig-name">stopRotate</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="stopTranslate"></a><span class="summary-sig"><span class="summary-sig-name">stopTranslate</span>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="watch"></a><span class="summary-sig"><span class="summary-sig-name">watch</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">exp</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>=<span class="sig-default">'abstract&nbsp;gui'</span>,
+          <span class="sig-arg">options</span>=<span class="sig-default">{}</span>,
+          <span class="sig-arg">engine</span>=<span class="sig-default">0</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Child classes should do initialization pertaining to the creation
+of the GUI in the constructor.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="fileloaddialog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">fileloaddialog</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">type</span>,
+          <span class="sig-arg">skel</span>,
+          <span class="sig-arg">olddir</span>=<span class="sig-default">''</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read a line from user
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="filesavedialog"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">filesavedialog</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">type</span>,
+          <span class="sig-arg">skel</span>,
+          <span class="sig-arg">startdir</span>=<span class="sig-default">''</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read a line from user
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeMenu"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeMenu</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">commands</span>)</span>
+  </h3>
+<pre class="literalblock">
+Could bind a key right here ^1, ^2, ^3...
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeWatcher"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeWatcher</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Text-based watcher
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="newBrain"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">newBrain</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Tk gui overrides this method.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="run"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">run</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">command</span>=<span class="sig-default">[]</span>)</span>
+  </h3>
+<pre class="literalblock">
+Child classes should do the beef of what they do right here.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:25 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

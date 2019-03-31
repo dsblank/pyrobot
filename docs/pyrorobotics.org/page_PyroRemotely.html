@@ -1,0 +1,98 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104701", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroRemotely</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro Remotely</h1>
+<p>
+Working with Pyro on the robot, or over a network? Here are some hints.
+<p>
+The installation should go exactly the same as a regular install. And, if you should be able to run Pyro exactly the same way as before.
+<p>
+However, one probably won't want to run it with the fancy gui: either because the robot's hardware is less than a hefty workstation, or you are logged in over ssh over wireless.
+<p>
+For those situations, you'll probably want to start pyro up with one of the alternative GUI's, like so:
+<pre class="code">
+pyro -g tty
+</pre>
+That will start pyro with a console interface. (There is also a &quot;-g tk&quot; flag for a simple graphic window, and the start of a curses one, too) Then enter:
+<pre class="code">
+load robot
+</pre>
+At which point you will enter:
+<pre class="code">
+Aria
+</pre>
+<p>
+Next, just like in the regular GUI, you need to load a brain:
+<p>
+<pre class="code">
+load brain
+</pre>
+<p>
+then enter the name of the brain you wish to run, for example:
+<p>
+<pre class="code">
+BBWander
+</pre>
+<p>
+Finally, run the program with:
+<p>
+<pre class="code">
+run
+</pre>
+<p>
+<p>
+To exit, in the same terminal window type:
+<pre class="code">
+quit
+</pre>
+even if you can't see what you are typing. For additional commands, type &quot;help&quot;.
+<p>
+A shortcut for all of that is to start Pyro up like:
+<p>
+<pre class="code">
+pyro -g tty -r Aria -b BBWander
+</pre>
+<p>
+<hr>
+<p>
+Review:
+<p>
+<ol type="1"><li>start up a simulator or a real robot</li>
+<li>start up pyro with no GUI (pyro -g tty)</li>
+<li>add the brain and robot to command line to keep from retyping robot and brain (pyro -b <a href="../page_BBGoto/">BBGoto</a> -r Aria -g tty)</li>
+<li>type 'run' to begin running the brain</li>
+<li>type 'stop' and then 'quit' to exit</li>
+</ol><p>
+<hr>
+<p>
+Related topics:
+<p>
+<a href="http://emergent.brynmawr.edu/index.cgi/FindPage">Go here for full search functions</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroRemotely?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroRemotely?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

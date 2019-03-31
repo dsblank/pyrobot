@@ -1,0 +1,86 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219094942", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroRAAMExample</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<pre>
+# % python -i raam.py
+# ... runs for a bit
+# ... look at results, get hidden layer acts at end of sentence
+# &gt;&gt;&gt; raam.setLayerVerification(0)
+# &gt;&gt;&gt; retval = raam.propagateFrom("hidden", hidden=[0.89, 0.91, 0.03, 0.76, 0.97, 0.99, 0.11, 0.93])
+# &gt;&gt;&gt; retval["output"]
+# [0.00019695890003820294, 0.99139862359118414, 0.00035552614835753892, 0.021935466446129315]          MARY
+# &gt;&gt;&gt; hid = retval["outcontext"]
+# &gt;&gt;&gt; retval = raam.propagateFrom("hidden", hidden=hid)
+# &gt;&gt;&gt; retval["output"]
+# [0.038566659128093157, 0.013443895767298429, 0.90200538449592227, 0.023225075823005009]              LIKES
+# &gt;&gt;&gt; hid = retval["outcontext"]
+# &gt;&gt;&gt; retval = raam.propagateFrom("hidden", hidden=hid)
+# &gt;&gt;&gt; retval["output"]
+# [0.015620707998835377, 0.0014200232163398988, 0.027158337904633942, 0.96938726876497006]             JOHN
+# &gt;&gt;&gt; raam.setLayerVerification(1)
+# An example showing memory in a sRAAM
+from pyrobot.brain.conx import *
+# Create network:
+raam = SRN()
+raam.setSequenceType("random-segmented")
+raam.setPatterns({"john"  : [0, 0, 0, 1],
+                  "likes" : [0, 0, 1, 0],
+                  "mary"  : [0, 1, 0, 0],
+                  "is" : [1, 0, 0, 0],
+                  })
+size = len(raam.getPattern("john"))
+raam.addSRNLayers(size, size * 2, size)
+raam.add( Layer("outcontext", size * 2) )
+raam.connect("hidden", "outcontext")
+raam.associate('input', 'output')
+raam.associate('context', 'outcontext')
+raam.setInputs([ [ "john", "likes", "mary" ],
+                 [ "mary", "likes", "john" ],
+                 [ "john", "is", "john" ],
+                 [ "mary", "is", "mary" ],
+               ])
+# Network learning parameters:
+raam.setLearnDuringSequence(1)
+raam.setReportRate(10)
+raam.setEpsilon(0.1)
+raam.setMomentum(0.0)
+raam.setBatch(0)
+# Ending criteria:
+raam.setTolerance(0.4)
+raam.setStopPercent(1.0)
+raam.setResetEpoch(5000)
+raam.setResetLimit(0)
+# Train:
+raam.train()
+# Test:
+raam.setLearning(0)
+raam.setInteractive(1)
+raam.sweep()
+raam.saveWeightsToFile("raam.wts")
+</pre>
+<hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroRAAMExample?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroRAAMExample?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

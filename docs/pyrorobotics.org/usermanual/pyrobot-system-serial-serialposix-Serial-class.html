@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129002844", "pyrorobotics.org");
+</script>
+  <title>pyrobot.system.serial.serialposix.Serial</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-system-module/">Package&nbsp;system</a> ::
+        <a href="../../usermanual/pyrobot-system-serial-module/">Package&nbsp;serial</a> ::
+        <a href="../../usermanual/pyrobot-system-serial-serialposix-module/">Module&nbsp;serialposix</a> ::
+        Class&nbsp;Serial
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Type Serial</h2>
+<pre class="base-tree">
+<a href="../../usermanual/__builtin__-object-class/"><code>object</code></a> --+        
+         |        
+  <a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/"><code>FileLike</code></a> --+    
+             |    
+    <a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/"><code>SerialBase</code></a> --+
+                 |
+                <b>Serial</b>
+</pre><br/>
+<hr/>
+<pre class="literalblock">
+Serial port class POSIX implementation. Serial port configuration is 
+done with termios and fcntl. Runs on Linux and many other Un*x like
+systems.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#close" class="summary-sig-name"><code>close</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Close port...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#drainOutput" class="summary-sig-name"><code>drainOutput</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+internal - not portable!...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#flushInput" class="summary-sig-name"><code>flushInput</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Clear input buffer, discarding all that is in the buffer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#flushOutput" class="summary-sig-name"><code>flushOutput</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Clear output buffer, aborting the current output and
+discarding all that is in the buffer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#getCD" class="summary-sig-name"><code>getCD</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Read terminal status line: Carrier Detect...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#getCTS" class="summary-sig-name"><code>getCTS</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Read terminal status line: Clear To Send...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#getDSR" class="summary-sig-name"><code>getDSR</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Read terminal status line: Data Set Ready...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#getRI" class="summary-sig-name"><code>getRI</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Read terminal status line: Ring Indicator...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#inWaiting" class="summary-sig-name"><code>inWaiting</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of characters currently in the input buffer.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="makeDeviceName"></a><span class="summary-sig"><span class="summary-sig-name">makeDeviceName</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">port</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#nonblocking" class="summary-sig-name"><code>nonblocking</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+internal - not portable!...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#open" class="summary-sig-name"><code>open</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Open port with current settings.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#read" class="summary-sig-name"><code>read</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">size</span>)</span></code>
+<br/>
+Read size bytes from the serial port.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#sendBreak" class="summary-sig-name"><code>sendBreak</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Send break condition.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#setDTR" class="summary-sig-name"><code>setDTR</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">on</span>)</span></code>
+<br/>
+Set terminal status line: Data Terminal Ready...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#setRTS" class="summary-sig-name"><code>setRTS</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">on</span>)</span></code>
+<br/>
+Set terminal status line: Request To Send...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialposix-Serial-class/#write" class="summary-sig-name"><code>write</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">data</span>)</span></code>
+<br/>
+Output the given string over the serial port.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from SerialBase</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">port</span>,
+          <span class="summary-sig-arg">baudrate</span>,
+          <span class="summary-sig-arg">bytesize</span>,
+          <span class="summary-sig-arg">parity</span>,
+          <span class="summary-sig-arg">stopbits</span>,
+          <span class="summary-sig-arg">timeout</span>,
+          <span class="summary-sig-arg">xonxoff</span>,
+          <span class="summary-sig-arg">rtscts</span>)</span></code>
+<br/>
+Initialize comm port object.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#__repr__" class="summary-sig-name"><code>__repr__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+String representation of the current port settings and its state.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getBaudrate" class="summary-sig-name"><code>getBaudrate</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current baudrate setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getByteSize" class="summary-sig-name"><code>getByteSize</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current byte size setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getParity" class="summary-sig-name"><code>getParity</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current parity setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getPort" class="summary-sig-name"><code>getPort</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+get the current port setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getRtsCts" class="summary-sig-name"><code>getRtsCts</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current RtsCts setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getStopbits" class="summary-sig-name"><code>getStopbits</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current stopbits setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getSupportedBaudrates" class="summary-sig-name"><code>getSupportedBaudrates</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getSupportedByteSizes" class="summary-sig-name"><code>getSupportedByteSizes</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getSupportedParities" class="summary-sig-name"><code>getSupportedParities</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getSupportedStopbits" class="summary-sig-name"><code>getSupportedStopbits</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getTimeout" class="summary-sig-name"><code>getTimeout</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current timeout setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#getXonXoff" class="summary-sig-name"><code>getXonXoff</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Get the current XonXoff setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#isOpen" class="summary-sig-name"><code>isOpen</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Check if the port is opened.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setBaudrate" class="summary-sig-name"><code>setBaudrate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">baudrate</span>)</span></code>
+<br/>
+Change baudrate.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setByteSize" class="summary-sig-name"><code>setByteSize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bytesize</span>)</span></code>
+<br/>
+Change byte size.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setParity" class="summary-sig-name"><code>setParity</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">parity</span>)</span></code>
+<br/>
+Change parity setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setPort" class="summary-sig-name"><code>setPort</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">port</span>)</span></code>
+<br/>
+Change the port.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setRtsCts" class="summary-sig-name"><code>setRtsCts</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">rtscts</span>)</span></code>
+<br/>
+Change RtsCts setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setStopbits" class="summary-sig-name"><code>setStopbits</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">stopbits</span>)</span></code>
+<br/>
+Change stopbits size.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setTimeout" class="summary-sig-name"><code>setTimeout</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">timeout</span>)</span></code>
+<br/>
+Change timeout setting.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#setXonXoff" class="summary-sig-name"><code>setXonXoff</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">xonxoff</span>)</span></code>
+<br/>
+Change XonXoff setting.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from FileLike</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#flush" class="summary-sig-name"><code>flush</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+flush of file like objects...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#readline" class="summary-sig-name"><code>readline</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">size</span>,
+          <span class="summary-sig-arg">eol</span>)</span></code>
+<br/>
+read a line which is terminated with end-of-line (eol) character...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#readlines" class="summary-sig-name"><code>readlines</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sizehint</span>,
+          <span class="summary-sig-arg">eol</span>)</span></code>
+<br/>
+read a list of lines, until timeout...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#writeline" class="summary-sig-name"><code>writeline</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">message</span>,
+          <span class="summary-sig-arg">eol</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#writelines" class="summary-sig-name"><code>writelines</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#xreadlines" class="summary-sig-name"><code>xreadlines</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sizehint</span>)</span></code>
+<br/>
+just call readlines - here for compatibility...</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from object</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__delattr__" class="summary-sig-name"><code>__delattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__delattr__('name') &lt;==&gt; del x.name...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__getattribute__" class="summary-sig-name"><code>__getattribute__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__getattribute__('name') &lt;==&gt; x.name...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__hash__" class="summary-sig-name"><code>__hash__</code></a>(<span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+x.__hash__() &lt;==&gt; hash(x)...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__new__" class="summary-sig-name"><code>__new__</code></a>(<span class="summary-sig-arg">T</span>,
+          <span class="summary-sig-arg">S</span>,
+          <span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+T.__new__(S, ...) -&gt; a new object with type S, a subtype of T...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__reduce__" class="summary-sig-name"><code>__reduce__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+helper for pickle...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__reduce_ex__" class="summary-sig-name"><code>__reduce_ex__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+helper for pickle...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__setattr__" class="summary-sig-name"><code>__setattr__</code></a>(<span class="summary-sig-vararg">...</span>)</span></code>
+<br/>
+x.__setattr__('name', value) &lt;==&gt; x.name = value...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/__builtin__-object-class/#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+x.__str__() &lt;==&gt; str(x)...</td></tr>
+</table><br/>
+<!-- =========== START OF PROPERTY SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Property Summary</th></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from SerialBase</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#baudrate"><code>baudrate</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#bytesize"><code>bytesize</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#parity"><code>parity</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#port"><code>port</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#rtscts"><code>rtscts</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#stopbits"><code>stopbits</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#timeout"><code>timeout</code></a></b></td></tr><tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#xonxoff"><code>xonxoff</code></a></b></td></tr></table><br/>
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from SerialBase</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#BAUDRATES"><code>BAUDRATES</code></a></b> = <span title="(50, 75, 110, 134, 150, 200, 300, 600, 1200, 1800, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400, 460800, 500000, 576000, 921600, 1000000, 1152000, 1500000, 2000000, 2500000, 3000000, 3500000, 4000000)"><code>(50,&nbsp;75,&nbsp;110,&nbsp;134,&nbsp;150,&nbsp;200,&nbsp;300,&nbsp;600,&nbsp;1200,<span class="variable-ellipsis">...</span></code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#BYTESIZES"><code>BYTESIZES</code></a></b> = <span title="(5, 6, 7, 8)"><code>(5,&nbsp;6,&nbsp;7,&nbsp;8)                                 </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#PARITIES"><code>PARITIES</code></a></b> = <span title="('N', 'E', 'O')"><code>('N',&nbsp;'E',&nbsp;'O')                               </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>tuple</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-system-serial-serialutil-SerialBase-class/#STOPBITS"><code>STOPBITS</code></a></b> = <span title="(1, 2)"><code>(1,&nbsp;2)                                        </code>
+</span></td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="close"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">close</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Close port
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="drainOutput"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">drainOutput</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+internal - not portable!
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="flushInput"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">flushInput</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Clear input buffer, discarding all that is in the buffer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="flushOutput"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">flushOutput</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Clear output buffer, aborting the current output and
+discarding all that is in the buffer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getCD"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getCD</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read terminal status line: Carrier Detect
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getCTS"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getCTS</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read terminal status line: Clear To Send
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getDSR"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getDSR</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read terminal status line: Data Set Ready
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getRI"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getRI</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read terminal status line: Ring Indicator
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="inWaiting"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">inWaiting</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Return the number of characters currently in the input buffer.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="nonblocking"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">nonblocking</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+internal - not portable!
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="open"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">open</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Open port with current settings. This may throw a SerialException
+if the port cannot be opened.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="read"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">read</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">size</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Read size bytes from the serial port. If a timeout is set it may
+return less characters as requested. With no timeout it will block
+until the requested number of bytes is read.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#read"><code>pyrobot.system.serial.serialutil.FileLike.read</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="sendBreak"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">sendBreak</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Send break condition.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setDTR"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setDTR</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">on</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set terminal status line: Data Terminal Ready
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="setRTS"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">setRTS</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">on</span>=<span class="sig-default">1</span>)</span>
+  </h3>
+<pre class="literalblock">
+Set terminal status line: Request To Send
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="write"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">write</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">data</span>)</span>
+  </h3>
+<pre class="literalblock">
+Output the given string over the serial port.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-system-serial-serialutil-FileLike-class/#write"><code>pyrobot.system.serial.serialutil.FileLike.write</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

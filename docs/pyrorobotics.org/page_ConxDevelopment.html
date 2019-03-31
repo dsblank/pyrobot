@@ -1,0 +1,116 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219121230", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: ConxDevelopment</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+Here is a small tutorial on extending Python in C: <a href="../page_ExtendingPython/">ExtendingPython</a>. Feel free to add or edit. -Doug
+<p>
+Most of the changes I was planning on making have been made. Conx is still open to tweaking and bug fixes or new suggestions. Here's a change list that documents what changes have been made.
+<p>
+<p>
+<h3 width="804"> Your Bugs or Suggestions</h3>
+<p>
+<p>
+<h2 width="804"> Change List</h2>
+<ol type="1"><li>Adopted Python idioms where appropriate. ex. <tt class="wiki">for i in range(len(&lt;list of objects&gt;))</tt> becomes <tt class="wiki">for item in &lt;list of objects&gt;</tt></li>
+<li>Changes some attribute names. ex. Network.input -&gt; Network.inputs, Network.output -&gt; Network.targets, Network.connection -&gt; Network.connections</li>
+<li>Changes some method names. Where possible the old method names are still around for compatibility. ex. <tt class="wiki">Network.setOutputs() -&gt; Network.setTargets()</tt>, but <tt class="wiki">Network.setOutputs()</tt> is still around.</li>
+<li>Fixed and modified many file IO methods in the Network class. ex. Added <tt class="wiki">Network.patternVector()</tt> so that inputs or targets read from a file can be converted back into patterns.</li>
+<li>Added <tt class="wiki">Network.addPattern()</tt> and <tt class="wiki">Network.delPattern()</tt> which are safer than <tt class="wiki">Network.setPattern()</tt> which might unknowingly delete a previous pattern.</li>
+<li>Modified exceptions to be more detailed. Added exception extension classes, <tt class="wiki">LayerError</tt>, <tt class="wiki">NetworkError</tt>, and <tt class="wiki">SRNError</tt>. These extend <tt class="wiki">AttributeError</tt> (most errors are due to attribute problems). Additionally, exceptions return a tuple with the first item being a string describing the problem and the second being the values of the offending variable(s).</li>
+<li>Organized methods according to function for easier browsing. Included comments describing each group of methods.</li>
+<li>Added doc strings to all methods. Pydoc will generate documentation based on these doc strings.</li>
+<li>Eliminated all counter attributes describing list attributes where <tt class="wiki">len(&lt;list&gt;)</tt> is a viable substitute. I'm assuming <tt class="wiki">len()</tt> for a listtype in python is implemented in constant time but I have no documentation for this. If not, this is easy to change back. Using <tt class="wiki">len(&lt;list&gt;)</tt> is safer.</li>
+<li>Moved some methods into SRN that were related to prediction and sequencing that weren't alread there.</li>
+<li>SRN class now has <tt class="wiki">addContext()</tt> method. This is similar to <tt class="wiki">Network.add()</tt> but takes a Layer instance argument and an option hidden layer name. Call <tt class="wiki">addContext()</tt> when adding a context layer associated with a hidden layer (default 'hidden').</li>
+<li><tt class="wiki">addContext()</tt> adds the layer to the network and also to a dictionary of (hidden layer name, context layer reference) items.</li>
+<li>Added <tt class="wiki">SRN.copyHiddenToContext()</tt> which copies hidden layer activations to context layers automatically for all context layers added using <tt class="wiki">addContext</tt>.</li>
+<li>Added more testing code with emphasis on exceptions and file IO.</li>
+<li>Added a method <tt class="wiki">verifyArchitecture()</tt> to Network. <tt class="wiki">verifyArchitecture()</tt> is called in <tt class="wiki">train()</tt>. <tt class="wiki">propagate()</tt> no longer checks to make sure there is a valid network. <tt class="wiki">verifyArchitecture()</tt> must be called to check this.</li>
+<li>Added testing code for <tt class="wiki">verifyArchitecture()</tt> at the end of conx.</li>
+</ol><p>
+<p>
+<h3 width="804"> Previous Changes</h3>
+<ol type="1"><li>Removed SRN specific code from Network class. (Sequencing and prediction)</li>
+<li>Added activationSet and targetSet flags to Layer class.</li>
+<li>Should targetSet flag have to be reset before copying or setting another target.</li>
+<li>Added <tt class="wiki">verifyInputs()</tt> to <tt class="wiki">propagate()</tt> for error checking.</li>
+<li>Added <tt class="wiki">verifyTargets()</tt> to <tt class="wiki">backprop()</tt> for error checking.</li>
+<li>Added many exceptions.</li>
+</ol><p>
+<p>
+<h3 width="804"> Most Recent Changes</h3>
+<ol type="1"><li>Inputs and targets can be passed to step() as dictionary arguments in the form: &lt;layer name&gt; = &lt;input/target list&gt;</li>
+<li>The <tt class="wiki">step()</tt> method when called from SRN copies context to hidden automatically or clears context depending on the argument <tt class="wiki">initContext = {0, 1</tt>}.</li>
+<li>Fixed plugin NN brains.</li>
+<li>Activations between 0-1 produce warning</li>
+<li>Targets between 0-1 throw exception</li>
+<li>Checks arguments to <tt class="wiki">setInputs</tt> and <tt class="wiki">setOutputs [[num,num,..],[...],...]</tt></li>
+<li><tt class="wiki">step()</tt> does not increment epoch</li>
+<li><tt class="wiki">addSRNLayer -&gt; addThreeLayers</tt></li>
+<li>Reimplemented target check for multiple targets as warning</li>
+<li>Bured <tt class="wiki">copyHiddenToContext()</tt> in <tt class="wiki">backprop()</tt></li>
+<li>New type &quot;kind&quot; for layers</li>
+<li>Added <tt class="wiki">prop_from()</tt> method</li>
+<li><tt class="wiki">connect()</tt> inforces layer and connection order</li>
+<li>Weight matrix problem (getWeights) fixed</li>
+<li>remove symmetric support</li>
+</ol><p>
+<p>
+<h3 width="804"> Numeric Conx</h3>
+<p>
+Conx now employs Numeric functions wherever possible. The speed of Conx should be noticably faster. I would estimate that moving Conx completely into C may make the code faster yet by a factor of two or more, but using Numeric functions in Python preserves the ease of extensibility that Python offers while now running at a reasonable speed. 
+<p>
+<p>
+<h3 width="804"> Road Map to C</h3>
+<p>
+After doing more research on Friday I have discovered two options for moving conx code to C(++). If preserving the OO structure of the program is important then Boost.Python is probably the way to go. This is sort of like SWIG for C++ and would hopefully allow easy implementation of Python classes in C++. The second option is to create a Network type in C exclusively. This would involve taking all the core functionality to C code (not just single methods as I was trying before). The benefit is that those methods would become C code operating on C data structures, eliminating the overhead and providing the best optimization. We could then wrap this new type in a class that would provide some of the functionality (error checking etc...) left out of the C code and subclass it to create SRN specific code. The Layer and Connection classes would no longer exist, being folded into the Network type implementation.
+<p>
+<p>
+C++ and Boost Pros
+<ul><li>Possibly using existing C++ code (early conx prototype)</li>
+<li>Preserve OO coding paradigm</li>
+<li>Possibly translate C++ classes directly to Python for easy extensibility</li>
+C++ and Boost Cons
+<li>I do not know how to program in C++</li>
+<li>Boost may not provide an easy translation from C++ to Python and I have no way of evaluating this</li>
+<li>Some extensibility issues may not be easily resolvable without modifying C++ code</li>
+<li>Not the standard approach so less examples of use</li>
+<li>Nonstandard installation</li>
+C Type Extension Pros
+<li>I can program in C</li>
+<li>Python C API (usable in C++)</li>
+<li>Doesn't depend on 3rd party library (only Python API)</li>
+<li>This is the standard method of optimization so plenty of examples</li>
+C Type Extension Cons
+<li>Difficulty maintaining a flexible code base</li>
+<li>Lisa mentioned the following example: Suppose we wanted to change the activation function or have different activation functions for different layers. A hard coded C type would not allow this (from Python at least).</li>
+<li>For the above, we can provide function call backs to python in both C and C++ to make the code base more extensible in python.</li>
+<li>Difficult to predict what future features may be excluded (not easily extensible)</li>
+</ul><p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/ConxDevelopment?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/ConxDevelopment?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

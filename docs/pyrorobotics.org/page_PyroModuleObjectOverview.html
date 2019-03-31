@@ -1,0 +1,161 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093830", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleObjectOverview</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<i>This is an introduction to the key abstractions used in the Pyro Robotics system. This module provides an exploration of the objects and their attributes, properties, and methods. When completed, the reader should be able to discuss the design of robotics controllers.</i>
+<p>
+<p>
+<h1 width="804"> Overview of Pyro Objects</h1>
+<p>
+Pyro is written using object oriented programming (OOP) in Python. There are
+four main classes in Pyro: <b>robot</b>, <b>brain</b>, <b>gui</b>, and <b>engine</b>. This module
+will explore these objects and how they interact to form the core of
+Pyro.
+<p>
+<p>
+<h3 width="804"> pyrobot.robot</h3>
+<p>
+In order to do anything in Pyro, you will need a Pyro robot
+instance. All robot types are extensions of <tt class="wiki">pyrobot.robot</tt>. The following
+table shows the names of robots and their corresponding simulator or
+hardware.
+<p>
+<table border="1"><tr><td> <b>Pyro Robot Name</b> </td><td> <b>Pyro Simulator Name</b> </td><td> <b>Robot Hardware</b> </td></tr>
+<tr><td> <tt class="wiki">PyrobotRobot60000</tt> </td><td> Pyrobot<b></b>Simulator </td><td> Pioneer family </td></tr>
+<tr><td> Player6665, Player6666 </td><td> Stage<b></b>Simulator, Gazebo<b></b>Simulator </td><td> Pioneer family, ER1, Khepera, B21R, etc. </td></tr>
+<tr><td> Khepera, Hemisson </td><td> N/A </td><td> Khepera 1 and 2, Hemisson </td></tr>
+<tr><td> <tt class="wiki">KheperaSimulated</tt> </td><td> Khepera<b></b>Simulator </td><td> N/A </td></tr>
+<tr><td> <tt class="wiki">Robocup, RobocupTeamA, RobocupTeamB</tt> </td><td> Robocup<b></b>Simulator </td><td> N/A </td></tr>
+<tr><td> <tt class="wiki">IntelliBrain-Bot</tt> </td><td> N/A </td><td> Intelli<b></b>Brain-Bot </td></tr>
+<tr><td> <tt class="wiki">Roomba</tt> </td><td> N/A </td><td> Roomba </td></tr>
+</table>Player also includes support for the Segway human transport, among
+others. There is also an API for controlling Fred Martin's Handyboard
+via a serial tether from Pyro. Researchers are also working on ports
+to Mac OS X and Windows.
+<p>
+Each simulator is actually a different process, and each one has its
+own method of talking to Pyro. For example, the simulator for the
+Pyrobot robots uses ports, while <tt class="wiki">KheperaSimulated</tt> uses shared
+memory.
+<p>
+It is generally a requirement to start up any simulator before
+attempting to load the corresponding Pyro robot instance. On the other
+hand, you should stop Pyro before stopping a simulator. Consider a
+simulator to be the server, and Pyro the client. A server will stop when 
+Pyro is stopped.
+<p>
+Robot objects are responsible for the details of interfacing with the
+simulators and real hardware. All robots are defined in the
+<tt class="wiki">pyrobot/robot/</tt> directory. For example, the following files have the details
+of connecting onto the symbolic Pyrobot simulator, Player, and Khepera robots, respectively:
+<p>
+<pre class="code">
+pyrobot/robot/symbolic.py
+pyrobot/robot/player.py
+pyrobot/robot/khepera.py
+</pre>
+<p>
+For some robots, this involves many details. You may find that some of
+the lowest-level details are in a lower-level directory of
+pyrobot/robot/. But all robots get their core definition from:
+<p>
+<pre class="code">
+pyrobot/robot/__init__.py
+</pre>
+<p>
+Robot instances are passive objects: they only do things when a brain
+or gui object tells them to. They command the motors of real
+and simulated robots, but only as directed by a brain.
+<p>
+<p>
+<h3 width="804"> pyrobot.brain</h3>
+<p>
+Each robot has exactly one brain. All brains are extensions of:
+<p>
+<pre class="code">
+pyrobot/brain/__init__.py
+</pre>
+<p>
+Brains are themselves extensions of threads. Thus, brains are capable
+of running on their own, in their own process. Sometimes a brain may
+have multiple <i>behaviors</i>, but they all run in a single thread.
+<p>
+Brains may operate continuously, but they do so one <tt class="wiki">step</tt> at a
+time. Most brain threads call their step() methods about 10 times per
+second. But you can implement your own brain that steps many thousands
+of times a second.
+<p>
+If you have loops (<b>for</b> or <b>while</b> loops, for example) in
+your step function, you may experience erratic behavior, either in the
+robot or in the gui. Remember that step() is already in a loop, and
+runs many times a second.
+<p>
+<p>
+<h3 width="804"> pyrobot.gui</h3>
+<p>
+Each brain/robot pair has an associated graphical user interface, or
+gui. The basic gui is defined in:
+<p>
+<pre class="code">
+pyrobot/gui/__init__.py
+</pre>
+<p>
+The gui is responsible for drawing things, if necessary. There are two
+main gui's, and they must be indicated on the command line:
+<p>
+<pre class="code">
+pyrobot -g tty     # A basic TTY console non-gui
+pyrobot -g tk      # A Tk-based graphical interface
+</pre>
+<p>
+The tty gui is a bare interface to provide interaction and control
+over a slow connection, such as wireless. The tk gui will ask the
+robot (and its devices) for data so that it can render visual
+representations. Note that the tty GUI does not update devices' displays. 
+If you run with the tty gui and wish to have graphical windows (for example, on 
+a camera) then you will need an <tt class="wiki">camera.updateWindow()</tt> call in your
+brain.
+<p>
+<p>
+<h3 width="804"> pyrobot.engine</h3>
+<p>
+Finally, the engine is the last main object. The engine is designed as
+a container for the brain/robot/gui trio (and some other overhead
+objects). The engine is the place where the above objects can find
+each other. You can find the engine definition in:
+<p>
+<pre class="code">
+pyrobot/engine/__init__.py
+</pre>
+<p>
+You can ignore engines, as they are not seen unless you want to write raw 
+Python code to control multiple robots.
+<p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleObjectOverview?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleObjectOverview?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

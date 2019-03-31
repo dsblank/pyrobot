@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101128204621", "pyrorobotics.org");
+</script>
+  <title>pyrobot.brain.ravq</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-brain-module/">Package&nbsp;brain</a> ::
+        Module&nbsp;ravq
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-brain-ravq-module/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF MODULE DESCRIPTION =========== -->
+<h2 class="module">Module pyrobot.brain.ravq</h2>
+<!-- =========== START OF CLASSES =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Classes</th></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-ravq-ARAVQ-class/"><code>ARAVQ</code></a></b></td>
+  <td>Extends RAVQ as described in Linaker and Niklasson.</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-ravq-ModelList-class/"><code>ModelList</code></a></b></td>
+  <td>&nbsp;</td></tr>
+<tr><td width="15%">
+  <b><a href="../../usermanual/pyrobot-brain-ravq-RAVQ-class/"><code>RAVQ</code></a></b></td>
+  <td>Implements RAVQ algorithm as described in Linaker and Niklasson.</td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Function Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#averageVector" class="summary-sig-name"><code>averageVector</code></a>(<span class="summary-sig-arg">V</span>)</span></code>
+<br/>
+Determines the average vector of a set of vectors V.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#dec2bin" class="summary-sig-name"><code>dec2bin</code></a>(<span class="summary-sig-arg">val</span>,
+          <span class="summary-sig-arg">maxbits</span>)</span></code>
+<br/>
+A decimal to binary converter.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#euclideanDistance" class="summary-sig-name"><code>euclideanDistance</code></a>(<span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">mask</span>)</span></code>
+<br/>
+Takes two Numeric vectors as arguments.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#getDistance" class="summary-sig-name"><code>getDistance</code></a>(<span class="summary-sig-arg">V</span>,
+          <span class="summary-sig-arg">X</span>,
+          <span class="summary-sig-arg">mask</span>)</span></code>
+<br/>
+d(V, X) = (1/|X|) Sum[i = 1 to |X|]{ min[j = 1 to |V|] {|| x_i - v_j||} }
+where x_i is in X and v_j is in V.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#logBaseTwo" class="summary-sig-name"><code>logBaseTwo</code></a>(<span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Returns integer ceil of log_2 of value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#makeBitList" class="summary-sig-name"><code>makeBitList</code></a>(<span class="summary-sig-arg">maxbits</span>)</span></code>
+<br/>
+This version is much more flexible as it relies on a general function 
+that takes any number and converts it to binary.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#makeNoisyList" class="summary-sig-name"><code>makeNoisyList</code></a>(<span class="summary-sig-arg">ls</span>,
+          <span class="summary-sig-arg">percentNoise</span>,
+          <span class="summary-sig-arg">minVal</span>,
+          <span class="summary-sig-arg">maxVal</span>)</span></code>
+<br/>
+Returns a noisy version of the given list, and assumes a range
+of values between 0.0 and 1.0.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#makeNoisySequence" class="summary-sig-name"><code>makeNoisySequence</code></a>(<span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-arg">repeat</span>,
+          <span class="summary-sig-arg">percentNoise</span>)</span></code>
+<br/>
+Returns a noisy version of the given sequence, with each item
+repeated the number of times designated by the repeat variable.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-brain-ravq-module/#stringArray" class="summary-sig-name"><code>stringArray</code></a>(<span class="summary-sig-arg">a</span>,
+          <span class="summary-sig-arg">newline</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">format</span>)</span></code>
+<br/>
+String form of an array (any sequence of floats, really) to the screen.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="tooSmall"></a><span class="summary-sig"><span class="summary-sig-name">tooSmall</span>(<span class="summary-sig-arg">v</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Variable Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-brain-ravq-module/#__author__"><code>__author__</code></a></b> = <span title="'Jeremy Stober'"><code><span class="variable-quote">'</span>Jeremy&nbsp;Stober<span class="variable-quote">'</span>                             </code>
+</span></td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>str</code></font></td>
+<td><b><a href="../../usermanual/pyrobot-brain-ravq-module/#__version__"><code>__version__</code></a></b> = <span title="'$Revision: 1.51 $'"><code><span class="variable-quote">'</span>$Revision:&nbsp;1.51&nbsp;$<span class="variable-quote">'</span>                        </code>
+</span></td></tr>
+</table><br/>
+<!-- =========== START OF FUNCTION DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Function Details</th></tr>
+</table>
+<a name="averageVector"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">averageVector</span>(<span class="sig-arg">V</span>)</span>
+  </h3>
+<pre class="literalblock">
+Determines the average vector of a set of vectors V.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="dec2bin"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">dec2bin</span>(<span class="sig-arg">val</span>,
+          <span class="sig-arg">maxbits</span>=<span class="sig-default">8</span>)</span>
+  </h3>
+<pre class="literalblock">
+A decimal to binary converter. Returns bits in a list.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="euclideanDistance"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">euclideanDistance</span>(<span class="sig-arg">x</span>,
+          <span class="sig-arg">y</span>,
+          <span class="sig-arg">mask</span>)</span>
+  </h3>
+<pre class="literalblock">
+Takes two Numeric vectors as arguments.
+d(x, y) = sqrt(Sum[i = 1 to |x|]{(x_i - y_i) ^ 2 * mask_i})
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="getDistance"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">getDistance</span>(<span class="sig-arg">V</span>,
+          <span class="sig-arg">X</span>,
+          <span class="sig-arg">mask</span>)</span>
+  </h3>
+<pre class="literalblock">
+d(V, X) = (1/|X|) Sum[i = 1 to |X|]{ min[j = 1 to |V|] {|| x_i - v_j||} }
+where x_i is in X and v_j is in V.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="logBaseTwo"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">logBaseTwo</span>(<span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns integer ceil of log_2 of value.
+Python 2.3 should support different log bases.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeBitList"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeBitList</span>(<span class="sig-arg">maxbits</span>=<span class="sig-default">8</span>)</span>
+  </h3>
+<pre class="literalblock">
+This version is much more flexible as it relies on a general function 
+that takes any number and converts it to binary. You can make any 
+size bit representation that you want: 
+makeBitList(2) will give you: [[0, 0], [0, 1], [1, 0], [1, 1]] 
+for example. Defaults to 8 bits.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeNoisyList"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeNoisyList</span>(<span class="sig-arg">ls</span>,
+          <span class="sig-arg">percentNoise</span>=<span class="sig-default">0.10000000000000001</span>,
+          <span class="sig-arg">minVal</span>=<span class="sig-default">0.0</span>,
+          <span class="sig-arg">maxVal</span>=<span class="sig-default">1.0</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns a noisy version of the given list, and assumes a range
+of values between 0.0 and 1.0.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="makeNoisySequence"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">makeNoisySequence</span>(<span class="sig-arg">sequence</span>,
+          <span class="sig-arg">repeat</span>,
+          <span class="sig-arg">percentNoise</span>=<span class="sig-default">0.10000000000000001</span>)</span>
+  </h3>
+<pre class="literalblock">
+Returns a noisy version of the given sequence, with each item
+repeated the number of times designated by the repeat variable.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="stringArray"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">stringArray</span>(<span class="sig-arg">a</span>,
+          <span class="sig-arg">newline</span>=<span class="sig-default">1</span>,
+          <span class="sig-arg">width</span>=<span class="sig-default">0</span>,
+          <span class="sig-arg">format</span>=<span class="sig-default">'%4.4f&nbsp;'</span>)</span>
+  </h3>
+<pre class="literalblock">
+String form of an array (any sequence of floats, really) to the screen.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF VARIABLE DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Variable Details</th></tr>
+</table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__author__"></a>
+<h3>__author__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+      </dd>
+<span title="'Jeremy Stober'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>Jeremy Stober<span class="variable-quote">'</span>                                                        </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<table width="100%" class="var-details" bgcolor="#e0e0e0"><tr><td>
+<a name="__version__"></a>
+<h3>__version__</h3>
+<dl>
+  <dt></dt>
+  <dd>
+    <dl>
+      <dt><b>Type:</b></dt>
+      <dd>
+          <code>str</code>
+      </dd>
+<span title="'$Revision: 1.51 $'">      <dt><b>Value:</b></dt>
+      <dd><table><tr><td>
+<pre class="variable">
+<span class="variable-quote">'</span>$Revision: 1.51 $<span class="variable-quote">'</span>                                                    </pre>
+        </td></tr></table></dd>
+</span>    </dl>
+  </dd>
+</dl></td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:27 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

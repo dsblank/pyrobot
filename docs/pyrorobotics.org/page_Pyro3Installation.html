@@ -1,0 +1,344 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104248", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro3Installation</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+ <img width="11" src="../wiki/img/idea.png"> You may want to check out <a href="../page_PyroWhatsNew/">PyroWhatsNew</a>. After installing, see <a href="../page_PyroSetUp/">PyroSetUp</a> and <a href="../page_PyroForBeginners/">PyroForBeginners</a> for site-specific changes and information.
+<p>
+<p>
+<h1 width="804"> Pyro Installation</h1>
+<p>
+This page documents the procedure to install <a href="../page_Pyro/">Pyro</a>. Pyro has been tested under Red<b></b>Hat Linux versions 7.x, 8.0, and 9. Pyro should work under any system that supports Python. To begin, you will need Python and a good compiler (gcc). On top of that, follow the instructions below, and please update this page if you have useful hints or questions. Thanks, and good luck!
+<p>
+<hr>
+<p>
+To install and use Pyro, you will need all of the following:
+<p>
+<ol type="0"><li>SWIG, 1.3.17 or greater <a href="http://swig.org/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;SWIG</a> - higher versions needed for Aria; any version for other stuff, including self-organizing map and vision processing</li>
+<li>Python 2.2, or greater <a href="http://python.org/download/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Python.org</a></li>
+<li>Python Numeric module <a href="http://www.pfdubois.com/numpy/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Numpy</a> - needed for image processing and neural networks. Use Numeric version 22 for Pyro 3.3.0 or less. You can use the latest and greatest Numeric (version 23) with Pyro 3.3.1 and greater.</li>
+<li>Python Image Library <a href="http://www.pythonware.com/products/pil/index.htm"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;PIL</a> - for images and other displays. See notes below for version 1.1.4.</li>
+<li>Tkinter, Tk for Python (from your Red Hat RPMS. Red Hat 9 needed tkinter-*.rpm itcl-*.rpm, and tix-*.rpm) - for graphical interface. Not needed if you will run without GUI</li>
+<li>Pyro <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro</a> - you need this! <img width="11" src="../wiki/img/smile.png"> </li>
+Optional hardware and software include: 
+</ol><p>
+<ul><li>Player/Stage/Gazebo - simulators and API (see <a href="../page_PlayerStageInstallation/">PlayerStageInstallation</a>) Highly recommended!</li>
+<li>Robocup Soccer Simulator - multi-robot simulator (see <a href="../page_RobocupSoccerInstallation/">RobocupSoccerInstallation</a>). Beta version, but works pretty well. Needs work on simulated camera (colors and sizes of objects).</li>
+<li>Camera and Video 4 Linux (l4v) framegrabber - hardware for real-time image processing</li>
+<li>Khepera robot, with or without camera - small, nice robot (from K-Team)</li>
+<li>Pioneer2 robot (from <a href="../page_ActivMedia/">ActivMedia</a>)</li>
+<li>Aria, at least version 2.2 - for real Pioneer robots (open source from <a href="../page_ActivMedia/">ActivMedia</a>)</li>
+<li><a href="../page_SRIsim/">SRIsim</a> - Pioneer simulator, with real-world noisy sensors and odometry (from Kurt Konolige at SRI)</li>
+<li>Python module Py<b></b><a href="../page_OpenGL/">OpenGL</a> <a href="http://pyopengl.sourceforge.net/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;PyOpenGL</a> - not currently working</li>
+</ul><p>
+Soon, we hope to have packages for Debian (.deb) and Redhat (.rpm). However, until we do, you'll want to follow the instructions to make and install each of the different packages manually. But, we have begun to explore Debian's automatted installation tools. Jim Marshall has started a detail set of instructions for Debian: <a href="../page_PyroInstallationDebian/">PyroInstallationDebian</a>. Other users will probably want to follow the following install notes.
+<p>
+<p>
+<h2 width="804"> Step 0: Install Swig 1.3.17 or better</h2>
+<p>
+If you get an error about not finding SWIG or if your version is too low, you will need to install it. How can you tell?
+<p>
+<pre class="code">
+% swig -version
+SWIG Version 1.3.17u-20030407-1334
+Copyright (c) 1995-1998
+University of Utah and the Regents of the University of California
+Copyright (c) 1998-2002
+University of Chicago
+Compiled with CC
+</pre>
+<p>
+If your version is less than 1.3.17, then you need to upgrade.
+ <img width="11" src="../wiki/img/alert.png"> SWIG version 1.1 will not work! You must upgrade.
+<p>
+<p>
+<h2 width="804"> Step 1: Install Python 2.2 or better</h2>
+<p>
+If you already have Python 2.2 installed, go to step #2. How can you tell?
+<p>
+<pre class="code">
+% python
+Python 2.2.1 (#1, Oct 19 2001, 11:57:05) 
+[GCC 2.96 20000731 (Red Hat Linux 7.1 2.96-81)] on linux2
+Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt;
+</pre>
+<p>
+If the version number is less than 2.2, you need a more recent version. Press Control+d to exit. Sometimes python2.1 or python2.2 may be installed in addition to python1.5. Try typing <b>python2.2</b> or <b>python2.3</b> at the shell prompt. If the system comes back with something like <b>command not found</b> for both python2.2 and python2.3, then you will need to install a 2.x version of Python. Pyro has been tested with 2.2-2.3.
+<p>
+Download a version of Python 2 from <a href="http://python.org/download/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Python.org</a>. Follow the installation procedure. Usually, that looks something like:
+<p>
+<ol type="0"><li>su -</li>
+<li>tar xfz python-2.2.1.tgz</li>
+<li>cd python-2.2.1</li>
+<li>./configure</li>
+<li>make</li>
+<li>make install</li>
+</ol><p>
+It is a good idea after this step to exit from the shell that you are currently running (exit or Control+d) and start a new one. For example, your LD_LIBRARY_PATH may have changed, and you need to refresh it.
+<p>
+<p>
+<h2 width="804"> Step 2: Install Numeric.py</h2>
+<p>
+If you already have Numeric.py installed, go to step #3. How can you tell?
+<p>
+<pre class="code">
+&#36; python
+Python 2.1.1 (#1, Oct 19 2001, 11:57:05) 
+[GCC 2.96 20000731 (Red Hat Linux 7.1 2.96-81)] on linux2
+Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import Numeric
+&gt;&gt;&gt;
+</pre>
+<p>
+If this gives an error, then you need to install Numeric.py. You can find Numeric at <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/">emergent.brynmawr.edu/~dblank/pyrobot/tars/</a> . Installing it looks something like:
+<p>
+<ol type="0"><li>su -</li>
+<li>tar xfz Numeric-22.0.tar.gz</li>
+<li>cd Numeric-22.0</li>
+<li>python setup.py build</li>
+<li>python setup.py install</li>
+</ol><p>
+Note: You should install Numeric version 22, which includes the Random<b></b>Array module required by Con-x in Pyro version 3.3.0 and less.  You can use Numeric version 23 with Pyro 3.3.1 and greater.  Note: for Fedora Core 2, versions more recent than 23.1 will require updating Atlas to get lcblas. 
+<p>
+<p>
+<h2 width="804"> Step 3: Install PIL</h2>
+<p>
+If you already have the Python Image Library installed, go to step #4. How can you tell? 
+<p>
+<pre class="code">
+&#36; python
+Python 2.1.1 (#1, Oct 19 2001, 11:57:05) 
+[GCC 2.96 20000731 (Red Hat Linux 7.1 2.96-81)] on linux2
+Type &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import PIL
+&gt;&gt;&gt;
+</pre>
+<p>
+If this gives an error, then you need to install PIL. You can find PIL at <a href="http://www.pythonware.com/products/pil/index.htm.">www.pythonware.com/products/pil/index.htm.</a> Installing it looks something like:
+<p>
+<ol type="0"><li>su -</li>
+<li>tar xfz Imaging-1.1.4.tar.gz</li>
+<li>cd Imaging-1.1.4/libImaging/</li>
+<li>./configure</li>
+<li>make</li>
+<li>cd ..</li>
+<li>python2.1 setup.py build</li>
+<li>python2.1 setup.py install</li>
+ <img width="11" src="../wiki/img/alert.png"> To get 1.1.4 working under Fedora Core 2:
+</ol><p>
+<pre class="code">
+Taking the hint from /usr/include/freetype2/freetype/freetype.h, in
+_imagingft.c of the current PIL distribution replace
+  #include &lt;freetype/freetype.h&gt;
+with
+ #include &lt;ft2build.h&gt;
+ #include FT_FREETYPE_H
+</pre>
+<p>
+NOTE: For Fedora Core 2, a PIL rpm file can be obtained from <a href="http://atrpms.net/dist/fc2/PIL/.">atrpms.net/dist/fc2/PIL/.</a>
+<p>
+<p>
+<p>
+<p>
+<h2 width="804"> Step # 4: Install Tkinter</h2>
+<p>
+The latest versions of Python may not have included Tkinter. If you get an error in Python with <tt class="wiki">import Tkinter</tt> then you may need to install the <tt class="wiki">tkinter-XX.rpm, itcl-XX.rpm</tt> and <tt class="wiki">tix-XX.rpm</tt> files as well.
+<p>
+Note: For Fedora Core 2 use &quot;yum install tkinter&quot;.
+<p>
+<p>
+<h2 width="804"> Step #5: Install Pyro</h2>
+<p>
+Once the above have been installed, you are ready to setup the
+environment and make the Pyro C-based modules. You can find the latest Pyro installation files at: <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/">emergent.brynmawr.edu/~dblank/pyrobot/tars/</a> and select the highest numbered file.
+<p>
+Next, put the Pyro tar file where you will install the system:
+<p>
+<pre class="code">
+% su -
+% mv pyro-X.X.tgz /usr/local/
+% cd /usr/local
+</pre>
+<p>
+Untar the system, and change to that directory:
+<p>
+<pre class="code">
+% tar xfz pyro-X.X.tgz
+% cd pyro
+</pre>
+<p>
+Now you are ready to build Pyro. 
+<p>
+NOTE: you must build Pyro in the location that it will be installed. If you move it, you will need to remake it (make clean; make). 
+<p>
+Now, simply run 'make' in the root of the pyro subdirectory:
+<p>
+<pre class="code">
+% make
+</pre> 
+<p>
+The first step in the process is to define some variables. Answer the questions as they are posed. The answers will be stored in the file <b>Makefile.cfg</b>. You can run the config options again by running &quot;python configure.py&quot;. This will run automatically the first time when you run make. For example:
+<p>
+<pre class="code">
+&#36; make
+---------------------------------------------------------------------
+This is the configure.py script for installing Pyro, Python Robotics.
+Pressing ENTER by itself will accept the default (shown in brackets).
+---------------------------------------------------------------------
+What version of Python do you want to build Pyro for?
+(Leave empty if your Python binary is just &quot;python&quot;)
+If you need to type 'python2.2' to run Python, then
+enter &quot;2.2&quot;.
+-----------------------
+1. Python version number?
+[]: 2.2
+ -----------------------
+2. Where are Python's include files?
+[/usr/local/include/python2.2]: 
+ -----------------------
+3. Where is Python's binary?
+[/usr/local/bin/python2.2]: 
+ -----------------------
+4. Where is Saphira? (Type 'none' if you don't have it)
+[/usr/local/saphira/ver62]: 
+ -----------------------
+5. Where is the X11 include directory?
+[/usr/X11]: 
+Configuration is complete!
+You just created Makefile.cfg. You can run this again, or edit
+Makefile.cfg by hand if you need to.
+Now you are ready to run 'make'
+</pre>
+<p>
+Although you don't need to right now, you can also run &quot;make clean&quot;, and &quot;mkdir tars; make tar&quot;. 
+<p>
+<p>
+<h2 width="804"> Step #6: Testing the Installation</h2>
+<p>
+Now let's run the program. First, we need to set some environment variables. The following examples are given in the form assuming a bash-style console. If you use tcsh or another shell, you may have to use the &quot;setenv VAR=value&quot; format. Put some or all of the following (depending on what you have installed) in your &#36;HOME/.bashrc file.
+<p>
+<pre class="code">
+export PYTHONSTARTUP=&#36;HOME/.python                          # Needed for some nice features (history in Python)
+</pre>
+<p>
+If you will be running Saphira or Aria, then you also need to set these:
+<p>
+<pre class="code">
+export SAPHIRA=/usr/local/saphira/ver62/                    # Needed if you run the Pioneer robots
+export SAPHIRA_COMPIPE=/tmp/&#36;USER                           # Needed if you run the Pioneer robots
+export ARIA=/usr/local/Aria                                 # Needed for Saphira 8.0
+export PATH=&#36;PATH:/usr/local/Aria/bin                       # Needed for Saphira 8.0
+</pre>
+<p>
+All done!
+<p>
+You can now run Pyro with the command:
+<p>
+<pre class="code">
+% cd pyro
+% bin/pyro
+</pre>
+<p>
+or put pyrobot/bin in your path and just call <b>pyro</b>.
+<p>
+You should see a window appear, with no error messages. 
+<p>
+<p>
+<h2 width="804"> Optional: Python Command-line History</h2>
+<p>
+If you would like a nice command-line history in Python, put the following in your /home/YOURNAME/.python file:
+<p>
+<pre class="code">
+import os, readline
+histfile = os.path.join(os.environ[&quot;HOME&quot;], &quot;.pyhist&quot;)
+try:
+    readline.read_history_file(histfile)
+except IOError:
+    pass
+import atexit
+atexit.register(readline.write_history_file, histfile)
+#readline.parse_and_bind(&quot;tab: complete&quot;) 
+del os, histfile, readline
+</pre>
+<p>
+and <tt class="wiki">export PYTHONSTARTUP=~/.python</tt>.
+<p>
+See <a href="../page_PyroSetUp/">PyroSetUp</a> for further site customizations. That's it for installation! Have fun!
+<p>
+<p>
+<h2 width="804"> Trouble Shooting</h2>
+<p>
+What are some common problems people might have? Put your question or hint here. Thanks!
+<p>
+Version considerations:
+<p>
+<ol type="0"><li>At the <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;PyRo Tar Page</a> there are only old versions of player/stage/gazebo available. It seems that the new versions aren't yet supported. When is this planned?</li>
+</ol><p>
+The next planned version of Pyro (Pyro Version 4.0) is schedule to be ready around March, 2005. It is planned to have an upgraded interface, refactored internals to make some functions &quot;more Pythonic&quot;, be compatible with the latest Player/Stage/Gazebo, work with Sony's AIBO, and have versions for Windows and Macintosh.
+<p>
+<b>Additional Notes:</b>
+<p>
+<ul><li>if you are upgrading from an older version of Python, make sure you use your version of python in the calls to setup, like: &quot;python2.2 setup.py build&quot;</li>
+<li>if that fails, try: &quot;export PYTHONPATH=&quot; so that the new version of Python doesn't see the older files.</li>
+<li>See <a href="../page_PyroSetUp/">PyroSetUp</a> for further site customizations</li>
+<li>Compiling and installing everything into a brand-new Red Hat 9.0 system required the line</li>
+<pre class="code">
+        export LD_LIBRARY_PATH=/usr/local/lib
+</pre>
+<p>in the installer's .bashrc file. This might have been mentioned elsewhere, but it was the key for our install.
+<p>
+</ul><p>
+<h2 width="804"> Multiuser Robocup-Type Events</h2>
+<p>
+Here is an easy project: build a Gazebo or Stage world with as many robots as you have students. Start it on the server. Each student is assigned a port (or you could make robot.py files for each student with the port/hostname already defined). Then each would connect onto the server. You could:
+<p>
+<ol type="1"><li>Play soccer</li>
+<li>Race to see who grabs the most pucks</li>
+<li>Play tag (if your bumpers fire, your out)</li>
+<li>Indy 500 racing</li>
+</ol><p>
+One issue with this is that you will need to be able to access each machine. If you have a firewall up, here is how to poke some holes in it. You need to edit <tt class="wiki">/etc/sysconfig/iptables</tt> by adding the appropriate lines:
+<p>
+In Red<b></b>Hat 9.0, add:
+<p>
+<pre class="code">
+-A RH-Lokkit-0-50-INPUT -p tcp -m tcp --dport 6665:6765 --syn -j ACCEPT
+</pre>
+<p>
+In Fedora Core 2, add:
+<p>
+<pre class="code">
+-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 6665:6765 --syn -j ACCEPT
+</pre>
+<p>
+<hr>
+<p>
+Related topics:
+<p>
+<a href="http://emergent.brynmawr.edu/index.cgi/FindPage">Go here for full search functions</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro3Installation?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro3Installation?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

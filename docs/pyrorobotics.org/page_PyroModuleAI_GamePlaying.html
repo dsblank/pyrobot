@@ -1,0 +1,364 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219095944", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleAI:GamePlaying</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module AI Game Playing</h1>
+<p>
+This module explores two-person board game playing. This section looks at a simple version of checkers.
+<p>
+<img src="../_meeden/cs63/s04/konane.jpg">
+<p>
+<p>
+<h2 width="804"> Konane, Hawaiian Checkers</h2>
+<p>
+The game of Konane is typically played on an 8 x 8 board of light and dark pieces as shown below (using X for dark and O for light).
+<p>
+<pre class="code">
+                1 2 3 4 5 6 7 8
+        8       X O X O X O X O
+        7       O X O X O X O X
+        6       X O X O X O X O
+        5       O X O X O X O X
+        4       X O X O X O X O
+        3       O X O X O X O X
+        2       X O X O X O X O
+        1       O X O X O X O X
+</pre>
+<p>
+<p>
+<h3 width="804"> Rules</h3>
+<p>
+<i>These rules are slightly adapted.</i>
+<p>
+First, players pick their color (shape) and a coin is flipped to see who goes first. If the the dark player (X) wins the toss, then they remove a dark piece either at position (1,8), (8,1), (4,5), or (5,4). Likewise, if the light player (O) wins the toss, then they remove a piece from either (1,1), (8,8), (4,4), or (5,5).
+<p>
+Next the other player removes one of their pieces adjacent to the space created by the first move. Then the players alternate moves, each jumping one of his/her own pieces over one horizontally or vertically adjacent opponent piece, landing in a space on the other side, and removing the jumped piece. If desired, this may be continued in a multiple move, as long as the same piece is moved in a straight line. For example, after the following moves:
+<p>
+<pre class="code">
+        dark (X)                  light (O)
+        -----------------------   ---------------------------------
+        remove (5, 4)             remove (5, 5)
+        jump (3, 4) to (5, 4)     jump (5, 7) to (5, 5)
+        jump (3, 2) to (3, 4)     jump (5, 3) to (3, 3)
+        jump (7, 6) to (5, 6)     jump (6, 4) to (6, 6)
+        jump (7, 8) to (7, 6)     jump (2, 4) to (4, 4) to (6, 4)
+</pre>
+<p>
+the board looks like:
+<p>
+<pre class="code">
+                1 2 3 4 5 6 7 8
+        8       X O X O X O X O
+        7       O X O X O X . .
+        6       X O X O . O X O
+        5       O X . . O X . X
+        4       X O . . X O X O
+        3       O . O . O X O X
+        2       X O X . X O X O
+        1       O X O X O X O X
+</pre>
+<p>
+Play continues until one player can't move; this player loses.
+<p>
+<p>
+<h2 width="804"> Pyro Konane</h2>
+<p>
+The Konane simulator in Pyro can be played by two Pyro programs, or against a human.
+<p>
+<p>
+<h3 width="804"> Simulalator</h3>
+<p>
+Pyro uses the Symbolic<b></b>Simulator with the Konane<b></b>World.py. First, start pyro and select Symbolic<b></b>Simulator under <i>Servers:</i>. Then select Konane<b></b>World.py when asked for a world file. You should see a window come up that looks something like:
+<p>
+<img src="../_dblank/images/konane.gif">
+<p>
+Don't click in the Konane GUI window. That will be interpreted as a move (removes the stone in that cell). If you accidently do so, you can put a piece back my clicking on that spot again.
+<p>
+The red color indicates who's move it is.
+<p>
+See <a href="../page_The_20Symbolic_20Simulator/">The Symbolic Simulator</a> for more worlds that can be used with this simulator.
+<p>
+<p>
+<h3 width="804"> Robot</h3>
+<p>
+After starting the server, you need to connect onto one of the two available ports using a robot file. You can select either Symbolic<b></b>Player60000.py or Symbolic<b></b>Player60001.py. At this point, you (or someone else) can start another version of Pyro, and select the other Symbolic<b></b>Player file. Use Symbolic<b></b>Player.py and name the host and port if connecting from a different computer.
+<p>
+You can also play a human. The human interface is very simple: click on one of your shapes when it is red, and it will vanish (its in your simulated hand). Click again on the other side of an opponent and the opponent piece will vanish, and your piece will land in the cell that you just clicked in. Click &quot;Done!&quot; when you are done jumping. To start over, press &quot;Reset!&quot;. If you do press &quot;Reset!&quot; you should &quot;Reload&quot; your brain so that it starts in a fresh state.
+<p>
+<p>
+<h3 width="804"> Brain</h3>
+<p>
+The Symbolic Simulator has a slighty different interface than when working with robots. You have the following commands:
+<p>
+<pre class="code">
+myNum = self.robot.id                        - method of figuring out which player you are
+self.robot.whosMove                          - who's move is it? compare with robot.id
+board = self.robot.board                     - get the board
+self.robot.play(&quot;remove(%d,%d)&quot; % move)      - remove a piece at location
+self.robot.play(&quot;jump(%d,%d,%d,%d)&quot; % move)  - make a single jump
+self.robot.play(&quot;done&quot;)                      - signal that you are done making moves
+</pre>
+<p>
+Note that play() takes string data. With the above commands, you have everything you need to write a Pyro brain to play Konane. Here is a skeleton, showing how to manage some of the overhead:
+<p>
+<pre class="code">
+...
+ def setup(self):
+        if self.id == 0:
+            self.myPiece = &quot;O&quot;
+        else:
+            self.myPiece = &quot;X&quot;
+        self.firstMove = 1
+    def step(self):
+        if self.robot.whosMove != self.id: return
+        board = self.robot.board
+        moves = GET ALL POSSIBLE MOVES 
+        self.firstMove = 0
+        if len(moves) &gt; 0:
+            # Here is where you would go through the possible
+            # moves and pick the best one.
+            move = PICK ONE ACCORDING TO SOME CRITERIA 
+            if len(move) == 2: # remove the piece
+                self.robot.play(&quot;remove(%d,%d)&quot; % move)
+                self.robot.play(&quot;done&quot;)
+            elif len(move) == 4: # a single jump
+                self.robot.play(&quot;jump(%d,%d,%d,%d)&quot; % move)
+                self.robot.play(&quot;done&quot;)
+            else:
+                # multi-jump
+                ...
+        else:
+            print &quot;You win!&quot;
+</pre>
+<p>
+Here is an entire program that plays random Konane moves.
+<p>
+<pre class="code">
+&quot;&quot;&quot;
+This module contains a class of a random Konane Player.
+The brain KonanePlayer program plays a random game of Konane.
+&quot;&quot;&quot;
+from pyrobot.brain import Brain
+import time, random
+def otherPiece(piece):
+    &quot;&quot;&quot; What is the opponent's shape? &quot;&quot;&quot;
+    if piece == 'O': return 'X'
+    else: return 'O'
+def getEmpties(board):
+    &quot;&quot;&quot; Returns all of the empty positions on board. &quot;&quot;&quot;
+    retval = []
+    for i in range(8):
+        for j in range(8):
+            if board[i][j] == '':
+                retval.append( (i+1, j+1) )
+    return retval
+def add(pos, offset):
+    &quot;&quot;&quot; Adds two board positions together &quot;&quot;&quot;
+    return (pos[0] + offset[0], pos[1] + offset[1])
+def validPos(pos, offset = (0,0)):
+    &quot;&quot;&quot; Is this position + offset a valid board position?&quot;&quot;&quot;
+    newx, newy = add(pos, offset)
+    return (newx &gt;= 1 and newx &lt;= 8 and newy &gt;= 1 and newy &lt;= 8)
+def moveGenerator(board, myPiece, firstMove):
+    &quot;&quot;&quot;Generates legal board moves. Doesn't find multiple-jumps. &quot;&quot;&quot;
+    retval = []
+    empties = getEmpties(board)
+    if firstMove:
+        if len(empties) == 0: # I'm first!
+            if myPiece == &quot;O&quot;:
+                retval.extend( [(4,4), (5,5), (1,1), (8,8)] )
+            else:
+                retval.extend( [(5,4), (4,5), (1,8), (8,1)] )
+        else: # I'm second
+            # get one of the 4 (or less) surrounding pieces
+            openPos = empties[0] # better be just one
+            for i,j in [(-1,0), (+1,0), (0, -1), (0, +1)]:
+                if validPos(openPos, (i,j)):
+                    retval.append( add(openPos, (i,j)) )
+    else:
+        # find all moves, and add them to list
+        for i in range(1,9):
+            for j in range(1,9):
+                if board[i-1][j-1] == myPiece:
+                    for a,b in [(0, -2),(+2,-2), (+2, 0),(+2, +2),
+                                (0, +2),(-2, +2),(-2, 0),(-2, -2)]:
+                        p, q = i, j   # a starting place
+                        move = [i, j] # first part of move
+                        while 1: # still jumps to make
+                            if validPos((p,q), (a,b)):
+                                x,y = add((p,q),(a,b))
+                                if board[x-1][y-1] == '':
+                                    bx, by = add( (p,q), (x,y) )
+                                    bx, by = bx/2, by/2
+                                    if board[bx-1][by-1] == otherPiece(myPiece):
+                                        move.extend( [x,y] )
+                                        # jump some more?
+                                        p, q = x, y
+                                    else:
+                                        break
+                                else:
+                                    break
+                            else:
+                                break
+                        if len(move) &gt; 2:
+                            retval.append( move )
+    return retval
+def formatMove(move):
+    &quot;&quot;&quot; Formats a list of positions into a jump() string. &quot;&quot;&quot;
+    movestr = &quot;jump(%d,%d&quot; % (move[0], move[1])
+    while 1:
+        x1, y1, x2, y2 = move[:4]
+        movestr += &quot;,%d,%d&quot; % (x2, y2)
+        move = move[2:]
+        if len(move) &lt; 4:
+            break
+    movestr += &quot;)&quot;
+    return movestr
+class KonanePlayer(Brain):
+    &quot;&quot;&quot;
+    A simple Random Konane Player. Note that the rep of board is
+    zero-based, but all other places is one's based.
+    For use with PyrobotSimulator and KonaneWorld.py and
+    PyrobotRobot.py (a TCPRobot from pyrobot/robot/symbolic.py)
+    &quot;&quot;&quot;
+    def setup(self):
+        if self.robot.id == 0:
+            self.myPiece = &quot;O&quot;
+        else:
+            self.myPiece = &quot;X&quot;
+        self.firstMove = 1
+        self.turn = 1
+        print &quot;Welcome to Konane, Hawaiian Checkers!&quot;
+        print &quot;Red O or X on the board indicates that it&quot;
+        print &quot;is that shape's move.&quot;
+        print &quot;Jumps must occur in a straight line.&quot;
+        print &quot;A human can play, or start two Pyro's up,&quot;
+        print &quot;and connect onto two different ports using&quot;
+        print &quot;PyrobotRobot60000 and PyrobotRobot60001.&quot;
+    def step(self):
+        if self.robot.whosMove != self.robot.id:
+            time.sleep(1)
+            return
+        board = self.robot.board
+        moves = moveGenerator(board, self.myPiece, self.firstMove)
+        self.firstMove = 0
+        if len(moves) &gt; 0:
+            # Here is where you would go through the possible
+            # moves and pick the best one.
+            # I'm just going to pick a random one:
+            move = moves[int(len(moves) * random.random())]
+            if len(move) == 2: # remove the piece
+                self.robot.play(&quot;remove(%d,%d)&quot; % move)
+                print self.turn, &quot;remove(%d,%d)&quot; % move
+                self.robot.play(&quot;done&quot;)
+            else: # jumps
+                movestr = formatMove(move)
+                print self.turn, movestr
+                self.robot.play(movestr)
+                self.robot.play(&quot;done&quot;)
+            self.turn += 1
+        else:
+            print &quot;You win!&quot;
+            self.pleaseStop() # request to stop running brain
+def INIT(engine):
+    return KonanePlayer(&quot;Random Konane Player&quot;, engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/KonanePlayerProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/KonanePlayerProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h2 width="804"> Exercises</h2>
+<p>
+<ol type="1"><li>Write a &quot;static evaluator&quot; that judges how good a board position is for you.</li>
+<li>Use the static evaluator to write a Konane player using:</li>
+</ol><p>
+<ol type="i"><li>Breadth-first search (two ply)</li>
+<li>A-star search</li>
+<li>MINIMAX</li>
+<li>MINIMAX with alpha-beta pruning</li>
+</ol><p>
+Your program should also provide the following information:
+<p>
+<ul><li>The number of times a static evaluation was done.</li>
+<li>The average branching factor.</li>
+<li>The number of cut offs that took place.</li>
+</ul><p>
+<ol type="3" start="3"><li>Have a friendly tournament in class</li>
+<li>Copy and edit Konane<b></b>World.py to make your own game to play. It is very easy to make a different simulator: the entire Konane simulator is only about 200 lines of code, and the simple brain above is only about 100 lines. You can change the Konane simulator to be chess, checkers, or something else entirely (poker anyone?).</li>
+</ol><p>
+<p>
+<h1 width="804"> Links</h1>
+<p>
+<ul><li><a href="http://mainline.brynmawr.edu/Courses/cs372/fall2004/Konane.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Deepak Kumar assignment</a></li>
+<li><a href="http://www.cs.swarthmore.edu/~meeden/cs63/s04/lab02.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Lisa Meeden assignment</a></li>
+<li><a href="http://www.cs.pomona.edu/classes/cs151/assignments/a3/assign3.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Jim Marshall assignment</a></li>
+<li><a href="http://the.honoluluadvertiser.com/article/2003/Apr/01/tc/tc01a.html">the.honoluluadvertiser.com/article/2003/Apr/01/tc/tc01a.html</a></li>
+<li><a href="http://www.k12.hi.us/~gkaapuni/konane.htm">www.k12.hi.us/~gkaapuni/konane.htm</a></li>
+<li><a href="http://www.cs.swarthmore.edu/~meeden/konane/carlisle/Konane.html">www.cs.swarthmore.edu/~meeden/konane/carlisle/Konane.html</a></li>
+</ul><p>
+<hr>
+<p>
+<i>This page is based on an assignment originally by Deepak Kumar.</i>
+<p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleAI_3aGamePlaying?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleAI_3aGamePlaying?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

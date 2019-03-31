@@ -1,0 +1,204 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219123058", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: WorldFullOfBricks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<pre class="code">
+# A simple world for a pioneer robot
+unit_length &quot;m&quot;                 # All units are in meters
+resolution .01
+gui
+(
+        size [520 520]          # the width and height of GUI in pixels
+                                # i.e. how big the window will be
+        origin [2.5 2.5]                # Where in the GUI the origin is at
+        scale .01               # 1 pixel = 0.01 meters
+)
+# This box is the world boundary. The robot lives inside it.
+box
+(
+        size [5.0 4.8]
+        color &quot;black&quot;
+        pose [2.5 2.5 0.0]
+)
+# This is a brick, it's red so that we can figure this out later
+box
+(
+        size [0.27 0.09] # width, height
+        color &quot;red&quot;
+        pose [.3 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.27 0.09] # width, height
+        color &quot;blue&quot;
+        pose [.6 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.27 0.09] # width, height
+        color &quot;blue&quot;
+        pose [.9 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.27 0.09] # width, height
+        color &quot;blue&quot;
+        pose [1.2 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.27 0.09] # width, height
+        color &quot;blue&quot;
+        pose [1.5 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [1.8 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [2.1 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [2.4 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [2.7 .55 0]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [3 .55 0]  # x , y, angle
+)
+# This is the first vertical brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;red&quot;
+        pose [3.4 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [3.55 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [3.7 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [3.85 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4.3 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4.15 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4.45 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4.6 .55 90]  # x , y, angle
+)
+# This is a brick
+box
+(
+        size [0.28 0.09] # width, height
+        color &quot;blue&quot;
+        pose [4.75 .55 90]  # x , y, angle
+)
+# Your excellency, the robot itself
+include &quot;sparko.inc&quot;
+sparko
+(
+        color &quot;red&quot;
+        name &quot;Pioneer&quot;
+        port 6666
+        pose [2.0 1.5 -270]
+        truth()
+)
+</pre>
+<p>
+<p>
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/WorldFullOfBricks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/WorldFullOfBricks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

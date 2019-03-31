@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129015647", "pyrorobotics.org");
+</script>
+  <title>pyrobot.vision.Histogram</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-vision-module/">Package&nbsp;vision</a> ::
+        Class&nbsp;Histogram
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-vision-Histogram-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class Histogram</h2>
+<pre class="base-tree">
+<a href="../../usermanual/pyrobot-vision-PyrobotImage-class/"><code>PyrobotImage</code></a> --+
+               |
+              <b>Histogram</b>
+</pre><br/>
+<hr/>
+<pre class="literalblock">
+Histogram class. Based on Image, but has methods for display.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="__init__"></a><span class="summary-sig"><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>,
+          <span class="summary-sig-arg">init_val</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><a name="compare"></a><span class="summary-sig"><span class="summary-sig-name">compare</span>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">hist</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-Histogram-class/#display" class="summary-sig-name"><code>display</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display bitmap ASCII art.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from PyrobotImage</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#convolve" class="summary-sig-name"><code>convolve</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">convmask</span>,
+          <span class="summary-sig-arg">bit</span>,
+          <span class="summary-sig-arg">threshold</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#cropPixels" class="summary-sig-name"><code>cropPixels</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">l</span>,
+          <span class="summary-sig-arg">t</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+cropPixels()
+------------
+crops pixels in the amount specified from left, top, right, and bottom
+if unspecified, right is assumed to be the same as left and bottom the
+same as top.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#get" class="summary-sig-name"><code>get</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Get a pixel value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getBitmap" class="summary-sig-name"><code>getBitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cutoff</span>,
+          <span class="summary-sig-arg">cutoff2</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+getBitmap()...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getCol" class="summary-sig-name"><code>getCol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>)</span></code>
+<br/>
+Get the entire col, in tuples...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getColorFilter" class="summary-sig-name"><code>getColorFilter</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">g</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+returns a filtered image
+r,g,b values indicate percentage of each color to keep
+eg.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getDim" class="summary-sig-name"><code>getDim</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getGrayScale" class="summary-sig-name"><code>getGrayScale</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method to convert depth 3 color into depth 1 grayscale...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getPlane" class="summary-sig-name"><code>getPlane</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">colorPlane</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getRow" class="summary-sig-name"><code>getRow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Get the entire row, in tuples...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getScaledImage" class="summary-sig-name"><code>getScaledImage</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">xscale</span>,
+          <span class="summary-sig-arg">yscale</span>,
+          <span class="summary-sig-arg">mode</span>)</span></code>
+<br/>
+return a scaled version of the current image...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#getVal" class="summary-sig-name"><code>getVal</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Get the entire color value of the pixel in quetion, returned as a tuple.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#histogram" class="summary-sig-name"><code>histogram</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cols</span>,
+          <span class="summary-sig-arg">rows</span>,
+          <span class="summary-sig-arg">initvals</span>)</span></code>
+<br/>
+Creates a histogram.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#incr" class="summary-sig-name"><code>incr</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">offset</span>)</span></code>
+<br/>
+Method to increment a pixel value.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#loadFromFile" class="summary-sig-name"><code>loadFromFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Method to load image from file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#reset" class="summary-sig-name"><code>reset</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">vector</span>)</span></code>
+<br/>
+Reset an image to a vector.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#resetToColor" class="summary-sig-name"><code>resetToColor</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">r</span>,
+          <span class="summary-sig-arg">g</span>,
+          <span class="summary-sig-arg">b</span>)</span></code>
+<br/>
+reset the image to a specified color...</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#saveToFile" class="summary-sig-name"><code>saveToFile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">filename</span>)</span></code>
+<br/>
+Method to save image to a file.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#setVal" class="summary-sig-name"><code>setVal</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>,
+          <span class="summary-sig-arg">val</span>)</span></code>
+<br/>
+Method to set the entire RGB value of a pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#swapPlanes" class="summary-sig-name"><code>swapPlanes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">plane1</span>,
+          <span class="summary-sig-arg">plane2</span>)</span></code>
+</td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="display"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">display</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Display bitmap ASCII art.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/pyrobot-vision-PyrobotImage-class/#display"><code>pyrobot.vision.PyrobotImage.display</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160310", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroFromPython</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  Pyro from Python</h1>
+<p>
+Although Pyro comes with a nice graphical interface (and also a text-based interface), there are times when you may want to dispense with the GUI and just code directly Python. This is fairly easy to do, with the introduction of a new object, Engine.
+<p>
+The Engine is a container class that loads and binds the robot, brain, and simulator together. Every robot interface that you will create will be contained in an Engine object. However, only the first Engine needs to have the simulation started. The rest will just connect to the existing simulator.
+<p>
+Consider the goal of attempting to evolve a robot to seek out light. This could be done in the regular brain-based Pyro interface, but running it as a program allows more control.
+<p>
+First, let's look at a basic brain that uses the propagation of a network, from sensors to output, to determine the robot's movement. Recall that devices are accessed via the robot, and the brain is a subclass of the Thread class.
+<p>
+<pre class="code">
+# NNBrain.py
+from pyrobot.brain import Brain
+from pyrobot.brain.conx import Network
+class NNBrain(Brain):
+    def setup(self):
+        self.robot.range.units = &quot;scaled&quot;
+        self.net = Network()
+        self.net.addLayers(len(self.robot.range), 5, 2)
+    def step(self):
+        self.net.propagate(input=self.robot.range.values())
+        outputActivations = self.net[&quot;output&quot;].activation
+        t, r = [((v * 2) - 1) for v in outputActivations]
+        self.move(t, r)
+def INIT(eng):
+    return NNBrain(engine=eng)
+</pre>
+<p>
+This brain can, of course, be loaded as a regular brain. However, in this example, we will load it by directly instantiating an Engine object:
+<p>
+<pre class="code">
+# EvolveNNBrain.py
+from pyrobot.engine import Engine
+e = Engine(robotfile=&quot;PyrobotRobot60000&quot;, 
+           simfile=&quot;PyrobotSimulator&quot;, 
+           worldfile=&quot;Braitenberg.py&quot;, 
+           brainfile=&quot;NNBrain.py&quot;)
+from pyrobot.brain.ga import *
+import operator
+g = e.brain.net.arrayify()
+class NNGA(GA):
+    def fitnessFunction(self, genePos):
+        e.brain.net.unArrayify(self.pop.individuals[genePos].genotype)
+        e.robot.simulation[0].setPose(&quot;RedPioneer&quot;, 1, 1, 1)
+        e.brain.pleaseRun()
+        time.sleep(5)
+        e.brain.pleaseStop()
+        fitness = reduce(operator.add, e.robot.light[0].value)
+        print &quot;Fitness %d: %.5f&quot; % (genePos, fitness)
+        return fitness
+    def isDone(self):
+        return 0
+ga = NNGA(Population(10, Gene, size=len(g), verbose=1,
+                     min=-1, max=1, maxStep = 1,
+                     elitePercent = .2),
+          mutationRate=0.05, crossoverRate=0.6,
+          maxGeneration=50, verbose=1)
+ga.evolve()
+e.brain.pleaseQuit()
+</pre>
+<p>
+In additon, we create the machinery necessary to run a genetic algorithm. The fitness function is the amount of light coming into the light sensors. An interesting point in this example is that the input of the neural network is actually the range sensor values, rather than the light. Can one evolve a robot to find the light given only the range sensor readings?
+<p>
+Possible options to try:
+<p>
+<ol type="1"><li>place each robot in the fitness test in a random pose</li>
+<li>use the lights rather than range sensor as inputs</li>
+<li>let the robot run longer than 10 seconds, and more than 50 generations</li>
+<li>change the GA parameters</li>
+</ol><p>
+<p>
+<h2 width="804">1.1.  Running Faster</h2>
+<p>
+The above example relies on the inherent timings of the simulator and Pyro. Of course, since this is a simulator we can attempt to make it run faster than real time. In fact, we can get rid of time completely, and just let things run as fast as possible. We can also get rid of the simulator GUI for additional speedups.
+<p>
+To do this, we don't need to run the brain as a thread, and won't load the simulator the normal way. We barely need the Engine object, but we will still use it to load the brain.
+<p>
+First, let's take a look at the <a href="../page_PyrobotSimulator/">PyrobotSimulator</a>.
+<p>
+<pre class="code">
+# TO TEST THIS: python filname
+# where filename is the name of this file
+from pyrobot.simulators.pysim import *
+import time
+# (width, height), (offset x, offset y), scale:
+sim = Simulator((441,434), (22,420), 40.357554, run=0)  
+# x1, y1, x2, y2 in meters:
+sim.addBox(0, 0, 10, 10)
+# (x, y) meters, brightness usually 1 (1 meter radius):
+sim.addLight(5, 5, 1)
+# port, name, x, y, th, bounding Xs, bounding Ys, color
+# (optional TK color name):
+sim.addRobot(60000, Pioneer(&quot;RedPioneer&quot;,
+                              1, 1, -0.86,
+                              ((.225, .225, -.225, -.225),
+                               (.15, -.15, -.15, .15))))
+# add some sensors:
+sim.robots[0].addDevice(PioneerFrontSonars())
+sim.robots[0].addDevice(PioneerFrontLightSensors())
+</pre>
+<p>
+Just to see how fast it can run, let's spin the robot, and run it for 1000 steps:
+<p>
+<pre class="code">
+sim.robots[0].move(0, .5)
+print &quot;Testing maximum speed...&quot;
+steps = 1000
+start = time.time()
+for i in range(steps):
+    sim.step(run=0)
+stop = time.time()
+print &quot;Average steps per second:&quot;, float(steps)/ (stop - start)
+</pre>
+<p>
+On a 1.6 <a href="../page_MHz/">MHz</a> computer, it will run about 205 steps per second, a speed up of over 20 over real time. 
+<p>
+If you want to combine the above with the brain abstraction, here is an example. For this you will need Pyrobot version 4.5.1: 
+<p>
+<pre class="code">
+# TO TEST THIS: python filename
+# where filname is the name of this file
+from pyrobot.simulators.pysim import *
+import time
+# (width, height), (offset x, offset y), scale:
+sim = Simulator((441,434), (22,420), 40.357554, run=0)  
+# x1, y1, x2, y2 in meters:
+sim.addBox(0, 0, 10, 10)
+# (x, y) meters, brightness usually 1 (1 meter radius):
+sim.addLight(5, 5, 1)
+# port, name, x, y, th, bounding Xs, bounding Ys, color
+# (optional TK color name):
+sim.addRobot(60000, Pioneer(&quot;RedPioneer&quot;,
+                              1, 1, -0.86,
+                              ((.225, .225, -.225, -.225),
+                               (.15, -.15, -.15, .15))))
+sim.addRobot(60001, Pioneer(&quot;BluePioneer&quot;,
+                             8, 8, -0.86,
+                             ((.225, .225, -.225, -.225),
+                              (.15, -.15, -.15, .15))))
+# add some sensors:
+sim.robots[0].addDevice(PioneerFrontSonars())
+sim.robots[0].addDevice(PioneerFrontLightSensors())
+sim.robots[1].addDevice(PioneerFrontSonars())
+sim.robots[1].addDevice(PioneerFrontLightSensors())
+# client side:
+from pyrobot.robot.symbolic import Simbot
+from pyrobot.engine import Engine
+redPioneer = Simbot(sim, [&quot;localhost&quot;, 60000], 0)
+bluePioneer = Simbot(sim, [&quot;localhost&quot;, 60001], 1)
+rEng = Engine()
+rEng.robot = redPioneer
+rEng.loadBrain(&quot;Avoid&quot;)
+bEng = Engine()
+bEng.robot = bluePioneer
+bEng.loadBrain(&quot;Avoid&quot;)
+steps = 500
+start = time.time()
+for i in range(steps):
+    redPioneer.update()
+    bluePioneer.update()
+    rEng.brain.step()
+    bEng.brain.step()
+    #print &quot;red&quot;, redPioneer.x, redPioneer.y
+    sim.step(run=0)
+stop = time.time()
+print &quot;Average steps per second:&quot;, float(steps)/ (stop - start)
+def myquit():
+    rEng.shutdown()
+    bEng.shutdown()
+import sys
+sys.exitfunc = myquit
+</pre>
+<p>
+Now, we alter the fitness function to run the brain and simulator directly:
+<p>
+<pre class="code">
+    def fitnessFunction(self, genePos):
+        e.brain.net.unArrayify(self.pop.individuals[genePos].genotype)
+        e.robot.simulation[0].setPose(&quot;RedPioneer&quot;, 1, 1, 1)
+        for i in range(5 * 10):
+            e.brain.step()
+            sim.step(run=0)
+        fitness = reduce(operator.add, e.robot.light[0].value)
+        print &quot;Fitness %d: %.5f&quot; % (genePos, fitness)
+        return fitness
+</pre>
+<p>
+<p>
+<h2 width="804">1.2.  Even Faster!</h2>
+<p>
+To get a maximum speed up, we can do away with the brains, threads, and engine. This manner will put the simulator and all controlling code in one thread. All of the following will use the same basic setup:
+<p>
+<pre class="code">
+from pyrobot.simulators.pysim import *
+import time # for timings
+# Pick one of the following two rows:
+SimulatorClass, PioneerClass = TkSimulator, TkPioneer
+#SimulatorClass, PioneerClass = Simulator, Pioneer
+# Create the Simulated World:
+# In pixels, (width, height), (offset x, offset y), scale:
+sim = SimulatorClass((441,434), (22,420), 40.357554, run=0)  
+# x1, y1, x2, y2 in meters:
+sim.addBox(0, 0, 10, 10)
+# (x, y) meters, brightness usually 1 (1 meter radius):
+sim.addLight(2, 2, 1)
+sim.addLight(7, 7, 1)
+# port, name, x, y, th, bounding Xs, bounding Ys, color
+sim.addRobot(60000, PioneerClass(&quot;Pioneer0&quot;,
+                              1, 1, -0.86,
+                              ((.225, .225, -.225, -.225),
+                               (.15, -.15, -.15, .15)),
+                            &quot;red&quot;))
+# Add others...
+# sim.addRobot(60001, PioneerClass(&quot;Pioneer1&quot;,
+#                              8, 8, -0.86,
+#                              ((.225, .225, -.225, -.225),
+#                               (.15, -.15, -.15, .15)),
+#                             &quot;blue&quot;))
+# add some sensors to each:
+for robot in sim.robots:
+    robot.addDevice(Pioneer16Sonars())
+    robot.addDevice(PioneerFrontLightSensors())
+</pre>
+<p>
+For each robot, create a new one calling its Class, and give each a unique &quot;port&quot;. These won't actually be ports in this method, but will be still used to identify the robot.
+<p>
+Now, let's start with moving the robot directly:
+<p>
+<pre class="code">
+    steps = 500
+    start = time.time()
+    for i in range(steps):
+        for robot in sim.robots:
+            robot.move(0, 0.1)
+        sim.step(run=0)
+        sim.update_idletasks()
+    stop = time.time()
+    print &quot;Average steps per second:&quot;, float(steps)/ (stop - start)
+</pre>
+<p>
+Notice that we call robot.move() which is an object on the simulator server side. Don't update the idletasks if you want to get it to go really fast, but you won't see it run until the end.
+<p>
+If you want to have a real brain object, you'll need the client-side interface:
+<p>
+<pre class="code">
+from pyrobot.robot.symbolic import Simbot
+from pyrobot.engine import Engine
+clients = [Simbot(sim, [&quot;localhost&quot;, 60000 + n], n)  for n in range(robotCount)]
+engines = [Engine() for n in range(robotCount)]
+for n in range(robotCount):
+    engines[n].robot = clients[n]
+    engines[n].loadBrain(&quot;NNBrain&quot;)
+</pre>
+<p>
+Then you can use the standard method of brain.step():
+<p>
+<pre class="code">
+    steps = 500
+    start = time.time()
+    for i in range(steps):
+        for engine in engines:
+            engine.robot.update()
+        for engine in engines:
+            engine.brain.step(0.5, 0.6) # unscaled translate and rotate
+        sim.step(run=0)
+        sim.update_idletasks()
+    stop = time.time()
+    print &quot;Average steps per second:&quot;, float(steps)/ (stop - start)
+def myquit():
+    for e in engines:
+        e.shutdown()
+import sys
+sys.exitfunc = myquit
+</pre>
+<p>
+How fast are these changes:
+<p>
+<ul><li>Standard: &lt; 10 updates/seconds</li>
+<li>With client-side brain/robot interfaces, and interactive graphics: 130 updates/second (13 times faster)</li>
+<li>Without client-side brain/robot interfaces, but interactive graphics (no sensors): 1,430 updates/second (143 times faster)</li>
+<li>Without client-side brain/robot interfaces and no graphics (no sensors):  22,927 updates/second (about 2,300 times faster)</li>
+</ul><p>
+This doesn't actually get any sensor data; for that you'll need to do one of the following. The hard/fast way:
+<p>
+<pre class="code">
+&gt;&gt;&gt; sim.robots[0].subscribed = 1
+&gt;&gt;&gt; sim.robots[0].updateDevices()
+&gt;&gt;&gt; sim.robots[0].devices[0].scan
+[0.82472070648209805, 0.93610757528266431, 1.0472273789380362, 0.80309949198788699, 
+ 0.80158804439928399, 1.0414484992152129, 1.9510973175698181, 8.0, 8.0, 8.0, 8.0, 8.0, 
+ 3.7122466569713772, 1.3901756167009902, 0.93964842068184196, 0.82528731976716729]
+</pre>
+<p>
+or, you can create a full-fledged client-side robot interface, like so:
+<p>
+<pre class="code">
+&gt;&gt;&gt; from pyrobot.robot.symbolic import Simbot
+&gt;&gt;&gt; simbot = Simbot(sim, (&quot;&quot;, 60000), 0) # 0 is a faked &quot;connection number&quot; and ignored here
+&gt;&gt;&gt; simbot.update()
+&gt;&gt;&gt; simbot.light[0].values()
+</pre>
+<p>
+You can then interact with the client robot simbot in a regular manner (ie, call simbot.move(1, 0)).
+<p>
+Getting any sensor data will slow down the simulator by a couple of magnitudes. Each ray cast is very expensive. 
+ <img width="11" src="../wiki/img/alert.png"> create very simple simulated sonars (only one or two beams/rays).
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroFromPython?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroFromPython?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

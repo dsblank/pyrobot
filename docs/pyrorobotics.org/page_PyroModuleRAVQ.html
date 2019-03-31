@@ -1,0 +1,363 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160642", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleRAVQ</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Module Resource Allocating Vector Quantizer</h1>
+<p>
+The Resource Allocating Vector Quantizer (RAVQ) was developed by Fredrik Linaker and Lars Niklasson. As indicated by its name, the RAVQ is a method of vector quantization. Given a data set of vectors, a vector quantizer generates a codebook of models that are meant to represent typical classes of vectors within the input set. Resource allocating in this case means that the size of the codebook is not fixed, but dynamically determined as vector quantization proceeds. 
+<p>
+The RAVQ algorithm is unsupervised during vector quantization. The RAVQ consists of three main parts, an input buffer, a moving average, and a set of previously allocated model vector. When the RAVQ begins, the buffer must be initialized by filling the buffer with the first n inputs, where n is the buffer size. Then a moving average can be calculated. After the buffer is full, at each step the current input is added to the buffer and the oldest input in the buffer is deleted, maintaining the size of the buffer at n. A moving average vector is calculated by averaging all the inputs currently in the buffer. Then the RAVQ determines whether the new moving average qualifies as a new model vector. To do so the moving average must meet two criteria. It must be 'close' to the inputs and 'better' than any existing model vectors. If no model vectors exist, the moving average only has to meet the first criteria.
+<p>
+<table border="1"><tr><td>  </td></tr>
+</table><p>
+The determination of distance between the moving average and the input buffer and the model vectors are described in Fredrik Linaker and Lars Niklasson, &quot;Sensory Flow Segmentation using a Resource Allocating Vector Quantizer, <a href="http://citeseer.nj.nec.com/285911.html">citeseer.nj.nec.com/285911.html</a> and also contained in the source code.
+<p>
+The source code to the RAVQ implementation can be found at <a href="http://compscitest.brynmawr.edu/cgi-bin/viewcvs.cgi/pyrobot/brain/ravq.py">compscitest.brynmawr.edu/cgi-bin/viewcvs.cgi/pyrobot/brain/ravq.py</a>, and click on the topmost <b>(view)</b>.
+<p>
+<h2 width="804"> RAVQ: Example 1</h2>
+<p>
+The following example will cover the basic functioning of the RAVQ and all the major method associated with the RAVQ class. 
+<p>
+We'll begin by using an RAVQ to classify a data stream of binary vectors representing the numbers 0 to 255.
+<p>
+We'll using the following code from <a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a>
+<p>
+<pre class="code">
+def makeBitList(maxbits = 8): 
+    retval = [] 
+    for i in range(2 ** maxbits): 
+        retval.append( dec2bin(i, maxbits) ) 
+    return retval 
+def dec2bin(val, maxbits = 8): 
+    &quot;&quot;&quot; 
+    A decimal to binary converter. Returns bits in a list. 
+    &quot;&quot;&quot; 
+    retval = [] 
+    for i in range(maxbits - 1, -1, -1): 
+        bit, val = divmod(val, 2 ** i) 
+        retval.append(bit) 
+   return retval 
+</pre>
+<p>
+This code will generate a sequence of binary numbers (as python lists) which we will input into an RAVQ. Copy the proceeding and following code into a file and run that file as a python script.
+<p>
+<pre class="code">
+from pyrobot.brain.ravq import *
+bitlist = makeBitList()
+#parameters are buffer size, epsilon, and delta
+ravq = RAVQ(4, 2.1, 1.1)
+for bits in bitlist:
+    ravq.input(bits)
+print ravq
+</pre> 
+<p>
+The RAVQ parameters are buffer size, epsilon, and delta. While the buffer size is self evident, care must be taken with the epsilon and delta values. The epsilon value determines how close the moving average must be to the input buffer vectors to qualify as a new model vector. Make this value too small and no model vectors will be created; make this value too large the model vectors that are created won't well represent typical input sub sequences. The delta value determines how different a moving average vector must be from any existing model vectors to justify a new model vector. The delta parameter, in essence, partitions the input space.
+<p>
+There is a fourth, optional parameter call <tt class="wiki">historySize</tt>, which is by default 0. Passing in a positive number N causes the RAVQ to keep a history associated with each model vector of the last N inputs that mapped to that model vector. (Passing in a -1 causes all vectors that map to that position to be saved and used. That option is only included for completeness, however.)
+<p>
+<tt class="wiki">ravq.input(vec)</tt> drives the ravq. All the processing is done in this method automatically.
+<p>
+Now we'll need some more functions to demonstrate the effectiveness of the RAVQ.
+<p>
+<pre class="code">
+def makeNoisyList(ls, percentNoise=0.1, minVal=0.0, maxVal=1.0):
+    &quot;&quot;&quot;
+    Returns a noisy version of the given list, and assumes a range
+    of values between 0.0 and 1.0.
+    &quot;&quot;&quot;
+    retval = []
+    for x in ls:
+        if random.random() &lt; 0.5:
+            retval.append(max(x - (random.random() * percentNoise), minVal))
+        else:
+            retval.append(min(x + (random.random() * percentNoise), maxVal))
+    return retval
+def makeNoisySequence(sequence, repeat, percentNoise=0.1):
+    &quot;&quot;&quot;
+    Returns a noisy version of the given sequence, with each item
+    repeated the number of times designated by the repeat variable.
+    &quot;&quot;&quot;
+    retval = []
+    for x in sequence:
+        for j in range(repeat):
+            retval.append(makeNoisyList(x, percentNoise))
+    return retval
+</pre>
+<p>
+<pre class="code">
+from pyrobot.brain.ravq import *
+seq = makeNoisySequence([[0.0, 0.5, 1.0],
+                         [0.5, 0.5, 0.5],
+                         [1.0, 0.1, 0.1],
+                         [0.9, 0.9, 0.9],
+                         [0.3, 0.3, 0.8]], 5, 0.05)
+ravq = ARAVQ(4, 2.1, 0.5, 2, 0.03)
+ravq.setVerbosity(2)
+for x in seq:
+   ravq.input(x)
+   print ravq
+</pre>
+<p>
+The above example uses an adaptive RAVQ (ARAVQ). This version of the RAVQ algorithm has a learning rule which updates the winning model vector by the difference between the winning model vector and the moving average. The last parameter, alpha in the literature, is the learning rate -- it determines how much of difference is used in updating the model vector.
+<p>
+<p>
+<h2 width="804"> Exercise 1</h2>
+<p>
+Examine the previous example, being especially careful you understand how <tt class="wiki">makeNoisySequence</tt> and <tt class="wiki">makeNoisyList</tt> work. Now try using the ARAVQ and RAVQ to classify this sequence. How many model vectors do you expect? How does using the ARAVQ differ from the RAVQ? Try varying the parameters and seeing how each affects the operation of the RAVQ. 
+<p>
+<p>
+<h2 width="804"> RAVQ: Example 2</h2>
+<p>
+Now it is time to see how the RAVQ might be used in a robot brain.
+<p>
+First we'll use the following brain to collect sensor data. The sensor data will be normalized and stored in the file <tt class="wiki">sensor.dat</tt>.
+<p>
+<pre class="code">
+# imported modules
+from pyrobot.brain import Brain 
+import os, time, sys
+def saveListToFile(ls, file):  
+    for x ls:  
+        file.write(str(x) + &quot; &quot;)  
+    file.write(&quot;\n&quot;)  
+class SampleBrain(Brain):
+    def setup(self):
+        # robot parameters
+	self.robot.range.units = 'ROBOTS'
+        self.maxvalue = self.robot.range.getMaxvalue()
+        # status variables
+        self.verbosity = 1
+        self.direction    = 1
+        self.blockedFront = 0
+        self.wasStalled   = 0
+        self.counter = 0
+        self.fp = open('sensors.dat','w')
+    def scaleSensors(self, val):
+        &quot;&quot;&quot;
+        From Robots (or anything) to [0, 1]
+        &quot;&quot;&quot;
+        return (val / self.maxvalue)           
+    def kick(self):
+        &quot;&quot;&quot;
+        How to get unstuck.
+        &quot;&quot;&quot;
+        self.repositionLog.write(&quot;STALLED &quot; + str(self.counter) + &quot;\n&quot;)
+        self.move(0.5 * random.random(), 0.0)
+        time.sleep(1)
+        self.robot.update()
+        if self.robot.stall:
+            self.move(-0.5 * random.random(), 0.0)
+            time.sleep(1)
+            self.robot.update()
+            if self.robot.stall:
+                self.move(0.0, 0.5 * random.random())
+                time.sleep(1)
+                self.robot.update()
+                if self.robot.stall:
+                    self.move(0.0, -0.5 * random.random())
+                    time.sleep(1)
+                    self.robot.update()
+    def controller(self):
+        # tweakable parameters
+        frontRange = 1.0
+        minRange = 0.7
+        maxRange = 1.0
+        amount = 0.3
+        # important sensors
+        minFront = min(s.value for s in self.robot.range[&quot;front&quot;])
+        minLeft  = min(s.value for s in self.robot.range[&quot;front-left&quot;])
+        minRight = min(s.value for s in self.robot.range[&quot;front-right&quot;])
+        left =  min(s.value for s in self.robot.range[&quot;left&quot;])
+        right = min(s.value for s in self.robot.range[&quot;right&quot;])
+        # the decision algorithm
+        if minFront &lt; frontRange:
+            if not self.blockedFront:
+                self.direction = -1
+            self.blockedFront = 1
+            return [0, self.direction * amount]
+        else:
+            self.blockedFront = 0
+        if minLeft &lt; minRange:
+            if self.blockedFront:
+                return [0, self.direction * amount]
+            else:
+                return [amount/2.0, -amount]
+        elif minLeft &gt; maxRange:
+            if self.blockedFront:
+                return [0, self.direction * amount]
+            else:
+                return [amount/2.0, amount]
+        elif minRight &lt; minRange:
+            if self.blockedFront:
+                return [0, self.direction * amount]
+            else:
+                return [amount, amount]
+        else:
+            self.blockedFront = 0
+            return [amount, 0.0]
+    def step(self):
+        # display count
+        if self.verbosity &gt; 0: print self.counter
+        # switch between training network and training ravq
+        if self.counter &gt; 1000:
+            self.pleaseStop()
+        else:
+            # train network or ravq
+            motors = self.controller()
+            sensors = [self.scaleSensors(s.value) for s in self.robot.range[&quot;all&quot;]]
+            # move robot
+            self.move(motors[0], motors[1]) 
+            saveListToFile(sensors, self.fp)
+            # kick if things get bad
+            if self.robot.stall:
+                self.wasStalled += 1
+            if self.wasStalled &gt; 10:
+                print 'Kicking!'
+                self.kick()
+                self.wasStalled = 0
+            # sleep and increment counter
+            time.sleep(0.1)
+        self.counter += 1
+def INIT(engine):
+    return SampleBrain('SampleBrain', engine)
+if __name__ == '__main__':
+    os.system('pyro -s Stage -w tworoom.world -r Player1')
+</pre>
+<p>
+Now we need to train a RAVQ using the sensor data that we've gathered from the robot. The following simple code should be all we need.
+<p>
+<pre class="code">
+from pyrobot.brain.ravq import *
+fp = open('sensors.dat')
+ravq = ARAVQ(10, .2, .6, 5, .02)
+for line in fp:
+    # input the data into the ravq
+    ravq.input(map(float, line.split()))
+print ravq
+</pre>
+<p>
+<p>
+<h2 width="804"> Exercise 2</h2>
+<p>
+Try adjusting the parameters to the ARAVQ. What results do you get with different parameters? Can you apply labels to the model vectors produced? Make sure you understand the layout of the sensors on the simulated pioneer robot. Are there model vectors for such concepts as 'wall on left' and 'wall on right'? RAVQs can classify other types of inputs as well. Try using the RAVQ to classify a sequence of visual information. You'll need the information from <a href="../page_PyroModuleVision/">PyroModuleVision</a>.
+<p>
+<p>
+<h2 width="804"> Example 3</h2>
+<p>
+To demonstrate the usability of the RAVQ consider the following example.
+<p>
+<pre class="code">
+from pyrobot.brain.conx import *
+from pyrobot.brain.ravq import *
+import Numeric
+def normalize(vector):
+    &quot;&quot;&quot;
+    Take any vector and normalize all components to [0,1].
+    &quot;&quot;&quot;
+    arr = Numeric.array(vector)
+    largest = Numeric.fabs(arr[Numeric.argmax(arr)])
+    smallest = Numeric.fabs(arr[Numeric.argmin(arr)])
+    if largest &gt; smallest:
+        return ((arr / largest) + 1.0) / 2.0
+    else:
+        return ((arr / smallest) + 1.0) / 2.0
+ravq = ARAVQ(5, .2, .4, 5, 0.03)
+n = Network()
+n.addLayers(2, 2, 1)
+n.setInputs([[0.0, 0.0],
+             [0.0, 1.0],
+             [1.0, 0.0],
+             [1.0, 1.0]])
+n.setTargets([[0.0],
+              [1.0],
+              [1.0],
+              [0.0]])
+n.setEpsilon(0.9)
+n.setMomentum(0.9)
+n.setTolerance(0.1)
+error, correct, total = 0.0 , 0.0, 0.0
+tssError = 1.0
+while tssError &gt; n.tolerance:
+    n.randomizeOrder()
+    tssError = 0.0
+    for i in n.loadOrder:
+        error, correct, total, totalPCorrect = n.step(input = n.inputs[i], output = n.targets[i])
+        tssError += error
+        ravq.input(normalize(n.arrayify()))
+print ravq
+</pre>
+<p>
+This RAVQ is classifing the network weights during this network's training process. 
+<p>
+<p>
+<h2 width="804"> Exercise 3</h2>
+<p>
+Run the script. What can you say about the classifications that resulted from inputing network weights into the RAVQ?
+<p>
+<p>
+<h2 width="804"> Further Reading</h2>
+<p>
+<ol type="1"><li>Fredrik Linåker and Lars Niklasson. <i>Sensory Flow Segmentation using a Resource Allocating Vector Quantizer</i>. <a href="http://citeseer.nj.nec.com/285911.html"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;citeseer.nj.nec.com/285911.html</a>.</li>
+</ol><p>
+<p>
+<h1 width="804"> Pyro Modules Table of Contents</h1>
+<p>
+<ul><li><a href="../page_Pyro/">Pyro</a> - Back to Pyro main page</li>
+<li><a href="http://cs.brynmawr.edu/BeyondLegos/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Beyond Legos</a> - NSF grant that pays for Pyro</li>
+</ul><p>
+<p>
+<h2 width="804"> Modules</h2>
+<ol><p>
+<li><a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a></li>
+<li><a href="../page_PyroModuleObjectOverview/">PyroModuleObjectOverview</a></li>
+<li><a href="../page_PyroModulePythonIntro/">PyroModulePythonIntro</a></li>
+<li><a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a></li>
+<li><a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a></li>
+<li><a href="../page_PyroModuleBehaviorBasedControl/">PyroModuleBehaviorBasedControl</a></li>
+<li><a href="../page_PyroModuleReinforcementLearning/">PyroModuleReinforcementLearning</a></li>
+<li><a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a></li>
+<li><a href="../page_PyroModuleEvolutionaryAlgorithms/">PyroModuleEvolutionaryAlgorithms</a></li>
+<li><a href="../page_PyroModuleComputerVision/">PyroModuleComputerVision</a></li>
+<li><a href="../page_PyroModuleMapping/">PyroModuleMapping</a></li>
+<li><a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a></li>
+<li><a href="../page_FurtherReading/">FurtherReading</a></li>
+</ol><p>
+<p>
+<h2 width="804"> Additional Resources</h2>
+<ol><p>
+<li><a href="../page_PyroIndex/">PyroIndex</a></li>
+<li><a href="../page_PyroAdvancedTopics/">PyroAdvancedTopics</a></li>
+<li><a href="../page_PyroUserManual/">PyroUserManual</a></li>
+<li><a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Movies</a></li>
+</ol><p>
+Reference: <a href="../page_PyroSiteNotes/">PyroSiteNotes</a>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleRAVQ?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleRAVQ?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

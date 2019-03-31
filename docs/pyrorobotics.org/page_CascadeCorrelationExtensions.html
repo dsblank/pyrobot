@@ -1,0 +1,42 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219105707", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: CascadeCorrelationExtensions</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+Here are some possible extensions to the pyro Cascade-correlation implementation:
+<p>
+1. Add support for recurrent Cascade-correlation <a href="http://www-2.cs.cmu.edu/afs/cs.cmu.edu/user/sef/www/publications/rcc-tr.ps"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Recurrent Cascade-correlation</a>
+<p>
+This would be very useful, but probably a bit involved.  The SRN implementation may not mess well with the Cascade-correlation implementation without a lot of work.  There are so many occasions where it would be nice to have more powerful recurrent neural network training algorithms.
+<p>
+2. Make sure that it works to use basic backprop instead of quickprop for weight updates.  Perhaps explore implementing an Rprop variant and seeing if it could be dropped in as a replacement for quickprop in cascade-correlation.  One would think that almost any batch training algorithm for simple feedforward networks could be used in conjunction with Cascade-correlation.  Historically, Quickprop was probably chosen because Fahlman also invented it and it is often much superior to backprop.  However, there may be other algorithms that work even better with Cascade-correlation.  It would be very interesting to see how much Cascade-correlation is hobbled by not using Quickprop and using backprop.  To do a fair test, one would have to adjust the patience and stagnation parameters quite a bit.
+<p>
+3. Add support for Candidates with different activation functions in the same candidate pool.  Currently, activation functions are a property of an entire layer in conx.  This item might be difficult because of that.  However, it might be very powerful to have a mixed activation function pool of candidate units.  Perhaps there has been some research about this and some papers could be found?
+<p>
+<p>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/CascadeCorrelationExtensions?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/CascadeCorrelationExtensions?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

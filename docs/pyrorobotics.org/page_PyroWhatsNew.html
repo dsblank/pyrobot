@@ -1,0 +1,925 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219092559", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroWhatsNew</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;News&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro What's new?</h1>
+<p>
+<i>To download the latest version, go to <a href="../download/-/">pyrorobotics.org/download/.</a> Older versions and misc programs can be found <a href="../tars/-/">pyrorobotics.org/tars/.</a> Go to <a href="../page_Pyro/">Pyro</a> for more information on this project.</i>
+<p>
+This page documents the current version, and a complete history of Pyro.
+<p>
+<p>
+<p>
+<p>
+<h2 width="804"> CVS Development Version</h2>
+<p>
+<i>Nothing new yet</i>
+<p>
+<p>
+<h2 width="804"> 5.0.0 Version, Aug 15, 2007</h2>
+<p>
+<i>This version should be ready soon.</i>
+<p>
+<ol type="1"><li>Updates to Roomba and Create (support for devices, IR, etc)</li>
+<li>Bringing Pyro up-to-date with Player/Stage/Gazebo and latest operating systems</li>
+<li>Working on yum repository. Issues:</li>
+<ol type="1"><li>Can't get gazebo started; try building everything from CVS</li>
+<li>Needed to <tt class="wiki">chcon -t textrel_shlib_t /usr/lib/python2.5/site-packages/_gazebo.so</tt></li>
+<li>can't load stage 2.0.2:</li>
+<pre class="code">
+File &quot;/usr/lib/python2.5/site-packages/playerc.py&quot;, line 7, in &lt;module&gt;
+   import _playerc
+ImportError: /usr/lib/python2.5/site-packages/_playerc.so: undefined symbol: playerc_client_set_request_timeout
+</pre>
+</ol></ol><p>
+<p>
+<h2 width="804"> 4.9.3 Version, Feb 12, 2007</h2>
+<p>
+<ol type="3"><li>added ability for conx to take a list of dicts in setInputs and setTargets</li>
+<li>fixed PTZ and Bumpers in Player for Pioneer 3, thanks to Grant Braught at Dickinson.</li>
+<li>made conx 11 times faster on backprop problems (versus quickprop) (thanks Jim Marshall)</li>
+<li>fixed escaping robot problem from pyrobot simulator</li>
+<li>fixed issues with gripper view (thanks Jim Marshall)</li>
+<li>working on getting udp vision for Aibo; not finished</li>
+<li>support for i<b></b>Robot's Roomba (thanks James Snow)</li>
+<li>support for Parallax's Intelli<b></b>Brain<b></b>Bot (thanks James Snow)</li>
+<li>ability to make &quot;movies&quot; from camera views</li>
+<li>wiki document updates (thanks Belinda Thom and Jim Marshall)</li>
+</ol><p>
+<p>
+<h2 width="804"> 4.9.2 Version</h2>
+<p>
+<ol type="1"><li>New Cascade Correlation network <a href="../page_Cascade_20Correlation_20Network/">Cascade Correlation Network</a> (thanks to George Dahl)</li>
+<li>added <tt class="wiki">Network.addLayerNode(&quot;layerName&quot;, BIAS, WEIGHTS)</tt> in conx</li>
+</ol><p>
+<p>
+<h2 width="804"> 4.9.0 Version</h2>
+<p>
+<ol type="1"><li>changed hyperbolic tangent error to default to off in conx</li>
+<li>added <tt class="wiki">Network.deleteLayerNode(&quot;layerName&quot;, nodeNum)</tt> in conx</li>
+<li>Major Aibo fixes</li>
+<li>All cameras are now asynchronous--much faster, no lag!</li>
+<li>bumper device SCALED on client side</li>
+<li>Cascade correlation nearly complete</li>
+<li>no more async<b></b>Update() just use update() and system will only call asynchronously</li>
+</ol><p>
+Bugs:
+<p>
+<ol type="1"><li>if camera is not used, then a c++-level error occurs... why? delete copy?</li>
+<li>mouse in 3D view of Pyrobot simulator needs to be hooked up</li>
+<li>need views made:</li>
+<ol type="i"><li>simulation view, stage</li>
+<li>blobfinder view, stage</li>
+<li>check views, aibo</li>
+</ol><li>change to UDP for Aibo communications</li>
+</ol><p>
+<p>
+<h2 width="804">  Version: 4.8.2, Apr 24, 2006</h2>
+<p>
+<ol type="1"><li>Added Stereo p2p algorithm</li>
+<li>Added Tutorial Camera Fiducials for practicing with indoor aerial robot competition</li>
+</ol><p>
+<p>
+<h2 width="804">  Version: 4.8.1</h2>
+<p>
+<i>Updated the Live CD. April 5, 2006.</i>
+<p>
+<ol type="1"><li>Working on cascade correlation...</li>
+<li>Working on pyrobot 3D viewer... usable, but missing some items</li>
+<li>some bug fixes</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.8.0</h2>
+<p>
+<i>Updated the yum RPM repository. Mar 16, 2006.</i>
+<p>
+<ol type="1"><li>Added a PTZ device to Pyrobot Simulator</li>
+<li>Added a position device to Pyrobot Simulator (client side, read-only)</li>
+<li>Added a <tt class="wiki">Tk3DSimulator</tt> view to Pyrobot Simulator (missing mouse 3d support)</li>
+<li>Added a Fourway camera that sits atop another camera, and breaks into 4 quad cameras</li>
+<li>Fixed a bug in V4L where rgb wasn't recorded correctly (three things cam.format, cam.rgb, and cam._dev.setRGB (now in Device))</li>
+<li>Fixed: adding a device in brain now shows it in device GUI picklist (thanks Christine Shannon)</li>
+<li>New ptz view for pyrobot</li>
+<li>New bulb view for pyrobot</li>
+<li>New ir and bumper devices for pyrobot</li>
+<li>Added a Myro model</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.7.0</h2>
+<p>
+<i>This was the version distributed at Special Interest Group Computer Science Education, SIGCSE 2005 in Houston, TX.</i>
+<p>
+<ol type="1"><li>Conx Python backprop simulator has quickprop (again). It was gone for a few years during a major rewrite, but it is back and fast.</li>
+<li>Updated Pyro Live CD</li>
+<li>Updated Yum repositories</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.6.0, Jan 15, 2006</h2>
+<p>
+<ol type="1"><li>Updated RPM, yum repository, FC3, FC4, and the pyro-windows zip file</li>
+<li>Removed Khepera simulator and worlds (can easily do these simulations in Pyrobot Simulator)</li>
+<li>Changed communication in Pyrobot Simulator to cut down on network traffic. Most of the CPU time is in simulator (<tt class="wiki">castRay</tt>).</li>
+<li>Gripper in Pyrobot Simulator can now store/deploy pucks</li>
+<li>Added moving grippers to Pyrobot Simulator</li>
+<li>Rearranged Conx neural package a little. compute_error() and thus backprop, now sets the targets</li>
+<li>conx has .complete property set to 1 when done</li>
+<li>conx has two new network types: <tt class="wiki">SigmaNetwork</tt> and <tt class="wiki">IncrementalNetwork</tt></li>
+<li>new neural examples: sumXor.py, xormedley.py</li>
+<li>Fixed a bug in conx (symbolic pattern handling) and added a new way of reporting pattern-based error.</li>
+<li>Added camera, gripper, and moveable pucks in the Pyrobot simulator</li>
+<li>Added a Device line in GUI to load, select, and view device</li>
+<li>Fixed a bug in sensor conversions in meters</li>
+<li>Added a <tt class="wiki">NNFindBlob.py</tt> brain; updated the GA and GP evolution wiki page (including a bug in evolving XOR)</li>
+<li>removed older Braitenberg Vehicle brains, and replaced them with new, general versions.</li>
+<li>added to avg: median, middle functions in pyrobot.brain (should be in pyrobot.math?)</li>
+<li>In Pyrobot, an annoying bug was squashed. Now, you can close the robots 60001, 60002, and 60003 Pyrobots first, then when you close down 60000 the simulator will close. The problem was that the simulator didn't know that the socket connection was lost, and was hanging. I wondered why it always did that!</li>
+<li>A new method to the bulb device was added so that the robot can change the brightness of the bulb. You use like: <tt class="wiki">robot.bulb[0].setBrightness(VAL)</tt> where VAL is usually between 0 and 1. Zero is effectively off, and 1 is the default.</li>
+<li>bulbs now show up in the GUI and their color reflects their brightness value</li>
+<li>bulbs now shine through other robot's bounding boxes. they don't shine through your own box, and they don't shine through walls.</li>
+<li>added a range device .span() method that collects sensor readings in an arc. Example: <tt class="wiki">v = min([s.value for s in robot.range.span(45, -45)])</tt> selects the minimum distance for the readings between 45 and -45 around the front of the robot.</li>
+<li>added a new <tt class="wiki">Pioneer16SonarDevice</tt> class for the Pyrobot Simulator</li>
+<li>added new worlds Room.py and BigRoom.py for Pyrobot Simulator</li>
+<li>added a simulator variable <tt class="wiki">lightAboveWalls</tt> so that lights can shine over walls. See below.</li>
+<li>Added a .eval() method for simulation device that takes an expression or a statement to evaluate in the simulator environment. For example: <tt class="wiki">robot.simulation[0].eval(&quot;self.lightAboveWalls&quot;)</tt> will see what the value of the variable <tt class="wiki">lightAboveWalls</tt> is (0 by default). To change it, use: <tt class="wiki">robot.simulation[0].eval(&quot;self.lightAboveWalls = 1&quot;)</tt>. Can also change this from the Pyrobot Simulator GUI window menu.</li>
+</ol><p>
+Future Plans:
+<p>
+<ol type="1"><li>Need to become player/stage 2.0 compatible (as soon as it is finished). This should fix the gripper and other issues.</li>
+<li>Would be cool to have a 100% Python version, even for talking to Player/Stage.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.3.0, Apr 24, 2006 </h2>
+<p>
+<i>This is the version used for the 2005 NEEDS Premier Award copies</i>
+<p>
+<ol type="1"><li>Added <a href="../video/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;Pyro Tutorial Videos</a> so users can get going fast with these &quot;screencasts&quot;</li>
+<li>Added firefly model (bulb device that shines with color of robot; light sensor is also a 1-pixel camera) to Pyrobot Simulator</li>
+<li>Added a trace path to Pyrobot Simulator</li>
+<li>Updated Pyrobot Simulator to run a bit faster (doesn't compute robot rays if not subscribed)</li>
+<li>Added a 4.3.0 version for windows, RPM yum repository (fc3 and fc4), Live CD, and tar.gz</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.2.3, Aug 4, 2005</h2>
+<p>
+<i>This is the version used at the 2005 Pyro Workshop at Swarthmore College</i>
+<p>
+<ol type="1"><li>Fixed a lag issue with the Khepera by using lock.acquire/release</li>
+<li>Fixed a lag issue with Player by forcing a pause after a move()</li>
+<li>Slowed the pioneers down a bit</li>
+<li>Slowed Khepera down a bit</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.2.2</h2>
+<p>
+<ol type="1"><li>Fixed issue with Aibo Find Ball program</li>
+<p>
+</ol><p>
+<h2 width="804"> Version: 4.2.1</h2>
+<p>
+<ol type="1"><li>Fixed a bug for Pyro for Windows in Pyrobot Simulator</li>
+<li>Fixed a bug in the tree object browser (View) in watching/pasting indexes past 0</li>
+<li>Added new tutorial.world (with blobfinder)</li>
+<li>Added comments in brain, robot, engine, and device</li>
+<li>Added RL brain and TD in pyrobot/brain/</li>
+<li>New Live CD; new RPM for pyrobot</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.1.7, Jul 23, 2005</h2>
+<p>
+<ol type="1"><li>added device-level properties and methods that mirror those of sensor value. These only work for &quot;all&quot;.</li>
+<li>fixed device bug in cameras (need to force device to rebuild)</li>
+<li>reworked <a href="../page_PyrobotSimulator/">PyrobotSimulator</a> worlds to be easy to adapt</li>
+<li>added localized pose in <a href="../page_PyrobotSimulator/">PyrobotSimulator</a></li>
+<li>started thinking about noise models...</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.1.4</h2>
+<p>
+<ol type="1"><li>Renamed <a href="../page_SymbolicSymulator/">SymbolicSymulator</a> to <a href="../page_PyrobotSimulator/">PyrobotSimulator</a></li>
+<li><a href="../page_PyrobotSimulator/">PyrobotSimulator</a> works on non-symbolic worlds too. Written entirely in Python.</li>
+<ul><li>lights and light sensors</li>
+<li>sonar</li>
+<li>easy to create own worlds in Python</li>
+<li>not quite finished:</li>
+<ul><li>need to get radius from server</li>
+<li>need to separate local pose from global pose</li>
+<li>not optimized at all</li>
+<li>would be nice to make it Player interface compatible</li>
+<li>need to add position interface</li>
+</ul></ul><li>New command-line interface with readline support</li>
+<li>fixed a bug in sensor readings, .angle() was returning in wrong units</li>
+<li>expanded &quot;!&quot; commands: &quot;! num-num&quot; range execution, &quot;! string&quot; search, &quot;!!&quot; last execution</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.1.0, Jul 6, 2005</h2>
+<p>
+<i>This was the version used for the AAAI 2005 Tutorial. Also made a new Live CD.</i>
+<p>
+<ol type="1"><li>added &quot;!&quot; and &quot;! &lt;NUMBER&gt;&quot; at Pyro command-line, for list-history and execute-history-line respectively.</li>
+<li>Removed robot get() and set(). This was a major change, but should create a standard interface.</li>
+<li>Made many things simplier. Many tweaks. Some tweaks still need to be made (AIBO, Khepera, and Pioneer loops for example).</li>
+<li>Changed device.maxvalue to device.getMaxvalue() and device.setMaxvalue(VALUE). set works in default units.</li>
+<li>Cleaned up device and sensor readings. sensors readings now have: .geometry, .value, .hit(), .distance(), and .angle(). Devices don't do sensor readings (much); use the Sensor Reading object.</li>
+<li>Sensor reading .hit() is in meters (x, y, thr); device readings are in .rawunits and .maxvalueraw is in .rawunits; robot radius is always in meters.</li>
+<li>added robot and brain object viewers as tree.</li>
+<li>Added an &quot;unraw&quot; units to go from current units to rawunits for use in setMaxvalue().</li>
+<li>Removed &quot;camera&quot; builtin AIBO; use the external Aibo<b></b>Camera.py file for now.</li>
+<li>Added <a href="../page_TutorialCamera2/">TutorialCamera2</a> device for practicing with vision</li>
+<li>Live CD does not contain Gazebo.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 4.0.2</h2>
+<p>
+<ol type="1"><li>This is the version that is used for the first RPMs.</li>
+<li>added propagate<b></b>From in conx (for testing RAAM)</li>
+<li>Moved State, Behaviors, and their brains to pyro.brain.behaviors</li>
+<li>Fixed a problem in Sensor Position (noise added once, value and distance() give same value now)</li>
+<li>Renamed all references of &quot;pyro&quot; to &quot;pyrobot&quot; in the code and program</li>
+<li>Support for AIBO using TCP is functional</li>
+<li>New Live CD</li>
+<li>New distutils build method (thanks George Sakkis!)</li>
+<li>New Pythonic range sensor interface refined (suggested by George Sakkis)</li>
+<li>New Aibo interface (thanks Ioana Butoi and the Tekkotsu group!)</li>
+<li>Changed <tt class="wiki">SRN.setSequenceType()</tt> to &quot;ordered-continuous&quot;, &quot;random-continuous&quot;, &quot;ordered-segmented&quot;, or &quot;random-segmented&quot;</li>
+<li>Player 1.6, Gazebo 0.5 support (drive a helicpoter from Pyro!)</li>
+<li>Player/Stage truth has been replaced with a &quot;simulation&quot; interface. Now you can move any object with <tt class="wiki">robot.simulation.moveObjectTo(&quot;objectname&quot;, x, y, deg)</tt></li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.6.1</h2>
+<p>
+<ol type="1"><li>Implemented new Pythonic interface for range sensors</li>
+<li>added Sensor<b></b>Value in pyrobot/robot/device.py for handling sensor value methods (distance, position, angle, etc).</li>
+<li>Added set Mask Weight in governor</li>
+<li>Added net.train(cont=1) for continuing training in conx networks</li>
+<li>fixed some bugs in aria and khepera range sensors</li>
+<li>All srn networks will need to set<b></b>Sequence<b></b>Type to &quot;epoch&quot; or &quot;pattern&quot;</li>
+<li>Fixed conx bug in setting context activations in SRN.step</li>
+<li>Updated pyrobot/brain/sequence examples</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.6.0</h2>
+<p>
+<ol type="1"><li>Added get() and set() to brain to bring together mind/body</li>
+<li>updated all wiki pages and code examples</li>
+<li>Aibo interface nears completion</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.5.2</h2>
+<p>
+<ol type="1"><li>Added &quot;Save current config as...&quot; under &quot;File&quot; menu option; defaults to &quot;pyrobot.ini&quot; in current directory.</li>
+<li>Added &quot;-i None&quot; option to skip all config files</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.5.1</h2>
+<p>
+<ol type="1"><li>Version for Holly's trip to D.C.</li>
+<li>Print is now buffered and displayed by proper thread</li>
+<li>Added pauses back in after starting device</li>
+<li>Missing <tt class="wiki">net.setOrderedInput = 1</tt> in SRN in conx; that could cause problems</li>
+<p>
+</ol><p>
+<h2 width="804"> Version: 3.5.0</h2>
+<p>
+<ol type="1"><li>Rewrote tree structure in pyrobot/brain/gp.py (it now should be faster than it was)</li>
+<li>Doesn't try to localize Player<b></b>Robot instances that don't have position drivers</li>
+<li>Fixed wiki pages on using truth with pucks</li>
+<li>Rewrote Genetic Programming module; updated wiki pages somewhat. Need more detail.</li>
+<li>Cleaned up Konane Player and symbolic robot</li>
+<li>Made all dev<b></b>Data['item'] and dev<b></b>Data<b></b>Func['item'] available as robot.item, and made symbolic get<b></b>Item(&quot;item&quot;) available as dev<b></b>Data</li>
+<li>Added parser in Genetic Programming pyrobot/brain/gp.y code. Allows evaluation of Lisp syntax strings.</li>
+<li>Fixed bug in conx in <tt class="wiki">loadInputsFromFiles</tt></li>
+<li>setPose now takes three values rather than triple</li>
+<li>renamed update() in FSM brains to step()</li>
+<li>added brain.step<b></b>Count to count the number of times step() has been called</li>
+<li>removed pauses in starting player</li>
+<li>added -v gui.sim_start_delay=N to set delay after starting simulator</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.4.3</h2>
+<p>
+<ol type="1"><li>A fix in conx.py to allow sequence learning with <tt class="wiki">net.learnDuringSequence = 0</tt>.</li>
+<li>Konane &quot;reset&quot; button position</li>
+<li>Rewrite of conx inner-most loop, step. Fixed a bug in conx that resulted in slightly incorrect training method with previous versions of the SRN. All interactive learning should use step(). All courpus-based training should use train or sweep depending on if you are doing a bunch of epochs, or just one.</li>
+<li>Rewrote parts of governor and ravq, which may be ready for prime-time now.</li>
+<li>Added pyrobot.tools.circularlist</li>
+<li>Updated the neural network modules to reflect any changes.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.4.2</h2>
+<p>
+<ol type="1"><li>New ask() program can ask users for information. See pyrobot/plugins/robot/Player.py for example. Defaults to tty ask() if no gui is loaded.</li>
+<li>Removed lame __repr__ (string representations) of pyrobot/brain and pyrobot/robot. Now they show standard reps (like: <tt class="wiki">&lt;pyrobot.robot.aibo.AiboRobot instance at 0xf6ccef8c&gt;</tt>).</li>
+<li><a href="../page_The_20Symbolic_20Simulator/">The Symbolic Simulator</a> - rewrote the robot end; replaced Wumpus Hunter and Vacuum Cleaner with a single Symbolic<b></b>Robot.py; add support for robot.get(&quot;robot/percept&quot;), etc.; all lowercase now</li>
+<li>Added Konane (Hawaiian Checkers); See <a href="../page_PyroModuleAI_GamePlaying/">PyroModuleAI:GamePlaying</a></li>
+<li>Fixed some bugs in ga.py and gp.py (Thanks Bill Manaris and crew)</li>
+<li>Rewrote pyrobot/brain/ravq.py and pyrobot/brain/governor.py to use pyrobot/tools/circularlist.py; removed governors that weren't being used; made a governor be a Governor<b></b>Network (self.ravq is a part of the network).</li>
+<li>New ask() function in pyrobot.system.share uses GUI, if available</li>
+</ol><p>
+<p>
+<h2 width="804"> Version: 3.4.0</h2>
+<p>
+<ol type="1"><li><a href="../page_Using_20the_20Sony_20AIBO_20Robot/">Using the Sony AIBO Robot</a> - Pyro now runs the Aibo. Has: translate, rotate, and strafe; head has pan, tilt, and roll. Aibo Camera is now complete.</li>
+<li>Still need IR and other commands (sound, speech recog, additional motors (tail, ears, etc)).</li>
+<li>Khepera default port now /dev/ttyS0</li>
+<li>Some speeds up in Pyro vision system</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.3.2</h2>
+<p>
+<ol type="1"><li>Colorized messages in the Pyro GUI message window</li>
+<li>In file load dialog, changed &quot;No help yet available for this file.&quot; to &quot;Click 'OK' to load'&quot;</li>
+<li>Added load/unload robot/brain from menu</li>
+<li>Changed all single-robot Player/Stage robots to talk on port 6665 (rather than sometimes being on 6665 and other 6666). Thanks Jim Marshall for pointing this out!</li>
+<li>Updated Moin Moin wiki to now require login for all changes.</li>
+<li>Updated Live Pyro CD to 3.3.2.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.3.1</h2>
+<p>
+<ol type="1"><li>Removed the dependency on <tt class="wiki">RandomArray</tt> in the pyrobot.conx neural network module. This allows Debian users (and all others) to use the latest Numeric, version 23.</li>
+<li>Removing a device in Pyro (<tt class="wiki">robot.removeDevice(&quot;laser&quot;)</tt>, for example) when attached to a Player/Stage robot now properly disconnects the device. DEVELOPER TODO: all Player/Stage devices under Pyro are still indexed by 0. This only makes a differences when you are using multiple Player/Stage devices of the same type. This isn't currently an issue in Pyro, but should be fixed. Solution: when adding a device in Pyro via Player, use the next available index number.</li>
+<li>Worked around a limitation in Python 2.2 when using the Symbolic Simulator (non-blocking sockets).</li>
+<li>Made all simulators take the -g (no graphics) flag, even if they don't respect it.</li>
+<li>Removed unused robot code (saphira.py, handyboard.py, etc.)</li>
+<li>Removed cleanall from makefiles; started cleanup of makefiles; changed rm to &#36;(RM)</li>
+<li>Added assert() in brains to check for required conditions</li>
+<li>Added supported<b></b>Features with &quot;continuous-movement&quot;, &quot;odometry&quot;, and &quot;range-sensor&quot; so far defined as features</li>
+<li>Added a &quot;tab&quot; list-what-can-complete function in the Tk gui. Lists help and completions for objects and inside the get()/set() functions.</li>
+</ol><p>
+TODO: allow generic &quot;camera&quot; to load appropriate default (ie, <tt class="wiki">&quot;V4LCamera&quot;, &quot;BlobCamera&quot;, &quot;RobocupCamera&quot;</tt>, etc).
+<p>
+<p>
+<h2 width="804"> Version 3.3.0</h2>
+<p>
+<ol type="1"><li>Added &quot;self&quot; in Pyro command line evaluator so that self.get() and self.set() will call self.robot.get() and self.robot.set().</li>
+<li>First pass at making Python code work under Windows and Mac OS X</li>
+<li>Fixed a bug in tools/options.py</li>
+<li>Changed Fake camera so that you can have a camera object completely controlled from Python. Use Fake(&quot;&quot;, width, height, depth) and camera.vision.set(offset, r, g, b) and camera.vision.set(x, y, r, g, b).</li>
+<li>Fixed bug in the blob code of the standard Vison<b></b>System()</li>
+<li>Initialized blob data in vision system to all zero's</li>
+<li>Base robot class raises an error if PYROBOT is not defined in environment (for use outside main pyro GUI)</li>
+<li>Removed 2nd cam from Gazebo <tt class="wiki">pioneer2dxSonars.world</tt></li>
+<li>Added a Symbolic Simulator, with Vacuum Cleaner and Wumpus worlds, for use with Russell and Norvig-style agent-based logic exploration. See <a href="../page_The_20Symbolic_20Simulator/">The Symbolic Simulator</a> for more details.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.2.3</h2>
+<p>
+<ol type="1"><li>Fixed a problem introduced in 3.2.2 regarding the Blob Camera.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.2.2</h2>
+<p>
+<ol type="1"><li>Fixed a major omission: forgot to put laser in pyrobot/robot/aria.py. To use, you needs Aria 2.2 or greater.</li>
+<li>Changed Player robot so that it can run without a &quot;position&quot; device.</li>
+<li>Fixed a bug in the removal of devices</li>
+<li>Robocup Robot now has a simulated camera</li>
+<li>Robocup Robot now has a simple laser scanner</li>
+<li>Fixed a bug that prevented Blob cameras from updating faster</li>
+<li>Fixed a bug that prevented users from seeing exceptions in devices</li>
+<li>Updated <a href="../page_The_20Robocup_20Simulator/">The Robocup Simulator</a> to match this version.</li>
+</ol><p>
+TODO: command line expression that causes an exception down deep can't show line of code which caused it, only what the execption was.
+<p>
+TODO: need to make all of the players and goals different colors, based on which team the robot is on. Should make the colors changeable from Python. Need config options for robocup in Makefile.
+<p>
+<p>
+<h2 width="804"> Version 3.2.1</h2>
+<p>
+<ol type="1"><li>Fixed the missing goalie issue in pyrobot/robot/robocup.py</li>
+<li>Rewrote the Robocup single-brain team organization</li>
+<li>Fixed some bad assumptions with ports in robocup.py</li>
+<li>Handle all return messages, and store in devData which makes them accessable via robot.get()</li>
+<li>Updated <a href="../page_The_20Robocup_20Simulator/">The Robocup Simulator</a> to match this version.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.2.0</h2>
+<p>
+<ol type="0"><li>Added Robocup compatability. See <a href="../page_The_20Robocup_20Simulator/">The Robocup Simulator</a> for more details.</li>
+<li>Changed some low-level things to compile under Knoppix (khepera simulator linking issue)</li>
+<li>Added new filter: Filter -&gt; Misc -&gt; addNoise for making sim vision more realistic</li>
+<li>Removed some imports in pyrobot/gui/TK.py that weren't needed</li>
+<li>Added View&lt;Group&gt;.py to devices (where group is All, Back_all, Front, Front_all, Left, and Right)</li>
+<li>changed &quot;BUMP&quot; to &quot;STALL&quot; in Tk GUI to make it clear what it means (thanks Thad Blank!)</li>
+<li>Added Creative Commons, Attribute + Share-Alike License to Wiki materials</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.1.2</h2>
+<p>
+<ol type="1"><li>Added push/pop in Finite State Machine</li>
+<li>Fixed bug in init in V4L.cpp</li>
+<li>Fixed bug in Aria PTZ constructing</li>
+<li>Removed a couple of bad Stage worlds</li>
+<li>Bootable Live Linux Pyro CD, beta. Based on Knoppix</li>
+<li>Fixed Khepera serial port issue (thanks Jim Marshall!)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.1.1</h2>
+<p>
+This was the version used for the 2004 Pyro Workshop.
+<p>
+<p>
+<h2 width="804"> Version 3.0.3</h2>
+<p>
+This was version is a bug fix for 3.0.0.
+<p>
+<ol type="1"><li>Fixed bug in get(&quot;robot/DEVICE/group&quot;) that raised error rather than showing what attributes were available.</li>
+<li>Added setable and getable lists in robot for generating errors</li>
+<li>Removed * in getAll</li>
+<li>moved help(&quot;item&quot;) to get(&quot;item/help&quot;)</li>
+<li>renamed robot.supports to robot.builtinDevices</li>
+<li>Blobfinder data now available in get(&quot;devices/camera0/data&quot;)</li>
+<li>Wiki now has download buttons for included code</li>
+<li>Fixed naming in sonar: th =&gt; thr</li>
+<li>Removed noise in player robot class; moved to player sensors</li>
+<li>Added robot.setGroup(&quot;sonar0&quot;, &quot;odd&quot;, (1, 3 ,5)) for defining your own groups</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 3.0.0</h2>
+<p>
+<ol type="1"><li>New version for Player/Stage/Gazebo 1.5. Pyro works with Gazebo</li>
+<li>Complete rewrite of some major sections. Much functionality is the same. Major differences:</li>
+<li>New device path for get()/set().</li>
+<li>removed self.getRobot(); now is self.robot</li>
+<li>self.robot.get('range', 'value', 'all') is now self.get('robot/range/all/value')</li>
+<li>services are now devices</li>
+<li>startDevice(&quot;ptz&quot;) returns a device name (ie, &quot;ptz0&quot;, &quot;ptz1&quot;, etc)</li>
+<li>Access device data via: get('robot/ptz/pose'), set('robot/ptz/pan', 30)</li>
+<li>All devices are stored in get('devices'); the last loaded device of a particular type is also saved in get('robot/DEVICETYPE').</li>
+<li>Player/Aria robots have laser support</li>
+<li>robot.getAll(PATH)</li>
+<li>robot.help(PATH)</li>
+<li>All functionality of player gripper is available via set/get</li>
+<li>All getPose/setPose functionality for player devices (ie, truth) available through set/get</li>
+<li>can have more than one device of a type (if you actually have them)</li>
+<li>All devices have standard types (camera, ptz, graph, etc)</li>
+</ol><p>
+<p>
+<h2 width="804"> Not quite done in Pyro 3.0.0</h2>
+<p>
+<ol type="1"><li>Aria - missing some device functionality</li>
+<li>Saphira - not started</li>
+<li>Aria bug when load device before brain?! Locks Python</li>
+<li>Can't delete a robot; just stop/start Pyro</li>
+<li>Inspector - not done</li>
+<li>Integrated speech - version on People<b></b>Bot</li>
+<li>Camera window sometimes doesn't show menu; just drag it bigger</li>
+<li>Need to test real Khepera</li>
+<li>Would like to test Hemmison, Aibo, and ER1</li>
+<li>Set/Get cannot tell the difference between setables and getables. Need to rewrite set/get for the next big version.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.2.1</h2>
+<p>
+<ol type="1"><li>Bug fixes for vision system (cleaned up memory leak, etc).</li>
+<li>Added ability for Khepera simulator to reposition robot by clicking in run mode</li>
+<li>Beefed up Khepera error handling</li>
+<li>Edited conx error messages for better understanding of what went wrong</li>
+<li>Renamed <tt class="wiki">VisConx</tt> files; see <a href="../page_Introduction_20to_20VisConx/">Introduction to VisConx</a></li>
+<li>Changed Joystick to allow better control</li>
+<li>Camera windows retain aspect ratio</li>
+<li>Fixed a major bug that prevented corrected programs from reloading</li>
+<li>Updated <tt class="wiki">OpenGL</tt> and added a new service <tt class="wiki">GLView</tt> that displays the robot in 3D</li>
+<li>Added support for sony and canon pan-tilt-zoom (ptz) units</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.2.0</h2>
+<p>
+<ol type="1"><li>Video windows resizable</li>
+<li>New Vision system; no need for locks, system will automatically apply a set of filters. See <a href="../page_PyroModuleVisionSystem/">PyroModuleVisionSystem</a> for more info.</li>
+<li>&quot;My Copy&quot; now loads your copy in, and opens it in the editor. If you are running from a terminal, then it will ask before overwriting. Non-terminal use will not overwrite.</li>
+<li>New video system: vision code is in C++; separate from V4L; all cameras (blob, v4l, and fake) now work with vision system; new <tt class="wiki">TutorialCamera</tt> to go along with Wiki tutorial; interactive system allows setting of filters/exploration of vision components through GUI</li>
+<li>added 'maxval'/'maxval' keywords in get(): <tt class="wiki">robot.get('range', 'value', range(4), 'minval')</tt> that just returns min/max values. The min/max keywords return both [pos, min/max].</li>
+<li>Makefile now automatically makes all Blob and Fake cameras.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.1.0</h2>
+<p>
+<ol type="1"><li>Rewrite of Tkinter GUI main loop to make Tk8.4 compatible (Thank you Jeff Provost!)</li>
+<li>Basic support for B21R added</li>
+<li>PIL Fonts added (for visualiztions)</li>
+<li>Start of some visualization tools added (in pyrobot/tools/)</li>
+<li>Backward compatibility changes for Tk8.0 (app.wm_state('withdrawn') -&gt; app.withdraw())</li>
+<li>added robot.motors(left, right) for differential control paradigm</li>
+<li>Fixed some Khepera values (light maxvalue); Khepera sim now loads/saves to Pyro world dir</li>
+<li>Fixed some Khepera world files (some still have invisible objects) Thanks Chris Prince for bug report!</li>
+<li>startService() now returns a list of services; <tt class="wiki">robot.startService(&quot;BlobCamera&quot;)[0].makeWindow()</tt></li>
+<li>Changed wiki colors so that it shows under some kind of MS web browser called IE <img width="11" src="../wiki/img/smile.png">  1. New pyrobot/tools/slider.py that allows interactive variable adjustment (inspired by <tt class="wiki">NetLogo</tt> and Hannah Wilhelm)</li>
+<li>Joystick now shows translate and rotate vectors</li>
+<li>&quot;My Copy&quot; in file dialog window (see also <a href="../page_PyroForBeginners/">PyroForBeginners</a>)</li>
+<p>
+</ol><p>
+<h2 width="804"> Version 2.0.4</h2>
+<p>
+<ol type="1"><li>Additional vision enhancements</li>
+<li>new <a href="../page_FSMBrain/">FSMBrain</a> with <a href="../page_FSMSquare/">FSMSquare</a> sample</li>
+<li>Joystick driving brain (based on pyrobot/tools/joystick.py)</li>
+<li>continued RAVQ enhancements</li>
+<li>fixes to file load dialog (removed too complex &quot;last directory&quot; logic)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.0.3</h2>
+<p>
+This is the version used for the first Pyro workshop.
+<p>
+<ol type="1"><li>Prototype of new C-based vision routines, currently tied to V4L interface</li>
+<li>Fixes of the inspector.py</li>
+<li>Multitude of bug fixes throughout (some C-based issues with SOM)</li>
+<li>Fixed issues with camera window updating and hanging</li>
+<li>Menu items to enable/disable Pioneer's motors</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.0.2</h2>
+<p>
+<ol type="1"><li>Command window now evaluates in a static environment. That means you can do things like:</li>
+</ol><p>
+<pre class="code">
+gripper = robot.getService(&quot;gripper&quot;)
+gripper.open()
+gripper.close()
+</pre>
+<p>
+Previously, there was no memory from line to line, so you would have to:
+<p>
+<pre class="code">
+robot.getService(&quot;gripper&quot;).open()
+robot.getService(&quot;gripper&quot;).close()
+</pre>
+<p>
+You can also &quot;import ../_3Fpage_3DPyroWhatsNew/somemodule_quot.css; and use it on the command line. Now, Pyro command line is a real Python interpreter.
+<p>
+<ol type="1" start="2"><li>Command line history is now persistent from session to session. That means that &quot;up arrow&quot; in a Pyro session will retrieve the last line that you typed in, even if you quit Pyro in between. Data saved in ~/.pyrobothist</li>
+<li>World files now reside in pyrobot/plugins/worlds/SIMULATORNAME/*.world</li>
+<li>Passing -w worldfiles works with all simulator types. Khepera simulator now selects world file when starting</li>
+<li>-v flag allows passing in of services to start. Must use -r flag also. Example: <tt class="wiki">pyrobot -r Player1 -v blob,Blobcamera,gripper</tt>. See <a href="../page_PyroServices/">PyroServices</a> for more info. Comma separated.</li>
+<li>-a flag passes args to engine. Example: <tt class="wiki">pyrobot -a thisisatest</tt>, or <tt class="wiki">pyrobot -a &quot;this is a test&quot;</tt>. Accessible via <tt class="wiki">engine.args</tt>. Example: <tt class="wiki">engine.args.split() =&gt; ['this', 'is', 'a', 'test']</tt>.</li>
+<li>Makefile now builds only desired optional items. &quot;make config&quot; reconfigures a pyro install.</li>
+<li>Load window now remembers the last directory that you loaded for each item (robot, brain, map, view, service, sim, and each type of simworld)</li>
+<li>Added the ability to specify raw motor values for the Khepera.  Use [robot].act('raw_move', left, right), where left and right are integers in the range [-127, 127].  Not for general consumption.</li>
+<li>Updated Aria to use new services interface. Added &quot;gripper&quot; and &quot;ptz&quot;. gripper matches the Player/Stage interface. Somewhat tested.</li>
+<li>Truth service has getPose() and setPose() (which will actually move the robot). Both are in meters. Any Player/Stage service that has a pose get/set command will work.</li>
+<li>Fixed bug with &quot;self&quot; in GUI (now refers to brain)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.0.1</h2>
+<p>
+Friday, June 27, 2003
+<p>
+<ol type="1"><li>Reworked main Pyro window to be small, but resizeable</li>
+<li>Added Devices, Services, Views, and Maps to Load menu.</li>
+<li>renamed Plots to Views (anticipating <a href="../page_OpenGL/">OpenGL</a> view there)</li>
+<li>Added Inspector to Help menu</li>
+<li>Added &quot;Save Map...&quot; to file menu</li>
+<li>Moved menu item &quot;Move&quot; next to &quot;Load&quot; because both are inactive till a robot is active</li>
+<li>Double-clicking disabled in File load/save dialogs (due to error on Jeremy's computer)</li>
+<li>Menu item &quot;Refresh&quot; renamed &quot;Window&quot;</li>
+<li>&quot;Clear Messages&quot; added to Window menu</li>
+<li>Global Perceptual Space (map) added to <a href="../page_LPSWander/">LPSWander</a>; added in pyrobot/gui/gps.py.</li>
+<li>Global Perc Space now makes global map when you have perfect sensors and perfect deadreckoning; how useful is that?!</li>
+<li>Added Matt's Vis<b></b>Conx to CVS</li>
+<li>Context layers initialized automatically the first time propagate() is called.</li>
+<li>Conx now uses fast Numeric functions for all array operations.</li>
+<li>First draft of Services interface is <a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a> moved camera to services; removed references to devices</li>
+<li>Player/Stage speed and timing adjusted a bit. WARNING: THIS CAN EFFECT EXPERIMENTS.</li>
+<li>Exception handled better in command window</li>
+<li>robot.update() reworked to handle services.update()</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 2.0.0</h2>
+<p>
+Saturday, June 20, 2003
+<p>
+Conx Changes:
+<p>
+<ol type="1"><li>Activations not in [0-1] produce warning</li>
+<li>Targets not in [0-1] throw exception</li>
+<li>Checks arguments to setInputs and setTargets</li>
+<li><tt class="wiki">addSRNLayer -&gt; addThreeLayers </tt></li>
+<li>Hidden activations are automatically copied to context layers</li>
+<li>New type &quot;kind&quot; attribute for layers</li>
+<li>Added <tt class="wiki">prop_from()</tt> method</li>
+<li><tt class="wiki">connect()</tt> enforces layer and connection order</li>
+<li>Connection class matrix attributes transposed, ex. <tt class="wiki">getWeights( from, to )[to][from] -&gt; getWeights( from, to )[from][to]</tt></li>
+<li>SRN now has <tt class="wiki">addContext()</tt> and <tt class="wiki">copyHiddenToContext()</tt> methods.</li>
+<li>Network has <tt class="wiki">verifyArchitecture()</tt> method for error checking.</li>
+<li>Stylistic changes to conx.py</li>
+<li>Added new Exception classes and more informative error strings to conx.py</li>
+<li>Fixed and modified file IO in conx.py</li>
+</ol><p>
+Other changes:
+<p>
+<ol type="1"><li>Fixed most of the know issues in the GUI</li>
+<li>Load/reload should work properly</li>
+<li>Robot should stop when you press or type &quot;Stop&quot;</li>
+<li>Plot (scatter, hinton, etc) windows should go away when you call plot.destroy() in your own brain.destroy() method</li>
+<li>Tested setup() - appears to work with and without params</li>
+<li>Removed all extra menu items (working out issues between devices and services)</li>
+<li>Pyro should hang very rarely now (no more Control+Z, killall -9 pyrobot)</li>
+<li>Brain print statements now appear in the Pyro scrollable text area</li>
+<li>Player/Stage robots now have communication ability. See <a href="../page_PyroModuleMultirobot/">PyroModuleMultirobot</a> for example.</li>
+<li>Command window now has &quot;self&quot; bound to the current brain. This allows code cut-n-pasted from the brain to work as-is. No more distinction between &quot;self.getRobot()&quot; and &quot;robot&quot;.</li>
+<li>New map plugin subdirectory; new map classes: pyrobot.map.Map(), pyrobot.map.tkmap.TkMap(), occupancyGrid() and LPS()</li>
+<li>Fixed error in Khepera internals; would have effected plotting sensor origins and conversion to meters</li>
+<li>Aria/Player/Khepera all now report in same units: x - meters, y - meters, th - degrees. Global th given/set in degrees in range 0-360.</li>
+<li>Main Pyro window now resizable</li>
+<li>Added Matt's <a href="../page_VisConx/">VisConx</a></li>
+<li>Upgraded Pyro to work with new version of Player/Stage. See <a href="../page_PlayerStageInstallation/">PlayerStageInstallation</a>.</li>
+<li>robot.localize(xMeters, yMeters, thDegrees) now works for all robot types</li>
+<li>Fixed pyrobot.map.lps so that it doesn't overwrite hits</li>
+<li>Refactored map/__init__.py, map/tkmap.py, LPSWander.py</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.3.4</h2>
+<p>
+Monday, June 08 2003
+<p>
+<ol type="1"><li>Fixed loading sim/worlds; shows world file in window; asks for world file</li>
+<li>Fixed updating unnecessary buttons in Tk gui</li>
+<li>Fixed plots in Tk gui; now shows basic plots</li>
+<li>Added beginning of Maps menu for visualization; added pyrobot.gui.plots.map. Planning to start <a href="../page_OpenGL/">OpenGL</a> window from Tk window (as separate window)</li>
+<li>Changed window names for easier window viewing/selection</li>
+<li>Got rid of Tk window that would appear</li>
+<li>Setup can now accept keyword-based args</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.3.3</h2>
+<p>
+Friday, June 06 2003
+<p>
+<ol type="1"><li>Added Blob Faux Framegrabber interface</li>
+<li>renamed Aria gripper functions to standard &quot;gripper&quot; word</li>
+<li>moved Player/Stage gripper functions up a level to playerbase robot (and renamed to match Aria)</li>
+<li>Removed PTZ from camera class. Will be its own service</li>
+<li>Finished converting examples with __init__ -&gt; setup(), dev.gripper, dev.blobfinder</li>
+</ol><p>
+The following should be searched for in the Wiki and changed:
+<p>
+<ul><li>You should not be using getSensor<b></b>Group (use get() instead)</li>
+<li>You should not use __init__ in robots or brains (use setup() instead)</li>
+<li>You should not use robot.dev (use robot.service functions instead)</li>
+<li>You should not use setQuick<b></b>Prop() in Conx code (just delete it)</li>
+<li>Remove init_slopes() in Conx code</li>
+<li>Remove calls to postinit() in any engine code</li>
+</ul><p>
+<p>
+<h2 width="804"> Version 1.3.2</h2>
+<p>
+Thursday, June 05 2003
+<p>
+<ol type="1"><li>Added new setup() method to brains and robots. Idea is that you no longer have to define __init__ nor call the parent __init__ if you do. Anything you want in the constructor (like instance vars), put here. (I've converting all examples to this method. -Doug)</li>
+<li>New GUI: buttons for each thing to load (sim, robot, brain, camera); scrollable area; disabled buttons until you are ready to pick --- forces ordering</li>
+<li>New Blobvision: converts blobdata into an image. Camera -&gt; Load -&gt; Blob</li>
+<li>Rewrite of camera window GUI: now can load camera anytime</li>
+<li>Start of communication interface</li>
+<li>New robot methods: startService, stopService, getServiceData, hasService, sendMessage, getMessages</li>
+<li>Colorized term output</li>
+<li>Got rid of postinit method in engine (thanks to camera rewrite)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.5</h2>
+<p>
+Wednesday, April 30, 2003
+<p>
+<ol type="1"><li>When running with &quot;-g tty&quot; and &quot;-e run&quot; the simple tty gui would not stop (because it wasn't in a thread). So, added a new command-line command &quot;runtillquit&quot; that will run the gui till the brain calls self.quit(), and then exit. This is only needed in tty mode when you want the brains to stop the gui.</li>
+<li>Added &quot;components&quot; keyword to <a href="../page_PCAPlot/">PCAPlot</a> in pyrobot/tools/cluster/pcaplot.py to allow plotting of different principle components.</li>
+<li>Updated Aria robots to use PTZ and gripper</li>
+<li>Fixed the GA/GP code</li>
+<li>Added -p PORT for stage so that multiusers won't conflict</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.4</h2>
+<p>
+Monday, April 21, 2003
+<p>
+<ol type="1"><li>Changed Makefile to better detect/remove the Khepera plugins/simulator script.</li>
+<li>Added Ability for Stage simulator to detect the -g tty setting to run without gui.</li>
+<li>Removed Pioneer/Saphira 6.2 code. All Pioneer/Saphira users should upgrade to Aria.</li>
+<li>added brain.quit() method so that brains can shutdown the entire gui.</li>
+<li>rearranged player: player/playerbase/playerpuck so that playerpuck is a simple thing to connect onto (i.e., for controlling X,Y through &quot;truth&quot; interface.)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.3</h2>
+<p>
+Friday, April 18, 2003
+<p>
+<ol type="1"><li>Changed interface to loading objects (cameras, brains, robots, plots, etc) to allow access to config information. See <a href="../page_PyroSetUp/">PyroSetUp</a> for more details.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.2</h2>
+<p>
+Thursday, April 17, 2003
+<p>
+<ol type="1"><li>Added -w worldfile flag; loads particular worldfile. Works with Aria, and Stage. Does not work with the Khepera simuator.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.1</h2>
+<p>
+Tuesday, April 15, 2003
+<p>
+<ol type="1"><li>Added -e &quot;string&quot; flag that allows commands to be sent. string is a semicolon separated list of commands, such as &quot;run; stop; quit&quot;</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.2.0</h2>
+<p>
+Monday, April 14, 2003
+<p>
+This version adds full support for Player/Stage and fixes some bugs in the Khepera simulator.
+<p>
+<ol type="1"><li>The Khepera simulator had troubles because of the simple shared memory code it had. A slightly better, but still simple, fix allows each user to get their own shared memory. This should prevent two users on the same computer from effecting each other. NOTE: you should close down the system like this: close Pyro window, then click on &quot;run&quot; in the Khepera simulator (so that it is no longer selected), then click on &quot;quit&quot;.</li>
+<li>There are two Player demonstration robots in pyrobot/plugins/robots. They are named Player1 and Player2. These will connect onto the sample world that is loaded from pyrobot/plugins/simulators/Stage.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.1.1</h2>
+<p>
+Thursday, April 10, 2003
+<p>
+This is a temporary release that supports a live video image. Tk is currently the default window viewer.
+<p>
+<ol type="1"><li>-i is now the config flag (was -c). i stands for Init</li>
+<li>-c is now the camera flag. Load camera on command line: &quot;-c V4L&quot;</li>
+<li>There are now Camera types in pyrobot/plugins/cameras/. Camera is loaded with the -c flag, and lives at robot.camera</li>
+<li>Tk is currently default because: Video window seems to conflict with opening Tk windows in a particular order, so it needs to open it first. But, Opengl doesn't work right if it isn't the first thing to open. So, for now, no Opengl window.</li>
+<li>Version planned for multirobot module (using USC's Player/Stage). Instructions for setup are currently in <a href="../page_PlayerStageInstallation/">PlayerStageInstallation</a></li>
+<li>Added Fake camera (-c Fake)</li>
+<li>Added symbolic pattern handling in pyrobot.brain.conx; added example RAAM in wiki <a href="../page_PyroRAAMExample/">PyroRAAMExample</a></li>
+<li>Added Player/Stage robot and simulator</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.0.3</h2>
+<p>
+Friday, March 28, 2003
+<p>
+<ol type="1"><li>Added pyrobot/tools/cluster treeplot.py and pcaplot.py (see <a href="../page_PyroModuleAnalysis/">PyroModuleAnalysis</a> for details). Requires Gnuplot.py (see <a href="http://emergent.brynmawr.edu/~dblank/pyrobot/tars/">emergent.brynmawr.edu/~dblank/pyrobot/tars/</a>)</li>
+<li>Updated plots</li>
+<li>Updated <a href="../page_BBWander/">BBWander</a></li>
+<li>Updated saphira, aria, ksim, and som SWIG-based code</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.0.2</h2>
+<p>
+Wednesday, March 26, 2003
+<p>
+<ol type="1"><li>Fixed problems with new SWIG and khepera sim and som</li>
+<li>Fixed problem with config and khepera</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.0.1</h2>
+<p>
+Tuesday, March 25, 2003
+<p>
+<ol type="1"><li>Added configuration support (.pyrobot ini file). See <a href="../page_PyroSetUp/">PyroSetUp</a> for details. This is useful if you are running slightly different configs on each machine (for example, the Khepera serial connection is on /dev/ttyS0 on some machines and /dev/ttyS1 on others).</li>
+<li>Bug in Khepera's angle of close/far---was backwards from that of Pioneer.</li>
+<li>Pyro now interfaces with Aria.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 1.0.0</h2>
+<p>
+See <a href="../page_PyroUpgradingTo1-0/">PyroUpgradingTo1.0</a> for help on upgrading.
+<p>
+Monday, March 10, 2003
+<p>
+<ol type="1"><li>Rewrote main Open<b></b>GL loop which removed a few problems:</li>
+<ol type="1"><li>Window now updates if you issue a direct command to robot from command line</li>
+<li>Loop no longer takes 98% of the CPU: now takes closer to 3%</li>
+<li>Got rid of &quot;Refresh&quot; button</li>
+</ol><li>Rewrote Con-x Backprop stuff</li>
+<li>Cleaned up examples. Removed robot.getSensorGroup() interface. Replaced it with robot.get('range', 'value', sensor-group-name)</li>
+<li>Added code to all Tk widgets to handle events (this allows the windows to show up in Python interactive mode)</li>
+<li>Added support for Aria-based robots.</li>
+<li>Upgraded to SWIG-1.3.17 for Aria</li>
+<li>Fixed conflicts in old code with new SWIG</li>
+<li>Added View item on menu to allow changing view items</li>
+<ol type="1"><li>added slow, medium and fast update options</li>
+</ol><li>Rewrote Conx save to file; now uses pickle</li>
+<li>Added ability for Conx to read/write tlearn files</li>
+<li>Aria simulator with Pyro is designed to work via TCP ports from the local computer. The port number is based on the UID plus 8000.</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 0.9.2</h2>
+<p>
+Sunday, March 1, 2003
+<p>
+<ol type="1"><li>Cleaned up pyrobot/brain/psom/vis.py (moved buttons; removed zeros; show hexagon topology)</li>
+<li>Rewrote pyrobot/brain/ga.py and gp.py (genetic systems)</li>
+<li>Added support for freezing weights and active layers in Con-x (neural network code)</li>
+<li>Fixed additional issues in ga and gp (evolutionary computation)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 0.9.1</h2>
+<p>
+Sunday, February 9, 2003
+<p>
+<ol type="1"><li>Removed unnecessary imports of OpenGL.Tk; changed to Tkinter</li>
+<li>Fixed rescale of hinton, matrix, and scatter on redraw</li>
+<li>Rewrote scatter to allow xStart, xEnd, yStart, yEnd plot ranges</li>
+<li>Added config variable to allow setting python binary precisely</li>
+<li>Fixed a bug in pyrobot/robot/__init__.py: reported wrong pos in get(... 'min') and get(... 'max')</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 0.9.0</h2>
+<p>
+Wednesday, January 15 2003
+<p>
+<ol type="1"><li>Fixed <a href="../page_OpenGL/">OpenGL</a> update bug in step() of direct control brain</li>
+<li>Added support for EDITOR env variable (see <a href="../page_PyroUsersManual/">PyroUsersManual</a> too)</li>
+<li>Added Update to Move menu</li>
+<li>Added &quot;Info&quot;, &quot;Usage&quot;, and &quot;About&quot; to Help menu, and command line: Info show brain and robot details, inclding filename; About gives URL for Pyro</li>
+<li>Removed unnecessary files from CVS and tarfile</li>
+<li>Added 3 second pause after simulators start to allow initialization time</li>
+<li>Added new get() interface:</li>
+</ol><p>
+<pre class="code">
+robot.get(sensor, value, set[, func])
+where set is a tuple, list or named group from getSensorGroup, and func is min, max, or avg.
+Examples:
+robot.get('sonar', 'value', (3, 5, 7))
+   Returns list of those three sonar's range values
+robot.get('sonar', 'y', (3,))
+   Returns list of that one sonar's y-coord hit value
+robot.get('sonar', 'value', (3, 5, 7), 'min')
+   Returns the min vector (distance, angle) of those three sensors
+robot.get('ir', 'value', 'front')
+   Returns list of those IR's range values
+robot.get('light', 'x', 'front', 'max')
+robot.get('sonar', 'value', range(4), 'avg')
+</pre>
+<p>
+<ol type="8" start="8"><li>Removed buggy plots from plugins/plots</li>
+<li>Renamed 'min' in get() to 'close'; 'max' to 'far', and added 'min'/'max' that returns (pos, dist)</li>
+<li>Made &quot;Refresh&quot; also do an update() (so you don't have to click Stop to update)</li>
+<li>Changed Makefile/configure to allow explicit naming of Python binary. (Thanks to Chis Couples, Bryn Mawr College sys admin, for testing all manners of possible configs)</li>
+</ol><p>
+<p>
+<h2 width="804"> Version 0.8.14</h2>
+<p>
+Sunday, January 12 2003
+<p>
+<ul><li>State.add() method now takes a third parameter that is a dict of effects like: {'translate': .3, 'rotate': .4}. &quot;Name&quot; was moved to the 4th parameter of add(), and all test brains were changed to reflect this (<a href="../page_BBTest/">BBTest</a>, <a href="../page_BBTest2/">BBTest2</a>).</li>
+<li>If Behavior.IF() names are not specified, then they are assigned a name like &quot;<a href="../page_RuleN/">RuleN</a>&quot; where N is the rule number, starting at 1. Rule names are still in the 4th position and optional (this may change). The rule name appears in the Brain-&gt;View window for Fuzzy<b></b>Behavior<b></b>Based<b></b>Brains.</li>
+</ul><p>
+<p>
+<h2 width="804"> Version 0.8.13</h2>
+<p>
+Aug 15, 2002
+<p>
+<ul><li>A version of Olivier Michel's Khepera Simulator now accessible from Pyro (it is included in the Pyro files)</li>
+<li>Example Neural Network brains that can learn to avoid obstacles</li>
+</ul><p>
+<p>
+<p>
+<h2 width="804"> Version 0.8.11</h2>
+<p>
+July 12, 2002
+<p>
+<ul><li>Configure.py called in make; designed to auto config Pyro</li>
+<li>SOM logging facility</li>
+<li>Logging class in pyrobot.system.log</li>
+<li>Resampling method for making images smaller</li>
+<li>Khepera stall check ability</li>
+<li>Khepera dead reckoning (alpha version)</li>
+</ul><p>
+<p>
+<h2 width="804"> Version 0.8.10</h2>
+<p>
+July 5, 2002
+<p>
+<ul><li>New makefile structure won't compile saphira/pioneer items if you leave SAPHIRA empty.</li>
+<li>Now edit Makefile.cfg.</li>
+</ul><p>
+<p>
+<h2 width="804"> Version 0.8.9</h2>
+<p>
+June 21, 2002
+<p>
+<ul><li>Real-time visualization of self-organizing maps</li>
+<li>Command-line editing in GUI</li>
+<li>Brains: <a href="../page_NNRandom/">NNRandom</a>, <a href="../page_NNCluster/">NNCluster</a></li>
+<li>Requires PIL, Python Image Library</li>
+</ul><p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;News&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroWhatsNew?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroWhatsNew?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

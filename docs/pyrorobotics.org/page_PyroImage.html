@@ -1,0 +1,90 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104719", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroImage</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h2 width="804">1.1.  PyroImage</h2>
+<p>
+This page documents Pyro<b></b>Image, the main image class in Pyro.
+<p>
+This class has methods to do standard vision processing: blob detection and tracking, convolution, etc.
+<p>
+See pyrobot/vision/__init__.py for many examples.
+<p>
+<pre class="code">
+from pyrobot.vision import *
+</pre>
+<p>
+Classes and Methods:
+<p>
+<pre class="code">
+class PyroImage:
+   def loadFromFile(filename):
+   def saveToFile(filename):
+   def shrink(self, xscale=0.5, yscale='unset', mode='average'):
+   def getShrunkenImage(self, xscale=0.5, yscale='unset', mode='average'):
+   def grayScale(self):
+   def getGrayScale(self):
+   def getColorFilter(self, r, g, b):
+   def display(self):
+   def set(self, x, y, val, offset = 0):
+   def setVal(self, x, y, val):
+   def get(self, x, y, offset = 0):
+   def getVal(self, x, y):
+   def reset(self, vector):
+   def resetToColor(self,r,g,b):
+   def incr(self, x, y, offset = 0):
+   def cropPixels(self, l, t='unset', r='unset', b='unset'):
+   def getBitmap(self, cutoff, cutoff2='unset', mode='brightness'):
+   def histogram(self, cols = 20, rows = 20, initvals = 0):
+   def convolve(self, convmask, bit = 0, threshold = 0):
+   def swapPlanes(self, plane1, plane2):
+class Histogram(PyroImage):
+   def display(self):
+   def compare(self, hist):
+class Bitmap(PyroImage):
+   def display(self):
+   def avgColor(self, img):
+class Point:
+   def set(self, x, y):
+   def setx(self, x):
+   def sety(self, y):
+   def clear(self):
+class Blob:
+   def addpixel(self, pixel):
+   def joinblob(self, other):
+   def width(self):
+   def height(self):
+   def area(self):
+   def density(self):
+   def display(self):
+class Blobdata:
+   def sort(self, mode=&quot;mass&quot;):
+   def display(self):
+</pre>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroImage?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroImage?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

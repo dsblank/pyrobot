@@ -1,0 +1,283 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093028", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: The_20Stage_20Simulator</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> The Stage Simulator</h1>
+<p>
+Stage is part of the Player/Stage software package developed at the University of Southern California Robotics Research Lab and HRL Labs. Player is a device server that can be used to control robots just like Pyro. Stage is a multi-robot simulator that provides facilities for creating your own environments for experimenting with robots.
+<p>
+In this section, we will present the core features of Stage that you will need for building simulated worlds for your Pyro robot experiments. For more information on Player/Stage visit <a href="http://playerstage.sourceforge.net/"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;their web site</a>. There is extensive documentation available for Stage. You can find it either at the Player/Stage web site, or look in the <b>doc</b> folder of your Player/Stage installation on your computer.
+<p>
+<p>
+<h2 width="804"> The Stage User Interface</h2>
+<p>
+The window below shows an example of a Stage simulated environment.
+<p>
+<img src="../_meeden/BeyondLegos/Images/Stage.jpg">
+<p>
+It contains several colored boxes as well as a pioneer-style robot.
+<p>
+In the Stage window, you can pan and zoom the world as well as
+manipulate entities by using your mouse. You can click your mouse
+buttons on the background or on the entities. The following table
+summarizes various mouse click bindings and actions:
+<p>
+<b>Clicks on the background</b>
+<table border="1"><tr><td> Left-click and drag </td><td> pans the window </td></tr>
+<tr><td> Right-click and drag toward the center of the window</td><td> zooms in </td></tr>
+<tr><td> Right-click and drag the mouse away from the center </td><td> zooms out</td></tr>
+</table><p>
+<b>Clicks on entities</b>
+<table border="1"><tr><td> Left-click and drag</td><td> moves the entity</td></tr>
+<tr><td> Right-click and drag</td><td> rotates the entity</td></tr>
+</table><p>
+Additionally, when you move your mouse over an active entity, like a
+robot, you will also get a visualization of all the enabled sensors of
+the entity.
+<p>
+<p>
+<h2 width="804"> Stage Entities</h2>
+<p>
+Every Stage world is made up of entities which can be <i>active</i> or
+<i>passive</i>. Passive entities are also called <i>objects</i> in Stage
+parlance. Active entities are also called <i>devices</i>. Objects, or
+passive entities, are things like <b>models</b> and
+<b>bitmaps</b>. Bitmaps are used to define fixed obstacles that can
+represent building floor plans, walls, boulders, etc. and are loaded
+from a PNM bitmap file. PNM is a portable any map file format.  Models
+can be any size and can also be used to represent obstacles as well as
+robot enclosures. For example, if you create a large models and then
+place a robot inside it, the walls of the model will become the boundary
+for the robot. If you placed smaller models inside the larger model
+containing the robot, then those become blocks or obstacles. 
+<p>
+The other kind of entity one can have in a Stage world are
+devices. For example, a robot is a device that can be positioned
+anywhere in the world. Other devices include things like a gripper,
+sonar, laser, ptz (pan-tilt-zoom camera), etc. Generally, these
+devices will be mounted on a robot device. Stage has the capability of
+defining composite devices. Thus you can define a robot that has a
+gripper and sonars, or another one that has sonars and a PTZ camera,
+etc.
+<p>
+<p>
+<h2 width="804"> Robot Devices</h2>
+<p>
+By convention, you typically define a simulated robot for Stage worlds
+based on the actual robot that you have. You compose it to contain all
+the devices the robot carries. Then, you can create several different
+environments and include your robot device definition in it. For
+example, the Stage software includes a file named <b>pioneer.inc</b>
+that defines a typical pioneer-style robot with 16 sonars. This robot
+can be used in any Stage world.
+<p>
+<p>
+<h2 width="804"> Creating a World</h2>
+<p>
+Once we have defined a robot, we can concentrate on creating a world
+for it. Because Stage is currently undergoing a major upgrade, there
+is still not much documentation on how to create worlds.  However, we
+can demonstrate how the simple world shown above was created.
+<p>
+Creating a world in Stage involves creating two files.  The
+first is the configuration file and always ends with a <b>.cfg</b>
+extension.  For example, the file <b>tutorial.cfg</b> is shown below.
+<p>
+<pre class="code">
+driver
+(
+        name &quot;stage&quot;
+        provides [&quot;7000:simulation:0&quot;]
+        plugin &quot;libstageplugin&quot;
+        worldfile &quot;tutorial.world&quot;
+)
+driver
+(
+        name &quot;stage&quot;
+        provides [&quot;position:0&quot; &quot;sonar:0&quot;]
+        model &quot;Pioneer&quot;
+)
+</pre>
+<p>
+Next you must define the world file, which has a <b>.world</b>
+extension.  This defines all the entities that will appear in the
+world.  Each world file typically has the following:
+<p>
+<pre class="code">
+   A specification of units.
+   A specification of the Stage GUI window and the coordinate system.
+   A list of all passive entities and their attributes.
+   A list of all robots and their attributes.
+</pre>
+<p>
+The tutorial world shown above is 5 meters wide and 5 meters high.  It
+contains a blue rectangle, two green rectangles, and a red pioneer
+robot.
+<p>
+All commands that specify entities in Stage worlds have the following syntax:
+<pre class="code">
+   &lt;entity_name&gt; ( &lt;attribute1&gt; &lt;value1&gt; ... &lt;attributeN&gt; &lt;valueN&gt;)
+</pre>
+<p>
+Where &lt;entity_name&gt; is the name of the entity, and that is followed by
+a list of attribute value pairs enclosed by parenthesis. You can
+format the command on a single line or multiple lines. Attributes for
+entities depend on the kind of entity. A rectangle (called a
+<b>model</b>), may have a color, a position and an orientation.
+<p>
+<b>Specifying Units and Resolution</b>
+<p>
+<pre class="code">
+   unit_length &quot;m&quot;
+</pre>
+<p>
+The above command is the proper syntax for specifying units for
+length. We have set it to meters. This is also the default in case you
+do not specify any units. However, we recommend you do this. This
+specification should also be consistent with your robot definition, so
+you should be careful and fix this once and for all.  You can use
+meters (<b>m</b>), centimeters (<b>cm</b>), or millimeters (<b>mm</b>)
+for units of length and <b>degrees</b> or <b>radians</b> for specifying
+angles. 
+<p>
+<b> The GUI Window and the Coordinate System</b>
+<p>
+You have to specify the size of the GUI window in pixels as well as
+the center point and scale.
+<p>
+<pre class="code">
+window
+(
+  size [540.000 580.000]
+  center [0.000 0.000]
+  scale 0.01    # 1 pixel = 0.01 meters
+)
+</pre>
+<p>
+Since our world will be 5x5 meters, at 0.01 meters/pixel, we will need
+at least 500 pixels for the GUI window. We generally pad this so that
+the window borders are also included.  The center of the window will
+be considered the origin.
+<p>
+<b> Specifying Passive Entities</b>
+<p>
+In the world that we are building there are several objects. First
+there is the outer box which encloses the environment.  This can be
+defined as follows.
+<p>
+<pre class="code">
+model 
+(
+  size [5.0 5.0]
+  color &quot;white&quot;
+  pose [0.000 0.000 0.000]
+)
+</pre>
+<p>
+In the above definition, the box is 5x5 meters, thus defining the
+world boundary. It is colored white, and its position is defined by
+three numbers which specify the x and y coordinates of the
+<b>center</b> of the box and its orientation (in degrees). Thus the box
+is centered at the point (0.0, 0.0 ) and its orientation is 0 (0
+degrees lies along the positive x-axis).
+<p>
+Next there are a series of inner boxes which represent obstacles.
+They can be defined as follows.
+<p>
+<pre class="code">
+model 
+(
+  size [1.0 1.0]
+  color &quot;blue&quot;
+  pose [-2.000 2.000 0.000]
+)
+model 
+(
+  size [0.1 2.5]
+  color &quot;green&quot;
+  pose [0.000 -1.250 0.000]
+)
+model
+(
+  size [0.1 1.4]
+  color &quot;green&quot;
+  pose [0.650 0.000 90.000]
+)
+</pre>
+<p>
+<b> Specifying a robot</b>
+<p>
+We will use the definition of a pioneer robot:
+<p>
+<pre class="code">
+pioneer2dx
+(
+  color &quot;red&quot;
+  name &quot;Pioneer&quot;
+  port 6665
+  pose [-2.000 0.000 90.000]
+)
+</pre>
+<p>
+The <b>port</b> attribute is very important. This is the port number
+that the driver program will use to connect to the robot and control
+it.
+<p>
+<p>
+<h2 width="804"> Exercise</h2>
+<p>
+Copy the following files from &#36;PYROBOT/plugins/worlds/Stage/ to your
+home directory:
+<p>
+<pre class="code">
+tutorial.cfg
+tutorial.world
+pioneer.inc
+</pre>
+<p>
+Modify the world above so that the robot is pointing west when the
+world is loaded into Stage. In order to get Pyro to load your version
+of the world, be sure to press the &quot;Home&quot; button when the list of
+worlds appears.
+<p>
+Try modifying some other attributes of the robot (like its
+color). Then, create a red diamond-shaped box (a box oriented 45
+degrees) as an obstacle in the environment. Move your mouse on the
+robot and notice its sensors. Move the robot near the obstacle and try
+the same thing. How would you create walls in this environment?
+<p>
+Now would be a good time to look at the other world files provided
+there. This should give you a good idea of some other features of
+Stage. Remember to browse the Stage Manual for more information on
+Stage.
+<p>
+Next: <a href="../page_The_20Gazebo_20Simulator/">The Gazebo Simulator</a>
+Up: <a href="../page_Robot_20Simulators/">Robot Simulators</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/The_20Stage_20Simulator?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/The_20Stage_20Simulator?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

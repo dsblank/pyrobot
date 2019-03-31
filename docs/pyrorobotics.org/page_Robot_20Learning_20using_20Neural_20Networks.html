@@ -1,0 +1,490 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160731", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Robot_20Learning_20using_20Neural_20Networks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Robot Learning Using Neural Networks</h1>
+<p>
+The examples we have used so far are useful in understanding how neural networks work, but ultimately we want to create a neural network brain for a robot. That is, how does a robot <b>learn</b> to perform a task? The simplest robot learning tasks are navigational tasks such as learning to move about without bumping into obstacles, or following a wall, or learning to detect a wall.
+<p>
+As we have seen from our earlier examples, in order to train a neural network, the input data is to be presented at the input layer and then, through a process of feedforward propagation, the neural network produces an output at the output layer. In the case of robot learning, typically in navigational behaviors, the inputs into the neural network are the robot's sensor values, and the outputs are commands for the robot's motors. Depending on the environment you are using you may do the learning experiments on real robots or on simulated ones. Additionally, you may do the learning <b>offline</b> or <b>online</b>.
+<p>
+<p>
+<h3 width="804"> Offline Learning/Training</h3>
+<p>
+In the case of offline learning, you first collect a training data set by running a robot using a program that exhibits the desired behavior. That is, while the robot is actually carrying out the desired task, you record its sensor and motor values. These will then become the input and target output values during training. Since all the data is collected prior to training, we call this offline training. Once the network has been trained, you can <b>deploy</b> the network on the robot to examine and test its behavior. Thus, for offline training, one uses the following steps:
+<p>
+<ol type="1"><li>Write a behavior (most likely using direct control) that accomplishes the training task</li>
+<li>Extract a data set from the robot carrying out the task</li>
+<li>Scale and sample the data to create a training data set</li>
+<li>Train a network with the data</li>
+<li>Deploy and test the network on the robot</li>
+<li>Analyze the results</li>
+</ol><p>
+<p>
+<h3 width="804"> Online Learning</h3>
+<p>
+In the case of online learning, you train the robot in real time, on-the-fly. That is, you get the robot's sensor readings, you feed these to the neural network, propagate and get output, you compare the output with the desired output (i.e. what would the correct response should have been), you compute the error and do a step of neural network learning, you move the robot, and repeat the process until the total error is within an acceptable range. Once the network has learned, you can turn off the learning, and then use the network to control the robot. The following steps are preformed for online learning:
+<p>
+<ol type="1"><li>Write a network control program with a built-in <i>trainer</i> to compute the correct outputs</li>
+<li>Repeat the following until the error reduces to an acceptable level:</li>
+<ol type="i"><li>Get sensor readings</li>
+<li>Scale them</li>
+<li>Present them to the input</li>
+<li>Propagate and compute network's output</li>
+<li>Use the <i>trainer</i> to compute correct output</li>
+<li>Compute the error and use it for a learning step</li>
+</ol><li>Turn learning off</li>
+<li>Deploy and test the network on the robot</li>
+<li>Analyze the results</li>
+</ol><p>
+<p>
+<h3 width="804"> Example: Detecting an obstacle using offline learning</h3>
+<p>
+Let us take a very simple navigational task: The robot goes forward and stops when it is about to run into an obstacle. This is a very simple behavior that is easily accomplished using the following direct control program:
+<p>
+<pre class="code">
+# robot goes forward and then slows to a stop when it detects something 
+from pyrobot.brain import Brain 
+from pyrobot.brain.conx import * 
+from time import * 
+class NNBrain(Brain): 
+   # Give the front two sensors, decide the next move 
+   def determineMove(self, front): 
+      if front[0] &lt; 0.5 or front[1] &lt; 0.5:   # about to hit soon, STOP 
+         print &quot;collision imminent, stopped&quot; 
+         return(0) 
+      elif front[0] &lt; 0.8 or front[1] &lt; 0.8:  # detecting something, SLOWDOWN 
+         print &quot;object detected&quot; 
+         return(0.1) 
+      else: 
+         print &quot;clear&quot;      # all clear, FORWARD 
+         return(0.3)
+   def step(self): 
+      front = [s.distance() for s in self.robot.range[&quot;front&quot;]]
+      translation = self.determineMove(front) 
+      print &quot;front sensors&quot;, front[0], front[1] 
+      self.move(translation, 0.0) 
+def INIT(engine): 
+   return NNBrain('NNBrain', engine) 
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNOfflineProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNOfflineProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+In fact, the above program itself can be used to collect data for offline training. But first, we must decide on the architecture of the neural network. We will use two inputs, into which we will feed the front two sensor values (scaled). Let us have 1 unit in the hidden layer and 1 in the output layer. Thus, the training data set will consist of two front sensor values and one target translation value.
+<p>
+<b>Collecting Data</b>
+<p>
+The above program is modified to collect the data set. We will collect 10000 pieces of input-output values. The input values will be stored in a file called <tt class="wiki">frontsensors.dat</tt> and the output values will be stored in a file called <tt class="wiki">translatetargets.dat</tt>. Once 10000 values have been collected, the robot stops and the program can be terminated.
+<p>
+<pre class="code">
+# brain to collect data for offline learning
+# robot goes forward and then slows to a stop when it detects something
+from pyrobot.brain import Brain
+from pyrobot.brain.conx import *
+from time import *
+def saveListToFile(ls, file):
+   for i in range(len(ls)):
+      file.write(str(ls[i]) + &quot; &quot;)
+   file.write(&quot;\n&quot;)
+class CollectDataBrain(Brain):
+   def setup(self):
+      self.counter = 0
+      self.countstopping = 0
+      self.datafile1 = open(&quot;frontsensors.dat&quot;, &quot;w&quot;)
+      self.datafile2 = open(&quot;translatetargets.dat&quot;, &quot;w&quot;)
+      self.maxvalue = self.robot.range.getMaxvalue()
+      print &quot;max sensor value is &quot;, self.maxvalue
+   def determineMove(self, front):
+      if front[0] &lt; 0.5 or front[1] &lt; 0.5:
+         print &quot;collision imminent&quot;
+         self.countstopping = self.countstopping+1
+         return(0)
+      elif front[0] &lt; 0.8 or front[1] &lt; 0.8:
+         print &quot;object detected&quot;
+         return(0.08)
+      else:
+         print &quot;clear&quot;
+         return(0.15)
+   def scale(self, val):
+      x = val / self.maxvalue
+      if x &gt; 1:
+         print &quot;scaled &gt; 1&quot;
+         return 1
+      else:
+         return x
+   def step(self):
+      front = [s.distance() for s in self.robot.range[&quot;front&quot;]]
+      translation = self.determineMove(front)
+      print &quot;front sensors&quot;, front[0], front[1]
+      if self.counter &gt; 1000:
+         self.datafile1.close()
+         self.datafile2.close()
+         print &quot;done collecting data&quot;
+         self.stop()
+      elif self.countstopping &gt; 5:
+         self.move(-0.3, 0.2)
+         sleep(0.5)
+         self.countstopping = 0
+      else:
+         print &quot;move&quot;, self.counter, translation
+         saveListToFile([self.scale(front[0]), self.scale(front[1])],
+                        self.datafile1)
+         saveListToFile([translation] , self.datafile2)
+         self.move(translation, 0.0)
+         self.counter += 1
+def INIT(engine):
+   return CollectDataBrain('CollectDataBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNCollectDataProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNCollectDataProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<b>Training the Network</b>
+<p>
+Next, we will create the network and train it on the data set we just collected. This is shown in the program below:
+<p>
+<pre class="code">
+# Train a network offline
+# Inputs: two scaled front sensor readings 
+# Outputs: one translate reading (unscaled) 
+from pyrobot.brain.conx import * 
+from pyrobot.system.log import * 
+def setFromFile(filename, cols = None, delim = ' '): 
+   fp = open(filename, &quot;r&quot;) 
+   line = fp.readline() 
+   lineno = 1 
+   lastLength = None 
+   data = [] 
+   while line: 
+      linedata = [float(x) for x in line.strip().split(delim)] 
+      if cols == None: # get em all 
+         newdata = linedata 
+      else: # just get some cols 
+         newdata = [] 
+         for i in cols: 
+            newdata.append( linedata[i] ) 
+      if lastLength == None or len(newdata) == lastLength: 
+         data.append( newdata ) 
+      else: 
+         raise &quot;DataFormatError&quot;, &quot;line = %d&quot; % lineno 
+      lastLength = len(newdata) 
+      lineno += 1 
+      line = fp.readline()
+   fp.close()
+   print &quot;length of data array is&quot;, len(data)
+   return data 
+def saveListToFile(ls, file): 
+   for i in range(len(ls)): 
+      file.write(str(ls[i]) + &quot; &quot;) 
+   file.write(&quot;\n&quot;) 
+# Create the network 
+n = Network() 
+n.addLayers(2,1,1) 
+# Set learning parameters 
+n.setEpsilon(0.3) 
+n.setMomentum(0.0) 
+n.setTolerance(0.05) 
+# set inputs and targets (from collected data set) 
+n.setInputs(setFromFile('frontsensors.dat')) 
+n.setTargets(setFromFile('translatetargets.dat')) 
+# Logging 
+log = Log(name = 'E05M01.txt') 
+best = 0 
+for i in xrange(0,1000,1): 
+   tssError, totalCorrect, totalCount, totalPCorrect = n.sweep()   
+   correctpercent = (totalCorrect*0.1) / (totalCount*0.1) 
+   log.writeln( &quot;Epoch # &quot;+ str(i)+ &quot; TSS ERROR: &quot;+ str(tssError)+
+                &quot; Correct: &quot;+ str(totalCorrect)+ &quot; Total Count: &quot;+
+                str(totalCount)+ &quot; %correct = &quot;+ str(correctpercent)) 
+   if best &lt; correctpercent: 
+      n.saveWeightsToFile(&quot;E05M01.wts&quot;) 
+      best = correctpercent 
+print &quot;done&quot; 
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNTrainRobotProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNTrainRobotProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+As you can see from the above, the training part here is similar to the earlier examples. Notice that we are using the data set collected earlier. After the network has been trained, the weights are stored in a file <tt class="wiki">E05M01weights.wts</tt> (for Epsilon = 0.3 and Momentum = 0.0). Once the training is complete, you can also record and plot the total sum-squared error to see how the learning progresses. Notice that we expect the learned neural network to perform within a tolerance of 5%. Learning may take anywhere from 500 to 50,000 epochs depending on the parameters that are set. You should experiment with these values as before to get a good idea of the robustness of the end results.
+<p>
+<b>Deploying and Testing</b>
+<p>
+Once the network has learned, it is time to actually use it as a brain to control the robot and observe its behavior. Since we saved the final weights above, we can easily reconstruct the network and use it. This is shown below:
+<p>
+<pre class="code">
+# Load in saved weights from offline training
+# Inputs are the two front sensor readings
+# Output is a translate value, used to control the robot
+from pyrobot.brain import Brain
+from pyrobot.brain.conx import *
+from time import *
+class NNBrain(Brain):
+   def setup(self):
+      self.n = Network()
+      self.n.addLayers(2,1,1)
+      self.maxvalue = self.robot.range.getMaxvalue()
+      self.doneLearning = 1
+      self.n.loadWeightsFromFile(&quot;E05M01.wts&quot;)
+      self.n.setLearning(0)
+   def scale(self, val):
+      x = val / self.maxvalue
+      if x &gt; 1:
+         return 1.0
+      else:
+         return x
+   def step(self):
+      # Set inputs
+      front = [s.distance() for s in self.robot.range[&quot;front&quot;]]
+      self.n['input'].copyActivations([self.scale(front[0]),
+                                       self.scale(front[1])])
+      self.n.propagate()
+      translateActual = self.n['output'].activation[0]
+      print &quot;move&quot;, translateActual
+      self.translate(translateActual)
+def INIT(engine):
+   return NNBrain('NNBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNTestingProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNTestingProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<p>
+<h3 width="804"> Exercises</h3>
+<p>
+<ol type="1"><li>Try out the above programs as described. Depending on the robot you choose, you may need to adjust the motor values and scaling.</li>
+<li>Once you have all the components, you should try varying various network parameters and observe their effects on the behavior of the robot.</li>
+<li>Perform the same steps for training a robot to follow a wall.</li>
+</ol><p>
+<p>
+<h3 width="804"> Example: Detecting an obstacle using online learning</h3>
+<p>
+Next, we will carry out the same training task as above using online learning.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain  
+from pyrobot.brain.conx import *  
+from time import * 
+class NNBrain(Brain):  
+   def setup(self):
+      self.net = Network()
+      self.net.addLayers(3,2,2)  
+      self.net.setEpsilon(0.25)  
+      self.net.setMomentum(.1)  
+      self.maxvalue = self.robot.range.getMaxvalue()
+      self.counter = 0  
+      self.doneLearning = 0 
+   # Scale the range readings to be between 0 and 1.  Also make close 
+   # obstacles register high readings, and distance obstacles low readings. 
+   def scale(self, val):  
+      return (1 - (val / self.maxvalue))  
+   # The robot will get translate and rotate values in the range [-0.5,0.5],  
+   # but the neural network will generate outputs in the range [0,1].  
+   def toNetworkUnits(self, val):  
+      return (val + 0.5)  
+   def toRobotUnits(self, val):  
+      return (val - 0.5) 
+   def determineTargets(self, left, front, right): 
+      if front &lt; 1.0: 
+         print &quot;front&quot; 
+         return([0.0, 0.5]) 
+      elif left &lt; 1.0: 
+         print &quot;left&quot; 
+         return([0.0, -0.5]) 
+      elif right &lt; 1.0: 
+         print &quot;right&quot; 
+         return([0.0, 0.5]) 
+      else: 
+         print &quot;clear&quot; 
+         return([0.5, 0.0]) 
+   def step(self): 
+      if self.doneLearning:  
+          self.net.setLearning(0)  
+      else:  
+          self.net.setLearning(1) 
+      # Set inputs 
+      left  = min([s.distance() for s in self.robot.range[&quot;front-left&quot;]])
+      front = min([s.distance() for s in self.robot.range[&quot;front&quot;]])
+      right = min([s.distance() for s in self.robot.range[&quot;front-right&quot;]])
+      inputs = map(self.scale, [left, front, right]) 
+      trnTarget,rotTarget = self.determineTargets(left, front, right) 
+      targets = [self.toNetworkUnits(trnTarget), self.toNetworkUnits(rotTarget)]
+      # Learn 
+      self.net.step(input=inputs,output=targets) # input and output are the names of the layers
+      trnActual = self.toRobotUnits(self.net['output'].activation[0]) 
+      rotActual = self.toRobotUnits(self.net['output'].activation[1]) 
+      # Check if the robot is stuck and give it a kick to unjam it 
+      if self.robot.stall: 
+          print &quot;stuck--reversing&quot; 
+          self.move(-0.5, 0.0) 
+          sleep(0.5) 
+      else:
+          if self.doneLearning:
+              print &quot;move&quot;, trnActual, rotActual
+              self.move(trnActual, rotActual)
+          else:
+              print &quot;step&quot;, self.counter, &quot;target&quot;, trnTarget, rotTarget, \
+                    &quot;network&quot;, trnActual, rotActual 
+              self.move(trnTarget, rotTarget) 
+      self.counter += 1 
+def INIT(engine): 
+   return NNBrain('NNBrain', engine)  
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNOnlineProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNOnlineProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+You can start and stop the program using the Pyro window controls.
+Once the learning is done, weights are saved. You can either set the learning off (by setting the value of the variable <tt class="wiki">doneLearning</tt> to 1) and then use the same program to deploy and test on the robot, or use the program shown in the offline learning section above (using the saved weights).
+<p>
+<p>
+<h3 width="804"> Example: Avoiding Obstacles Using Online Learning</h3>
+<p>
+In this example, we will try to train a robot to move around without hitting obstacles.  The teacher for this brain will be very similar to the obstacle avoidance method used in <a href="../page_PyroModuleDirectControl/">PyroModuleDirectControl</a>.
+<p>
+We will create a neural network with an input layer of size three, a hidden layer of size two, and an output layer of size two.  The three inputs will be the minimum range values on the front-left, front, and front-right sensors.  We will scale these values so that they are in the range [0,1] and we will also reverse them so that a 1 means the robot is contacting an obstacle and a 0 means the robot senses nothing in its way. The two outputs will be the translate and rotate values for the robot's next move. The neural network will produce outputs in the range [0,1], but we would like our move values to be in the range [-0.5, 0.5].  There are two methods provided to do the conversion between robot-based units and network-based units.
+<p>
+In the program given below, the <tt class="wiki">setup</tt> method creates the neural network, and sets the parameters for learning.  It also creates some other useful class variables.  The <tt class="wiki">counter</tt> keeps track of how many steps have been executed.  The flag <tt class="wiki">doneLearning</tt> can be used to turn learning on and off.
+<p>
+The method <tt class="wiki">determineTargets</tt> is the teacher for this network.  It is a very simple obstacle avoidance strategy.  When it detects an obstacle in front or to the right, it tells the robot to turn in place to the left.  When it detects an obstacle to the left, it tells the robot to turn in place to the right.  Otherwise, it tells the robot to go straight.  It returns a list containing the appropriate translate and rotate values.
+<p>
+The method <tt class="wiki">step</tt> takes care of running the network by doing the following tasks:
+<p>
+<ul><li>setting the network's inputs</li>
+<li>setting the network's targets</li>
+<li>propagating the values through the network</li>
+<li>determining the network's actual output</li>
+<li>changing the weights when learning</li>
+<li>commanding the robot to move</li>
+</ul><p>
+In addition, this method checks to see if the robot is stuck.  If so, it does not execute the move, but instead tries to back out of the jam.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain  
+from pyrobot.brain.conx import *  
+from time import * 
+class NNBrain(Brain):  
+   def setup(self):
+      self.net = Network()
+      self.net.addLayers(3,2,2)  
+      self.net.setEpsilon(0.25)  
+      self.net.setMomentum(.1)  
+      self.maxvalue = self.robot.range.getMaxvalue()
+      self.counter = 0  
+      self.doneLearning = 0 
+   # Scale the range readings to be between 0 and 1.  Also make close 
+   # obstacles register high readings, and distance obstacles low readings. 
+   def scale(self, val):  
+      return (1 - (val / self.maxvalue))  
+   # The robot will get translate and rotate values in the range [-0.5,0.5],  
+   # but the neural network will generate outputs in the range [0,1].  
+   def toNetworkUnits(self, val):  
+      return (val + 0.5)  
+   def toRobotUnits(self, val):  
+      return (val - 0.5) 
+   def determineTargets(self, left, front, right): 
+      if front &lt; 1.0: 
+         print &quot;front&quot; 
+         return([0.0, 0.5]) 
+      elif left &lt; 1.0: 
+         print &quot;left&quot; 
+         return([0.0, -0.5]) 
+      elif right &lt; 1.0: 
+         print &quot;right&quot; 
+         return([0.0, 0.5]) 
+      else: 
+         print &quot;clear&quot; 
+         return([0.5, 0.0]) 
+   def step(self): 
+      if self.doneLearning:  
+          self.net.setLearning(0)  
+      else:  
+          self.net.setLearning(1) 
+      # Set inputs 
+      left  = min([s.distance() for s in self.robot.range[&quot;front-left&quot;]])
+      front = min([s.distance() for s in self.robot.range[&quot;front&quot;]])
+      right = min([s.distance() for s in self.robot.range[&quot;front-right&quot;]])
+      inputs = map(self.scale, [left, front, right])
+      trnTarget,rotTarget = self.determineTargets(left, front, right) 
+      targets = [self.toNetworkUnits(trnTarget), self.toNetworkUnits(rotTarget)]
+      # Learn 
+      self.net.step(input=inputs,output=targets)  # input and output are layer names
+      trnActual = self.toRobotUnits(self.net['output'].activation[0]) 
+      rotActual = self.toRobotUnits(self.net['output'].activation[1]) 
+      # Check if the robot is stuck and give it a kick to unjam it 
+      if self.robot.stall: 
+          print &quot;stuck--reversing&quot; 
+          self.move(-0.5, 0.0) 
+          sleep(0.5) 
+      else:
+          if self.doneLearning:
+              print &quot;move&quot;, trnActual, rotActual
+              self.move(trnActual, rotActual)
+          else:
+              print &quot;step&quot;, self.counter, &quot;target&quot;, trnTarget, rotTarget, \
+                    &quot;network&quot;, trnActual, rotActual 
+              self.move(trnTarget, rotTarget) 
+      self.counter += 1 
+def INIT(engine): 
+   return NNBrain('NNBrain', engine)  
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/NNAvoidOnlineProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/NNAvoidOnlineProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+After training for a while, you might want to see what the output activations look like with learning turned off. In the Pyro command line, enter:
+<p>
+<pre class="code">
+brain.net.setLearning(0)
+</pre>
+<p>
+<p>
+<h3 width="804"> A neural network robot controller</h3>
+<p>
+Now that you have a neural network accurately predicting what the innate teacher controller will do, we can use that output to actually control the robot. To test this, enter the following line at the Pyro command line:
+<p>
+<pre class="code">
+brain.netControlled = 1
+</pre>
+<p>
+This will cause the motor commands to be gotten from the output layer's prediction of what the network predicted.
+<p>
+<ol type="1"><li>How does the neural network controller compare to the teacher?</li>
+<li>How could you test it?</li>
+</ol><p>
+<p>
+<h1 width="804"> A more complex example</h1>
+<p>
+To see an example of a more complex neural network application go to <a href="../page_PyroModuleNeuralNetworksAdvanced/">PyroModuleNeuralNetworksAdvanced</a>.
+<p>
+<p>
+<h1 width="804"> Further Reading</h1>
+<p>
+<ol type="1"><li>Omidvar, O., Van der Smagt, P., (Eds.). (1997) <i>Neural Systems for Robotics</i>. New York : Academic Press</li>
+Up: <a href="../page_PyroModuleNeuralNetworks/">PyroModuleNeuralNetworks</a> Next: <a href="../page_Conx_20Implementation_20Details/">Conx Implementation Details</a>
+</ol><p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Learning_20using_20Neural_20Networks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Robot_20Learning_20using_20Neural_20Networks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

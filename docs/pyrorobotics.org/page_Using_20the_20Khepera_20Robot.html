@@ -1,0 +1,100 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219100906", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Using_20the_20Khepera_20Robot</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Using the Khepera Robot</h1>
+<p>
+Before you can use a Khepera robot with Pyro, you have to ensure that all the hardware is set up properly. This is not difficult and is outlined below. For more details, consult the Khepera Manual that shipped with your robot.
+<p>
+<img src="../BeyondLegos/Images/BMCKheperaSetUp.png">
+<p>
+Once you have made the connections as described below, do the following:
+<p>
+<ol type="1"><li>Log on to the machine to which the Khepera is attached</li>
+<li>Start <tt class="wiki">pyrobot</tt></li>
+<li>Select robot <tt class="wiki">Khepera.py</tt></li>
+<li>Before loading a brain, check that the connection is working by selecting the &quot;Joystick&quot; from the &quot;Robot&quot; menu</li>
+<li>If that works, then try loading the brain <tt class="wiki">Avoid.py</tt> and select &quot;Run&quot; to start it and &quot;Stop&quot; to end it</li>
+<li>If you are using the Khepera with a camera, then from the &quot;Load&quot; menu, select &quot;Devices&quot; and then choose the &quot;V4L<b></b>Camera&quot;, then try re-running the brain</li>
+</ol><p>
+<p>
+<h1 width="804"> Setting up the Khepera Robot</h1>
+<p>
+Here, we will briefly explain how to set up a tethered connection to a basic Khepera 2 robot.
+<p>
+There are two methods for setting up a Khepera: with a camera and without. This section discusses both methods, and some testing to ensure proper connection.
+<p>
+<p>
+<h2 width="804"> Khepera without Camera</h2>
+<p>
+A typical setup is shown in the picture below (Illustration is taken directly from the Khepera 2 User Manual, Version 1.0, December 2001, page 22):
+<p>
+<p>
+<img src="../BeyondLegos/Images/KheperaSetUp.jpg">
+<p>
+For other configurations of the Khepera (for instance one with a camera or other accessories attached to it), the hardware interface may involve other components and the setup will be different from the one described below. Later, we will add at least setup instructions for a base Khepera with a camera.
+<p>
+For the basic setup, you will need:
+<ol type="1"><li>A Khepera Robot.</li>
+<li>The Khepera interface and charger module.</li>
+<li>The Khepera AC power adapter.</li>
+<li>Khepera Serial S Cable.</li>
+<li>Khepera Serial S cable with rotator contacts.</li>
+<li>A standard serial cable for interfacing with your computer and Khepera interface and charger module.</li>
+<li>A mount for suspending the rotator S cable.</li>
+</ol><p>
+Refer to the Khepera User Manual for identifying the Khepera accessories. The standard serial cable is typically not supplied with the robot and its connectors can vary depending on the serial port available on your computer.
+<p>
+To set up the robot workstation, do the following:
+<ol type="1"><li>Connect the standard serial cable to your computer's serial port. If you are using a PC with at least two serial ports, you will connect it via the COMM2 port.</li>
+<li>Connect the other end of the standard serial cable to the Khepera interface and charger module.</li>
+<li>Plug the AC adapter into a wall outlet and plug the other end into the Khepera interface and charger module.</li>
+<li>Connect one end of the Khepera serial S cable to the Khepera interface and charger module.</li>
+<li>Connect the other end of the Khepera serial S cable to the terminal on the rotating contact S cable (at the rotating contact end). Mount the cable at an appropriate height above the robot environment.</li>
+<li>Using a small flat-head screw driver, rotate the mode encoding wheel dial on the top of Khepera to point to 3 (for serial communication at 38400).</li>
+<li>Make sure the Khepera is turned OFF (ON/OFF switch is at the bottom of the robot).</li>
+<li>Connect the other end of the rotating contact serial S cable to the robot.</li>
+</ol><p>
+The picture below shows a Khepera workstation set up in the Emergent Intelligence Lab at Bryn Mawr College.
+<p>
+<img src="../BeyondLegos/Images/BMCKheperaSetUp.png">
+<p>
+<p>
+<h2 width="804"> Khepera with camera</h2>
+<p>
+In order to use the Khepera camera, you'll first need to install a
+video capture card on your machine.  Then you can use the following set up:
+<p>
+<img src="../BeyondLegos/Images/whitebox.jpg">
+<p>
+Next: <a href="../page_Using_20the_20Hemisson_20Robot/">Using the Hemisson Robot</a>
+Up: <a href="../page_PyroHardware/">PyroHardware</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Khepera_20Robot?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Using_20the_20Khepera_20Robot?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

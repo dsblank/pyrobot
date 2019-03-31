@@ -1,0 +1,388 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160345", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Sensors</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h2 width="804"> Sensors</h2>
+<p>
+Each robot comes equipped with a suite of sensors. For example, the
+Pioneer robots have sonar sensors, bumpers, and a camera. The Khepera
+robots have infrared sensors, light sensors, and a camera.  The
+Pioneer's sonar sensors and the Khepera's IR sensors are both active
+range finders which can be used to sense distance to
+obstacles. Although these two robots have different kinds of sensors,
+Pyro unifies the way you will use them in your programs. In this
+section, we will first introduce Pyro range sensor abstractions, and
+then we will also present the basic sensors present on Kheperas and
+Pioneers and get you familiarized with these. We will also include the
+interfaces for vision sensing.
+<p>
+Let's start up Pyro in the Stage simulator with the tutorial world.
+You can do this, as you've seen earlier, by selecting a server, a
+world, and a robot through the GUI.  It is also possible to configure
+this on the command line, as shown below:
+<p>
+<pre class="code">
+pyrobot -s StageSimulator -w tutorial.cfg -r Player6665 
+</pre>
+<p>
+First, let's see what devices are available on the robot. Press the
+&quot;View&quot; button next to the &quot;Robot&quot; section of the GUI. Notice that the
+robot has three types of devices: position, sonar, and
+simulation. Open up the sonar devices folder.  A robot may have many
+sets of a particular type of device.  In this case there is only one
+set of sonars, known as <tt class="wiki">sonar[0]</tt>.  
+<p>
+<p>
+<h2 width="804"> Range Sensing</h2>
+<p>
+Whether a robot has sonars or IR sensors for range sensing, you can
+access range information from a robot by using the <b>range</b>
+abstraction. All robots have a predefined <b>range</b>
+attribute. Without knowing about the specific robot you intend to use,
+you can access range information by asking the robot to supply you the
+attributes of range sensors it has. 
+<p>
+On a Pioneer-sytle robot, the <b>range</b> attribute is always
+associated with <tt class="wiki">sonar[0]</tt>.  To see that this is the case, first
+look at the <tt class="wiki">title</tt> attribute in the &quot;View&quot; window.  Then at the
+command line of the GUI, type:
+<p>
+<pre class="code">
+robot.range.title
+</pre>
+<p>
+You can see that <tt class="wiki">robot.range</tt> is simply a reference to
+<tt class="wiki">sonar[0]</tt>.  
+<p>
+The power of Pyro comes from these abstractions.  You should always
+use the <tt class="wiki">range</tt> abstraction rather than refering to <tt class="wiki">sonar[0]</tt>
+directly.  Why? Because if you refer to <tt class="wiki">sonar[0]]</tt>, then your
+program will only work on a robot with sonar-style range sensing.
+However, if you use the <tt class="wiki">range</tt> abstraction, then your program can
+run on any robot with a range device.  All <tt class="wiki">range</tt> devices have a
+<tt class="wiki">distance()</tt> method that returns the estimated distance measure to
+the nearest obstacle.
+<p>
+From the &quot;View&quot; window we can see that <tt class="wiki">sonar[0]</tt> includes 16
+sensors numbered 0 through 15.  So we can read one of these sensors by
+typing the following at the command line:
+<p>
+<pre class="code">
+robot.range[3].distance()
+</pre>
+<p>
+which in this case returned 1.63157630574.  Before we go any further,
+we should figure out how to interpret the value returned by this
+<tt class="wiki">distance()</tt> method. 
+<p>
+<p>
+<h2 width="804"> Sensor Units</h2>
+<p>
+In Pyro, each robot has a set of customizable sensor units. Each
+sensor has a setting called, <b>units</b> that specifies the units used
+in reporting sensor values. There are six choices of units:
+<p>
+<ol type="1"><li><b>METERS</b>: The values reported by sensors are in meters.</li>
+<li><b>CM</b>: The values reported are in centimeters.</li>
+<li><b>MM</b>: The values reported are in millimeters.</li>
+<li><b>SCALED</b>: The values reported are scaled in the range -1.0..1.0</li>
+<li><b>ROBOTS</b>: The values reported are in proportion to the robot's</li>
+physical diameter. Thus a distance equal to the robot's diameter is 1.
+<li><b>RAW</b>: The values reported are the raw values from the sensors.</li>
+</ol><p>
+By default, the robot's range values are set to <b>ROBOTS</b>. 
+Therefore the value returned above indicates that there is an obstacle
+approximately 1.6 robot units away.  This is another important
+abstraction.  By using robot units, rather than specific measures such
+as meters, we can write one program that will work in a similar way on
+a tiny Khepera robot as well as the much larger Pioneer robot. 
+<p>
+Note that if no obstacles are detected, the range sensor will
+return its maximum distance. This value varies from sensor to sensor
+and can be seen using <tt class="wiki">robot.range.getMaxvalue()</tt> and
+reported in the current units.
+<p>
+You can change the units of the value(s) reported by using setting the
+units as shown below: 
+<pre class="code"> 
+robot.range.units = 'SCALED' 
+robot.range.getMaxvalue()
+</pre>
+<p>
+Next time we get a value from any of this range's sensors, it will be
+reported in <b>SCALED</b> units, i.e. it will be a value between -1.0
+and 1.0. Let us try this out:
+<p>
+<pre class="code">
+robot.range[3].distance() =&gt; 0.174168110034
+</pre>
+<p>
+You can also get the scaled value for just the current reading. First,
+we reset the default units to 'ROBOTS', and then dynamically get a
+reading in 'SCALED' units:
+<p>
+<pre class="code">
+robot.range.units = 'ROBOTS'
+robot.range[3].distance() =&gt; 1.73560416834
+robot.range[3].distance(unit = 'SCALED') =&gt; 0.172406364997
+</pre>
+<p>
+Try another example:
+<pre class="code">
+robot.range[3].distance(unit = 'CM') =&gt; 132.269729654
+</pre>
+<p>
+That is, the object is 132.3 centimeters away.
+<p>
+Using &quot;list comprehension&quot;, you can also issue a query to the robot to
+obtain the values of all sensors as an array. This is done as follows:
+<p>
+<pre class="code">
+[s.distance() for s in self.robot.range[&quot;all&quot;]] ==&gt;
+[0.44869176209701611, 0.60781655423635583, 1.0306817554080976,
+1.6410707396430828, 1.6409799177705537, 3.356085956557429, 
+4.5856911255788146, 5.5352539385124544, 2.2594415826628422, 
+2.9820154908926448, 3.2250401855054704, 2.9169203443595531, 
+2.7410097599697201, 0.9660035806647439, 0.59385700232428629, 
+0.41781141653037679]
+</pre>
+<p>
+You will soon realize that this interface is very versatile and can be
+used to retrieve or change various other attributes of the robot.
+<p>
+<b>Exercises:</b> 
+<p>
+<ol type="1"><li>Given the above information regarding the distance from sensor</li>
+number 3 to an obstacle in various units, what is the diameter of the robot?
+<li>Why might range sensors return a large number if there is no obstacle? Shouldn't they return 0 if there is nothing there?</li>
+</ol><p>
+<p>
+<p>
+<h2 width="804"> Sensor Topology</h2>
+<p>
+While it is good to be able to access values of various range sensors,
+it is also essential to know the location of all the sensors on a
+robot's body. So, in addition to knowing that a Pioneer has 16
+sensors, it would also be useful to know where they are located and
+how they are numbered. This is shown below for both the Pioneer and
+Khepera robots:
+<p>
+<table border="1"><tr><td> <img src="../_dkumar/wikigifs/PioneerSensors.gif"> </td><td> <img src="../_dkumar/wikigifs/KheperaSensors.gif"></td></tr>
+<tr><td> Pioneer Sensor Topology </td><td> Khepera Sensor Topology </td></tr>
+</table><p>
+One could ask the robot to tell you where it hit something. For
+example, you could write <tt class="wiki">robot.range[2].hit()</tt> which will
+return the (x,y,z) of the hit:
+<p>
+<pre class="code">
+robot.range[3].hit # returns x, y, z
+</pre>
+<p>
+and the geometry of the originating ray of the sensor:
+<p>
+<pre class="code">
+robot.range[3].geometry  # returns x, y, z, theta in radians, arc width
+</pre>
+<p>
+<p>
+<b>Exercise:</b> 
+<p>
+<ol type="1"><li>Find out the range of values (max and min) reported by the range sensors of a robot of your choosing. Try them for simulated as well as real robots (if you can). Compare the values.</li>
+</ol><p>
+<p>
+<h2 width="804"> Named Sensor Groups</h2>
+<p>
+For convenience in programming, each robot class also defines <i>named sensor groups</i> for all of the basic sensors available on the robot. The <b>range</b> sensors on the Khepera are IR sensors while they are sonar on the Pioneer. Given the direction in which a particular set of sensors is pointing, a logical sensor group provides access to the values reported by each group. The 15 groups and their names for any robot are shown in the table below.
+<p>
+<pre class="code">
+all               - all sensors
+  front-all       - all front sensors
+    front         - the very front, center sensors
+    front-left    - front sensors on the left
+    front-right   - front sensors on the right
+  left            - all sensors on the left (Pioneer has 2, Khepera has 1)
+    left-front    - on the left in the front
+    left-back     - on the left in the back
+  right           - all sensors on the right (Pioneer has 2, Khepera has 1)
+    right-front   - on the right in the front
+    right-back    - on the right in the back
+  back-all        - all of the back sensors
+    back          - the very back, center sensors
+      back-left   - back sensors, on the left
+      back-right  - back sensors, on the right
+</pre>
+ <img width="11" src="../wiki/img/idea.png"> By using these names (rather than specific sensor positions) you can write behaviors that can run on different kinds of robots. Combine these abstract names with the units set to &quot;ROBOTS&quot; and you can almost ignore the underlying hardware.
+<p>
+The diagram below shows the locations of these sensor groups on a robot body.
+<p>
+The specific sensors that make up a particular sensor group vary depending on the type of robot being used. This is shown below:
+<p>
+<table border="1"><tr><td><img src="../BeyondLegos/Images/PioneerSensorGroups.png"> </td><td> <img src="../BeyondLegos/Images/KheperaSensorGroups.png"></td><td> <img src="../BeyondLegos/Images/PioneerLaserGroups.png"> </td></tr>
+<tr><td> Pioneer Sonar Sensor Groups </td><td> Khepera IR/Light Sensor Groups</td><td> Pioneer Laser Sensor Groups </td></tr>
+</table><p>
+List comprehension can be used to retrieve sensor values from sensor groups.  For example:
+<p>
+<pre class="code">
+[s.distance() for s in robot.range[&quot;front&quot;]]
+</pre>
+<p>
+You may want to perform some computation on the list of values returned. Using just Python, you can get the min or max of the values, or the average:
+<p>
+<pre class="code">
+min([s.distance() for s in robot.range[&quot;front&quot;]])
+max([s.distance() for s in robot.range[&quot;front&quot;]])
+from pyrobot.brain import avg
+avg([s.distance() for s in robot.range[&quot;front&quot;]])
+</pre>
+<p>
+Consider finding out the direction of the nearest obstacle around a robot. Pyro knows the angle of each sensor (often called theta, and abbreviated &quot;th&quot;), and you can retrieve that information using list comprehension:
+<p>
+<pre class="code">
+[s.angle() for s in robot.range[&quot;all&quot;]]
+[s.angle(unit=&quot;radians&quot;) for s in robot.range[&quot;all&quot;]] # in radians
+</pre>
+<p>
+These commands will return the angles of the sensors in degrees and radians, respectively. But that doesn't tell you which direction has the smallest range reading. You can get that information with:
+<p>
+<pre class="code">
+min([s.distance() for s in robot.range[&quot;all&quot;]])
+</pre>
+<p>
+But that doesn't give you which sensor had that reading. You can get the position using the &quot;pos&quot; keyword, like so:
+<p>
+<pre class="code">
+[s.pos for s in robot.range[&quot;all&quot;]]
+</pre>
+<p>
+That just shows you the positions of each sensor associated with the keyword &quot;all&quot;. You can get both the angle and the position:
+<p>
+<pre class="code">
+[(s.angle(unit=&quot;radians&quot;),s.pos) for s in robot.range[&quot;all&quot;]]
+</pre>
+<p>
+You can then easily pullout the min or max:
+<p>
+<pre class="code">
+min([(s.angle(unit=&quot;radians&quot;),s.pos) for s in robot.range[&quot;all&quot;]])
+max([(s.angle(unit=&quot;radians&quot;),s.pos) for s in robot.range[&quot;all&quot;]])
+</pre>
+<p>
+The <b>range</b> attribute nicely generalizes the functionality of various robots that may use different sensing devices for range finding. However, it is also nice to be able to access the values of a robot's specific sensors since each type of sensor may be able to provide additional information. This tends to make things robot-specific, but sometimes that is necessary.
+<p>
+Regardless of the kind of robot, and hence the kind of sensor used, the way to access these values is quite uniform. The simplest command to get the value of a specific sensor is:
+<p>
+<p>
+<pre class="code">
+robot.SENSOR_TYPE[INDEX][SENSOR_NUMBER]
+</pre>
+<p>
+SENSOR_NUMBER could be a named sensor group, but could also be a
+specific sensor number ([0..15] for Pioneer). Thus, on a Khepera robot
+you can use the 'ir' SENSOR_TYPE to access the IR sensors directly, or
+you can use the 'light' SENSOR_TYPE to get the values of its light
+sensors. INDEX will be 0, unless you have more than one SENSOR_TYPE 
+(for example, two sonar rangers). 
+ <img width="11" src="../wiki/img/alert.png"> robot.range is the only device that you don't need to follow it
+with the INDEX. robot.range is a device object, whereas
+robot.sonar is a list of device objects (albeit typically just one 
+of them).
+<p>
+SENSOR_NUMBER could also be a range (a &quot;slice&quot; in Pythonese) or comma-delimited set:
+<p>
+<pre class="code">
+robot.range[1].distance()   # a single distance value
+[s.distance() for s in robot.range[1:5]] # list of data for 1-4
+[s.distance() for s in robot.range[3,4,6]] # list of data for 3, 4, and 6
+</pre>
+<p>
+Similarly, for a Pioneer, you can access the values of its sonars by
+using the SENSOR_TYPE 'sonar'. For example:
+<p>
+<pre class="code">
+robot.sonar[0][4].distance()
+</pre>
+<p>
+returns the range distance of the sonar sensor in position 4.
+<p>
+<p>
+<h2 width="804"> Where am I?</h2>
+<p>
+Another use of the robot object is to ask where it thinks that it is. When you get these data, you don't specify '.distance()' as that is the not the only option. So you could:
+<p>
+<pre class="code">
+robot.x
+robot.y
+robot.th
+</pre>
+<p>
+These values are similar to the ones that we saw in the simulator, but
+they are only where the robot 'thinks' that it is, and what absolute
+direction it 'thinks' that it is facing. Because there is some play in
+the motors, gears and wheels, any time the robot moves, it must
+compute (based on some math, physics, and heuristics) where it thinks
+it is now. This is called <b>dead reckoning</b> and is used quite often
+in robotics.
+<p>
+<b>Exercises:</b>
+<p>
+<ol type="1"><li>You could ask the robot to return <tt class="wiki">max([s.distance() for s in robot.sonar[0][6]])</tt>. But why would that be asking Pyro to do something silly?</li>
+<li>Start the robot in a place in the simulator. Note the simulator's x, y, and th, and the robot's idea of x, y, and th. Now, move the robot by using the <tt class="wiki">move()</tt> command, clicking on the move buttons or the &quot;Joystick...&quot; button under the &quot;Robot&quot; menu option. How good a job does the robot do of dead reckoning? In what situations does it get the most off from where it really is? <img width="11" src="../wiki/img/alert.png"> Some simulations don't have any variation (sometimes called <i>noise</i>) between where it thinks it is, and where it really is. Others have quite a bit of variation.</li>
+<li>How could a robot figure out where it is other than using dead reckoning? How do you keep track of where you are as you move about the world?</li>
+<li>What's the difference between:</li>
+<pre class="code">
+min([s.distance() for s in robot.range[&quot;all&quot;]])
+</pre>
+and 
+<pre class="code">
+min([(s.distance(), s.angle()) for s in robot.range[&quot;all&quot;]])
+</pre>
+Try them both and report the differences.
+</ol><p>
+<p>
+<h2 width="804"> Bump Sensing</h2>
+<p>
+You can read the bump sensors (if a robot or simulation has them) with the following:
+<p>
+<pre class="code">
+   robot.bumpers[0][number].value
+</pre>
+<p>
+where the number can be a value from 0-4 (back only), with 0 back
+right, 2 is the back middle, and 4 is the back left.  Currently Stage
+has not yet included bump sensing in its latest version.
+<p>
+<pre class="code">
+   [s.value for s in robot.bumper[0][&quot;all&quot;]] =&gt; [0,0,0,0,0] //if none are pressed
+   [s.value for s in robot.bumper[0][&quot;all&quot;]] =&gt; [1,1,1,1,1] //if all are pressed.
+</pre>
+<p>
+Next: <a href="../page_Pyro_20Devices/">Pyro Devices</a>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Sensors?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Sensors?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

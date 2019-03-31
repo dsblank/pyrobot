@@ -1,0 +1,304 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160356", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Devices</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Devices</h1>
+<p>
+In the section on <a href="../page_Robot_20Attributes/">Robot Attributes</a>, we learned how the attribute
+abstractions provide uniform access to all the devices available on a
+robot. By default, a small subset of the available devices are already
+activated. For example, the <b>range</b> attribute is activated for all
+robots, Pioneer robots also have the <b>sonar</b> devices and
+<b>bumpers</b> already activated. 
+<p>
+So far, we have mostly looked at sensory devices, those that provide
+<i>inputs</i> that can be accessed using the dot-name format. For other
+devices, you may need actuator control as well as sensory control. For
+example, if a robot is equipped with a pan-tilt-zoom (PTZ) camera, you
+need to be able to access the image from the camera (a sensory
+modality) and also control the directionality of the camera by
+panning, tilting, or zooming. Similarly, a gripper device can be used
+to pick up objects (actuator control) and sense if the gripper is
+actually holding something (sensory). In this section we will learn
+the Pyro device interface that enables the use of all kinds of
+devices. Since different robots are expected to have different
+devices, their attributes etc. will vary.
+<p>
+In order to find out the set of available devices in Pyro, you can ask
+for the value of the <b>builtinDevices</b> attribute of the robot:
+<p>
+<pre class="code">
+&gt;&gt;&gt;  self.robot.builtinDevices
+['bumper', 'truth', 'power', 'gripper', 'position', 'sonar', 'blobfinder', 'ptz']
+</pre>
+<p>
+The robot above has 8 available devices. Typically, as explained earlier, some of these (<b>bumper</b> and <b>sonar</b>) are already activated. You have already seen how to access the attributes of those devices. Let us take a look at the <b>gripper</b> device abstraction.
+<p>
+<p>
+<h2 width="804"> Pioneer Grippers</h2>
+<p>
+By default, the gripper device is not activated. Thus, if you try to access its attributes:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.gripper[0]
+ERROR: exceptions.AttributeError no such directory item 'gripper'
+exceptions.AttributeError: no such directory item 'gripper' in command line
+</pre>
+You will get the above message. In order to enable access to a device, you have to start it:
+<pre class="code">
+&gt;&gt;&gt;  self.startDevice('gripper')
+Loading device 'gripper[0]'...
+gripper[0]
+</pre>
+If the device is successfully started, you will see the above response. Now, you can examine the gripper as a regular attribute (or click the <b>View</b> on the robot line in the GUI):
+<pre class="code">
+&gt;&gt;&gt;  robot.printView()
+---------------------------------
+robot:
+   .brain          = None
+   .builtinDevices = ['position', 'sonar', 'gripper', 'simulation']
+   .client         = &lt;C playerc_client instance at _38dd9c09_p_playerc_client&gt;
+   .devices        = ['position', 'sonar', 'simulation', 'gripper']
+   .gripper[0]:
+      .active         = 1
+      .breakBeamState = None
+      .client         = &lt;C playerc_client instance at _38dd9c09_p_playerc_client&gt;
+      .data           = None
+      .dev            = 0
+      .groups         = {}
+      .handle         = &lt;C playerc_gripper instance at _08dd9a09_p_playerc_gripper&gt;
+      .index          = 0
+      .isClosed       = None
+      .isLiftMaxed    = None
+      .isLiftMoving   = None
+      .isMoving       = None
+      .name           = 'gripper0'
+      .noise          = 0.0
+      .number         = 0
+      .printFormat    = {'data'}
+      .state          = None
+      .title          = 'gripper[0]'
+      .type           = 'gripper'
+      .visible        = 0
+      .window         = 0
+   .hostname       = 'localhost'
+   .last_rotate    = 0.0
+   .last_translate = 0.0
+   .name           = 'Player6665'
+   .port           = 6665
+   .position[0]:
+      .active         = 1
+      .client         = &lt;C playerc_client instance at _38dd9c09_p_playerc_client&gt;
+      .data           = None
+      .dev            = 0
+      .groups         = {}
+      .handle         = &lt;C playerc_position instance at _703c9909_p_playerc_position&gt;
+      .index          = 0
+      .name           = 'position0'
+      .noise          = 0.0
+      .number         = 0
+      .printFormat    = {'data'}
+      .state          = 'stopped'
+      .title          = 'position[0]'
+      .type           = 'position'
+      .visible        = 0
+      .window         = 0
+   .radius         = 0.75
+   .range          = &lt;pyrobot.robot.player.PlayerSonarDevice instance at 0xb7b70a2c&gt;
+   .simulated      = 1
+   .simulation[0]:
+      .active         = 1
+      .client         = &lt;C playerc_client instance at _f03d9d09_p_playerc_client&gt;
+      .data           = None
+      .dev            = 0
+      .groups         = {}
+      .handle         = &lt;C playerc_simulation instance at _f8a19909_p_playerc_simulation&gt;
+      .index          = 0
+      .name           = 'simulation0'
+      .noise          = 0.0
+      .number         = 0
+      .printFormat    = {'data'}
+      .state          = 'stopped'
+      .thread         = &lt;PlayerUpdater(PlayerUpdater, started)&gt;
+      .title          = 'simulation[0]'
+      .type           = 'simulation'
+      .visible        = 0
+      .window         = 0
+   .sonar[0]:
+      .active         = 1
+      .client         = &lt;C playerc_client instance at _38dd9c09_p_playerc_client&gt;
+      .count          = 16
+      .data           = None
+      .dev            = 0
+      .groups         = {'all', 'right', 'right-back', 'front-all', 'back-left', 'left-front', 'back', 'right-front', 'back-all', 'front-left', 'front-right', 'front', 'back-right', 'left-back', 'left'}
+      .handle         = &lt;C playerc_sonar instance at _089c9a09_p_playerc_sonar&gt;
+      .index          = 0
+      .maxvalue       = 10.6666666667
+      .maxvalueraw    = 8.0
+      .name           = 'sonar0'
+      .noise          = 0.05
+      .number         = 0
+      .printFormat    = {'data'}
+      .radius         = 0.75
+      .rawunits       = 'METERS'
+      .state          = 'stopped'
+      .title          = 'sonar[0]'
+      .type           = 'sonar'
+      .units          = 'ROBOTS'
+      .visible        = 0
+      .window         = 0
+   .stall          = 0
+   .subtype        = 0
+   .supportedFeatures = ['odometry', 'continuous-movement', 'range-sensor']
+   .th             = 0.0
+   .thr            = 0.0
+   .thread         = &lt;PlayerUpdater(PlayerUpdater, started)&gt;
+   .timestamp      = 1120146774.21
+   .type           = 'Player'
+   .units          = 'METERS'
+   .x              = 0.0
+   .y              = 0.0
+&gt;&gt;&gt; self.robot.gripper[0]
+&lt;pyrobot.robot.player.PlayerGripperDevice instance at 0xb7c40a4c&gt;
+</pre>
+Two commands were entered above. The first one listed all of a robot's attributes. Notice that after starting a gripper, the gripper appears as an attribute (<b>gripper[0]</b>). The second command shows the type of the gripper. Let us try and access some of the gripper attributes:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.gripper[0].name
+gripper[0]
+&gt;&gt;&gt;  self.robot.gripper[0].type
+gripper
+&gt;&gt;&gt;  self.robot.gripper[0].isClosed
+0
+&gt;&gt;&gt;  self.robot.gripper[0].name = 'Jaws'
+Ok
+&gt;&gt;&gt;  self.robot.gripper[0].name
+Jaws
+</pre>
+There are several specific values that can be given as various actuator commands for the gripper. These are listed below:
+<pre class="code">
+   .open()   - opens the paddles of the gripper.
+   .close()  - closes the paddles of the gripper.
+   .stop()   - stops the paddles if they are in motion.
+   .up()     - raises the paddles up.
+   .down()   - lowers the paddles down.
+   .store()  - raises and closes the paddles.
+   .deploy() - lowers and opens the paddles.
+   .halt()   - stops both horizontal and vertical movement of the grippers.
+</pre>
+Thus, to lower the gripper onto something, you will position the robot so that the gripper is open and positioned above the object. Then you would lower the gripper, close it, and lift it up:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.gripper[0].down()
+Ok
+&gt;&gt;&gt;  self.robot.gripper[0].close()
+Ok
+&gt;&gt;&gt;  self.robot.gripper[0].up()
+Ok
+</pre>
+Or, alternately, you could:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.gripper[0].deploy()
+Ok
+&gt;&gt;&gt;  self.robot.gripper[0].store()
+Ok
+</pre>
+<p>
+States of the gripper are accessible through the <b>state</b> and <b>break</b><b>Beam</b><b>State</b> attributes. When queried, you will get a number returned which should be interpreted as shown below:
+<pre class="code">
+   Gripper States
+      0 if paddles are moving.
+      1 if paddles are open.
+      2 if paddles are closed.
+   Break Beam States - finds out if something is between the gripper paddles.
+      0 if neither beam is broken.
+      1 if back beam is broken.
+      2 if front beam is broken.
+      3 if both beams are broken.
+</pre>
+<p>
+<p>
+<h2 width="804"> Pioneer Pan-Tilt-Zoom Controls</h2>
+<p>
+This device is used to control a pan-tilt-zoom camera's actuator modes. To start this device do:
+<pre class="code">
+&gt;&gt;&gt;  self.startDevice('ptz')
+Loading device 'ptz0'...
+&lt;PTZObject&gt;
+</pre>
+You can examine the attributes of the device as shown below:
+<pre class="code">
+&gt;&gt;&gt;  dir(self.robot.ptz[0])
+[... 'command', 'data', 'name', 'pan', 'pose', 'tilt', 'type', 'zoom']
+</pre>
+The current state of the ptz device can be obtained by accessing the <b>pose</b> attribute:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.ptz[0].getPose()
+(0, 0, 60, 0, 0)
+</pre>
+The numbers reported are the current values of pan, tilt, and zoom (or field of view) in degrees, followed by the pan and tilt velocities in degrees/second. All of these can be individually set using the <b>set</b> method on the <b>command</b> attribute:
+<pre class="code">
+self.robot.ptz[0].COMMAND()
+where COMMAND is: setPose, pan, tilt, zoom.
+</pre>
+<p>
+<p>
+<h2 width="804"> Simulation</h2>
+<p>
+The <tt class="wiki">simulation</tt> device is, obviously, only defined for simulations, specifically the Player/Stage, Gazebo and Pyrobot simulators. This interface allows you to query the robot to see exactly where it is in the world, and also to pick up the robot and place it any where you wish, even outside the defined world. 
+<p>
+The simulation device will start automatically. You can access all its attributes:
+<pre class="code">
+&gt;&gt;&gt;  self.robot.simulation[0].    (PRESS TAB)
+&gt;&gt;&gt;  self.robot.simulation[0].title
+simulation[0]
+&gt;&gt;&gt;  self.robot.simulation[0].getPose(&quot;Pioneer&quot;)
+(2000, 1250, -90)
+</pre>
+<p>
+Through the simulation device, you can also set the robot's position and heading:
+<pre class="code">
+&gt;&gt;&gt; self.robot.simulation[0].setPose('Pioneer', (2.0, 2.0, 90))
+ok
+</pre>
+<p>
+See the Player/Stage or Pyrobot Simulator documentation for more information on this device.
+<p>
+<p>
+<h2 width="804"> Starting devices on start-up</h2>
+<p>
+Some thought must be given to how you start and remove devices. For
+now, you should know that you can start up a device by selecting it
+from the <b>Load</b> -&gt; <b>Devices...</b> menu, or listing it on the
+command line with the <b>-d</b> flag when you start Pyro. We'll also
+examine methods of loading devices programmatically in the next
+section.
+<p>
+More: <a href="../page_Pyro_20Devices_20Advanced/">Pyro Devices Advanced</a>
+Next: <a href="../page_Pyro_20Brains/">Pyro Brains</a>
+Up: <a href="../page_PyroModuleIntroduction/">PyroModuleIntroduction</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Devices?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Devices?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

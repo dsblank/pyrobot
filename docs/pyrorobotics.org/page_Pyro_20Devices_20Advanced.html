@@ -1,0 +1,239 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219101055", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: Pyro_20Devices_20Advanced</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<h1 width="804"> Pyro Devices Advanced</h1>
+<p>
+Every Pyro robot comes with a base set of features: the ability to move, the ability to roughly know where it is (dead reckoning), and a range sensor (infrared, laser, or sonar) to judge distances to objects. But there are a host of other attachments and abilities that a particular robot might support, or that you might want to add. Recall that we call these items <i>devices</i>. You can add these extensions via the following two ways. First, you can simply start it up by selecting it the menu by clicking <b>Load</b> -&gt; <b>Devices...</b> and selecting one from a file. Secondly, you can programmatically start a device, like:
+<p>
+<pre class="code">
+class MyBrain(Brain):
+    def setup(self):
+        self.startDevice(&quot;ptz&quot;)
+</pre>
+<p>
+You can start a device if a robot has built-in support for it, or the device is defined independently. You can see what devices a robot supports natively by clicking on the <b>View</b> button to the right of the robot file name in the main GUI window. You'll see a line mentioning <b>builtin</b><b>Devices</b> with a list of items. Each of those items can be started by simply telling the robot to do so. For example:
+<p>
+<pre class="code">
+self.startDevice(&quot;ptz&quot;)
+self.startDevice(&quot;gripper&quot;)
+</pre>
+<p>
+will start a Pan-Tilt-Zoom unit and a gripper on the robot. Other devices are defined and loaded from the menu, as described above.
+<p>
+When you start a device, it will appear in under robot as its plain name, index a number. For example, the above startDevice commands would create a tree that looked like:
+<p>
+<ul><li>robot</li>
+<ul><li>gripper[0]</li>
+<li>ptz[0]</li>
+</ul></ul><p>
+You would get access to data from the gripper using:
+<p>
+<pre class="code">
+# inside a brain
+self.robot.gripper[0]
+</pre>
+<p>
+or
+<p>
+<pre class="code">
+# inside a brain
+self.robot.gripper[0]
+</pre>
+<p>
+Adding another gripper would make the directory look like:
+<p>
+<ul><li>robot</li>
+<ul><li>gripper[0]</li>
+<li>gripper[1]</li>
+<li>ptz[0]</li>
+<li>ptz[1]</li>
+</ul></ul><p>
+<p>
+<h2 width="804"> Defining your own Device</h2>
+<p>
+You can also define your own device. If you have code that you often want to run for many different kinds of brains or robots, you might consider abstracting into a device.
+<p>
+<p>
+<h2 width="804"> Command line Device Flag</h2>
+<p>
+You can, of course, start your services up in the setup() method of a brain. You can also start up services on the command line with the <b>-d</b> flag, like:
+<p>
+<pre class="code">
+pyro -r Player1 -d ptz,blobfinder,laser
+</pre>
+<p>
+Use comma-separated with no spaces for built-in service names.
+<p>
+<p>
+<h2 width="804"> Writing your own Device</h2>
+<p>
+You might want to create a service that provides mapping, plotting, localization, or some other useful service. Here is a sample template for creating your own service:
+<p>
+<pre class="code">
+# A Simple Device
+from pyrobot.robot.device import Device
+class Test(Device):
+    def setup(self):
+        self.specialvalue = 42
+    def makeWindow(self):
+        self.visible = 1
+        print &quot;made window!&quot;
+    def updateWindow(self):
+        print &quot;update window!&quot;
+        pass
+def INIT(robot):
+    return {&quot;test&quot;: Test()}
+</pre>
+ <img width="11" src="../wiki/img/alert.png"> Note that INIT takes an argument that is a robot. Each service is associated with a particular robot.
+<p>
+Pressing the robot's View button shows:
+<p>
+<pre class="code">
+robot:
+   .brain          = None
+   .builtinDevices = []
+   .devices        = ['test']
+   .stall          = 0
+   .supportedFeatures = []
+   .test[0]:
+      .active         = 0
+      .groups         = {}
+      .specialvalue   = 42
+      .state          = 'stopped'
+      .title          = 'test[0]'
+      .type           = 'test'
+      .visible        = 0
+      .window         = 0
+   .th             = 0
+   .thr            = 0
+   .timestamp      = 1122767067.13
+   .x              = 0
+   .y              = 0
+</pre>
+<p>
+You can then issue the following get/sets from the brain or robot:
+<p>
+<pre class="code">
+&gt;&gt;&gt;  self.robot.test[0].name
+test[0]
+&gt;&gt;&gt;  self.robot.test[0].name = &quot;Laura&quot;
+Ok
+&gt;&gt;&gt;  self.robot.test[0].name
+Laura
+&gt;&gt;&gt;  self.robot.test[0].specialvalue
+42
+</pre>
+<p>
+<p>
+<h2 width="804"> Processes that takes a while</h2>
+<p>
+Currently, the brain expects to fire about
+10 times a second, and if it doesn't, things don't respond well. The GUI
+will not be responsive, and the robot will act erratic.
+ <img width="11" src="../wiki/img/alert.png"> There were some design decisions made early on that cause this. Basically,
+we just wanted to avoid having to use locks and threads. Pyro assumes that
+devices will update about 10 times a second, and so will the brain, and so
+we made everything run in the same thread, including the GUI (basically).
+<p>
+What to do? Imagine that you have some kind of rational logic engine that Pyro will
+talk to through some process-to-process communication. Now, imagine that
+this communication will take a while.
+<p>
+One way to work around this is to create a device that will handle the communication.
+Here is a device skeleton that allows you to talk to it 10/second, and it
+will in turn talk to some other process which might take seconds, or even
+minutes:
+<p>
+<pre class="code">
+from pyrobot.robot.device import Device
+import time, threading, random
+class LogicDevice(Device, threading.Thread):
+    def setup(self):
+        threading.Thread.__init__(self)
+        self.lock = threading.Lock()
+        self.data = 0
+        self.start()
+    def updateDevice(self):
+        print &quot;Updated started...&quot;
+        self.lock.acquire()
+        # look at the shared data
+        print &quot;data:&quot;, self.data
+        self.lock.release()
+        print &quot;Updated done!&quot;
+    def run(self):
+        while self.isAlive():
+            print &quot;   Async update started...&quot;
+            time.sleep(2) # do something that takes some time
+            self.lock.acquire() # acquire the lock
+            self.data = random.random() # update the data
+            self.lock.release() # release the lock
+            print &quot;   Async update done!&quot;
+def INIT(robot):
+    return {&quot;logic&quot;: LogicDevice()}
+</pre>
+<p>
+This has all of the code necessary for starting a thread,
+locking/unlocking to protect data, and ending the thread. You can load
+this device like any other device and it will show up as robot.logic[0].
+You can even load multiple copies, the next being accessed at
+robot.logic[1]. Simply loading this causes the output:
+<p>
+<pre class="code">
+   Async update started...
+Updated started...
+data: 0.493140023963
+Updated done!
+Updated started...
+data: 0.493140023963
+Updated done!
+... (repeats 17 times total)
+Updated started...
+data: 0.493140023963
+Updated done!
+   Async update done!
+   Async update started...
+Updated started...
+data: 0.346892748144
+Updated done!
+Updated started...
+data: 0.346892748144
+Updated done!
+...
+</pre>
+<p>
+<p>
+<h2 width="804"> Further Reading</h2>
+<p>
+You can find the services interface in pyrobot/robot/device.py.
+<p>
+Up: <a href="../page_Pyro_20Devices/">Pyro Devices</a>
+<p>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Devices_20Advanced?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/Pyro_20Devices_20Advanced?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

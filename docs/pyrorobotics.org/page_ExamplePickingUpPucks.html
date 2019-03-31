@@ -1,0 +1,174 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20110703160400", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: ExamplePickingUpPucks</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+ <img width="11" src="../wiki/img/alert.png"> Currently the newest version of Stage has not yet implemented
+grippers.  Therefore, for now, this example will only work on an
+actual Pioneer robot or the Pyrobot Simuator.  
+<p>
+<p>
+<h1 width="804"> A Recycling Robot</h1>
+<p>
+Consider a robot whose goal is to recycle cans. This task can be
+broken up into a number of simpler behaviors: locate a can, approach
+the can, pick up the can, locate a recycling bin, approach the bin,
+and deposit the can. Once this sequence of behaviors has been
+accomplished, the robot begins to search for another can to recycle.
+<p>
+To illustrate this style of robot control we can implement a
+simplified version of the recycling robot described above. We will
+use a simulated Pioneer robot with a gripper and a blobfinder. The
+cans will be represented as randomly positioned red pucks in a
+circular environment without obstacles. Once the robot has picked up
+a puck, it will store it immediately, and move on to finding more pucks.
+<p>
+Below is a graph of the states the robot will go through. It begins
+in the state <tt class="wiki">locatePuck</tt>. While in the state <tt class="wiki">locatePuck</tt> it
+rotates, looking for a red blob. As soon as one is found it goes into
+state <tt class="wiki">approachPuck</tt> to move toward the closest visible puck.
+If for some reason the robot loses sight of the puck, it will go
+back to the state <tt class="wiki">locatePuck</tt>. Once the robot is positioned with
+its gripper around the puck, it goes to the state <tt class="wiki">grabPuck</tt> to
+pick it up and store it. Then it will return to the state
+<tt class="wiki">locatePuck</tt> to search again. The state <tt class="wiki">locatePuck</tt> keeps
+track of how long it searches on each activation of the state. If the
+robot has done a complete rotation and not seen any pucks, it
+goes to the state <tt class="wiki">done</tt> and stops moving.
+<img src="../_dblank/images/can-fsm.png">
+<p>
+The following program creates a <tt class="wiki">FSMBrain</tt> called
+<tt class="wiki">GatherPucksBrain</tt> to implement the algorithm described above. On
+setup, this brain starts the gripper and blobfinder devices. Also,
+when this brain is destroyed it will remove these devices. Next the
+four states are defined: <tt class="wiki">locatePuck</tt>, <tt class="wiki">approachPuck</tt>,
+<tt class="wiki">grabPuck</tt>, and <tt class="wiki">done</tt>. Finally at the bottom of the program,
+the brain is instantiated and each state is added to the brain.
+Notice that when the state <tt class="wiki">locatePuck</tt> is added, it has an
+argument of 1. This indicates that it should be the starting state of
+the brain.
+<p>
+To test out this brain, start up Pyro; then for the server select
+<tt class="wiki">StageSimulator</tt> and the world <tt class="wiki">FindPucks.world</tt>, for the
+robot select <tt class="wiki">Player6665</tt>, and for the brain download the program
+below.
+<p>
+<pre class="code">
+from pyrobot.brain.behaviors import *
+from time import *
+class GatherPucksBrain(FSMBrain):
+   def setup(self):
+      if not self.robot.hasA(&quot;camera&quot;):
+         self.startDevice('camera') # or BlobCamera, or PlayerCamera
+      if not self.robot.hasA(&quot;gripper&quot;):
+         self.startDevice('gripper')
+      self.camera = self.robot.camera[0]
+      self.camera.clearFilters()
+      self.camera.addFilter(&quot;match&quot;,255,0,0,) # red
+      self.camera.addFilter(&quot;blobify&quot;,0,255,255,0,1,1,1,) # red
+class locatePuck(State):
+   &quot;&quot;&quot;
+   Rotate until a red blob is seen or a complete scan has been done.
+   &quot;&quot;&quot;
+   def onActivate(self):
+      self.searches = 0             # counter for number of rotations
+   def step(self):
+      redBlobs = self.robot.camera[0].filterResults[1]
+      if len(redBlobs) != 0:
+         self.move(0, 0)
+         print &quot;found a puck!&quot;
+         self.goto('approachPuck')
+      elif self.searches &gt; 275:
+         print &quot;found all pucks&quot;
+         self.goto('done')
+      else:
+         print &quot;searching for a puck&quot;
+         self.searches += 1         # update counter
+         self.move(0, 0.2)
+class approachPuck(State):
+   &quot;&quot;&quot;
+   Move towards closest red blob by centering it in blobfinder.
+   Once centered, then consider distance to the closest red blob.
+   Once close, move slowly until it is within gripper.
+   &quot;&quot;&quot;
+   def step(self):
+      redBlobs = self.robot.camera[0].filterResults[1]
+      if len(redBlobs) == 0:
+         print &quot;no puck in sight&quot;
+         self.goto('locatePuck')
+      elif redBlobs[0][2] &lt; 50: # sizes need to be changed for pyrobot
+         print &quot;puck far left&quot;
+         self.move(0, 0.2)
+      elif redBlobs[0][2] &lt; 75:
+         print &quot;puck to left&quot;
+         self.move(0.2, 0.1)
+      elif redBlobs[0][2] &gt; 100:
+         print &quot;puck far right&quot;
+         self.move(0, -0.2)
+      elif redBlobs[0][2] &gt; 85:
+         print &quot;puck to right&quot;
+         self.move(0.2, -0.1)
+      else:
+         if self.robot.gripper[0].getBreakBeam('inner') &gt; 1:
+            print &quot;grabbing puck&quot;
+            self.move(0, 0)
+            self.goto('grabPuck')
+         elif redBlobs[0][4] &gt; 500: #area
+            print &quot;puck straight ahead&quot;
+            self.move(0.3, 0)
+         else:
+            print &quot;puck very close&quot;
+            self.move(0.1, 0)
+class grabPuck(State):
+   &quot;&quot;&quot;
+   Pick up the current puck and then return to locating another puck.
+   &quot;&quot;&quot;
+   def step(self):
+      self.robot.gripper[0].store()
+      sleep(2.0)
+      self.robot.gripper[0].open()
+      sleep(1.0)
+      self.goto('locatePuck')
+class done(State):
+   &quot;&quot;&quot;
+   No more visible pucks, so stop moving.
+   &quot;&quot;&quot;
+   def update(self):
+      self.move(0, 0)
+def INIT(engine):
+    brain = GatherPucksBrain(engine=engine)
+    brain.add(locatePuck(1))
+    brain.add(approachPuck())
+    brain.add(grabPuck())
+    brain.add(done())
+    return brain
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/GatherPucksProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/GatherPucksProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Up: <a href="../page_PyroModuleSequencingControl/">PyroModuleSequencingControl</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/ExamplePickingUpPucks?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/ExamplePickingUpPucks?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

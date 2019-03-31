@@ -1,0 +1,96 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219104015", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: FuzzyClassifier</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr><p>
+<p>
+<h1 width="804">1.  FuzzyClassifier</h1>
+<p>
+A Fuzzy<b></b>Classifier is used in fuzzy logic.  It contains a membership function which maps values to a floating-point value between zero and one.
+<p>
+There are a number of built-in types of Fuzzy<b></b>Classifiers which you can create:
+<p>
+<pre class="code">
+RisingFuzzy(a,b)
+FallingFuzzy(a,b)
+TriangleFuzzy(a,b,c)
+TrapezoidFuzzy(a,b,c,d)
+GaussianFuzzy(c,s)
+</pre>
+<p>
+Each of these functions returns a different Fuzzy<b></b>Classifier specified by the parameters provided.
+<p>
+You can also create your own Fuzzy<b></b>Classifier by specifying a membership function and any parameters that the function will use.  There are certain conventions which the membership function must follow.  The function must take no arguments.  The arguments to the function are all of the form x0, x1, x2... etc.  Alternatively, you can use the name 'x' instead of 'x0' for the first argument.  In addition, you can access a list of all the arguments using the list 'argList'.  Other than that, you can use any variable names in your function.
+<p>
+So, here is a simple example of creating a new Fuzzy<b></b>Classifier:
+<p>
+<pre class="code">
+def membershipFunction():
+  &quot;&quot;&quot;
+  This function takes one argument x and compares x
+  to the parameters min and max.
+  &quot;&quot;&quot;
+  if x &lt;= min:
+    return 0.0
+  elif x &gt;= max:
+    return 1.0
+  else:
+    return 0.5
+f1 = FuzzyClassifier(membershipFunction, &quot;SampleFuzzy&quot;, min = 0, max = 10)
+</pre>
+<p>
+When initializing the Fuzzy<b></b>Classifier, the first argument is a reference to the membership function; the second argument is an optional label for the function (which defaults to the function name if it is not supplied); and the remaining arguments specify any parameters which the function will need.
+<p>
+This classifier can now be applied to a value to get a <a href="http://c2.com/cgi/wiki"><img src="../wiki/img/moin-inter.png" border="0"> </a>
+<p>
+<pre class="code">
+&gt;&gt;&gt; print f1(-5)
+&lt;Fuzzy value 0.0&gt;
+&gt;&gt;&gt; print f1(2)
+&lt;Fuzzy value 0.5&gt;
+&gt;&gt;&gt; print f1(10)
+&lt;Fuzzy value 1.0&gt;
+&gt;&gt;&gt; print f1
+&lt;FuzzyClassifier instance with parameters {'min':0, 'max':10} and membership function SampleFuzzy&gt;
+</pre>
+<p>
+<p>
+<h1 width="804">2.  operators</h1>
+<p>
+You can also create a Fuzzy<b></b>Classifier with certain operations on existing ones.
+<p>
+The negation operator creates a Fuzzy<b></b>Classifier whose membership function is the inverse of the membership function of the operand:
+<p>
+<pre class="code">
+&gt;&gt;&gt; f1 = RisingFuzzy(0,5)
+&gt;&gt;&gt; f2 = -f1
+&gt;&gt;&gt; float(f1(2))
+0.4
+&gt;&gt;&gt; float(f2(2))
+0.6
+</pre>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/FuzzyClassifier?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/FuzzyClassifier?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>

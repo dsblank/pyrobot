@@ -1,0 +1,1276 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101129020934", "pyrorobotics.org");
+</script>
+  <title>pyrobot.robot.device.DeviceWindow</title>
+  <link rel="stylesheet" href="../../usermanual/epydoc.css" type="text/css"></link>
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="#204080" alink="#204080">
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <font size="-1"><b class="breadcrumbs">
+        <a href="../../usermanual/pyrobot-module/">Package&nbsp;pyrobot</a> ::
+        <a href="../../usermanual/pyrobot-robot-module/">Package&nbsp;robot</a> ::
+        <a href="../../usermanual/pyrobot-robot-device-module/">Module&nbsp;device</a> ::
+        Class&nbsp;DeviceWindow
+      </b></font></br>
+    </td>
+    <td><table cellpadding="0" cellspacing="0">
+      <tr><td align="right"><font size="-2">[<a href="../../usermanual/frames/" target="_top">frames</a>&nbsp;|&nbsp;<a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/" target="_top">no&nbsp;frames</a>]</font></td></tr>
+    </table></td>
+</tr></table>
+<!-- =========== START OF CLASS DESCRIPTION =========== -->
+<h2 class="class">Class DeviceWindow</h2>
+<pre class="base-tree">
+  <a href="../../usermanual/Tkinter-Misc-class/"><code>Misc</code></a> --+        
+         |        
+<a href="../../usermanual/Tkinter-BaseWidget-class/"><code>BaseWidget</code></a> --+    
+             |    
+        <a href="../../usermanual/Tkinter-Wm-class/"><code>Wm</code></a> --+    
+             |    
+      <a href="../../usermanual/Tkinter-Toplevel-class/"><code>Toplevel</code></a> --+
+                 |
+                <b>DeviceWindow</b>
+</pre><br/>
+<hr/>
+<pre class="literalblock">
+An object responsible for showing device data.
+</pre>
+<hr/>
+<!-- =========== START OF METHOD SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Method Summary</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#__init__" class="summary-sig-name"><code>__init__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">device</span>,
+          <span class="summary-sig-arg">title</span>)</span></code>
+<br/>
+Constructor for the DeviceWindow class.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#addButton" class="summary-sig-name"><code>addButton</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">text</span>,
+          <span class="summary-sig-arg">command</span>)</span></code>
+<br/>
+Adds a button to the device view window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#addData" class="summary-sig-name"><code>addData</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">text</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Adds a data field to the device view window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#addLabel" class="summary-sig-name"><code>addLabel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">text</span>)</span></code>
+<br/>
+Adds a label to the device view window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#destroy" class="summary-sig-name"><code>destroy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Hides the device view window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#update" class="summary-sig-name"><code>update</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Method called to update a device.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/pyrobot-robot-device-DeviceWindow-class/#updateWidget" class="summary-sig-name"><code>updateWidget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Updates the device view window.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Misc</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#cget" class="summary-sig-name"><code>__getitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">key</span>)</span></code>
+<br/>
+Return the resource value for a KEY given as string.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#__setitem__" class="summary-sig-name"><code>__setitem__</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">key</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#__str__" class="summary-sig-name"><code>__str__</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the window path name of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#nametowidget" class="summary-sig-name"><code>_nametowidget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Return the Tkinter instance of a widget identified by
+its Tcl name NAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#after" class="summary-sig-name"><code>after</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">ms</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Call function once after given time.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#after_cancel" class="summary-sig-name"><code>after_cancel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">id</span>)</span></code>
+<br/>
+Cancel scheduling of function identified with ID.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#after_idle" class="summary-sig-name"><code>after_idle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Call FUNC once if the Tcl main loop has no event to
+process.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_bbox" class="summary-sig-name"><code>bbox</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">column</span>,
+          <span class="summary-sig-arg">row</span>,
+          <span class="summary-sig-arg">col2</span>,
+          <span class="summary-sig-arg">row2</span>)</span></code>
+<br/>
+Return a tuple of integer coordinates for the bounding
+box of this widget controlled by the geometry manager grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#bell" class="summary-sig-name"><code>bell</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Ring a display's bell.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#bind" class="summary-sig-name"><code>bind</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-arg">add</span>)</span></code>
+<br/>
+Bind to this widget at event SEQUENCE a call to function FUNC.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#bind_all" class="summary-sig-name"><code>bind_all</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-arg">add</span>)</span></code>
+<br/>
+Bind to all widgets at an event SEQUENCE a call to function FUNC.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#bind_class" class="summary-sig-name"><code>bind_class</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">className</span>,
+          <span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-arg">func</span>,
+          <span class="summary-sig-arg">add</span>)</span></code>
+<br/>
+Bind to widgets with bindtag CLASSNAME at event
+SEQUENCE a call of function FUNC.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#bindtags" class="summary-sig-name"><code>bindtags</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">tagList</span>)</span></code>
+<br/>
+Set or get the list of bindtags for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#cget" class="summary-sig-name"><code>cget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">key</span>)</span></code>
+<br/>
+Return the resource value for a KEY given as string.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#clipboard_append" class="summary-sig-name"><code>clipboard_append</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">string</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Append STRING to the Tk clipboard.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#clipboard_clear" class="summary-sig-name"><code>clipboard_clear</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Clear the data in the Tk clipboard.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#colormodel" class="summary-sig-name"><code>colormodel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Useless.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_columnconfigure" class="summary-sig-name"><code>columnconfigure</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">index</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure column INDEX of a grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#configure" class="summary-sig-name"><code>config</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure resources of a widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#configure" class="summary-sig-name"><code>configure</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure resources of a widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#deletecommand" class="summary-sig-name"><code>deletecommand</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Internal function.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#event_add" class="summary-sig-name"><code>event_add</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">virtual</span>,
+          <span class="summary-sig-vararg">*sequences</span>)</span></code>
+<br/>
+Bind a virtual event VIRTUAL (of the form &lt;&lt;Name&gt;&gt;)
+to an event SEQUENCE such that the virtual event is triggered
+whenever SEQUENCE occurs.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#event_delete" class="summary-sig-name"><code>event_delete</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">virtual</span>,
+          <span class="summary-sig-vararg">*sequences</span>)</span></code>
+<br/>
+Unbind a virtual event VIRTUAL from SEQUENCE.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#event_generate" class="summary-sig-name"><code>event_generate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Generate an event SEQUENCE.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#event_info" class="summary-sig-name"><code>event_info</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">virtual</span>)</span></code>
+<br/>
+Return a list of all virtual events or the information
+about the SEQUENCE bound to the virtual event VIRTUAL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_set" class="summary-sig-name"><code>focus</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Direct input focus to this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_displayof" class="summary-sig-name"><code>focus_displayof</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the widget which has currently the focus on the
+display where this widget is located.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_force" class="summary-sig-name"><code>focus_force</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Direct input focus to this widget even if the
+application does not have the focus.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_get" class="summary-sig-name"><code>focus_get</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the widget which has currently the focus in the
+application.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_lastfor" class="summary-sig-name"><code>focus_lastfor</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the widget which would have the focus if top level
+for this widget gets the focus from the window manager.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#focus_set" class="summary-sig-name"><code>focus_set</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Direct input focus to this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#getboolean" class="summary-sig-name"><code>getboolean</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">s</span>)</span></code>
+<br/>
+Return a boolean value for Tcl boolean values true and false given as parameter.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#getvar" class="summary-sig-name"><code>getvar</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Return value of Tcl variable NAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grab_current" class="summary-sig-name"><code>grab_current</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return widget which has currently the grab in this application
+or None.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grab_release" class="summary-sig-name"><code>grab_release</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Release grab for this widget if currently set.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grab_set" class="summary-sig-name"><code>grab_set</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Set grab for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grab_set_global" class="summary-sig-name"><code>grab_set_global</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Set global grab for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grab_status" class="summary-sig-name"><code>grab_status</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return None, &quot;local&quot; or &quot;global&quot; if this widget has
+no, a local or a global grab.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_bbox" class="summary-sig-name"><code>grid_bbox</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">column</span>,
+          <span class="summary-sig-arg">row</span>,
+          <span class="summary-sig-arg">col2</span>,
+          <span class="summary-sig-arg">row2</span>)</span></code>
+<br/>
+Return a tuple of integer coordinates for the bounding
+box of this widget controlled by the geometry manager grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_columnconfigure" class="summary-sig-name"><code>grid_columnconfigure</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">index</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure column INDEX of a grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_location" class="summary-sig-name"><code>grid_location</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Return a tuple of column and row which identify the cell
+at which the pixel at position X and Y inside the master
+widget is located.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_propagate" class="summary-sig-name"><code>grid_propagate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">flag</span>)</span></code>
+<br/>
+Set or get the status for propagation of geometry information.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_rowconfigure" class="summary-sig-name"><code>grid_rowconfigure</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">index</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure row INDEX of a grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_size" class="summary-sig-name"><code>grid_size</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a tuple of the number of column and rows in the grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_slaves" class="summary-sig-name"><code>grid_slaves</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">row</span>,
+          <span class="summary-sig-arg">column</span>)</span></code>
+<br/>
+Return a list of all slaves of this widget
+in its packing order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#image_names" class="summary-sig-name"><code>image_names</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all existing image names.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#image_types" class="summary-sig-name"><code>image_types</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all available image types (e.g.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#keys" class="summary-sig-name"><code>keys</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all resource names of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tkraise" class="summary-sig-name"><code>lift</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">aboveThis</span>)</span></code>
+<br/>
+Raise this widget in the stacking order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#lower" class="summary-sig-name"><code>lower</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">belowThis</span>)</span></code>
+<br/>
+Lower this widget in the stacking order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#mainloop" class="summary-sig-name"><code>mainloop</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">n</span>)</span></code>
+<br/>
+Call the mainloop of Tk.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#nametowidget" class="summary-sig-name"><code>nametowidget</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Return the Tkinter instance of a widget identified by
+its Tcl name NAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#option_add" class="summary-sig-name"><code>option_add</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pattern</span>,
+          <span class="summary-sig-arg">value</span>,
+          <span class="summary-sig-arg">priority</span>)</span></code>
+<br/>
+Set a VALUE (second parameter) for an option
+PATTERN (first parameter).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#option_clear" class="summary-sig-name"><code>option_clear</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Clear the option database.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#option_get" class="summary-sig-name"><code>option_get</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">className</span>)</span></code>
+<br/>
+Return the value for an option NAME for this widget
+with CLASSNAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#option_readfile" class="summary-sig-name"><code>option_readfile</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">fileName</span>,
+          <span class="summary-sig-arg">priority</span>)</span></code>
+<br/>
+Read file FILENAME into the option database.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#pack_propagate" class="summary-sig-name"><code>pack_propagate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">flag</span>)</span></code>
+<br/>
+Set or get the status for propagation of geometry information.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#pack_slaves" class="summary-sig-name"><code>pack_slaves</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all slaves of this widget
+in its packing order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#place_slaves" class="summary-sig-name"><code>place_slaves</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all slaves of this widget
+in its packing order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#pack_propagate" class="summary-sig-name"><code>propagate</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">flag</span>)</span></code>
+<br/>
+Set or get the status for propagation of geometry information.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#quit" class="summary-sig-name"><code>quit</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Quit the Tcl interpreter.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_rowconfigure" class="summary-sig-name"><code>rowconfigure</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">index</span>,
+          <span class="summary-sig-arg">cnf</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Configure row INDEX of a grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#selection_clear" class="summary-sig-name"><code>selection_clear</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Clear the current X selection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#selection_get" class="summary-sig-name"><code>selection_get</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Return the contents of the current X selection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#selection_handle" class="summary-sig-name"><code>selection_handle</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">command</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Specify a function COMMAND to call if the X
+selection owned by this widget is queried by another
+application.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#selection_own" class="summary-sig-name"><code>selection_own</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Become owner of X selection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#selection_own_get" class="summary-sig-name"><code>selection_own_get</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Return owner of X selection.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#send" class="summary-sig-name"><code>send</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">interp</span>,
+          <span class="summary-sig-arg">cmd</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Send Tcl command CMD to different interpreter INTERP to be executed.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#setvar" class="summary-sig-name"><code>setvar</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Set Tcl variable NAME to VALUE.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#grid_size" class="summary-sig-name"><code>size</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a tuple of the number of column and rows in the grid.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#pack_slaves" class="summary-sig-name"><code>slaves</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all slaves of this widget
+in its packing order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_bisque" class="summary-sig-name"><code>tk_bisque</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Change the color scheme to light brown as used in Tk 3.6 and before.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_focusFollowsMouse" class="summary-sig-name"><code>tk_focusFollowsMouse</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+The widget under mouse will get automatically focus.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_focusNext" class="summary-sig-name"><code>tk_focusNext</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the next widget in the focus order which follows
+widget which has currently the focus.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_focusPrev" class="summary-sig-name"><code>tk_focusPrev</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return previous widget in the focus order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_menuBar" class="summary-sig-name"><code>tk_menuBar</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+Do not use.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_setPalette" class="summary-sig-name"><code>tk_setPalette</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>,
+          <span class="summary-sig-kwarg">**kw</span>)</span></code>
+<br/>
+Set a new color scheme for all widget elements.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tk_strictMotif" class="summary-sig-name"><code>tk_strictMotif</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boolean</span>)</span></code>
+<br/>
+Set Tcl internal variable, whether the look and feel
+should adhere to Motif.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#tkraise" class="summary-sig-name"><code>tkraise</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">aboveThis</span>)</span></code>
+<br/>
+Raise this widget in the stacking order.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#unbind" class="summary-sig-name"><code>unbind</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>,
+          <span class="summary-sig-arg">funcid</span>)</span></code>
+<br/>
+Unbind for this widget for event SEQUENCE  the
+function identified with FUNCID.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#unbind_all" class="summary-sig-name"><code>unbind_all</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">sequence</span>)</span></code>
+<br/>
+Unbind for all widgets for event SEQUENCE all functions.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#unbind_class" class="summary-sig-name"><code>unbind_class</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">className</span>,
+          <span class="summary-sig-arg">sequence</span>)</span></code>
+<br/>
+Unbind for a all widgets with bindtag CLASSNAME for event SEQUENCE
+all functions.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#update_idletasks" class="summary-sig-name"><code>update_idletasks</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Enter event loop until all idle callbacks have been called.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#wait_variable" class="summary-sig-name"><code>wait_variable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Wait until the variable is modified.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#wait_visibility" class="summary-sig-name"><code>wait_visibility</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">window</span>)</span></code>
+<br/>
+Wait until the visibility of a WIDGET changes
+(e.g.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#wait_window" class="summary-sig-name"><code>wait_window</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">window</span>)</span></code>
+<br/>
+Wait until a WIDGET is destroyed.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#wait_variable" class="summary-sig-name"><code>waitvar</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Wait until the variable is modified.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_atom" class="summary-sig-name"><code>winfo_atom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Return integer which represents atom NAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_atomname" class="summary-sig-name"><code>winfo_atomname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">id</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Return name of atom with identifier ID.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_cells" class="summary-sig-name"><code>winfo_cells</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return number of cells in the colormap for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_children" class="summary-sig-name"><code>winfo_children</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a list of all widgets which are children of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_class" class="summary-sig-name"><code>winfo_class</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return window class name of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_colormapfull" class="summary-sig-name"><code>winfo_colormapfull</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return true if at the last color request the colormap was full.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_containing" class="summary-sig-name"><code>winfo_containing</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">rootX</span>,
+          <span class="summary-sig-arg">rootY</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Return the widget which is at the root coordinates ROOTX, ROOTY.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_depth" class="summary-sig-name"><code>winfo_depth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of bits per pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_exists" class="summary-sig-name"><code>winfo_exists</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return true if this widget exists.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_fpixels" class="summary-sig-name"><code>winfo_fpixels</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">number</span>)</span></code>
+<br/>
+Return the number of pixels for the given distance NUMBER
+(e.g.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_geometry" class="summary-sig-name"><code>winfo_geometry</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return geometry string for this widget in the form &quot;widthxheight+X+Y&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_height" class="summary-sig-name"><code>winfo_height</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return height of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_id" class="summary-sig-name"><code>winfo_id</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return identifier ID for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_interps" class="summary-sig-name"><code>winfo_interps</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Return the name of all Tcl interpreters for this display.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_ismapped" class="summary-sig-name"><code>winfo_ismapped</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return true if this widget is mapped.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_manager" class="summary-sig-name"><code>winfo_manager</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the window mananger name for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_name" class="summary-sig-name"><code>winfo_name</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the name of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_parent" class="summary-sig-name"><code>winfo_parent</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the name of the parent of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_pathname" class="summary-sig-name"><code>winfo_pathname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">id</span>,
+          <span class="summary-sig-arg">displayof</span>)</span></code>
+<br/>
+Return the pathname of the widget given by ID.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_pixels" class="summary-sig-name"><code>winfo_pixels</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">number</span>)</span></code>
+<br/>
+Rounded integer value of winfo_fpixels.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_pointerx" class="summary-sig-name"><code>winfo_pointerx</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the x coordinate of the pointer on the root window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_pointerxy" class="summary-sig-name"><code>winfo_pointerxy</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return a tuple of x and y coordinates of the pointer on the root window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_pointery" class="summary-sig-name"><code>winfo_pointery</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the y coordinate of the pointer on the root window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_reqheight" class="summary-sig-name"><code>winfo_reqheight</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return requested height of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_reqwidth" class="summary-sig-name"><code>winfo_reqwidth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return requested width of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_rgb" class="summary-sig-name"><code>winfo_rgb</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">color</span>)</span></code>
+<br/>
+Return tuple of decimal values for red, green, blue for
+COLOR in this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_rootx" class="summary-sig-name"><code>winfo_rootx</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return x coordinate of upper left corner of this widget on the
+root window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_rooty" class="summary-sig-name"><code>winfo_rooty</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return y coordinate of upper left corner of this widget on the
+root window.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screen" class="summary-sig-name"><code>winfo_screen</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the screen name of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screencells" class="summary-sig-name"><code>winfo_screencells</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of the cells in the colormap of the screen
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screendepth" class="summary-sig-name"><code>winfo_screendepth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of bits per pixel of the root window of the
+screen of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screenheight" class="summary-sig-name"><code>winfo_screenheight</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of pixels of the height of the screen of this widget
+in pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screenmmheight" class="summary-sig-name"><code>winfo_screenmmheight</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of pixels of the height of the screen of
+this widget in mm.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screenmmwidth" class="summary-sig-name"><code>winfo_screenmmwidth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of pixels of the width of the screen of
+this widget in mm.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screenvisual" class="summary-sig-name"><code>winfo_screenvisual</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return one of the strings directcolor, grayscale, pseudocolor,
+staticcolor, staticgray, or truecolor for the default
+colormodel of this screen.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_screenwidth" class="summary-sig-name"><code>winfo_screenwidth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the number of pixels of the width of the screen of
+this widget in pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_server" class="summary-sig-name"><code>winfo_server</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return information of the X-Server of the screen of this widget in
+the form &quot;XmajorRminor vendor vendorVersion&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_toplevel" class="summary-sig-name"><code>winfo_toplevel</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the toplevel widget of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_viewable" class="summary-sig-name"><code>winfo_viewable</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return true if the widget and all its higher ancestors are mapped.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_visual" class="summary-sig-name"><code>winfo_visual</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return one of the strings directcolor, grayscale, pseudocolor,
+staticcolor, staticgray, or truecolor for the
+colormodel of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_visualid" class="summary-sig-name"><code>winfo_visualid</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the X identifier for the visual for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_visualsavailable" class="summary-sig-name"><code>winfo_visualsavailable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">includeids</span>)</span></code>
+<br/>
+Return a list of all visuals available for the screen
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_vrootheight" class="summary-sig-name"><code>winfo_vrootheight</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the height of the virtual root window associated with this
+widget in pixels.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_vrootwidth" class="summary-sig-name"><code>winfo_vrootwidth</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the width of the virtual root window associated with this
+widget in pixel.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_vrootx" class="summary-sig-name"><code>winfo_vrootx</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the x offset of the virtual root relative to the root
+window of the screen of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_vrooty" class="summary-sig-name"><code>winfo_vrooty</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the y offset of the virtual root relative to the root
+window of the screen of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_width" class="summary-sig-name"><code>winfo_width</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the width of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_x" class="summary-sig-name"><code>winfo_x</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the x coordinate of the upper left corner of this widget
+in the parent.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Misc-class/#winfo_y" class="summary-sig-name"><code>winfo_y</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return the y coordinate of the upper left corner of this widget
+in the parent.</td></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Wm</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_aspect" class="summary-sig-name"><code>aspect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">minNumer</span>,
+          <span class="summary-sig-arg">minDenom</span>,
+          <span class="summary-sig-arg">maxNumer</span>,
+          <span class="summary-sig-arg">maxDenom</span>)</span></code>
+<br/>
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_attributes" class="summary-sig-name"><code>attributes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_client" class="summary-sig-name"><code>client</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Store NAME in WM_CLIENT_MACHINE property of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_colormapwindows" class="summary-sig-name"><code>colormapwindows</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*wlist</span>)</span></code>
+<br/>
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_command" class="summary-sig-name"><code>command</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Store VALUE in WM_COMMAND property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_deiconify" class="summary-sig-name"><code>deiconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Deiconify this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_focusmodel" class="summary-sig-name"><code>focusmodel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">model</span>)</span></code>
+<br/>
+Set focus model to MODEL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_frame" class="summary-sig-name"><code>frame</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return identifier for decorative frame of this widget if present.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_geometry" class="summary-sig-name"><code>geometry</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newGeometry</span>)</span></code>
+<br/>
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_grid" class="summary-sig-name"><code>grid</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">baseWidth</span>,
+          <span class="summary-sig-arg">baseHeight</span>,
+          <span class="summary-sig-arg">widthInc</span>,
+          <span class="summary-sig-arg">heightInc</span>)</span></code>
+<br/>
+Instruct the window manager that this widget shall only be
+resized on grid boundaries.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_group" class="summary-sig-name"><code>group</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set the group leader widgets for related widgets to PATHNAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconbitmap" class="summary-sig-name"><code>iconbitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set bitmap for the iconified widget to BITMAP.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconify" class="summary-sig-name"><code>iconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display widget as icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconmask" class="summary-sig-name"><code>iconmask</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set mask for the icon bitmap of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconname" class="summary-sig-name"><code>iconname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newName</span>)</span></code>
+<br/>
+Set the name of the icon for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconposition" class="summary-sig-name"><code>iconposition</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Set the position of the icon of this widget to X and Y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconwindow" class="summary-sig-name"><code>iconwindow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set widget PATHNAME to be displayed instead of icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_maxsize" class="summary-sig-name"><code>maxsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set max WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_minsize" class="summary-sig-name"><code>minsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set min WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_overrideredirect" class="summary-sig-name"><code>overrideredirect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boolean</span>)</span></code>
+<br/>
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_positionfrom" class="summary-sig-name"><code>positionfrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_protocol" class="summary-sig-name"><code>protocol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">func</span>)</span></code>
+<br/>
+Bind function FUNC to command NAME for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_resizable" class="summary-sig-name"><code>resizable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_sizefrom" class="summary-sig-name"><code>sizefrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_state" class="summary-sig-name"><code>state</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newstate</span>)</span></code>
+<br/>
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_title" class="summary-sig-name"><code>title</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">string</span>)</span></code>
+<br/>
+Set the title of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_transient" class="summary-sig-name"><code>transient</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">master</span>)</span></code>
+<br/>
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_withdraw" class="summary-sig-name"><code>withdraw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_aspect" class="summary-sig-name"><code>wm_aspect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">minNumer</span>,
+          <span class="summary-sig-arg">minDenom</span>,
+          <span class="summary-sig-arg">maxNumer</span>,
+          <span class="summary-sig-arg">maxDenom</span>)</span></code>
+<br/>
+Instruct the window manager to set the aspect ratio (width/height)
+of this widget to be between MINNUMER/MINDENOM and MAXNUMER/MAXDENOM.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_attributes" class="summary-sig-name"><code>wm_attributes</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*args</span>)</span></code>
+<br/>
+This subcommand returns or sets platform specific attributes
+The first form returns a list of the platform specific flags and
+their values.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_client" class="summary-sig-name"><code>wm_client</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>)</span></code>
+<br/>
+Store NAME in WM_CLIENT_MACHINE property of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_colormapwindows" class="summary-sig-name"><code>wm_colormapwindows</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-vararg">*wlist</span>)</span></code>
+<br/>
+Store list of window names (WLIST) into WM_COLORMAPWINDOWS property
+of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_command" class="summary-sig-name"><code>wm_command</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">value</span>)</span></code>
+<br/>
+Store VALUE in WM_COMMAND property.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_deiconify" class="summary-sig-name"><code>wm_deiconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Deiconify this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_focusmodel" class="summary-sig-name"><code>wm_focusmodel</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">model</span>)</span></code>
+<br/>
+Set focus model to MODEL.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_frame" class="summary-sig-name"><code>wm_frame</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Return identifier for decorative frame of this widget if present.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_geometry" class="summary-sig-name"><code>wm_geometry</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newGeometry</span>)</span></code>
+<br/>
+Set geometry to NEWGEOMETRY of the form =widthxheight+x+y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_grid" class="summary-sig-name"><code>wm_grid</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">baseWidth</span>,
+          <span class="summary-sig-arg">baseHeight</span>,
+          <span class="summary-sig-arg">widthInc</span>,
+          <span class="summary-sig-arg">heightInc</span>)</span></code>
+<br/>
+Instruct the window manager that this widget shall only be
+resized on grid boundaries.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_group" class="summary-sig-name"><code>wm_group</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set the group leader widgets for related widgets to PATHNAME.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconbitmap" class="summary-sig-name"><code>wm_iconbitmap</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set bitmap for the iconified widget to BITMAP.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconify" class="summary-sig-name"><code>wm_iconify</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Display widget as icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconmask" class="summary-sig-name"><code>wm_iconmask</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">bitmap</span>)</span></code>
+<br/>
+Set mask for the icon bitmap of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconname" class="summary-sig-name"><code>wm_iconname</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newName</span>)</span></code>
+<br/>
+Set the name of the icon for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconposition" class="summary-sig-name"><code>wm_iconposition</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">x</span>,
+          <span class="summary-sig-arg">y</span>)</span></code>
+<br/>
+Set the position of the icon of this widget to X and Y.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_iconwindow" class="summary-sig-name"><code>wm_iconwindow</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">pathName</span>)</span></code>
+<br/>
+Set widget PATHNAME to be displayed instead of icon.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_maxsize" class="summary-sig-name"><code>wm_maxsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set max WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_minsize" class="summary-sig-name"><code>wm_minsize</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Set min WIDTH and HEIGHT for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_overrideredirect" class="summary-sig-name"><code>wm_overrideredirect</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">boolean</span>)</span></code>
+<br/>
+Instruct the window manager to ignore this widget
+if BOOLEAN is given with 1.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_positionfrom" class="summary-sig-name"><code>wm_positionfrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the position of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_protocol" class="summary-sig-name"><code>wm_protocol</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">name</span>,
+          <span class="summary-sig-arg">func</span>)</span></code>
+<br/>
+Bind function FUNC to command NAME for this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_resizable" class="summary-sig-name"><code>wm_resizable</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">width</span>,
+          <span class="summary-sig-arg">height</span>)</span></code>
+<br/>
+Instruct the window manager whether this width can be resized
+in WIDTH or HEIGHT.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_sizefrom" class="summary-sig-name"><code>wm_sizefrom</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">who</span>)</span></code>
+<br/>
+Instruct the window manager that the size of this widget shall
+be defined by the user if WHO is &quot;user&quot;, and by its own policy if WHO is
+&quot;program&quot;.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_state" class="summary-sig-name"><code>wm_state</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">newstate</span>)</span></code>
+<br/>
+Query or set the state of this widget as one of normal, icon,
+iconic (see wm_iconwindow), withdrawn, or zoomed (Windows only).</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_title" class="summary-sig-name"><code>wm_title</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">string</span>)</span></code>
+<br/>
+Set the title of this widget.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_transient" class="summary-sig-name"><code>wm_transient</code></a>(<span class="summary-sig-arg">self</span>,
+          <span class="summary-sig-arg">master</span>)</span></code>
+<br/>
+Instruct the window manager that this widget is transient
+with regard to widget MASTER.</td></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1">&nbsp;</font></td>
+  <td><code><span class="summary-sig"><a href="../../usermanual/Tkinter-Wm-class/#wm_withdraw" class="summary-sig-name"><code>wm_withdraw</code></a>(<span class="summary-sig-arg">self</span>)</span></code>
+<br/>
+Withdraw this widget from the screen such that it is unmapped
+and forgotten by the window manager.</td></tr>
+</table><br/>
+<!-- =========== START OF CLASS VARIABLE SUMMARY =========== -->
+<table class="summary" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="summary">
+  <th colspan="2">Class Variable Summary</th></tr>
+<tr bgcolor="#e8f0f8" class="group">
+  <th colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;Inherited from Misc</th></tr>
+<tr><td align="right" valign="top" width="15%"><font size="-1"><code>list</code></font></td>
+<td><b><a href="../../usermanual/Tkinter-Misc-class/#_noarg_"><code>_noarg_</code></a></b> = <span title="['_noarg_']"><code>['_noarg_']                                    </code>
+</span></td></tr>
+</table><br/>
+<!-- =========== START OF METHOD DETAILS =========== -->
+<table class="details" border="1" cellpadding="3" cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="details">
+  <th colspan="2">Method Details</th></tr>
+</table>
+<a name="__init__"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">__init__</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">device</span>,
+          <span class="sig-arg">title</span>=<span class="sig-default">None</span>)</span>
+    <br/><i>(Constructor)</i>
+  </h3>
+<pre class="literalblock">
+Constructor for the DeviceWindow class.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/Tkinter-Toplevel-class/#__init__"><code>Tkinter.Toplevel.__init__</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="addButton"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addButton</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">text</span>,
+          <span class="sig-arg">command</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a button to the device view window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addData"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addData</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">text</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a data field to the device view window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="addLabel"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">addLabel</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">text</span>)</span>
+  </h3>
+<pre class="literalblock">
+Adds a label to the device view window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<a name="destroy"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">destroy</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Hides the device view window.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/Tkinter-BaseWidget-class/#destroy"><code>Tkinter.BaseWidget.destroy</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="update"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">update</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+<pre class="literalblock">
+Method called to update a device.
+</pre>
+  <dl><dt></dt><dd>
+    <dl><dt><b>Overrides:</b></dt>
+      <dd><a href="../../usermanual/Tkinter-Misc-class/#update"><code>Tkinter.Misc.update</code></a></dd>
+    </dl>
+  </dd></dl>
+</td></tr></table>
+<a name="updateWidget"></a>
+<table width="100%" class="func-details" bgcolor="#e0e0e0"><tr><td>
+  <h3><span class="sig"><span class="sig-name">updateWidget</span>(<span class="sig-arg">self</span>,
+          <span class="sig-arg">name</span>,
+          <span class="sig-arg">value</span>)</span>
+  </h3>
+<pre class="literalblock">
+Updates the device view window.
+</pre>
+  <dl><dt></dt><dd>
+  </dd></dl>
+</td></tr></table>
+<br/>
+<!-- =========== START OF NAVBAR =========== -->
+<table class="navbar" border="0" width="100%" cellpadding="0" bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="center">
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/pyrobot-module/">Home</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/trees/">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/indices/">Index</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar">&nbsp;&nbsp;&nbsp;<a class="navbar" href="../../usermanual/help/">Help</a>&nbsp;&nbsp;&nbsp;</th>
+    <th class="navbar" align="right" width="100%">
+      <table border="0" cellpadding="0" cellspacing="0">
+      <tr><th class="navbar" align="center">
+        <p class="nomargin">
+          <a class="navbar" target="_top" href="/">Pyro&nbsp;-&nbsp;Python&nbsp;Robotics</a>
+      </p></th></tr></table>
+    </th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td align="left"><font size="-2">Generated by Epydoc 2.1 on Mon Jul 25 01:39:26 2005</font></td>
+    <td align="right"><a href="http://epydoc.sourceforge.net/"><font size="-2">http://epydoc.sf.net</font></a></td>
+  </tr>
+</table>
+</body>
+</html>

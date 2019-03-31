@@ -1,0 +1,444 @@
+<html>
+<head>
+<script type="text/javascript">
+WB_wombat_Init("https:///web", "20101219093508", "pyrorobotics.org");
+</script>
+ <link rel="stylesheet" href="../stylesheet.css">
+<title>Pyro, Python Robotics: PyroModuleDirectControl</title> <meta http-equiv="Content-Type" content="text/html;">
+</head>
+<body bgcolor="#ffffff">
+<table border="0" cellpadding="0" cellspacing="0">
+  <tr>
+   <td width="804" colspan="8" align="center"><img src="../images/PyroLogo.gif" width="800" height="100"></td>
+  </tr>
+  <tr>
+<td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td>  </tr>
+</table>
+<table width="804" border="0" cellpadding="0" cellspacing="0">
+<tr><td colspan="8">
+<p><hr>
+<p>
+<p>
+<i>This is an introduction to the most basic method of robotics programming: direct, or reactive control. This module provides an overview of such &quot;stateless&quot; controllers. When completed, the reader should be ready to explore more sophisticated controllers with state.</i>
+<p>
+<p>
+<h1 width="804"> Direct/Reactive Control</h1>
+<p>
+In this module we will create robot controllers that have a close
+coupling between perception and action.  This means that there is
+limited state information and computation.  This is called direct or
+reactive control.  The basic form of a direct control robot program is
+shown below.  It must include a <tt class="wiki">step</tt> method.
+<p>
+<pre class="code">
+# A simple brain
+from pyrobot.brain import Brain
+# Define the robot's brain class
+class SimpleBrain(Brain):
+   # Only method you have to define is the step method
+   def step(self):
+      self.robot.translate(0.3)     # go forward
+# Create a brain for the robot
+def INIT(engine):
+   return SimpleBrain('SimpleBrain', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SimpleBrainProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SimpleBrainProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h2 width="804"> Running the program</h2>
+<p>
+Before we explain the details of the above program, you may want to
+run it. First, download the program to your home directory, and save
+it as <tt class="wiki">SimpleBrainProgram.py</tt>.
+<p>
+To quickly start up Pyro on this program, you can do the following:
+<p>
+<pre class="code">
+pyrobot -s StageSimulator -w tutorial.cfg -r Player6665 -b /home/<b>username</b>/SimpleBrainProgram.py &
+</pre>
+<p>
+Where <b>username</b> is replaced with your username.
+<p>
+<p>
+<h2 width="804"> Understanding the SimpleBrain program</h2>
+<p>
+Recall that before you load the brain program into Pyro, you have
+already loaded the robot driver (Player6665.py). This instantiates an
+object of the specific robot class which is accessible to your program
+using the identifier <tt class="wiki">robot</tt>. Every robot instance has to have a
+brain object that defines the behavior of the robot. This is done by
+extending a predefined class, called <tt class="wiki">Brain</tt>. In the program, this
+is accomplished by the lines of code reproduced below and numbered for
+reference:
+<p>
+<pre class="code">
+1 from pyrobot.brain import Brain
+2 
+3 # Define the robot's brain class
+4
+5 class SimpleBrain(Brain):
+6    # Only method you have to define is the step method
+7
+8    def step(self):
+9       self.robot.translate(0.3)     # go forward
+</pre>
+<p>
+Anything following the <tt class="wiki">#</tt> symbol is a python comment.
+<p>
+In order to extend the class <tt class="wiki">Brain</tt> you have to import the class
+first as shown in line 1, and then extend it as shown in line 5. For
+direct control, all one has to do is define the <tt class="wiki">step</tt> method
+starting in line 8. In each cycle of a robot run, the <tt class="wiki">step</tt>
+method is executed and this is where you will define commands for your
+robot. For our example, we just wanted to have the robot move
+forward. This is done by the command: 
+<p>
+<pre class="code">
+    self.robot.translate(0.3) 
+</pre> 
+<p>
+Once instantiated, the <tt class="wiki">Brain</tt> object (in this case, the
+<tt class="wiki">SimpleBrain</tt> object) can get the robot it controls by using the
+<tt class="wiki">robot</tt> method. It is an accessor defined in the <tt class="wiki">Brain</tt>
+class. Thus, calling the <tt class="wiki">translate</tt> method on that robot object
+specifies the robot to move forward at speed <tt class="wiki">0.3</tt>.
+<p>
+The next few lines of code (shown below) create a specific instance of
+<tt class="wiki">SimpleBrain</tt> and specify the <tt class="wiki">robot</tt> which is controlled by
+it.
+<p>
+<pre class="code">
+# Create a brain for the robot
+def INIT(engine):
+   return SimpleBrain('SimpleBrain', engine)
+</pre>
+<p>
+The <tt class="wiki">INIT</tt> method creates a brain instance to which the <i>engine</i>
+it controls is specified. The command:
+<p>
+<pre class="code">
+   SimpleBrain('SimpleBrain', engine)
+</pre>
+<p>
+is a standard Python constructor call to create an instance of the
+class, <tt class="wiki">SimpleBrain</tt>. The constructor is inherited
+from the <tt class="wiki">Brain</tt> class since
+<tt class="wiki">SimpleBrain</tt> itself doesn't define one. The constructor takes two
+arguments (besides <i>self</i>), one specifying the name of the brain (in
+our case <tt class="wiki">SimpleBrain</tt>), and the other specifying the engine (the
+variable <tt class="wiki">engine</tt>).
+<p>
+An engine is an abstraction that contains all of the pieces that go
+together to run a robot, including the simulator (if using one), world
+file, configuration information, robot, etc.
+<p>
+The <tt class="wiki">INIT</tt> method should return the newly created brain object
+(hence the <i>return</i> statement).
+<p>
+When you load this brain program into Pyro and press the <tt class="wiki">Run</tt> or
+<tt class="wiki">Step</tt> buttons in the Pyro window, the <tt class="wiki">step</tt> method is
+executed on the robot, once for <tt class="wiki">Step</tt> and continuously for
+<tt class="wiki">Run</tt>.
+<p>
+<p>
+<h2 width="804"> Exercise: Making sure that your robot has the proper brain</h2>
+<p>
+To ensure that you understand the program, let us find out if the
+robot we specify does have the brain program you created. Modify the
+<tt class="wiki">INIT</tt> method in <tt class="wiki">MySimpleBrain.py</tt> as shown below:
+<p>
+<pre class="code">
+# Create a brain for the robot
+def INIT(engine):
+   brain = SimpleBrain('SimpleBrain', engine)
+   print engine.robot.name + &quot; robot now has &quot; + brain.name + &quot; brain.&quot;
+   return brain
+</pre>
+<p>
+The <tt class="wiki">INIT</tt> method creates a <tt class="wiki">SimpleBrain</tt> instance specifying
+a name and the robot instance. Next, we simply print out the name of
+the robot as well as the name of the brain that was assigned to
+it. When run, the print statement will therefore confirm that the
+robot we specified has the brain we just instantiated.
+<p>
+Edit and save the modified program. Reload the program into Pyro and
+run it. Notice the output of the print statement that appears in the
+console window. It should say:
+<p>
+<tt class="wiki">Player6665 robot now has SimpleBrain brain.</tt>
+<p>
+<p>
+<h2 width="804"> Exercises: Trying other motion commands</h2>
+<p>
+Modify the <tt class="wiki">step</tt> method of your program to do the following
+tasks.  Be sure to save and press <tt class="wiki">Reload Brain</tt> button between
+modifications.
+<p>
+<ol type="1"><li>Use <tt class="wiki">move</tt> instead of <tt class="wiki">translate</tt> and try different values.</li>
+<li>Write a program for the robot to transcribes a circle.</li>
+<li>Write a program that makes the robot do a little dance.</li>
+</ol><p>
+You may want to use the <tt class="wiki">sleep</tt> command from the Python <tt class="wiki">time</tt>
+module. Import it using <tt class="wiki">from time import *</tt> and then to sleep for
+x seconds, use the command <tt class="wiki">sleep(x)</tt>.
+<p>
+In addition to the movement commands based on a desired translate and
+rotate, you can also command the robot by sending power values to each
+wheel. For example:
+<p>
+<pre class="code">
+robot.motors(.5, .25)
+</pre>
+<p>
+will send 0.5 power to the left wheel and 0.25 to the right. Like
+translate and rotate, these power levels go from -1 to +1. See if you
+can fill out the equivalency chart below:
+<p>
+<table border="1"><tr><td colspan="2" align="center"> robot.move(t, r) </td><td colspan="2" align="center"> robot.motors(l, r) </td></tr>
+<tr><td> t </td><td> r </td><td> l </td><td> r </td></tr>
+<tr><td> 0 </td><td> 0 </td><td> 0 </td><td> 0 </td></tr>
+<tr><td> 0 </td><td> 1 </td><td> . </td><td> . </td></tr>
+<tr><td> 1 </td><td> 0 </td><td>  . </td><td> .  </td></tr>
+<tr><td> .  </td><td> .  </td><td> 1 </td><td> 0 </td></tr>
+<tr><td> .  </td><td> .  </td><td> .5 </td><td> -.5 </td></tr>
+</table><p>
+<p>
+<h2 width="804"> Using the Setup Method in a brain</h2>
+<p>
+Often, you may need to perform some initializations before a brain's
+<tt class="wiki">step</tt> method assumes control. In Pyro brain programs, you can
+make use of a method called, <tt class="wiki">setup</tt> to do this. The structure of
+the brain program that uses a <tt class="wiki">setup</tt> method is shown below:
+<p>
+<pre class="code">
+# A simple brain with a setup method
+from pyrobot.brain import Brain
+# Define the robot's brain class
+class SimpleBrain2(Brain):
+   # The setup method can be used to do initializations
+   def setup(self):
+      self.moveAmount = 0.3
+   # The step method is the main behavior loop
+   def step(self):
+      self.robot.translate(self.moveAmount)     # go forward
+# Create a brain for the robot
+def INIT(engine):
+   return SimpleBrain2('SimpleBrain2', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SimpleBrain2Program?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SimpleBrain2Program?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+The program above initializes an instance variable in <tt class="wiki">setup</tt>
+which is then referenced in the <tt class="wiki">step</tt> method. The <tt class="wiki">setup</tt>
+method is executed once (as a post constructor operation) each time a
+new instance of the <tt class="wiki">brain</tt> (sub)class is created. Thus, when the
+<tt class="wiki">INIT</tt> method above creates an instance of <tt class="wiki">SimpleBrain</tt>, the
+value of the <tt class="wiki">moveAmount</tt> field is set to 0.3.
+<p>
+You can access attributes of a brain from the Pyro command line, like
+the variable <tt class="wiki">moveAmount</tt>, by typing: <tt class="wiki">brain.moveAmount</tt>
+<p>
+<p>
+<h2 width="804"> Example: Transcribing a Figure Eight</h2>
+<p>
+Let us write a behavior for a robot to try to transcribe a figure eight
+on the floor. The idea is to go around in a circle once and then,
+after completing a circle, to switch the direction of rotation and go
+around in the circle once again, thus completing a figure eight. The
+program to do this behavior is shown below. Try loading this program
+into a robot/simulator of your choice and see what happens.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+from time import *
+class fig8(Brain):
+   # Try and transcribe a figure-8
+   # initialize 
+   def setup(self):
+        self.rot = 0.3
+        self.delay = 10.0
+   # change direction and go about in a circle
+   def step(self):
+      robot = self.robot
+      self.rot = self.rot*-1
+      robot.move(0.3, self.rot)
+      sleep(self.delay)
+def INIT(engine):
+   return fig8('fig8', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/Figure8Program?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/Figure8Program?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Most likely, the robot goes in a circular zig-zag, S-pattern.
+This is because, we have to wait for the robot to transcribe a
+complete circle before changing directions. You can fix this by
+adjusting the <tt class="wiki">sleep</tt> command's argument, <tt class="wiki">self.delay</tt>, or by
+adjusting the rate of rotation.  Go ahead and try different values
+until you get the robot to transcribe a figure eight.
+<p>
+<p>
+<h1 width="804"> Basic Sensing</h1>
+<p>
+In addition to motor commands (<tt class="wiki">translate</tt>, <tt class="wiki">rotate</tt>,
+<tt class="wiki">move</tt>), you can also access the values reported by a robot's
+sensors. Each robot comes equipped with a unique sensor suite. For
+example, the Pioneer robots may have sonar sensors, a front bumper, a
+gripper, and a camera. The Khepera robots have infrared sensors, light
+sensors, and a camera.  The Pioneer's sonar sensors and the Khepera's
+infrared sensors are both active range finders which can be used to
+avoid obstacles. Although these two robots have different kinds of
+sensors, Pyro unifies the way you will use them in your program.
+However, it will be up to your program to interpret the sensor
+data. For now we will demonstrate how to use the range sensors.  Go to
+<a href="../page_Pyro_20Sensors/">Pyro Sensors</a> to review the sensor topologies and range sensing
+commands introduced earlier.
+<p>
+<p>
+<h2 width="804"> Reading Pioneer sonar sensors</h2>
+<p>
+Recall that each Pioneer robot comes equipped with a set of 16 sonar
+sensors.  Let's write a simple program that prints out the minimum and
+maximum values of the front range sensors for a robot while it is
+moving forward.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class Sensor(Brain):
+    # print the min and max value of the front sensors while moving
+    def step(self):
+	self.move(0.5,0)
+        self.front = [s.distance() for s in self.robot.range[&quot;front&quot;]]
+        print &quot;min front: &quot;, min(self.front), &quot;max front: &quot;, max(self.front)
+def INIT(engine):
+   return Sensor('Sensor', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/SensorProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/SensorProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+Download this program, load it, and then run it one step at a time
+using the <b>Step</b> button in the Pyro window. You will see the front
+range values printed in your console window.  By default the values
+returned are in proportion to the robot's physical diameter. You can
+move the robot around within the simulated world by left clicking the
+mouse at a new location and you can adjust its heading by right
+clicking the mouse.  Position the robot so it faces a wall a fair
+distance away and then step it toward the wall and notice the values
+of the sensors change. This will give you a good idea of the kind of
+values reported depending on the distance to objects and will be
+helpful in writing more complex behaviors.
+<p>
+<p>
+<h2 width="804"> Simple obstacle avoidance</h2>
+<p>
+Let us now combine sensing with movement to design a robot behavior
+that senses its environments and moves about without bumping into
+objects. The simplest algorithm to do this can be described as shown
+below:
+<p>
+<pre class="code">
+   if approaching an obstacle to the left side, turn right
+   if approaching an obstacle to the right side, turn left
+   else go forward
+</pre>
+<p>
+The program shown below, implements the above behavior for a Pioneer
+robot using its three front-left sensors (numbered 1, 2, and 3) and three
+front-right sensors (numbered 4, 5, and 6). Recall from the example above
+that sensor values in robot units decrease as the robot approaches an
+obstacle. We have written the program below to be sensitive to
+obstacles 1 robot unit away. Download this program and try running it
+on a real or simulated Pioneer robot that is situated in a corridor.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class Avoid(Brain):
+    def wander(self, minSide):
+        # if approaching an obstacle to the left side, turn right
+        if min([s.distance() for s in self.robot.range[&quot;front-left&quot;]]) &lt; minSide:
+            self.move(0,-0.3)
+        # if approaching an obstacle to the right side, turn left
+        elif min([s.distance() for s in self.robot.range[&quot;front-right&quot;]]) &lt; minSide:
+            self.move(0,0.3)
+        else: # go forward
+            self.move(0.5, 0)
+    def step(self):
+        self.wander(1)
+def INIT(engine):
+   return Avoid('Avoid', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/AvoidProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/AvoidProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<h2 width="804"> Exercise 3: Improving obstacle avoidance</h2>
+<p>
+Modify the obstacle avoidance program so that it responds
+appropriately when the front sonar sensors detect an obstacle.  Be
+sure to save and press the <tt class="wiki">Reload Brain</tt> button between
+modifications.
+<p>
+<p>
+<h2 width="804"> Wall following</h2>
+<p>
+Below is a program that by default goes forward until it finds a wall
+and then tries to follow the wall on the left. Download this program and
+try running it on a robot.
+<p>
+<pre class="code">
+from pyrobot.brain import Brain
+class WallFollow(Brain):
+    # follows walls on its left, ignores sonar sensors on its right
+    def wallFollow(self, dist):
+        frontLeft = self.robot.sonar[0][0].distance()
+        backLeft = self.robot.sonar[0][15].distance()
+        front = min([s.distance() for s in self.robot.sonar[0][2:6]])
+        if front &lt; dist:
+            print &quot;wall in front&quot;
+            self.move(0,-0.5)
+        elif (frontLeft &lt; dist or backLeft &lt; dist):
+            print &quot;following:&quot;,
+            if frontLeft &lt; backLeft:
+                print &quot;turn slight away&quot;
+                self.move(0.3,-0.1)
+            else:
+                print &quot;turn slight toward&quot;
+                self.move(0.3,0.1)
+        else:
+            print &quot;find wall&quot;
+            self.move(0.3,0)
+    def step(self):
+        self.wallFollow(1)
+def INIT(engine):
+   return WallFollow('WallFollow', engine)
+</pre>
+[<a href="http://emergent.brynmawr.edu/emergent/WallFollowProgram?action=raw"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;download</a>] [<a href="http://emergent.brynmawr.edu/emergent/WallFollowProgram?action=edit"><img border="0" width="11" src="../wiki/img/moin-png">&nbsp;edit</a>]
+<p>
+<p>
+<p>
+<p>
+<h2 width="804"> Exercise 4: Improving wall following</h2>
+<p>
+Notice that when the robot is following a wall and reaches a corner,
+the robot is able to turn the corner and continue following the wall.
+However, if the robot is following a wall and it ends up in open
+space, the robot loses the wall.  Try to modify the wall following
+program so that the robot maintains contact with the wall and
+continues following it even when it makes a sharp turn.  Be sure to
+save and press the <tt class="wiki">Reload Brain</tt> button between modifications.
+<p>
+Also try to improve the program by enabling it to either follow walls
+on the left or on the right.
+<p>
+Up: <a href="../page_PyroModulesContents/">PyroModulesContents</a>
+<p><hr align="left" width="804"></td></tr>
+</table><table width="804" border="0" cellpadding="0" cellspacing="0"><tr><td>[&nbsp;<a href="../page_Pyro/">Home</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroSoftware/">Software</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCurriculum/">Curriculum</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroHardware/">Hardware</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroCommunity/">Community</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroWhatsNew/">News</a>&nbsp;]</td><td>[&nbsp;<a href="../page_PyroPublications/">Publications</a>&nbsp;]</td><td>[&nbsp;<a href="../page_FindPage/">Search</a>&nbsp;]</td></tr>
+<tr><td colspan="8">
+<br>
+    <a href="http://creativecommons.org/licenses/by-sa/2.0/">
+       <img alt="CreativeCommons" border="0" src="../html/somerights.gif">
+    </a>
+<a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleDirectControl?action=show">View Wiki Source</a> | <a href="http://emergent.brynmawr.edu/index.cgi/PyroModuleDirectControl?action=edit">Edit Wiki Source</a> | <a href="mailto:dblank@cs.brynmawr.edu">Mail Webmaster</a></td></tr>
+</table>
+</body>
+</html>
